@@ -20,7 +20,7 @@ public class HelloWorldController {
     private UserRepository userRepository;
 
     /**
-     * @return
+     * @return String
      */
     @RequestMapping("hello")
     public String index() {
@@ -29,7 +29,7 @@ public class HelloWorldController {
 
     /**
      * @param name name
-     * @return
+     * @return User
      */
     @RequestMapping("/user/get")
     public User get(@RequestParam final String name) {

@@ -1,4 +1,4 @@
-package com.boot.web;
+package com.boot;
 
 import com.boot.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 /**
  * @author ZhangShaowei on 2017/4/24 15:41
  */
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -26,18 +26,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @param http
      * @throws Exception
      */
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/")
-                .access("hasRole('READER')")
-                .antMatchers("/**")
-                .permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .failureUrl("/login?error=true");
-    }
+//    @Override
+//    protected void configure(final HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/")
+//                .access("hasRole('READER')")
+//                .antMatchers("/**")
+//                .permitAll()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .failureUrl("/login?error=true");
+//    }
 
     /**
      * @param auth
