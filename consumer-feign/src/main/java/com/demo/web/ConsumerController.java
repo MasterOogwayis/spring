@@ -1,6 +1,6 @@
 package com.demo.web;
 
-import com.demo.client.ComputeClient;
+import com.demo.service.ComputeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +22,7 @@ public class ConsumerController {
     /**
      * @return sum
      */
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Integer add() {
         return computeClient.add(10, 20);
     }

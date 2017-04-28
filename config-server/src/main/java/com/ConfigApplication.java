@@ -2,21 +2,20 @@ package com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
- * @author ZhangShaowei on 2017/4/25 16:10
+ * @author ZhangShaowei on 2017/4/28 14:10
  */
-@SpringBootApplication
-@EnableDiscoveryClient
 @EnableConfigServer
-public class ConfigServerApplication {
+@SpringBootApplication
+public class ConfigApplication {
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
-        SpringApplication.run(ConfigServerApplication.class, args);
+        SpringApplication.run(ConfigApplication.class, args);
     }
-
-
 
 }

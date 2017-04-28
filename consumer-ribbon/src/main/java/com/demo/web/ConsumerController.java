@@ -1,5 +1,6 @@
 package com.demo.web;
 
+import com.demo.service.ComputeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -18,7 +19,7 @@ public class ConsumerController {
      *
      */
     @Autowired
-    private RestTemplate restTemplate;
+    private ComputeService computeService;
 
 
     /**
@@ -26,10 +27,7 @@ public class ConsumerController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String add() {
-        MultiValueMap<String, Integer> requestEntity = new LinkedMultiValueMap<>();
-        requestEntity.add("a", 10);
-        requestEntity.add("b", 20);
-        return this.restTemplate.postForEntity("http://compute-service/add", requestEntity, String.class).getBody();
+        return this.computeService.add();
     }
 
 

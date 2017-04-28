@@ -1,4 +1,4 @@
-package com.demo.client;
+package com.demo.service;
 /**
  * @author ZhangShaowei on 2017/4/27 16:04
  */
@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * feign client
+ * feign service
  *
  * @author ZhangShaowei on 2017/4/27 16:04
  **/
-@FeignClient("compute-service")
+@FeignClient(value = "compute-service", fallback = ComputeClientHystrix.class)
 public interface ComputeClient {
 
     /**
