@@ -1,24 +1,28 @@
 package com.web;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * @author ZhangShaowei on 2017/4/28 15:25
- */
+@RefreshScope
 @RestController
 public class TestController {
 
     @Value("${from}")
     private String from;
 
-    @RequestMapping(value = "/from", method = RequestMethod.POST)
+    @RequestMapping("/from")
     public String from() {
         return this.from;
     }
 
+    public void setFrom(String from) {
+        this.from = from;
+    }
 
+    public String getFrom() {
+        return from;
+    }
 
 }
