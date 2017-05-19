@@ -2,6 +2,7 @@ package com.demo.web;
 
 import com.demo.service.ComputeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,13 @@ public class ConsumerController {
         return this.computeService.add();
     }
 
-
-
+    /**
+     * @return
+     */
+    @PostMapping("/hi")
+    public String hi() {
+        return this.computeService.hi();
+    }
 
 
 }

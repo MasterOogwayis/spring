@@ -23,20 +23,30 @@ public class ComputeService {
     /**
      * @return
      */
-    @HystrixCommand(fallbackMethod = "addFail")
+    @HystrixCommand(fallbackMethod = "fail")
     public String add(){
         MultiValueMap<String, Integer> requestEntity = new LinkedMultiValueMap<>();
         requestEntity.add("a", 10);
         requestEntity.add("b", 20);
-        return this.restTemplate.postForEntity("http://compute-service/add", requestEntity, String.class).getBody();
+        return this.restTemplate.postForEntity("http://service-provider/add", requestEntity, String.class).getBody();
     }
 
 
     /**
      * @return
      */
-    private String addFail(){
-        return "error";
+    @HystrixCommand(fallbackMethod = "fail")
+    public String hi(){
+        MultiValueMap<String, String> requestEntity = new LinkedMultiValueMap<>();
+        requestEntity.add("name", "ribbon");
+        return this.restTemplate.postForEntity("http://service-provider/hi", requestEntity, String.class).getBody();
+    }
+
+    /**
+     * @return
+     */
+    private String fail(){
+        return "fail";
     }
 
 

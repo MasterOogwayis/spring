@@ -19,4 +19,13 @@ public class ComputeClientHystrix implements ComputeClient{
         return -9999;
     }
 
+    /**
+     * @param name string
+     * @return
+     */
+    @Override
+    public String hi(@RequestParam("name") String name) {
+        return "error";
+    }
+
 }

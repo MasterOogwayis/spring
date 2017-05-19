@@ -3,7 +3,8 @@ package com.boot.web.ui;
 import com.boot.persistence.domain.User;
 import com.boot.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +23,7 @@ public class HelloWorldController {
     /**
      * @return String
      */
-    @RequestMapping("hello")
+    @PostMapping("hello")
     public String index() {
         return "Hello World!";
     }
@@ -31,9 +32,18 @@ public class HelloWorldController {
      * @param name name
      * @return User
      */
-    @RequestMapping("/user/get")
+    @PostMapping("/user/get")
     public User get(@RequestParam final String name) {
         return this.userRepository.findByName(name);
+    }
+
+    /**
+     * @param id id
+     * @return User
+     */
+    @PostMapping("/{id}")
+    public User getById(@PathVariable final Long id) {
+        return this.userRepository.getOne(id);
     }
 
 }
