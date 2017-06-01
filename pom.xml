@@ -8,6 +8,11 @@
     <artifactId>spring</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Scheduled</module>
+        <module>scheduled</module>
+        <module>schedule</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author ZhangShaowei on 2017/4/25 14:18
  */
@@ -32,9 +34,15 @@ public class UserService {
      */
     @Cacheable(value = "users", key = "'user:' + #id")
     public User get(final Long id) {
-        User user = this.userRepository.findOne(id);
-        this.log.debug(user);
-        return user;
+        return this.userRepository.findOne(id);
+    }
+
+    /**
+     * @return
+     */
+    @Cacheable(value = "list", key = "'user_list'")
+    public List<User> findAll(){
+        return this.userRepository.findAll();
     }
 
 

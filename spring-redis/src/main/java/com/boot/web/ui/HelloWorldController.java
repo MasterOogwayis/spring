@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author ZhangShaowei on 2017/4/24 10:58
  */
@@ -35,6 +37,14 @@ public class HelloWorldController {
 
     public User getById(@PathVariable final Long id) {
         return this.userService.get(id);
+    }
+
+    /**
+     * @return
+     */
+    @PostMapping("/findAll")
+    public List<User> getById() {
+        return this.userService.findAll();
     }
 
     /**

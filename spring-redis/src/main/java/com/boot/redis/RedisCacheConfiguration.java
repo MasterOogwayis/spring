@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -14,16 +16,43 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author ZhangShaowei on 2017/5/19 13:54
  */
+@ConfigurationProperties(prefix = "anze.base.redis")
 @Configuration
 @EnableCaching
 public class RedisCacheConfiguration extends CachingConfigurerSupport {
+
+    /**
+     * 默认cacheNames
+     */
+    @Value("${spring.application.name}")
+    private String serverName;
+
+    /**
+     *
+     */
+    private Map<String, Long> expires;
+
+    /**
+     * 默认保存时间 30分钟
+     */
+    private Long defaultExpiration = 1800L;
+
+    /**
+     * 缓存名称
+     */
+    private List<String> cacheNames;
+
 
     /**
      *
@@ -60,8 +89,6 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
 
-        // spring data redis项目中有一个#145 pull request
-        // 而这个提交请求的内容正是解决Jackson必须提供类型信息的问题
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(om);
 
         redisTemplate.setValueSerializer(serializer);
@@ -72,14 +99,22 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
     }
 
     /**
-     * @return
+     * @return RedisCacheManager
      */
     @Bean
     public CacheManager cacheManager() {
-//        String[] cacheNames = {"app_default", "users", "blogs", "goods", "configs", "info"};
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate());
-        redisCacheManager.setDefaultExpiration(1800L);
+        if (!CollectionUtils.isEmpty(this.expires)) {
+            redisCacheManager.setExpires(this.expires);
+            redisCacheManager.setCacheNames(this.expires.keySet());
+        } else {
+            redisCacheManager.setCacheNames(
+                    CollectionUtils.isEmpty(
+                            this.cacheNames) ? Arrays.asList(this.serverName) : this.cacheNames);
+            redisCacheManager.setDefaultExpiration(this.defaultExpiration);
+        }
         return redisCacheManager;
+
     }
 
     /**
@@ -108,4 +143,33 @@ public class RedisCacheConfiguration extends CachingConfigurerSupport {
     }
 
 
+    /**  */
+    public Map<String, Long> getExpires() {
+        return expires;
+    }
+
+    /**  */
+    public void setExpires(Map<String, Long> expires) {
+        this.expires = expires;
+    }
+
+    /**  */
+    public Long getDefaultExpiration() {
+        return defaultExpiration;
+    }
+
+    /**  */
+    public void setDefaultExpiration(Long defaultExpiration) {
+        this.defaultExpiration = defaultExpiration;
+    }
+
+    /**  */
+    public List<String> getCacheNames() {
+        return cacheNames;
+    }
+
+    /**  */
+    public void setCacheNames(List<String> cacheNames) {
+        this.cacheNames = cacheNames;
+    }
 }
