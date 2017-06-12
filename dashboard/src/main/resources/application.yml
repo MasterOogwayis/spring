@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: hystrix-test
+
+server:
+  port: 3334
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
