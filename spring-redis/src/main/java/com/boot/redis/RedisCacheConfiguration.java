@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author ZhangShaowei on 2017/5/19 13:54
  */
-@ConfigurationProperties(prefix = "anze.base.redis")
+@ConfigurationProperties(prefix = "zsw.base.redis")
 @Configuration
 @EnableCaching
 public class RedisCacheConfiguration extends CachingConfigurerSupport {

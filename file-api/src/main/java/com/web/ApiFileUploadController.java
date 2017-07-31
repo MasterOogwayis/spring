@@ -1,8 +1,14 @@
 package com.web;
 
+import feign.Response;
+import org.apache.commons.io.IOUtils;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,17 +17,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ZhangShaowei on 2017/6/12 14:23
@@ -89,6 +90,43 @@ public class ApiFileUploadController {
         }
         return "file not found!";
 
+    }
+
+
+    /**
+     * @param path path
+     * @param filename filename
+     * @return InputStreamResource
+     * @throws IOException e
+     */
+    @PostMapping(value = "download")
+    public ResponseEntity<byte[]> download(
+            @RequestParam("path") final String path,
+            @RequestParam("filename") final String filename) throws IOException{
+        FileSystemResource file = new FileSystemResource(new File(path, filename));
+        try (InputStream in = file.getInputStream()){
+//            Map<String, Collection<String>> headers = new HashMap<>();
+//            headers.put(HttpHeaders.CACHE_CONTROL, Arrays.asList("no-cache, no-store, must-revalidate"));
+//            headers.put(
+//                    HttpHeaders.CONTENT_DISPOSITION, Arrays.asList(String.format("attachment; filename=\"%s\"", filename)));
+//            headers.put(HttpHeaders.PRAGMA, Arrays.asList("no-cache"));
+//            headers.put(HttpHeaders.EXPIRES, Arrays.asList("0"));
+//
+//            return Response.builder().status(200).reason("success").headers(headers).body(IOUtils.toByteArray(in)).build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
+            headers.add(
+                    HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", file.getFilename()));
+            headers.add(HttpHeaders.PRAGMA, "no-cache");
+            headers.add(HttpHeaders.EXPIRES, "0");
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentLength(file.contentLength())
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(IOUtils.toByteArray(in));
+        }
     }
 
 
