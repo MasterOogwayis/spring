@@ -1,11 +1,9 @@
 package com;
 
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.apache.commons.lang.time.DateUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import org.apache.commons.collections.functors.ExceptionFactory;
+
+import java.util.*;
 
 /**
  * @author ZhangShaowei on 2017/6/27 10:52
@@ -13,15 +11,70 @@ import java.util.Date;
 
 public class Test {
 
-    public static void main(String[] args) throws Exception {
-//        System.out.println(Integer.MAX_VALUE);
-//        Calendar calendar = Calendar.getInstance(Locale.CHINA);
-//        Date date = new Date();
-//        System.err.println(calendar.get(Calendar.DAY_OF_WEEK) - 1);
+    private static final String SQL_FORMAT = "%Y-%m-%d %H:%i:%s";
 
-        Long num = Long.MAX_VALUE;
-        System.err.println(Long.toString(num, 64));
-        System.err.println(Long.toHexString(num));
+    public static void main(String[] args) throws Exception {
+
+        String str = "123*(%NAME%-2)99".replace("%NAME%", "6");
+        System.err.println(str);
+        System.out.println(Calculator.conversion(str));
+
+
+//        ExceptionFactory.getInstance().create();
+
+//        Long first = System.currentTimeMillis();
+//        for (int i = 0; i < 1000000; i++) {
+//            String str = " STR_TO_DATE('" + "123" + "','%Y-%m-%d %H:%i:%s') ";
+//        }
+//        Long second = System.currentTimeMillis();
+//        System.err.println("str:" + (second - first));
+//
+//        for (int i = 0; i < 1000000; i++) {
+//            String str = String.format("STR_TO_DATE('%s','%s')", "123", SQL_FORMAT);
+//        }
+//
+//        Long third = System.currentTimeMillis();
+//        System.err.println("format:" + (third - second));
+//
+//        for (int i = 0; i < 1000000; i++) {
+//            String str = new StringBuilder("STR_TO_DATE('%s','%s')").append("123").append(SQL_FORMAT).toString();
+//        }
+//
+//        Long forth = System.currentTimeMillis();
+//        System.err.println("builder:" + (forth - third));
+
+//        String sql = "SELECT NAME, ADDRESS, COL1 FROM USER";
+//        Select select = (Select) CCJSqlParserUtil.parse(sql);
+//
+//        PlainSelect plainSelect = (PlainSelect) select.getSelectBody();
+
+
+//        Expression exception = CCJSqlParserUtil.parseExpression("AGE age");
+
+
+//        SelectExpressionItem selectExpressionItem = new SelectExpressionItem(new Column("AGE age"));
+//        plainSelect.getSelectItems().add(selectExpressionItem);
+
+
+//        System.out.println(exception.getClass());
+//        Column column = (Column) exception;
+//        System.out.println(column.getName(false));
+
+
+//        System.err.println(plainSelect);
+
+
+//        get(1);
+
+    }
+
+
+    /**
+     *
+     * @param value obj
+     */
+    private static void get(final Object value){
+        System.out.println(value.getClass().equals(Integer.class));
     }
 
 
