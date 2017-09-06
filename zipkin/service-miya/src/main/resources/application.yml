@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: service-miya
+  zipkin:
+    base-url: http://localhost
+  sleuth:
+    sampler:
+      percentage: 1
+
+logging:
+  level: debug

@@ -1,0 +1,35 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: zipkin-server
+  datasource:
+    schema: classpath:/mysql.sql
+    url: jdbc:mysql://192.168.1.12:3306/zipkin?useUnicode=true&characterEncoding=utf-8
+    driverClassName: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    initialize: true
+    continueOnError: true
+  sleuth:
+    enabled: false
+
+zipkin:
+  storage:
+    type: mysql
+
+#es存储
+#zipkin:
+#  storage:
+#    type: elasticsearch
+#    elasticsearch:
+#      cluster: ${ES_CLUSTER:elasticsearch}
+#      hosts: ${ES_HOSTS:localhost:9300}
+#      index: ${ES_INDEX:zipkin}
+#      index-shards: ${ES_INDEX_SHARDS:5}
+#      index-replicas: ${ES_INDEX_REPLICAS:1}
+
+
+logging:
+  level: debug

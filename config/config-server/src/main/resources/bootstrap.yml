@@ -1,0 +1,23 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          #uri: https://github.com/499504777/spring/config/
+          uri: https://git.oschina.net/shaoweizhang/spring-cloud-learning/
+          search-paths: config-repo
+          username: 499504777@qq.com
+          password: z1989s07w29
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 1111
+  instance:
+    hostname: localhost

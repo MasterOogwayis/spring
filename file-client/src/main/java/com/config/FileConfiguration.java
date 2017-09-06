@@ -1,4 +1,4 @@
-package com.config;
+package com.demo.config;
 
 import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
