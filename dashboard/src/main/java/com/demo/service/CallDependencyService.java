@@ -1,4 +1,4 @@
-package com.demo.service;
+package com.zsw.service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.stereotype.Component;

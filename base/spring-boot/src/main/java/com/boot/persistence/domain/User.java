@@ -2,6 +2,7 @@ package com.boot.persistence.domain;
 
 import com.boot.persistence.domain.base.BaseBean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
@@ -14,21 +15,27 @@ import java.util.Date;
 public class User extends BaseBean {
 
     /**  */
+    @Column(name = "NAME")
     private String name;
 
     /**  */
+    @Column(name = "AGE")
     private Integer age;
 
     /**  */
+    @Column(name = "GENDER")
     private String gender;
 
     /**  */
+    @Column(name = "ADDRESS")
     private String address;
 
     /**  */
+    @Column(name = "PASSWORD")
     private String password;
 
     /**  */
+    @Column(name = "CREATE_DATE")
     private Date createDate;
 
     /**  */

@@ -9,10 +9,11 @@ spring:
       server:
         git:
           #uri: https://github.com/499504777/spring/config/
-          uri: https://git.oschina.net/shaoweizhang/spring-cloud-learning/
+          uri: https://gitee.com/shaoweizhang/spring-cloud-learning/
           search-paths: config-repo
           username: 499504777@qq.com
           password: z1989s07w29
+      label: master
 
 eureka:
   client:

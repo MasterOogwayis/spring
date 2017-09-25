@@ -10,8 +10,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @author ZhangShaowei on 2017/4/24 10:56
  */
 @SpringBootApplication
-@EntityScan(basePackages = "com.boot.persistence.domain")
-@EnableJpaRepositories(basePackages = "com.boot.persistence.repository")
+@EntityScan(basePackages = "com.*")
+@EnableJpaRepositories(basePackages = "com.*")
 public class DemoSpringBootApplication {
 
     /**  */

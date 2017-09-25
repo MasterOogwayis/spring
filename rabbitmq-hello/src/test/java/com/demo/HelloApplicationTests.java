@@ -1,4 +1,4 @@
-package com.demo;
+package com.zsw;
 
 import com.RabbitApplication;
 import com.rabbit.Sender;

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author ZhangShaowei on 2017/4/24 10:58
  */
@@ -34,7 +36,8 @@ public class HelloWorldController {
      */
     @PostMapping("/user/get")
     public User get(@RequestParam final String name) {
-        return this.userRepository.findByName(name);
+        User user = this.userRepository.findByName(name);
+        return user;
     }
 
     /**
@@ -43,7 +46,17 @@ public class HelloWorldController {
      */
     @PostMapping("/{id}")
     public User getById(@PathVariable final Long id) {
-        return this.userRepository.getOne(id);
+        User user = this.userRepository.findOne(id);
+        return user;
+    }
+
+    /**
+     * @return
+     */
+    @PostMapping("findAll")
+    public List<User> findAll() {
+        List<User> users = this.userRepository.findAll();
+        return users;
     }
 
 }

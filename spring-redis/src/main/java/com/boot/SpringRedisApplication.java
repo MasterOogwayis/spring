@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @author ZhangShaowei on 2017/4/24 10:56
  */
 @SpringBootApplication
-@EntityScan(basePackages = "com.boot.persistence.domain")
+@EntityScan(basePackages = "com.boot.persistence.bean")
 @EnableJpaRepositories(basePackages = "com.boot.persistence.repository")
 public class SpringRedisApplication {
 

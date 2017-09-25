@@ -1,5 +1,6 @@
 package com.boot.persistence.domain.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.io.Serializable;
  */
 @MappedSuperclass
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class BaseBean implements Serializable {
 
 

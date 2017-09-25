@@ -105,7 +105,7 @@ public class UIFileUploadController {
             @RequestParam("path") final String path,
             @RequestParam("filename") final String filename) throws IOException {
 //        return this.fileUploadClinet.download(path, filename);
-        Response response = this.fileUploadClinet.download(path, filename);
+//        Response response = this.fileUploadClinet.download(path, filename);
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
         headers.add(

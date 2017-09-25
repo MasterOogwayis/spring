@@ -1,6 +1,6 @@
-package com.demo.web;
+package com.zsw.web;
 
-import com.demo.service.HystrixService;
+import com.zsw.service.HystrixService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

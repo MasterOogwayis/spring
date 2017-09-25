@@ -1,0 +1,43 @@
+spring:
+  redis:
+    ##Redis服务器地址---如果没有配置 默认 127.0.0.1:6379 无密码
+    host: locahost
+    ## Redis服务器连接端口
+    port: 6379
+    ## Redis服务器连接密码（默认为空）
+    password:
+    pool:
+      ## 连接池最大连接数（使用负值表示没有限制）
+      max-active: 8
+      ## 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+      ## 连接池中的最大空闲连接
+      max-idle: 8
+      ## 连接池中的最小空闲连接
+      min-idle: 0
+    ## 连接超时时间（毫秒）
+    timeout: 0
+
+##必要，RedisCacheManager 存储索引
+##spring.cache.cache-names=users
+##自定义RedisCacheManger配置
+## 名称 -- 缓存有效期：s -------不同缓存分类后制定不同的有效期
+zsw:
+  base:
+    redis:
+      configuration:
+        expires:
+          list: 1800
+          proxy: 900
+
+# ---------------------------       代理对象无法被序列化到redis中       --------------------------------
+
+#说明  JPA EntityManager getReference()方法和find()的区别
+#   find()返回指定OID的实体，如果这个实体存在于当前的persistence context中，那么返回值是被缓存的对象；
+#   否则会创建一个新的实体，并从数据库中加载相关的持久状态。如果数据库不存在指定的OID的记录，那么find()方法返回null。
+#   getReference()方法和find()相似。不同的是：如果缓存中没有指定的实体，
+#   EntityManager会创建一个新的实体，但是不会立即访问数据库来加载持久状态，而是在第一次访问某个属性的时候才加载。
+#   此外，getReference()方法不返回null，如果数据库找不到相应的实体，
+#   这个方法会抛出javax.persistence.EntityNotFoundException。
+#   EntityNotFoundException - if the entity state cannot be accessed
+#   某些场合下使用getReference()方法可以避免从数据库加载持久状态的性能开销。

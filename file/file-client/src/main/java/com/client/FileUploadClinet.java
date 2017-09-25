@@ -57,7 +57,6 @@ public interface FileUploadClinet {
      * @param filename filename
      * @return InputStreamResource
      */
-    @Deprecated
     @RequestMapping(value = "file/download", method = RequestMethod.POST)
     feign.Response download(
             @RequestParam("path") String path,
