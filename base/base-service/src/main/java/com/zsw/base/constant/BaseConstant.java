@@ -1,10 +1,3 @@
-/**
- * 文 件 名：BaseConstant.java
- * CopyRight (c) 2012 Anze, Inc. All rights reserved.
- * 创 建 人：lurf
- * 日      期：2012-8-24 上午11:32:55
- * 描      述：
- */
 package com.zsw.base.constant;
 
 import java.util.Properties;

@@ -3,6 +3,7 @@ package com.zsw.base.redis.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.istack.internal.NotNull;
 import com.zsw.base.redis.serializer.ProtostuffRedisSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,6 +20,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,11 +34,13 @@ import java.util.Map;
 @Configuration
 @ConfigurationProperties(prefix = "zsw.base.redis.configuration")
 @EnableCaching
+@Validated
 public class RedisConfiguration extends CachingConfigurerSupport {
 
     /**
      *
      */
+    @NotNull
     private Map<String, Long> expires;
 
     /**

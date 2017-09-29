@@ -6,6 +6,9 @@ server:
 
 ##微服务名
 spring:
+#  devtools:
+#    restart:
+#      exclude: static/**,public/**,com
   jackson:
     serialization:
       failOnEmptyBeans: false

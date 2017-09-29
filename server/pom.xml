@@ -15,6 +15,7 @@
     <modules>
         <module>register-server</module>
         <module>api-server</module>
+        <module>zuul-server</module>
     </modules>
 
 

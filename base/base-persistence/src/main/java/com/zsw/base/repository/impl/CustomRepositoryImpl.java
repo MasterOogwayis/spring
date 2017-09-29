@@ -45,9 +45,6 @@ public class CustomRepositoryImpl<T> implements CustomRepository<T> {
      * 描述：删除实体对象
      *
      * @param entity 实体对象
-     * @author lurf
-     * @version 2.0.0 2012-8-31
-     * @since 2.0.0
      */
     @Override
     public void delete(T entity) {

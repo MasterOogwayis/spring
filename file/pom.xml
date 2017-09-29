@@ -16,6 +16,7 @@
     <modules>
         <module>file-api</module>
         <module>file-client</module>
+        <module>file-controller</module>
     </modules>
 
 

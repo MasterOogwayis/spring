@@ -1,28 +1,27 @@
 package com.web;
 
-import feign.Response;
 import org.apache.commons.io.IOUtils;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.MultipartConfigElement;
-import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author ZhangShaowei on 2017/6/12 14:23
@@ -34,37 +33,62 @@ public class ApiFileUploadController {
 
     /**
      * @param files 文件
-     * @return
+     * @param path  保存路径
+     * @return List<String>
      */
     @PostMapping("batch/upload")
     @Deprecated
-    public List<String> bacthUpload(@RequestPart("files") MultipartFile[] files, @RequestParam("path") String path) {
+    public List<String> bacthUpload(
+            @RequestPart("file") final MultipartFile[] files, final @RequestParam("path") String path) {
         String fileName = null;
         List<String> list = new ArrayList<>();
         if (!ObjectUtils.isEmpty(files)) {
 
             try {
                 for (MultipartFile file : files) {
-                    fileName = file.getOriginalFilename();
-                    file.transferTo(new File(path + fileName));
-                    list.add(fileName);
+//                    fileName = file.getOriginalFilename();
+//                    file.transferTo(new File(path + fileName));
+                    System.err.println(file.getOriginalFilename());
+                    list.add(this.upload(file, path));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return list;
         } else {
-            return Arrays.asList("faild for not found!");
+            return Collections.singletonList("faild for not found!");
         }
     }
 
 
     /**
-     * @param file
-     * @return
+     * 上传
+     *
+     * @param file MultipartFile
+     * @param path path
+     * @return filename
+     * @throws Exception e
+     */
+    private String upload(final MultipartFile file, final String path) throws Exception {
+        if (!file.isEmpty()) {
+            StringBuilder builder = new StringBuilder(50);
+            builder.append(UUID.randomUUID())
+                    .append(".").append(StringUtils.getFilenameExtension(file.getOriginalFilename()));
+            Files.createDirectories(Paths.get(path));
+            file.transferTo(new File(path, builder.toString()));
+            return builder.toString();
+        }
+        return null;
+    }
+
+    /**
+     * @param file MultipartFile
+     * @param path path
+     * @return String
      */
     @PostMapping(value = "single/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String singleUpload(@RequestPart("file") MultipartFile file, @RequestParam("path") String path) {
+    public String singleUpload(
+            @RequestPart("file") final MultipartFile file, final  @RequestParam("path") String path) {
         if (file != null && !file.isEmpty()) {
 //            try (
 //                    BufferedOutputStream out = new BufferedOutputStream(
@@ -86,7 +110,7 @@ public class ApiFileUploadController {
                 e.printStackTrace();
                 return e.getMessage();
             }
-            return "success:" + file.getOriginalFilename() ;
+            return "success:" + file.getOriginalFilename();
         }
         return "file not found!";
 
@@ -94,7 +118,7 @@ public class ApiFileUploadController {
 
 
     /**
-     * @param path path
+     * @param path     path
      * @param filename filename
      * @return InputStreamResource
      * @throws IOException e
@@ -102,17 +126,19 @@ public class ApiFileUploadController {
     @PostMapping(value = "download")
     public ResponseEntity<byte[]> download(
             @RequestParam("path") final String path,
-            @RequestParam("filename") final String filename) throws IOException{
+            @RequestParam("filename") final String filename) throws IOException {
         FileSystemResource file = new FileSystemResource(new File(path, filename));
-        try (InputStream in = file.getInputStream()){
+        try (InputStream in = file.getInputStream()) {
 //            Map<String, Collection<String>> headers = new HashMap<>();
 //            headers.put(HttpHeaders.CACHE_CONTROL, Arrays.asList("no-cache, no-store, must-revalidate"));
 //            headers.put(
-//                    HttpHeaders.CONTENT_DISPOSITION, Arrays.asList(String.format("attachment; filename=\"%s\"", filename)));
+//                    HttpHeaders.CONTENT_DISPOSITION,
+//                      Arrays.asList(String.format("attachment; filename=\"%s\"", filename)));
 //            headers.put(HttpHeaders.PRAGMA, Arrays.asList("no-cache"));
 //            headers.put(HttpHeaders.EXPIRES, Arrays.asList("0"));
 //
-//            return Response.builder().status(200).reason("success").headers(headers).body(IOUtils.toByteArray(in)).build();
+//            return Response.builder().status(200).reason("success")
+//                      .headers(headers).body(IOUtils.toByteArray(in)).build();
             HttpHeaders headers = new HttpHeaders();
             headers.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
             headers.add(
@@ -130,6 +156,9 @@ public class ApiFileUploadController {
     }
 
 
+    /**
+     * @return MultipartConfigElement
+     */
     @Bean
     MultipartConfigElement createMultipartConfigElement() {
         MultipartConfigFactory mcf = new MultipartConfigFactory();

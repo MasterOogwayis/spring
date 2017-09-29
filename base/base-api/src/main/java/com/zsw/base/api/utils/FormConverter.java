@@ -4,9 +4,11 @@ import ch.qos.logback.classic.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 描述：Form表单转换器，此类基于Gson工作。<br>
@@ -61,24 +63,17 @@ public class FormConverter {
 
             String[] values = request.getParameterValues(key);
             try {
-                String typeName = null;
+                String typeName;
                 try {
                     typeName = clazz.getMethod(key1).getReturnType().getName();
                 } catch (NoSuchMethodException e) {
                     // 如果查找get的方法失败，再查找is的方法，如果都失败抛出异常
                     typeName = clazz.getMethod(key2).getReturnType().getName();
                 }
-                if (typeName.indexOf("[") != -1 || typeName.indexOf("List") != -1) {
-                    List<String> valuesList = Arrays.asList(values);
-                    List<String> newValues = null;
-                    for (int i = 0; i < valuesList.size(); i++) {
-                        if (!"".equals(valuesList.get(i).trim())) {
-                            if (null == newValues) {
-                                newValues = new ArrayList<String>();
-                            }
-                            newValues.add(valuesList.get(i).trim());
-                        }
-                    }
+                if (typeName.contains("[") || typeName.contains("List")) {
+                    List<String> newValues =
+                            Arrays.stream(values).filter(StringUtils::hasText)
+                                    .map(String::trim).collect(Collectors.toList());
                     map.put(key, newValues);
                 } else {
                     map.put(key, values[0].equals("") ? null : values[0].trim());
@@ -106,4 +101,5 @@ public class FormConverter {
         String jsonBody = convertToGson(request, clazz);
         return gson.fromJson(jsonBody, clazz);
     }
+
 }

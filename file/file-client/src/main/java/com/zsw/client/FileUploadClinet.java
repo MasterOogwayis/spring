@@ -1,4 +1,4 @@
-package com.client;
+package com.zsw.client;
 /**
  * @author ZhangShaowei on 2017/6/13 14:43
  */

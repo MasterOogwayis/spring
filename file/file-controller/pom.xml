@@ -3,29 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>server</artifactId>
+        <artifactId>file</artifactId>
         <groupId>com.zsw</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>api-server</artifactId>
+    <artifactId>file-controller</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>customer-api</artifactId>
+            <artifactId>base-controller</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>security-api</artifactId>
+            <artifactId>file-client</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 

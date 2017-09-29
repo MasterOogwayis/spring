@@ -1,10 +1,3 @@
-/**
- * 文 件 名：ConstantLoader.java
- * CopyRight (c) 2012 Anze, Inc. All rights reserved.
- * 创 建 人：lurf
- * 日      期：2012-10-23 上午11:23:31
- * 描      述：
- */
 package com.zsw.base.constant;
 
 import com.zsw.base.log.Log4jUtils;
