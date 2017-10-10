@@ -12,20 +12,24 @@
     <artifactId>api-server</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>customer-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>security-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.zsw</groupId>-->
+            <!--<artifactId>customer-api</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.zsw</groupId>-->
+            <!--<artifactId>security-api</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
 

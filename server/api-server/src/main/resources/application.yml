@@ -9,6 +9,8 @@ spring:
 #  devtools:
 #    restart:
 #      exclude: static/**,public/**,com
+#  resources:
+#    static-locations: classpath:/templates/
   jackson:
     serialization:
       failOnEmptyBeans: false

@@ -1,9 +1,10 @@
 package com;
 
-import com.zsw.persistence.bean.Customer;
-import org.springframework.util.StringUtils;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -11,8 +12,23 @@ import java.util.stream.Stream;
 /**
  * @author ZhangShaowei on 2017/9/18 10:03
  */
-
+@SpringBootTest(classes = Test.class)
 public class Test {
+
+
+    /**
+     *
+     */
+    @org.junit.Test
+    public void test(){
+
+        System.err.println("123");
+
+    }
+
+
+
+
 
     public static void main(String[] args) {
 
@@ -65,14 +81,6 @@ public class Test {
 
     public static void callback(String str) {
         System.out.println(str);
-    }
-
-
-    private static Optional<Customer> get() {
-        Customer customer = new Customer();
-//        customer.setName("zsw");
-
-        return Optional.of(customer);
     }
 
 
