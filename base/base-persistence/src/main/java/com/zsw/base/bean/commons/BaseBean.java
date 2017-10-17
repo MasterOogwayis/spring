@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author ZhangShaowei on 2017/9/12 13:28
@@ -23,6 +24,13 @@ public class BaseBean implements Serializable {
     @Column(name = "ID", unique = true, nullable = false, length = 19)
     private Long id;
 
+    /**
+     *
+     */
+    @Column(name = "CREATE_TIMESTAMP", updatable = false)
+    private Date createTimestamp;
+
+
     /**  */
     public Long getId() {
         return id;
@@ -33,5 +41,15 @@ public class BaseBean implements Serializable {
      */
     public void setId(final Long id) {
         this.id = id;
+    }
+
+    /**  */
+    public Date getCreateTimestamp() {
+        return createTimestamp;
+    }
+
+    /**  */
+    public void setCreateTimestamp(Date createTimestamp) {
+        this.createTimestamp = createTimestamp;
     }
 }

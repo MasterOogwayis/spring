@@ -35,6 +35,10 @@
             <artifactId>protostuff-runtime</artifactId>
         </dependency>
         <!-- protobuff序列化开源工具-->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

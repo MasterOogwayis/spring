@@ -39,7 +39,7 @@ public class BaseApiController {
     @ResponseBody
     protected Object exceptionHandler(Exception ex) {
         ex.printStackTrace();
-        return null;
+        return ex.getMessage();
     }
 
 }

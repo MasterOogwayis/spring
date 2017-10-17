@@ -2,12 +2,13 @@ package com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author ZhangShaowei on 2017/9/15 13:42
  */
 @SpringBootApplication
+@EnableDiscoveryClient
 public class ApiApplication {
 
     /**

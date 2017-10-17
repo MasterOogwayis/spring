@@ -1,5 +1,6 @@
 package com.zsw.service.customer;
 
+import com.zsw.base.cache.annotation.CacheLock;
 import com.zsw.base.service.BaseService;
 import com.zsw.persistence.bean.Customer;
 import com.zsw.persistence.repository.CustomerRepository;
@@ -36,6 +37,15 @@ public class CustomerService extends BaseService {
      */
     public Customer saveOrUpdate(final Customer customer) {
         return this.customerRepository.saveOrUpdate(customer);
+    }
+
+    /**
+     * @param id id
+     * @return
+     */
+    @CacheLock(key = "'customer' + #id")
+    public Customer lock(final Long id) {
+        return this.customerRepository.getOne(id);
     }
 
 

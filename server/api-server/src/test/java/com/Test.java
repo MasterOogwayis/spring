@@ -1,36 +1,32 @@
 package com;
 
-import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2017/9/18 10:03
  */
-@SpringBootTest(classes = Test.class)
+//@SpringBootTest(classes = Test.class)
 public class Test {
 
 
     /**
      *
      */
-    @org.junit.Test
-    public void test(){
+//    @org.junit.Test
+    public void test() {
 
         System.err.println("123");
 
     }
 
 
-
-
-
     public static void main(String[] args) {
+
+
+//        System.out.println(Integer.class.getName());
+//        System.out.println(Integer.class.getSimpleName());
 
 //        String key = "name";
 //
@@ -44,7 +40,7 @@ public class Test {
 //
 //        System.out.println(data);
 
-        String[] values = {"1", "2 ", " 3", " 4 ", "", null};
+//        String[] values = {"1", "2 ", " 3", " 4 ", "", null};
 //
 //        List<Double> list =
 //                Arrays.stream(values).filter(StringUtils::hasText)
@@ -52,7 +48,7 @@ public class Test {
 //
 //        System.out.println(list);
 
-        List<Integer> list = Stream.of(values).map(Integer::valueOf).collect(Collectors.toList());
+//        List<Integer> list = Stream.of(values).map(Integer::valueOf).collect(Collectors.toList());
 
 
 //        List<Map<String, Object>> rows = new ArrayList<>();

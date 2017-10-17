@@ -22,7 +22,7 @@ spring:
     sampler:
       percentage: 1
   datasource:
-    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.56.1:3306/spring?useUnicode=true&characterEncoding=utf-8
 #    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
@@ -79,7 +79,7 @@ spring:
     #        - 192.168.0.9:6391
     #        - 192.168.0.9:6392
       ##Redis服务器地址---如果没有配置 默认 127.0.0.1:6379 无密码
-    host:
+    host: 192.168.99.100
     ## Redis服务器连接端口
     port: 6379
     ## Redis服务器连接密码（默认为空）
@@ -116,7 +116,7 @@ eureka:
       defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
     eureka-server-port: 1111
   instance:
-    hostname: localhost
+    hostname: 192.168.99.100
 
 logging:
   level: debug

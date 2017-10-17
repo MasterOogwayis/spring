@@ -27,11 +27,14 @@
         <module>user</module>
         <module>customer</module>
         <module>security</module>
+        <module>product</module>
+        <module>saleorder</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <org.slf4j.version>1.7.25</org.slf4j.version>
@@ -70,6 +73,12 @@
                 <groupId>io.github.openfeign.form</groupId>
                 <artifactId>feign-form-spring</artifactId>
                 <version>2.1.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

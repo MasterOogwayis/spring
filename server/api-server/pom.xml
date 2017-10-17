@@ -11,12 +11,17 @@
 
     <artifactId>api-server</artifactId>
 
+    <properties>
+        <start-class>com.ApiApplication</start-class>
+        <docker.image.prefix>zsw</docker.image.prefix>
+    </properties>
+
     <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>com.zsw</groupId>-->
-            <!--<artifactId>customer-api</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>saleorder-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!--<dependency>-->
             <!--<groupId>com.zsw</groupId>-->
             <!--<artifactId>security-api</artifactId>-->
@@ -27,10 +32,47 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.13</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

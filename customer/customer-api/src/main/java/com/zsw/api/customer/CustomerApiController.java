@@ -48,5 +48,14 @@ public class CustomerApiController {
         return this.customerService.saveOrUpdate(customer);
     }
 
+    /**
+     * @param id
+     * @return
+     */
+    @PostMapping("lock")
+    public Customer lock(@RequestParam final Long id) {
+        return this.customerService.lock(id);
+    }
+
 
 }

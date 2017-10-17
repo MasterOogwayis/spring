@@ -21,6 +21,7 @@
         <module>spring-boot</module>
         <module>base-security</module>
         <module>base-rabbitmq</module>
+        <module>base-cache-lock</module>
     </modules>
 
 

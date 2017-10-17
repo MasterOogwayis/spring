@@ -2,13 +2,13 @@ server:
   port: 1111
 eureka:
   instance:
-#    hostname: localhost
+    hostname: localhost
     prefer-ip-address: true
   client:
     registerWithEureka: false
     fetchRegistry: false
-#    serviceUrl:
-#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
 #  server:
     #此配置建议只试用开发和测试环境 驱逐下线的服务，间隔,5秒，默认是60
 #    eviction-interval-timer-in-ms: 5000

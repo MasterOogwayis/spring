@@ -12,6 +12,10 @@
     <artifactId>register-server</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <start-class>com.RegisterApplication</start-class>
+        <docker.image.prefix>zsw</docker.image.prefix>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -20,21 +24,17 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
     </dependencies>
 
-    <properties>
-        <start-class>com.RegisterApplication</start-class>
-        <docker.image.prefix>zsw</docker.image.prefix>
-    </properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--<configuration>
+                <configuration>
                     <fork>true</fork>
                     <mainClass>${start-class}</mainClass>
                 </configuration>
@@ -44,7 +44,7 @@
                             <goal>repackage</goal>
                         </goals>
                     </execution>
-                </executions>-->
+                </executions>
             </plugin>
             <!-- tag::plugin[] -->
             <plugin>
