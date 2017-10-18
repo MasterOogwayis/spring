@@ -17,7 +17,6 @@
     </parent>
 
     <modules>
-        <module>test</module>
         <module>Swagger2</module>
         <module>zipkin</module>
         <module>config</module>
@@ -78,6 +77,11 @@
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
             </dependency>
         </dependencies>
