@@ -1,8 +1,11 @@
 package com;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * @author ZhangShaowei on 2017/9/18 10:03
@@ -25,8 +28,7 @@ public class Test {
     public static void main(String[] args) {
 
 
-//        System.out.println(Integer.class.getName());
-//        System.out.println(Integer.class.getSimpleName());
+
 
 //        String key = "name";
 //
@@ -55,6 +57,30 @@ public class Test {
 //
 //        double average = rows.stream().map(row -> row.get("")).map(String::valueOf).mapToDouble(Double::valueOf).average().orElse(0D);
 //        System.err.println(average);
+
+
+
+        Dto d1 = new Dto(1L, "zsw");
+        Dto d2 = new Dto(2L, "asda");
+        Dto d3 = new Dto(3L, "afs");
+        Dto d4 = new Dto(4L, "rqw");
+        Dto d5 = new Dto(5L, "nyg");
+
+        List<Dto> list = new ArrayList<Dto>(){{
+            add(d1);
+            add(d2);
+            add(d3);
+            add(d4);
+            add(d5);
+        }};
+
+        Map<Long, List<Dto>> map = list.stream().collect(Collectors.groupingBy(Dto::getId));
+        map.forEach((k, v) ->{
+            System.out.println(k);
+            System.err.println(v);
+        });
+
+
     }
 
     private static Map<String, String> getRequest() {
@@ -77,6 +103,36 @@ public class Test {
 
     public static void callback(String str) {
         System.out.println(str);
+    }
+
+    static class Dto {
+        private Long id;
+        private String name;
+
+        public Dto(Long id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        /**  */
+        public Long getId() {
+            return id;
+        }
+
+        /**  */
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        /**  */
+        public String getName() {
+            return name;
+        }
+
+        /**  */
+        public void setName(String name) {
+            this.name = name;
+        }
     }
 
 

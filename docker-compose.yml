@@ -9,26 +9,64 @@ services:
   eureka:
     container_name: eureka
     build: ./server/register-server
-#    image: zsw/register-server
+    image: zsw/register-server
     restart: 'no'
+    networks:
+      - backend
     ports:
       - 1111:1111
+#    env_file:
+#      - eureka.env
+    environment:
+      SERVER_PORT: 1111
+
 
   api-server:
     container_name: api-server
     build: ./server/api-server
-#    image: zsw/api-server
+    image: zsw/api-server
     restart: always
+    networks:
+      - backend
     ports:
       - 3334:3334
-    extra_hosts:
-      - redis:192.168.56.1
+#    extra_hosts:
+#      - redis:192.168.56.1
     depends_on:
       - eureka
+    environment:
+      SERVER_PORT: 3334
+      MYSQL_HOST: 192.168.56.1
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      EUREKA_HOST: eureka
+      EUREKA_PORT: 1111
+      REDIS_HOST: 192.168.56.1
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: 111111
 #      - redis
-    links:
-      - eureka
+#    links:
+#      - eureka
 #      - redis
+#
+#  api-server2:
+#    container_name: api-server2
+#    build: ./server/api-server
+##    image: zsw/api-server
+#    restart: always
+#    ports:
+#      - 3333:3335
+#    extra_hosts:
+#      - redis:192.168.56.1
+#    depends_on:
+#      - eureka
+##      - redis
+#    links:
+#      - eureka
+##      - redis
 
+networks:
+  backend:
 
 # 详情见 https://docs.docker.com/compose/compose-file/
