@@ -22,6 +22,7 @@
         <module>base-security</module>
         <module>base-rabbitmq</module>
         <module>base-cache-lock</module>
+        <module>base-ui</module>
     </modules>
 
 

@@ -1,25 +1,138 @@
 package com.zsw.base.spring.jpa.configuration;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.zsw.base.repository.jpa.CustomRepositoryFactoryBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+
 
 /**
  * @author ZhangShaowei on 2017/9/12 15:57
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "com.*", repositoryFactoryBeanClass = CustomRepositoryFactoryBean.class)
+@EnableJpaRepositories(basePackages = "com.*",
+        repositoryFactoryBeanClass = CustomRepositoryFactoryBean.class)
+@EnableTransactionManagement
+@EntityScan(basePackages = "com")
 public class JpaConfiguration {
 
 
-    /**
-     * @return
-     */
-    @Bean
-    public OpenEntityManagerInViewFilter openEntityManagerInViewFilter() {
-        return new OpenEntityManagerInViewFilter();
+    private Logger logger = LoggerFactory.getLogger(JpaBaseConfiguration.class);
+
+    @Value("${spring.datasource.url}")
+    private String dbUrl;
+
+    @Value("${spring.datasource.username}")
+    private String username;
+
+    @Value("${spring.datasource.password}")
+    private String password;
+
+    @Value("${spring.datasource.driverClassName}")
+    private String driverClassName;
+
+    @Value("${spring.datasource.initialSize}")
+    private int initialSize;
+
+    @Value("${spring.datasource.minIdle}")
+    private int minIdle;
+
+    @Value("${spring.datasource.maxActive}")
+    private int maxActive;
+
+    @Value("${spring.datasource.maxWait}")
+    private int maxWait;
+
+    @Value("${spring.datasource.timeBetweenEvictionRunsMillis}")
+    private int timeBetweenEvictionRunsMillis;
+
+    @Value("${spring.datasource.minEvictableIdleTimeMillis}")
+    private int minEvictableIdleTimeMillis;
+
+    @Value("${spring.datasource.validationQuery}")
+    private String validationQuery;
+
+    @Value("${spring.datasource.testWhileIdle}")
+    private boolean testWhileIdle;
+
+    @Value("${spring.datasource.testOnBorrow}")
+    private boolean testOnBorrow;
+
+    @Value("${spring.datasource.testOnReturn}")
+    private boolean testOnReturn;
+
+    @Value("${spring.datasource.poolPreparedStatements}")
+    private boolean poolPreparedStatements;
+
+    @Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize}")
+    private int maxPoolPreparedStatementPerConnectionSize;
+
+    @Value("${spring.datasource.filters}")
+    private String filters;
+
+    @Value("${spring.datasource.connectionProperties}")
+    private String connectionProperties;
+
+    @Value("${spring.datasource.removeAbandoned}")
+    private Boolean removeAbandoned;
+
+    @Value("${spring.datasource.removeAbandonedTimeout}")
+    private Integer removeAbandonedTimeout;
+
+    @Value("${spring.datasource.logAbandoned}")
+    private Boolean logAbandoned;
+
+    @Value("${spring.datasource.keepAlive}")
+    private Boolean keepAlive;
+
+    @Bean     //声明其为Bean实例
+    @Primary  //在同样的DataSource中，首先使用被标注的DataSource
+    public DataSource dataSource() {
+        DruidDataSource datasource = new DruidDataSource();
+
+        datasource.setUrl(this.dbUrl);
+        datasource.setUsername(username);
+        datasource.setPassword(password);
+        datasource.setDriverClassName(driverClassName);
+
+        //configuration
+        datasource.setInitialSize(initialSize);
+        datasource.setMinIdle(minIdle);
+        datasource.setMaxActive(maxActive);
+        datasource.setMaxWait(maxWait);
+        datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+        datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
+        datasource.setValidationQuery(validationQuery);
+        datasource.setTestWhileIdle(testWhileIdle);
+        datasource.setTestOnBorrow(testOnBorrow);
+        datasource.setTestOnReturn(testOnReturn);
+        datasource.setPoolPreparedStatements(poolPreparedStatements);
+        datasource.setRemoveAbandoned(removeAbandoned);
+        datasource.setRemoveAbandonedTimeout(removeAbandonedTimeout);
+        datasource.setLogAbandoned(logAbandoned);
+        datasource.setKeepAlive(keepAlive);
+
+        datasource
+                .setMaxPoolPreparedStatementPerConnectionSize(maxPoolPreparedStatementPerConnectionSize);
+        try {
+            datasource.setFilters(filters);
+        } catch (SQLException e) {
+            logger.error("druid configuration initialization filter", e);
+        }
+        datasource.setConnectionProperties(connectionProperties);
+
+        return datasource;
     }
 
 }

@@ -90,6 +90,8 @@
         <appender-ref ref="ACCESS"/>
         <appender-ref ref="INFO"/>
     </root>
+    <!--<include resource="org/springframework/boot/logging/logback/base.xml" />-->
+    <!--<jmxConfigurator/>-->
 </configuration>
         <!--
         <configuration>

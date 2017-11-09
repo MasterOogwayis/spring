@@ -15,6 +15,9 @@
         <module>saleorder-persistence</module>
         <module>saleorder-service</module>
         <module>saleorder-api</module>
+        <module>saleorder-client</module>
+        <module>saleorder-base-client</module>
+        <module>saleorder-controller</module>
     </modules>
 
 

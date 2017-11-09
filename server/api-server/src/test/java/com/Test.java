@@ -1,17 +1,19 @@
 package com;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.XppDriver;
+import com.zsw.base.utils.XmlUtils;
+
+import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * @author ZhangShaowei on 2017/9/18 10:03
  */
 //@SpringBootTest(classes = Test.class)
 public class Test {
+
+    private static XStream xstream = new XStream(new XppDriver());
 
 
     /**
@@ -25,74 +27,49 @@ public class Test {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-
-
-
-//        String key = "name";
+//        List<Person> persons = new ArrayList<>();
+//        persons.add();
+//        Person person = new Person(1, "zsw", "earth", 20);
+//        xstream.alias("xml", Person.class);
+//        System.out.println(xstream.toXML(person));
 //
-//        String str = Optional.ofNullable("1").orElse("2");
+//        Thread.sleep(100);
 //
-//        String data = Optional.ofNullable(getRequest()).map(request -> request.get(key)).orElse(
-//                Optional.ofNullable(getSession()).map(session -> session.get(key)).orElse(
-//                        Optional.ofNullable(getContext()).map(context -> context.get(key)).orElse(null)
-//                )
-//        );
+//        Home home = new Home();
+//        home.setAddress("Earth");
+//        home.setPerson(person);
+//        System.err.println(xstream.toXML(home));
 //
-//        System.out.println(data);
-
-//        String[] values = {"1", "2 ", " 3", " 4 ", "", null};
+//        Thread.sleep(100);
 //
-//        List<Double> list =
-//                Arrays.stream(values).filter(StringUtils::hasText)
-//                        .map(Double::valueOf).collect(Collectors.toList());
+//        xstream.aliasAttribute(Person.class, "name", "NAME");
+//        System.out.println(xstream.toXML(home));
+
+//        Person person = new Person(1, "zsw", "earth", 20);
+//        person.setRoles(Arrays.asList("ADMIN", "SUPERADMIN", "CUSTOMER"));
 //
-//        System.out.println(list);
-
-//        List<Integer> list = Stream.of(values).map(Integer::valueOf).collect(Collectors.toList());
-
-
-//        List<Map<String, Object>> rows = new ArrayList<>();
+//        xstream.alias("PERSON", Person.class);
+//        String xml = xstream.toXML(person);
 //
-//        double average = rows.stream().map(row -> row.get("")).map(String::valueOf).mapToDouble(Double::valueOf).average().orElse(0D);
-//        System.err.println(average);
+//        System.err.println(xml);
+//
+//        Person p = (Person) xstream.fromXML(xml);
+//        System.out.println(p);
 
 
+//        System.out.println("1‬".length()); 不可见字符
+//        System.out.println("1".length());
 
-        Dto d1 = new Dto(1L, "zsw");
-        Dto d2 = new Dto(2L, "asda");
-        Dto d3 = new Dto(3L, "afs");
-        Dto d4 = new Dto(4L, "rqw");
-        Dto d5 = new Dto(5L, "nyg");
-
-        List<Dto> list = new ArrayList<Dto>(){{
-            add(d1);
-            add(d2);
-            add(d3);
-            add(d4);
-            add(d5);
-        }};
-
-        Map<Long, List<Dto>> map = list.stream().collect(Collectors.groupingBy(Dto::getId));
-        map.forEach((k, v) ->{
-            System.out.println(k);
-            System.err.println(v);
-        });
+//        System.err.println((int)("1‬".charAt(1)));
+//
+//        char hide = (char) 8236;
+//        String str = "1" + String.valueOf(hide);
+//        System.out.println(str);
+//        System.out.println(str.length());
 
 
-    }
-
-    private static Map<String, String> getRequest() {
-        return null;
-    }
-
-    private static Map<String, String> getSession() {
-        return null;
-    }
-
-    private static Map<String, String> getContext() {
-        return Collections.singletonMap("name", "zsw");
     }
 
 
@@ -105,22 +82,35 @@ public class Test {
         System.out.println(str);
     }
 
-    static class Dto {
-        private Long id;
+    abstract static class Dto {
+
+
+        abstract void fun(String string);
+
+
+
+
+    }
+
+    static class Person {
+
+        private Integer id;
+
         private String name;
 
-        public Dto(Long id, String name) {
-            this.id = id;
-            this.name = name;
-        }
+        private String address;
+
+        private Integer age;
+
+        private List<String> roles;
 
         /**  */
-        public Long getId() {
+        public Integer getId() {
             return id;
         }
 
         /**  */
-        public void setId(Long id) {
+        public void setId(Integer id) {
             this.id = id;
         }
 
@@ -132,6 +122,80 @@ public class Test {
         /**  */
         public void setName(String name) {
             this.name = name;
+        }
+
+        /**  */
+        public String getAddress() {
+            return address;
+        }
+
+        /**  */
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        /**  */
+        public Integer getAge() {
+            return age;
+        }
+
+        /**  */
+        public void setAge(Integer age) {
+            this.age = age;
+        }
+
+        public Person(Integer id, String name, String address, Integer age) {
+            this.id = id;
+            this.name = name;
+            this.address = address;
+            this.age = age;
+        }
+
+        /**  */
+        public List<String> getRoles() {
+            return roles;
+        }
+
+        /**  */
+        public void setRoles(List<String> roles) {
+            this.roles = roles;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", address='" + address + '\'' +
+                    ", age=" + age +
+                    ", roles=" + roles +
+                    '}';
+        }
+    }
+
+    static class Home {
+        private Person person;
+
+        private String address;
+
+        /**  */
+        public Person getPerson() {
+            return person;
+        }
+
+        /**  */
+        public void setPerson(Person person) {
+            this.person = person;
+        }
+
+        /**  */
+        public String getAddress() {
+            return address;
+        }
+
+        /**  */
+        public void setAddress(String address) {
+            this.address = address;
         }
     }
 

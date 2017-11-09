@@ -77,7 +77,7 @@ public class SaleOrderService extends BaseService {
      * @param id id
      * @return SaleOrder
      */
-    @Cacheable(value = "list", key = "'saleorder' + #id")
+    @Cacheable(value = "list", key = "'saleorder:' + #id")
     public SaleOrder getSaleOrder(final Long id) {
         return this.saleOrderRepository.findOne(id);
     }
