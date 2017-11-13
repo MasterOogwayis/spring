@@ -2,12 +2,20 @@ server:
   port: 1112
 
 spring:
+#  resources:
+#    static-locations: classpath:/templates/
   application:
     name: admin-ui
   boot:
     admin:
       routes:
         endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream,activiti
+      username: ${security.user.name}       #These two are needed so that the client
+      password: ${security.user.password}   #can register at the protected server api
+      client:
+        metadata:
+          user.name: ${security.user.name}          #These two are needed so that the server
+          user.password:  ${security.user.password}
 
 eureka:
   client:
@@ -21,3 +29,9 @@ management:
   security:
     enabled: false
 
+security:
+  user:
+    name: user
+    password: pass
+  basic:
+    enabled: false

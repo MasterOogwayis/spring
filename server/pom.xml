@@ -20,8 +20,7 @@
         <module>config-server</module>
         <module>ui-server</module>
         <module>turbine-server</module>
-        <module>test-server</module>
+        <module>other-server</module>
     </modules>
-
 
 </project>

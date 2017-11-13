@@ -1,8 +1,10 @@
 package com.zsw.base.aspect;
 
 import com.zsw.base.cache.annotation.CacheLock;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -37,6 +39,14 @@ public class CacheLockAspect {
         CacheLock cacheLock = targetMethod.getAnnotation(CacheLock.class);
         System.err.println(cacheLock.key());
         return joinPoint.proceed(joinPoint.getArgs());
+
+    }
+
+    /**
+     * @param joinPoint
+     */
+    @After("methods()")
+    public void after(JoinPoint joinPoint) {
 
     }
 

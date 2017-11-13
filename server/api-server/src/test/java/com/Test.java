@@ -5,7 +5,9 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
 import com.zsw.base.utils.XmlUtils;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * @author ZhangShaowei on 2017/9/18 10:03
@@ -29,34 +31,24 @@ public class Test {
 
     public static void main(String[] args) throws InterruptedException {
 
-//        List<Person> persons = new ArrayList<>();
-//        persons.add();
-//        Person person = new Person(1, "zsw", "earth", 20);
-//        xstream.alias("xml", Person.class);
-//        System.out.println(xstream.toXML(person));
-//
-//        Thread.sleep(100);
-//
-//        Home home = new Home();
-//        home.setAddress("Earth");
-//        home.setPerson(person);
-//        System.err.println(xstream.toXML(home));
-//
-//        Thread.sleep(100);
-//
-//        xstream.aliasAttribute(Person.class, "name", "NAME");
-//        System.out.println(xstream.toXML(home));
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
+        list.add("e");
+        list.add("f");
+        list.add("g");
 
-//        Person person = new Person(1, "zsw", "earth", 20);
-//        person.setRoles(Arrays.asList("ADMIN", "SUPERADMIN", "CUSTOMER"));
-//
-//        xstream.alias("PERSON", Person.class);
-//        String xml = xstream.toXML(person);
-//
-//        System.err.println(xml);
-//
-//        Person p = (Person) xstream.fromXML(xml);
-//        System.out.println(p);
+
+        List<String> newList = list.stream().map(String::toUpperCase).collect(Collectors.toList());
+        System.out.println(newList);
+
+        String c = list.stream().min(Comparator.comparing(s -> s.charAt(0))).get();
+        System.err.println(c);
+
+
+//        hello("This is zsw speaking! Who is that?", Test::callback);
 
 
 //        System.out.println("1‬".length()); 不可见字符
