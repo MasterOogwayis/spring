@@ -1,21 +1,16 @@
 ##服务器端口
 server:
-  port: 3336
+  port: 3337
   tomcat:
     port-header: PUT,DELETE,OPTIONS,GET,POST
 
 ##微服务名
 spring:
   application:
-    name: other-server
+    name: dashboard
   output:
     ansi:
       enabled: detect
-  rabbitmq:
-#    host: localhost default
-#    port: 5672      default
-    username: guest
-    password: guest
 
 ##服务发现地址
 eureka:
@@ -26,14 +21,6 @@ eureka:
   instance:
     hostname: localhost
 
-feign:
-  hystrix:
-    enabled: true
-
-com:
-  zsw:
-    servername:
-      saleorder: api-server
 
 logging:
   level: debug
@@ -42,11 +29,9 @@ management:
   security:
     enabled: false
 
-security:
-  basic:
-    enabled: false
-
 info:
   version: @project.version@
+
+
 
 

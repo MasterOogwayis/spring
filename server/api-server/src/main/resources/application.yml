@@ -122,9 +122,16 @@ eureka:
 logging:
   level: debug
 
-management:
-  security:
-    enabled: false
+#management:
+#  security:
+#    enabled: false
+
+security:
+  user:
+    name: admin
+    password: 111111
+#  basic:
+#    enabled: false
 
 info:
   version: @project.version@

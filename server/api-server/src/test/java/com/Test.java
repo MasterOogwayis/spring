@@ -1,13 +1,14 @@
 package com;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.XppDriver;
-import com.zsw.base.utils.XmlUtils;
-
-import java.util.*;
-import java.util.function.BinaryOperator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2017/9/18 10:03
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 //@SpringBootTest(classes = Test.class)
 public class Test {
 
-    private static XStream xstream = new XStream(new XppDriver());
+//    private static XStream xstream = new XStream(new XppDriver());
 
 
     /**
@@ -29,39 +30,120 @@ public class Test {
     }
 
 
-    public static void main(String[] args) throws InterruptedException {
-
-        List<String> list = new ArrayList<>();
-        list.add("a");
-        list.add("b");
-        list.add("c");
-        list.add("d");
-        list.add("e");
-        list.add("f");
-        list.add("g");
+    public static void main(String[] args) throws Exception {
 
 
-        List<String> newList = list.stream().map(String::toUpperCase).collect(Collectors.toList());
-        System.out.println(newList);
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", 1);
 
-        String c = list.stream().min(Comparator.comparing(s -> s.charAt(0))).get();
-        System.err.println(c);
+        System.out.println(map.compute("2", Integer::valueOf));
+//        System.out.println(map.computeIfPresent("2", Integer::valueOf));
+
+        System.err.println(map);
+//        List<Person> list = new ArrayList<>();
+//        list.add(new Person(1, "1", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(2, "2", "Moon", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(3, "3", "Mars", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(4, "4", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(5, "5", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(6, "6", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(7, "7", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(8, "8", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(9, "9", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//        list.add(new Person(10, "10", "Earth", ThreadLocalRandom.current().nextInt(10)));
+//
+//        Map<Integer, List<String>> map = list.stream().collect(
+//                Collectors.groupingBy(Person::getAge, Collectors.mapping(Person::getName, Collectors.toList()))
+//        );
+//
+//        System.out.println(map);
+//
+//
+//        String names = list.stream().map(Person::getName).collect(Collectors.joining(","));
+//        System.out.println(names);
 
 
 //        hello("This is zsw speaking! Who is that?", Test::callback);
 
 
-//        System.out.println("1‬".length()); 不可见字符
-//        System.out.println("1".length());
+    }
 
-//        System.err.println((int)("1‬".charAt(1)));
-//
-//        char hide = (char) 8236;
-//        String str = "1" + String.valueOf(hide);
-//        System.out.println(str);
-//        System.out.println(str.length());
+    public static <I, O> List<O> map(Stream<I> stream, Function<I, O> mapper) {
+        return stream.reduce(new ArrayList<O>(), (acc, x) -> {
+            // We are copying data from acc to new list instance. It is very inefficient,
+            // but contract of Stream.reduce method requires that accumulator function does
+            // not mutate its arguments.
+            // Stream.collect method could be used to implement more efficient mutable reduction,
+            // but this exercise asks to use reduce method.
+            List<O> newAcc = new ArrayList<>(acc);
+            newAcc.add(mapper.apply(x));
+            return newAcc;
+        }, (List<O> left, List<O> right) -> {
+            // We are copying left to new list to avoid mutating it.
+            List<O> newLeft = new ArrayList<>(left);
+            newLeft.addAll(right);
+            return newLeft;
+        });
+    }
 
 
+    private static int addUp(Stream<Integer> numbers) {
+        return numbers.reduce(0, Integer::sum);
+    }
+
+    /**
+     * 线程屏障
+     */
+    private static void cyclic() throws Exception {
+
+        long timer = System.currentTimeMillis();
+
+        AtomicLong counter = new AtomicLong();
+
+        CyclicBarrier start = new CyclicBarrier(5001);
+        CyclicBarrier after = new CyclicBarrier(5001);
+
+        for (int i = 0; i < 5000; i++) {
+            Thread thread = new Thread(() -> {
+                try {
+                    start.await();
+                    for (int j = 0; j < 100; j++) {
+                        counter.incrementAndGet();
+                    }
+                    after.await();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            thread.setDaemon(true);
+            thread.start();
+        }
+        start.await();
+        after.await();
+        System.out.println(counter.get());
+        System.err.println(System.currentTimeMillis() - timer);
+    }
+
+
+    private static void unSee() {
+        System.out.println("1‬".length()); //不可见字符
+        System.out.println("1".length());
+
+        System.err.println((int) ("1‬".charAt(1)));
+
+        char hide = (char) 8236;
+        String str = "1" + String.valueOf(hide);
+        System.out.println(str);
+        System.out.println(str.length());
+    }
+
+    private static boolean t() {
+        System.out.println(1);
+        return true;
+    }
+
+    static Integer sum(Stream<Integer> stream) {
+        return stream.mapToInt(num -> num).sum();
     }
 
 
@@ -74,96 +156,14 @@ public class Test {
         System.out.println(str);
     }
 
-    abstract static class Dto {
+    abstract static interface Dto {
 
 
-        abstract void fun(String string);
-
-
+        void fun(String string);
 
 
     }
 
-    static class Person {
-
-        private Integer id;
-
-        private String name;
-
-        private String address;
-
-        private Integer age;
-
-        private List<String> roles;
-
-        /**  */
-        public Integer getId() {
-            return id;
-        }
-
-        /**  */
-        public void setId(Integer id) {
-            this.id = id;
-        }
-
-        /**  */
-        public String getName() {
-            return name;
-        }
-
-        /**  */
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        /**  */
-        public String getAddress() {
-            return address;
-        }
-
-        /**  */
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        /**  */
-        public Integer getAge() {
-            return age;
-        }
-
-        /**  */
-        public void setAge(Integer age) {
-            this.age = age;
-        }
-
-        public Person(Integer id, String name, String address, Integer age) {
-            this.id = id;
-            this.name = name;
-            this.address = address;
-            this.age = age;
-        }
-
-        /**  */
-        public List<String> getRoles() {
-            return roles;
-        }
-
-        /**  */
-        public void setRoles(List<String> roles) {
-            this.roles = roles;
-        }
-
-        @Override
-        public String toString() {
-            return "Person{" +
-                    "id=" + id +
-                    ", name='" + name + '\'' +
-                    ", address='" + address + '\'' +
-                    ", age=" + age +
-                    ", roles=" + roles +
-                    '}';
-        }
-    }
 
     static class Home {
         private Person person;

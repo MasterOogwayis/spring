@@ -23,6 +23,9 @@
         <module>base-rabbitmq</module>
         <module>base-cache-lock</module>
         <module>base-ui</module>
+        <module>login-ui</module>
+        <module>base-admin-client</module>
+        <module>base-hystrix-dashborad</module>
     </modules>
 
 
