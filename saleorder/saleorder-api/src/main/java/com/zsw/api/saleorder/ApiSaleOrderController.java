@@ -1,6 +1,7 @@
 package com.zsw.api.saleorder;
 
 import com.zsw.base.api.commons.BaseApiController;
+import com.zsw.base.utils.SpringContextUtils;
 import com.zsw.client.base.saleorder.ProductDto;
 import com.zsw.client.base.saleorder.SaleOrderBaseClient;
 import com.zsw.client.base.saleorder.SaleOrderDto;
@@ -48,7 +49,12 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
      */
     @GetMapping("get")
     public SaleOrderDto get(@RequestParam final Long id) {
-        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
+
+        SaleOrderService service = SpringContextUtils.getBean("saleOrderService", SaleOrderService.class);
+
+
+
+        SaleOrder saleOrder = service.getSaleOrder(id);
         SaleOrderDto saleOrderDto = new SaleOrderDto();
         BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
         ProductDto productDto = new ProductDto();

@@ -1,5 +1,6 @@
 package com.zsw.base.redis.service;
 
+import com.zsw.base.redis.annotation.CacheLock;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -38,6 +39,7 @@ public class ExampleService {
      *
      * @param ex
      */
+    @CacheLock(value = "asd", key = "#ex.getId()")
     @CacheEvict(value = "proxy", key = "'Ex' + #ex.getId()", condition = "#ex != null")
     public void delete(Ex ex){
 

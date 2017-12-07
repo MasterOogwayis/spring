@@ -122,9 +122,12 @@ eureka:
 logging:
   level: debug
 
-#management:
-#  security:
-#    enabled: false
+management:
+  security:
+    enabled: false
+  health:
+    redis:
+      enabled: true
 
 security:
   user:

@@ -22,6 +22,7 @@
         <module>turbine-server</module>
         <module>other-server</module>
         <module>dashboard</module>
+        <module>base-server</module>
     </modules>
 
 </project>

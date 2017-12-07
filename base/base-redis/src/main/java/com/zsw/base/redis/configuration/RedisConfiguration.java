@@ -150,7 +150,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     public KeyGenerator keyGenerator() {
         return (target, method, objects) -> {
             StringBuilder sb = new StringBuilder();
-            sb.append(target.getClass().getName()).append("::").append(method.getName()).append(":");
+            sb.append(target.getClass().getName()).append(":").append(method.getName()).append(":");
             for (Object obj : objects) {
                 sb.append(obj.toString());
             }

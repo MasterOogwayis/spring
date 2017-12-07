@@ -1,7 +1,5 @@
 package com.zsw.service.saleorder;
 
-import com.zsw.base.cache.annotation.CacheLock;
-import com.zsw.base.cache.annotation.CustomCacheable;
 import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import com.zsw.base.service.BaseService;
 import com.zsw.persistence.bean.Product;
@@ -22,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author ZhangShaowei on 2017/10/12 15:15
  */
-@Service
+@Service("saleOrderService")
 @Transactional(rollbackFor = Exception.class)
 public class SaleOrderService extends BaseService {
 

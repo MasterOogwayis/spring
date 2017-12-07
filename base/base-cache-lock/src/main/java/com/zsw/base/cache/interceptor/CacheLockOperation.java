@@ -1,6 +1,7 @@
 package com.zsw.base.cache.interceptor;
 
 
+import com.zsw.base.cache.annotation.CustomCacheable;
 import org.springframework.cache.interceptor.CacheOperation;
 
 /**
