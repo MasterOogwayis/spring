@@ -18,4 +18,18 @@ eureka:
 
 zuul:
   routes:
-    file-upload: /file/**
+    api-server: /saleorder/**
+#  ribbon-isolation-strategy: semaphore
+#  semaphore:
+#    # 当Zuul的隔离策略为SEMAPHORE时： 设置默认最大信号量
+#    max-semaphores: 100
+#  host:
+#    max-total-connections: 200
+#    max-per-route-connections: 20
+
+management:
+  security:
+    enabled: false
+
+
+

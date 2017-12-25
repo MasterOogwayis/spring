@@ -1,18 +1,23 @@
 ##服务器端口
 server:
-  port: 3337
+#  port: 3337
   tomcat:
     port-header: PUT,DELETE,OPTIONS,GET,POST
 
 ##微服务名
 spring:
-  rabbitmq:
-    username: guest
-    password: guest
   application:
-    name: mq
-#    host: localhost
-#    port: 5672
+    name: base-server
+  redis:
+    host: localhost
+    port: 6379
+    password: 111111
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 1
+    timeout: 0
 
 ##服务发现地址
 eureka:
@@ -27,9 +32,19 @@ zsw:
   base:
     mq:
       queue: spring-boot
-
+    redis:
+      configuration:
+        expires:
+          list: 1800
+          proxy: 900
+          users: 1800
+          customers: 1800
+management:
+  security:
+    enabled: false
 
 info:
   version: @project.version@
+  name: ${spring.application.name}
 
 

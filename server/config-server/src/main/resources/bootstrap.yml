@@ -4,15 +4,24 @@ server:
 spring:
   application:
     name: config-server
+  profiles:
+    active: native
   cloud:
     config:
       server:
-        git:
-          #uri: https://github.com/499504777/spring/config/
-          uri: git@gitee.com:shaoweizhang/spring-cloud-learning.git
-          search-paths: config-repo
-          clone-on-start: true
-      label: master
+        native:
+          search-locations: classpath:repo/
+          add-label-locations: false
+          #, file:D:\config
+#        git:
+#          uri: https://github.com/4*******7/spring/config/
+#          uri: git@gitee.com:******/spring-cloud-config.git
+#          search-paths: config-repo
+#          clone-on-start: true
+#          uri: https://gitee.com/shaoweizhang/spring-cloud-learning.git
+#          username: 499504777@qq.com
+#          password: z1989s07w29
+#      label: master
 
 
 eureka:
@@ -22,3 +31,10 @@ eureka:
     eureka-server-port: 1111
   instance:
     hostname: localhost
+
+management:
+  security:
+    enabled: false
+
+project:
+  version: @project.version@

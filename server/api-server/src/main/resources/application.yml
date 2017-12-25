@@ -4,6 +4,8 @@ server:
   tomcat:
     port-header: PUT,DELETE,OPTIONS,GET,POST
 
+
+
 ##微服务名
 spring:
 #  devtools:
@@ -16,11 +18,11 @@ spring:
       failOnEmptyBeans: false
   application:
     name: api-server
-  zipkin:
-    base-url: http://localhost:8080
-  sleuth:
-    sampler:
-      percentage: 1
+#  zipkin:
+#    base-url: http://localhost:8080
+#  sleuth:
+#    sampler:
+#      percentage: 1
   datasource:
     url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
 #    type: com.alibaba.druid.pool.DruidDataSource
@@ -116,8 +118,11 @@ eureka:
     serviceUrl:
       defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
     eureka-server-port: 1111
+    disable-delta: true
   instance:
     hostname: localhost
+    prefer-ip-address: true
+    ip-address: localhost
 
 logging:
   level: debug
@@ -125,9 +130,9 @@ logging:
 management:
   security:
     enabled: false
-  health:
-    redis:
-      enabled: true
+#  health:
+#    redis:
+#      enabled: true
 
 security:
   user:

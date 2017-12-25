@@ -7,6 +7,8 @@ spring:
   rabbitmq:
     username: guest
     password: guest
+  datasource:
+    password:
 
 ##服务发现地址
 eureka:
@@ -16,6 +18,7 @@ eureka:
     eureka-server-port: 1111
   instance:
     hostname: localhost
+
 
 
 management:

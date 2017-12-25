@@ -1,14 +1,193 @@
 server:
   port: 1111 #${SERVER_PORT}
+
+spring:
+  application:
+    name: Eureka
+
 eureka:
-  instance:
-    hostname: localhost
-    prefer-ip-address: true
+#  dashboard:
+    # 是否开启 eureka 监控
+#    enabled: true
+    # 监控 root path
+#    path: /monitor
+#  instance:
+#    # 服务名，默认取 spring.application.name 配置值，如果没有则为 unknown
+#    appname: Eureka
+#    hostname: localhost
+#    host-info:
+#    a-s-g-name:
+#    app-group-name:
+#    # 在eureka 上地址显示为 ip地址 而不是 主机名称
+#    prefer-ip-address: true
+#    ip-address:
+#    # 客户端 heartbeats
+#    # 如果该instance实现了HealthCheckCallback，并决定让自己unavailable的话，则该instance也不会接收到流量 --- 热部署?
+#    lease-renewal-interval-in-seconds: 30
+#    # 客户端 heartbeats 有效期 默认 90s --- 上次收到心跳 90s 后还未收到下一次心跳 则移除该instance
+#    # 如果值太大，则很可能将流量转发过去的时候，该 instance 已经挂了
+#    # 如果值太小，则很可能因为网络波动被eureka kill
+#    # 该值 最少应该大于 心跳频率lease-renewal-interval-in-seconds
+#    lease-expiration-duration-in-seconds: 90
+#    # 状态页面的URL，相对路径，默认使用 HTTP 访问，如果需要使用 HTTPS则需要使用绝对路径配置
+#    status-page-url-path: /info
+#    # 状态页面的URL，绝对路径
+#    status-page-url:
+#    # 健康检查页面的URL，相对路径，默认使用 HTTP 访问，如果需要使用 HTTPS则需要使用绝对路径配置
+#    health-check-url-path: /health
+#    # 健康检查页面的URL，绝对路径
+#    health-check-url:
+#    data-center-info:
+#    default-address-resolution-order:
+#    environment:
+#    home-page-url:
+#    home-page-url-path: /
+#    inet-utils:
+#    initial-status: up
+#    instance-enabled-onit: false
+#    instance-id:
+#    metadata-map:
+#    namespace: eureka
+#    non-secure-port: 80
+#    non-secure-port-enabled: true
+#    secure-health-check-url:
+#    secure-port:
+#    secure-port-enabled: false
+#    secure-virtual-host-name: unknown
+#    virtual-host-name: unknown
   client:
+    # 是否将  自身作为应用注册到eureka注册中心
     registerWithEureka: false
+    # 这是其他服务注册地址
+    # 指定服务注册中心地址，类型为 HashMap，并设置有一组默认值，默认的Key为 defaultZone
+    # 默认的Value为 http://localhost:8761/eureka ，如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔。
+    # 如果服务注册中心加入了安全验证，这里配置的地址格式为： http://<username>:<password>@localhost:8761/eureka
+    # 其中 <username> 为安全校验的用户名；<password> 为该用户的密码
+#    serviceUrl:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    # 这是 eureka 集群同步数据 为true时，可以启动，但报异常：Cannot execute request on any known server
     fetchRegistry: false
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-#  server:
-    #此配置建议只试用开发和测试环境 驱逐下线的服务，间隔,5秒，默认是60
-#    eviction-interval-timer-in-ms: 5000
+    # 表示 client 间隔多久去拉取服务注册信息 默认 30s
+    # 对于 api-gateway，如果要迅速获取服务注册状态 可以适当缩小该值
+#    registry-fetch-interval-seconds: 30
+#    allow-redirects: false
+#    availability-zones:
+#    backup-registry-impl:
+#    cache-refresh-executor-exponential-back-off-bound: 10
+#    cache-refresh-executor-thread-pool-size: 2
+#    client-data-accept:
+#    decoder-name:
+#    encoder-name:
+#    disable-delta: false
+#    dollar-replacement: _-
+#    enabled: true
+#    escape-char-replacement: __
+#    # Eureka 服务连接空闲关闭时间
+#    eureka-connection-idle-timeout-seconds: 30
+#    # 连接 eureka server 超时时间
+#    eureka-server-connect-timeout-seconds: 5
+#    # 读取 eureka server 信息超时时间
+#    eureka-server-read-timeout-seconds: 8
+#    eureka-server-d-n-s-name:
+#    eureka-server-port:
+#    # 从 Eureka 客户端到所有 Eureka 服务端的连接总数
+#    eureka-server-total-connections: 200
+#    # 从 Eureka 客户端到每个 Eureka 服务端的连接数
+#    eureka-server-total-connections-per-host: 50
+#    eureka-server-u-r-l-context:
+#    eureka-service-url-poll-interval-seconds: 0
+#    fetch-remote-regions-registry:
+#    # 过滤获取到的实例 只保留 UP 状态的实例
+#    filter-only-up-instances: true
+#    g-zip-content: true
+#    heartbeat-executor-exponential-back-off-bound: 10
+#    heartbeat-executor-thread-pool-size: 2
+#    initial-instance-info-replication-interval-seconds: 40
+#    instance-info-replication-interval-seconds: 30
+#    log-delta-diff: false
+#    on-demand-update-status-change: true
+#    prefer-same-zone-eureka: true
+#    property-resolver:
+#    proxy-host:
+#    proxy-port:
+#    proxy-user-name:
+#    proxy-password:
+#    region: us-east-1
+#    registry-refresh-single-vip-address:
+#    use-dns-for-fetching-service-urls: false
+
+  server:
+#    a-s-g-cache-expiry-timeout-ms: 0
+#    a-s-g-query-timeout-ms: 300
+#    a-s-g-update-interval-ms: 0
+#    a-w-s-access-id:
+#    a-w-s-secret-key:
+#    batch-replication: false
+#    binding-strategy: eip
+#    delta-retention-timer-interval-in-ms: 0
+#    disable-delta: false
+#    disable-delta-for-remote-regions: false
+#    disable-transparent-fallback-to-other-region: false
+#    e-i-p-bind-rebind-retries: 3
+#    e-i-p-binding-retry-interval-ms: 0
+#    e-i-p-binding-retry-interval-ms-when-unbound: 0
+#    enable-replicated-request-compression: false
+    # 自我保护 - 短时间丢失过多客户端多(网络波动等原因) 则 eureka进入自我保护模式 不移除任何服务 增强系统健壮性、稳定性
+    # 故障恢复时 会自动退出保护模式
+    enable-self-preservation: false # default true
+    # 清理间隔 单位ms 默认 60 * 1000  测试 or 开发可适当调短
+#    eviction-interval-timer-in-ms: 60000
+#    g-zip-content-from-remote-region: true
+#    json-codec-name:
+#    list-auto-scaling-groups-role-name:
+#    log-identity-headers: true
+#    max-elements-in-peer-replication-pool: 10000
+#    max-idle-thread-age-in-minutes-for-peer-replication: 15
+#    max-idle-thread-in-minutes-age-for-status-replication: 10
+#    max-threads-for-peer-replication: 20
+#    max-threads-for-status-replication: 1
+#    max-time-for-replication: 30000
+#    min-available-instances-for-peer-replication: -1
+#    min-threads-for-peer-replication: 5
+#    min-threads-for-status-replication: 1
+#    number-of-replication-retries: 5
+#    peer-eureka-nodes-update-interval-ms: 0
+#    peer-eureka-status-refresh-time-interval-ms: 0
+#    peer-node-connect-timeout-ms: 200
+#    peer-node-connection-idle-timeout-seconds: 30
+#    peer-node-read-timeout-ms: 200
+#    peer-node-total-connections: 1000
+#    peer-node-total-connections-per-host: 500
+#    prime-aws-replica-connections: true
+#    property-resolver:
+#    rate-limiter-burst-size: 10
+#    rate-limiter-enabled: false
+#    rate-limiter-full-fetch-average-rate: 100
+#    rate-limiter-privileged-clients:
+#    rate-limiter-registry-fetch-average-rate: 500
+#    rate-limiter-throttle-standard-clients: false
+#    registry-sync-retries: 0
+#    registry-sync-retry-wait-ms: 0
+#    remote-region-app-whitelist:
+#    remote-region-connect-timeout-ms: 1000
+#    remote-region-connection-idle-timeout-seconds: 30
+#    remote-region-fetch-thread-pool-size: 20
+#    remote-region-read-timeout-ms: 1000
+#    remote-region-registry-fetch-interval: 30
+#    remote-region-total-connections: 1000
+#    remote-region-total-connections-per-host: 500
+#    remote-region-trust-store:
+#    remote-region-trust-store-password: changeit
+#    remote-region-urls:
+#    remote-region-urls-with-name:
+#    renewal-percent-threshold: 0.85
+#    response-cache-auto-expiration-in-seconds: 180
+#    response-cache-update-interval-ms: 0
+#    retention-time-in-m-s-in-delta-queue: 0
+#    route53-bind-rebind-retries: 3
+#    route53-binding-retry-interval-ms: 0
+#    route53-domain-t-t-l: 30
+#    sync-when-timestamp-differs: true
+#    use-read-only-response-cache: true
+#    wait-time-in-ms-when-sync-empty: 0
+#    xml-codec-name:

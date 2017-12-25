@@ -10,7 +10,6 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.util.CollectionUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.io.Writer;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 描    述	:微信消息工具类
+ * 描    述:微信消息工具类
  *
  * @author : zhangshaowei
  * @version : v1.0
@@ -83,10 +82,10 @@ public class XmlUtils {
      * xml数据流解析
      *
      * @param inputStream 输入流
+     * @return Map
      * @throws Exception e
      * @author : zhangshaowei
      * @since : v1.0
-     * @return Map
      */
     @SuppressWarnings("unchecked")
     public static Map<String, String> parseXml(InputStream inputStream) throws Exception {

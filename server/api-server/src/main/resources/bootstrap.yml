@@ -1,5 +1,7 @@
 
 spring:
+  application:
+    name: XXX
   cloud:
     config:
       discovery:
@@ -7,6 +9,8 @@ spring:
         service-id: config-server
       label: master
       profile: dev
+      failFast: true
+      name: api*,
 
 eureka:
   client:
@@ -15,3 +19,5 @@ eureka:
     eureka-server-port: 1111
   instance:
     hostname: localhost
+    prefer-ip-address: true
+    ip-address: localhost

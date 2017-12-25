@@ -29,6 +29,9 @@
         <module>security</module>
         <module>product</module>
         <module>saleorder</module>
+        <module>test</module>
+        <module>app-ui</module>
+        <module>app-ui</module>
     </modules>
 
     <properties>
