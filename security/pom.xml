@@ -16,6 +16,8 @@
         <module>security-service</module>
         <module>security-api</module>
         <module>security-controller</module>
+        <module>security-client</module>
+        <module>security-base-client</module>
     </modules>
 
 

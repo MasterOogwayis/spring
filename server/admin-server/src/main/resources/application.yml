@@ -10,7 +10,7 @@ spring:
     admin:
       routes:
         endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,hystrix.stream,activiti
-      username: ${security.user.name}       #These two are needed so that the client
+      username: ${security.user.name}       #These two are needed so that the conf
       password: ${security.user.password}   #can register at the protected server api
       client:
         metadata:

@@ -23,6 +23,7 @@
         <module>other-server</module>
         <module>dashboard</module>
         <module>base-server</module>
+        <module>oauth2-server</module>
     </modules>
 
 </project>

@@ -1,7 +1,7 @@
 package com;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.zsw.client.base.saleorder.SaleOrderDto;
+import com.zsw.conf.base.saleorder.SaleOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

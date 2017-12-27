@@ -1,6 +1,5 @@
 package com.zsw.base.utils;
 
-import com.zsw.base.constant.BaseConstant;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
@@ -30,7 +29,7 @@ public class JacksonSerializer {
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true); //允许没有双引号
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true); //允许转义字符
         mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true); //允许单引号
-        mapper.setDateFormat(new SimpleDateFormat(BaseConstant.TIMESTAMP_FORMAT));
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
     }
 
     /**

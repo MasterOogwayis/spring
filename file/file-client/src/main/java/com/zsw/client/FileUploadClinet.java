@@ -1,4 +1,4 @@
-package com.zsw.client;
+package com.zsw.conf;
 /**
  * @author ZhangShaowei on 2017/6/13 14:43
  */

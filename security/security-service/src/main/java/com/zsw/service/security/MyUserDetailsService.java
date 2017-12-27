@@ -1,8 +1,10 @@
 package com.zsw.service.security;
 
 import com.zsw.persistence.bean.User;
+import com.zsw.persistence.bean.UserRole;
 import com.zsw.service.userrole.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,8 +12,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:13
@@ -39,9 +42,13 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
 
+        List<GrantedAuthority> auths =
+                user.getRoles().stream()
+                        .map(UserRole::getMark).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+
         return new org.springframework.security.core.userdetails.User(
                 username, user.getPassword(), true,
                 true, true, true,
-                Collections.singleton(new SimpleGrantedAuthority("/customer/get")));
+                auths);
     }
 }

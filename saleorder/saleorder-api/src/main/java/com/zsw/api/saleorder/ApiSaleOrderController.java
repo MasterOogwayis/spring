@@ -2,9 +2,9 @@ package com.zsw.api.saleorder;
 
 import com.zsw.base.api.commons.BaseApiController;
 import com.zsw.base.utils.SpringContextUtils;
-import com.zsw.client.base.saleorder.ProductDto;
-import com.zsw.client.base.saleorder.SaleOrderBaseClient;
-import com.zsw.client.base.saleorder.SaleOrderDto;
+import com.zsw.conf.base.saleorder.ProductDto;
+import com.zsw.conf.base.saleorder.SaleOrderBaseClient;
+import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.bean.SaleOrder;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.BeanUtils;

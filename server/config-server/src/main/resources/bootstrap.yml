@@ -36,5 +36,5 @@ management:
   security:
     enabled: false
 
-project:
-  version: @project.version@
+#info:
+#  version: @project.version@

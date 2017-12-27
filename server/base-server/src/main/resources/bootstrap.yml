@@ -1,23 +1,25 @@
-spring:
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
-#      label: master
-      profile: dev,test
-      fail-fast: true
-#      name: base-server
-
-endpoints:
-  refresh:
-    enabled: true
-    sensitive: false
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
-    eureka-server-port: 1111
-  instance:
-    hostname: localhost
+#spring:
+#  application:
+#    name: base-server
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+##      label: master
+#      profile: dev,test
+#      fail-fast: true
+#      name: ${spring.application.name},mysql
+#
+#endpoints:
+#  refresh:
+#    enabled: true
+#    sensitive: false
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
+#    eureka-server-port: 1111
+#  instance:
+#    hostname: localhost

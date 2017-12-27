@@ -1,6 +1,6 @@
 package com.zsw.web;
 
-import com.zsw.client.FileUploadClinet;
+import com.zsw.conf.FileUploadClinet;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;

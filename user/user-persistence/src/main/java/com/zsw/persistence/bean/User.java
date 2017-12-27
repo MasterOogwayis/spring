@@ -3,9 +3,8 @@ package com.zsw.persistence.bean;
 
 import com.zsw.base.bean.commons.BaseBean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author ZhangShaowei on 2017/9/12 13:35
@@ -29,6 +28,13 @@ public class User extends BaseBean {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
+
+    /**
+     *
+     */
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<UserRole> roles;
+
     /**  */
     public String getUsername() {
         return username;
@@ -47,5 +53,15 @@ public class User extends BaseBean {
     /**  */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**  */
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    /**  */
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 }

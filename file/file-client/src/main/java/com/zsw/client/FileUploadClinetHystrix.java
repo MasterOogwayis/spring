@@ -1,4 +1,4 @@
-package com.zsw.client;
+package com.zsw.conf;
 
 import org.springframework.web.multipart.MultipartFile;
 

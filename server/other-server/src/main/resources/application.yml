@@ -1,53 +1,20 @@
-##服务器端口
 server:
-  port: 3336
-  tomcat:
-    port-header: PUT,DELETE,OPTIONS,GET,POST
+  port: 80
 
-##微服务名
-spring:
-  application:
-    name: other-server
-  rabbitmq:
-#    host: localhost default
-#    port: 5672      default
-    username: guest
-    password: guest
-
-##服务发现地址
-eureka:
-  client:
-    serviceUrl:
-      defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
-    eureka-server-port: 1111
-  instance:
-    hostname: localhost
-
-feign:
-  httpClient:
-    enable: false
-    max-connections: 200
-    # 默认值
-  hystrix:
-    enabled: true
-
-com:
-  zsw:
-    servername:
-      saleorder: api-server
-
-logging:
-  level: debug
-
-management:
-  security:
-    enabled: false
 
 security:
-  basic:
-    enabled: false
-
-info:
-  version: @project.version@
-
-
+  user:
+    password: 111111
+  ignored: /
+  sessions: never
+  oauth2:
+    sso:
+      login-path: /login
+    client:
+      client-id: 2a1b448f53f7b4ee1bc5
+      client-secret: 9ac0814f8f098395033d99031620c13d6279bad8
+      accessTokenUri: https://github.com/login/oauth/access_token
+      userAuthorizationUri: https://github.com/login/oauth/authorize
+    resource:
+      userInfoUri: https://api.github.com/user
+      preferTokenInfo: false
