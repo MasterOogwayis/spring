@@ -54,9 +54,14 @@ public class FormConverter {
         Enumeration<?> enu = request.getParameterNames();
         while (enu.hasMoreElements()) {
             String key = enu.nextElement().toString();
-            if ("".equals(key)) continue;
+            if ("".equals(key)) {
+                continue;
+            }
 
-            if ("_method".equals(key)) continue; // 排除spring restful 使用的_method
+            if ("_method".equals(key)) {
+                // 排除spring restful 使用的_method
+                continue;
+            }
 
             String key1 = "get" + key.replaceFirst(key.substring(0, 1), key.substring(0, 1).toUpperCase());
             String key2 = "is" + key.replaceFirst(key.substring(0, 1), key.substring(0, 1).toUpperCase());
@@ -76,7 +81,7 @@ public class FormConverter {
                                     .map(String::trim).collect(Collectors.toList());
                     map.put(key, newValues);
                 } else {
-                    map.put(key, values[0].equals("") ? null : values[0].trim());
+                    map.put(key, "".equals(values[0]) ? null : values[0].trim());
                 }
             } catch (SecurityException e) {
                 log.warn("获取 " + clazz.getName() + " 类的 " + key + " 属性出现[" + e.toString() + "]异常");

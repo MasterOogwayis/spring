@@ -1,19 +1,18 @@
 package com;
 
+
+import com.google.common.base.Function;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import org.apache.commons.lang3.concurrent.ConcurrentException;
 import org.springframework.util.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -42,7 +41,19 @@ public class Test {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+
+        System.err.println(StringUtils.toLanguageTag(Locale.CHINA));
+
+//        throw new ConcurrentException("Waiting timeout!", new Exception());
+
+//        Set<String> set = Sets.newHashSet(Arrays.asList("1", "2", "3", "4"));
+//
+//
+//        Map<String, String> map = Maps.asMap(set, str -> str);
+//
+//        System.out.println(map);
+
 
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //
@@ -121,13 +132,13 @@ public class Test {
 //
 //        System.out.println(last.getDayOfMonth());
 
-//        User user = new User();
+//        user user = new user();
 //
-//        Optional<User> optional = Optional.ofNullable(user);
+//        Optional<user> optional = Optional.ofNullable(user);
 //
 //
 //
-//        Optional.ofNullable(user).map(User::getAddress)
+//        Optional.ofNullable(user).map(user::getAddress)
 //                .map(Address::getProvince)
 //                .map(Province::getCity)
 //                .map(City::getRegion)
@@ -169,7 +180,6 @@ public class Test {
 
 
     }
-
 
 
     public static <I, O> List<O> map(Stream<I> stream, Function<I, O> mapper) {

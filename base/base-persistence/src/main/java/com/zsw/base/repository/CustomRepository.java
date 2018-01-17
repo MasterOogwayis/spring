@@ -22,16 +22,26 @@ public interface CustomRepository<T> {
     void delete(T entity);
 
     /**
+     * 删除所有
+     *
      * @param entities List<T>
      */
     void deleteAll(Collection<T> entities);
 
     /**
+     * getOne
+     *
      * @param id Long
      * @return T
      */
     T get(Long id);
 
+    /**
+     * findOne
+     *
+     * @param id
+     * @return
+     */
     T findOne(Long id);
 
     /**

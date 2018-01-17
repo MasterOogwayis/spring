@@ -116,6 +116,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
      * @return RedisCacheManager 配置
      */
     @Bean
+    @Override
     public CacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate());
 //        redisCacheManager.setTransactionAware(false);操作缓存不开启事物 or 不能及时得到缓存数据反馈

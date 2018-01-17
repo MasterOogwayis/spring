@@ -32,7 +32,7 @@ public class HelloWorldController {
 
     /**
      * @param name name
-     * @return User
+     * @return user
      */
     @PostMapping("/user/get")
     public User get(@RequestParam final String name) {
@@ -42,12 +42,12 @@ public class HelloWorldController {
 
     /**
      * @param id id
-     * @return User
+     * @return user
      */
     @PostMapping("/{id}")
     public User getById(@PathVariable final Long id) {
-        User user = this.userRepository.findOne(id);
-        return user;
+//        user user = this.userRepository.findOne(id);
+        return null;
     }
 
     /**

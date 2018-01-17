@@ -1,10 +1,17 @@
 server:
   port: 80
+  ssl:
+    enabled: false
+#  context-path: /client
+#  session:
+#    cookie:
+#      name: OTHERSESSIONID
+
 
 
 security:
-  user:
-    password: 111111
+#  user:
+#    password: 111111
   ignored: /
   sessions: never
   oauth2:
@@ -13,8 +20,25 @@ security:
     client:
       client-id: 2a1b448f53f7b4ee1bc5
       client-secret: 9ac0814f8f098395033d99031620c13d6279bad8
-      accessTokenUri: https://github.com/login/oauth/access_token
-      userAuthorizationUri: https://github.com/login/oauth/authorize
+      accessTokenUri: http://192.168.1.223:1110/oauth/token
+      userAuthorizationUri: http://192.168.1.223:1110/oauth/authorize
+#      accessTokenUri: https://github.com/login/oauth/access_token
+#      userAuthorizationUri: https://github.com/login/oauth/authorize
+      scope: scope
+#      authentication-scheme: form
+#      client-authentication-scheme: form
     resource:
-      userInfoUri: https://api.github.com/user
+#      userInfoUri: https://api.github.com/user
       preferTokenInfo: false
+      jwt:
+        key-uri: http://192.168.1.223:1110/oauth/token_key
+debug: true
+
+#logging:
+#  level: debug
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+

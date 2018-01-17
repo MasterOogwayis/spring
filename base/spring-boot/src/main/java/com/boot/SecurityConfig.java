@@ -1,8 +1,7 @@
 package com.boot;
 
-import com.boot.service.User.UserService;
+import com.boot.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author ZhangShaowei on 2017/4/24 15:41

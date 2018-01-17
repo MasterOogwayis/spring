@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Table;
 
 /**
- * User Repository
+ * user Repository
  *
  * @author ZhangShaowei on 2017/4/24 14:44
  **/
@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param name name
      * @return
      */
-    @Query("from User u where u.name = :name")
+    @Query("from user u where u.name = :name")
     User findByName(@Param("name") String name);
 
 }

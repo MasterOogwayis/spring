@@ -1,0 +1,33 @@
+
+spring:
+  application:
+    name: api-gateway
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 1111
+  instance:
+    hostname: localhost
+
+
+zuul:
+  routes:
+    api-server: /saleorder/**
+    base-server: /index/**
+#  ribbon-isolation-strategy: semaphore
+#  semaphore:
+#    # 当Zuul的隔离策略为SEMAPHORE时： 设置默认最大信号量
+#    max-semaphores: 100
+#  host:
+#    max-total-connections: 200
+#    max-per-route-connections: 20
+
+management:
+  security:
+    enabled: false
+
+
+

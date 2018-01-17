@@ -29,16 +29,19 @@ public class XmlUtils {
      * 扩展xstream，使其支持CDATA块
      */
     private static XStream xstream = new XStream(new XppDriver() {
+        @Override
         public HierarchicalStreamWriter createWriter(Writer out) {
             return new PrettyPrintWriter(out) {
                 // 对所有xml节点的转换都增加CDATA标记
                 boolean cdata = true;
 
+                @Override
                 @SuppressWarnings("rawtypes")
                 public void startNode(String name, Class clazz) {
                     super.startNode(name, clazz);
                 }
 
+                @Override
                 protected void writeText(QuickWriter writer, String text) {
                     if (cdata) {
                         writer.write("<![CDATA[");

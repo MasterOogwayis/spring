@@ -6,6 +6,8 @@ spring:
     name: config-server
   profiles:
     active: native
+  config:
+    location:
   cloud:
     config:
       server:

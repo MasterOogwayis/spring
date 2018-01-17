@@ -16,11 +16,11 @@ public class UserRepositoryImpl extends CustomRepositoryImpl<User> implements Us
 
     /**
      * @param username username
-     * @return List<User>
+     * @return List<user>
      */
     @Override
     public List<User> findByName(final String username) {
-        String hql = "from User u where u.username = ?";
+        String hql = "from user u where u.username = ?";
         return this.findByParam(hql, username);
     }
 }

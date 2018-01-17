@@ -127,6 +127,8 @@ eureka:
 logging:
   level: debug
 
+debug: true
+
 management:
   security:
     enabled: false

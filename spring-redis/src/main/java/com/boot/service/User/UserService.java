@@ -1,4 +1,4 @@
-package com.boot.service.User;
+package com.boot.service.user;
 
 import com.boot.persistence.domain.User;
 import com.boot.persistence.repository.UserRepository;
@@ -30,7 +30,7 @@ public class UserService {
 
     /**
      * @param id id
-     * @return User
+     * @return user
      */
     @Cacheable(value = "users", key = "'user:' + #id")
     public User get(final Long id) {

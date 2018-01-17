@@ -24,7 +24,7 @@ public class UserApiController {
 
     /**
      * @param id id
-     * @return User
+     * @return user
      */
     @PostMapping("get")
     public User get(@RequestParam("id") final Long id) {

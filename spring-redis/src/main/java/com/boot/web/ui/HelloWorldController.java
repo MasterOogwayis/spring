@@ -1,7 +1,7 @@
 package com.boot.web.ui;
 
 import com.boot.persistence.domain.User;
-import com.boot.service.User.UserService;
+import com.boot.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +31,7 @@ public class HelloWorldController {
 
     /**
      * @param id id
-     * @return User
+     * @return user
      */
     @PostMapping("/{id}")
 

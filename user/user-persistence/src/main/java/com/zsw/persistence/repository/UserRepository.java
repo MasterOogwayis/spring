@@ -21,9 +21,9 @@ public interface UserRepository extends CustomRepository<User> {
 
     /**
      * @param name name
-     * @return List<User>
+     * @return List<user>
      */
-    @Query("from User u where u.name = :name")
+    @Query("from user u where u.name = :name")
     List<User> findByName(@Param("name") String name);
 
 }

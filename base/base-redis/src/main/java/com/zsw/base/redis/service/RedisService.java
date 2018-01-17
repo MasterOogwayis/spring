@@ -13,6 +13,15 @@ import java.util.concurrent.TimeUnit;
 public class RedisService {
 
     /**
+     *
+     */
+    private static final Long ACCESS_TIMES = 10L;
+    /**
+     *
+     */
+    private static final Long ACCESS_TIME_UNIT = 60L * 1000L;
+
+    /**
      * base cache
      */
     @Autowired
@@ -38,20 +47,19 @@ public class RedisService {
         String key = RedisKeyUtils.getKey(args);
         //现在访问的时间戳
         Long now = System.currentTimeMillis();
-        Long accessTimes = 10L;
-        Long accessTimeUnit = 60L * 1000L;
-        if (this.cache.size(key) >= accessTimes) {
+        if (this.cache.size(key) >= ACCESS_TIMES) {
             Long first = (Long) this.cache.get(key, 0L);
-            access = now - first >= accessTimeUnit;
-            if (access) { //时间间隔大于允许范围 移除第一个 并将当前时间戳插入到队尾
+            // 时间间隔大于允许范围 移除第一个 并将当前时间戳插入到队尾
+            if (access = now - first >= ACCESS_TIME_UNIT) {
                 this.cache.leftPop(key);
                 this.cache.rightPush(key, now);
             }
-        } else { //访问次数未达到指定次数则不验证 ，仅将当前时间戳放入队尾
+        } else {
+            //访问次数未达到指定次数则不验证 ，仅将当前时间戳放入队尾
             this.cache.rightPush(key, now);
         }
         //每次访问都刷新该队列的生存时间
-        this.cache.expire(key, accessTimeUnit, TimeUnit.MILLISECONDS);
+        this.cache.expire(key, ACCESS_TIME_UNIT, TimeUnit.MILLISECONDS);
         return access;
     }
 

@@ -3,7 +3,10 @@ server:
   port: 1110 #${SERVER_PORT}
 #  tomcat:
 #    port-header: PUT,DELETE,OPTIONS,GET,POST
-
+#  context-path: /oauth2
+  session:
+    cookie:
+      name: OAUTH2SESSION
 
 
 ##微服务名
@@ -112,9 +115,20 @@ zsw:
           proxy: 900
           users: 1800
           customers: 1800
+com:
+  zsw:
+    oauth:
+      key-store-file: oauth.jks
+      key-store-pwd: 123456
+      key-pair: oauth2
 
+#logging:
+#  level: debug
 logging:
-  level: debug
+  level:
+    org:
+      springframework:
+        security: DEBUG
 
 management:
   security:
@@ -122,22 +136,4 @@ management:
 
 info:
   version: @project.version@
-
-
-security:
-  user:
-    name: admin
-    password: 111111
-  ignored: /
-  sessions: never
-  oauth2:
-    sso:
-      login-path: /login
-    client:
-      client-id: 2a1b448f53f7b4ee1bc5
-      client-secret: 9ac0814f8f098395033d99031620c13d6279bad8
-      accessTokenUri: https://github.com/login/oauth/access_token
-      userAuthorizationUri: https://github.com/login/oauth/authorize
-    resource:
-      userInfoUri: https://api.github.com/user
-      preferTokenInfo: false
+debug: true

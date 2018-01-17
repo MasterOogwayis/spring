@@ -2,11 +2,13 @@ package com.zsw.service.saleorder;
 
 import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import com.zsw.base.service.BaseService;
+import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.bean.Product;
 import com.zsw.persistence.bean.SaleOrder;
 import com.zsw.persistence.repository.SaleOrderRepository;
 import com.zsw.service.product.ProductService;
 import org.apache.commons.lang.math.RandomUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,16 @@ import java.util.concurrent.TimeUnit;
 @Service("saleOrderService")
 @Transactional(rollbackFor = Exception.class)
 public class SaleOrderService extends BaseService {
+
+    /**
+     *
+     */
+    private static final int TIMEOUT = 2 * 1000;
+
+    /**
+     *
+     */
+    private static final int EXPIRE = 20 * 1000;
 
     /**
      *
@@ -51,34 +63,30 @@ public class SaleOrderService extends BaseService {
 
     /**
      * @param id id
-     * @return
-     */
-    public String test(final Long id) {
-        return "Cachelock";
-    }
-
-    /**
-     * @param id product id
-     */
-    public void concurrent(final Long id) {
-        for (int i = 0; i < 1000; i++) {
-            threadPoolExecutor.execute(() -> {
-                Integer num = 1 + RandomUtils.nextInt(2);
-                this.order(id, num.longValue());
-            });
-        }
-
-
-    }
-
-    /**
-     * @param id id
      * @return SaleOrder
      */
     @Cacheable(value = "list", key = "'saleorder:' + #id")
     public SaleOrder getSaleOrder(final Long id) {
         return this.saleOrderRepository.findOne(id);
     }
+
+
+    /**
+     * @param saleOrderDto
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public SaleOrderDto edit(final SaleOrderDto saleOrderDto) {
+
+        SaleOrder saleOrder = this.saleOrderRepository.findOne(saleOrderDto.getId());
+
+        BeanUtils.copyProperties(saleOrderDto, saleOrder, "id", "product");
+
+        this.saleOrderRepository.saveOrUpdate(saleOrder);
+
+        return saleOrderDto;
+    }
+
 
 
     /**
@@ -90,7 +98,7 @@ public class SaleOrderService extends BaseService {
         String key = "lock";
         String ticket = "ticket_" + id;
         try {
-            if (!this.lock(key, 2 * 1000, 10 * 1000)) {
+            if (!this.lock(key, TIMEOUT, EXPIRE)) {
                 return "Timeout, please try latter";
             }
             long left = this.leftTicket(ticket, id);

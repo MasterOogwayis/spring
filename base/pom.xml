@@ -26,7 +26,6 @@
         <module>login-ui</module>
         <module>base-admin-client</module>
         <module>base-hystrix-dashborad</module>
-        <module>base-async</module>
     </modules>
 
 

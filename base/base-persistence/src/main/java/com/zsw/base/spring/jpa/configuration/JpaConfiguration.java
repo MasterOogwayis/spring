@@ -96,8 +96,14 @@ public class JpaConfiguration {
     @Value("${spring.datasource.keepAlive}")
     private Boolean keepAlive;
 
-    @Bean     //声明其为Bean实例
-    @Primary  //在同样的DataSource中，首先使用被标注的DataSource
+    /**
+     * 声明其为Bean实例
+     * 在同样的DataSource中，首先使用被标注的DataSource
+     *
+     * @return
+     */
+    @Bean
+    @Primary
     public DataSource dataSource() {
         DruidDataSource datasource = new DruidDataSource();
 

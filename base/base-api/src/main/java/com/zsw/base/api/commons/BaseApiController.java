@@ -2,7 +2,6 @@ package com.zsw.base.api.commons;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.zsw.base.api.utils.FormConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,10 +19,6 @@ public class BaseApiController {
      */
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    /**
-     *
-     */
-    protected FormConverter formConverter = new FormConverter();
 
     /**
      *

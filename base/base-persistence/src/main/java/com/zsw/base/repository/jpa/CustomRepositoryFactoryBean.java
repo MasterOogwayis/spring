@@ -31,11 +31,17 @@ public class CustomRepositoryFactoryBean<R extends JpaRepository<T, I>, T, I ext
      * @param entityManager
      * @return
      */
+    @Override
     protected RepositoryFactorySupport createRepositoryFactory(EntityManager entityManager) {
         return new CustomRepositoryFactory(entityManager);
     }
 
-    //创建一个内部类，该类不用在外部访问
+    /**
+     * 创建一个内部类，该类不用在外部访问
+     *
+     * @param <T>
+     * @param <I>
+     */
     private static class CustomRepositoryFactory<T, I extends Serializable>
             extends JpaRepositoryFactory {
 
@@ -51,6 +57,7 @@ public class CustomRepositoryFactoryBean<R extends JpaRepository<T, I>, T, I ext
             return new BaseJpaRepository<T, I>((Class<T>) metadata.getDomainType(), entityManager);
         }
 
+        @Override
         protected Class<?> getRepositoryBaseClass(RepositoryMetadata metadata) {
             return BaseJpaRepository.class;
         }

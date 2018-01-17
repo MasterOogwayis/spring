@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.Table;
 
 /**
- * User Repository
+ * user Repository
  *
  * @author ZhangShaowei on 2017/4/24 14:44
  **/

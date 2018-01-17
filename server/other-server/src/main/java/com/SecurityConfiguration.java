@@ -14,16 +14,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * @param httpSecurity
+     * @param http
+     * @throws Exception
      */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.antMatcher("/***")
+        http //.antMatcher("/***")
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
-                .authorizeRequests().antMatchers("/", "/anon").permitAll()
-                .and()
-                .csrf().disable()
+                .csrf().disable().anonymous().disable()
                 .logout().logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/");
     }

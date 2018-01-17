@@ -1,18 +1,6 @@
-package com.boot.service.User;
+package com.boot.service.user;
 
-import com.boot.persistence.domain.User;
-import com.boot.persistence.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
 
 /**
  * @author ZhangShaowei on 2017/4/25 14:18
@@ -32,7 +20,7 @@ public class UserService { //implements UserDetailsService {
 //     */
 //    @Override
 //    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-//        User user = this.userRepository.findByName(username);
+//        user user = this.userRepository.findByName(username);
 //        return Objects.isNull(user) ? null : new UserInfo(user);
 //    }
 //
@@ -42,7 +30,7 @@ public class UserService { //implements UserDetailsService {
 //        /**
 //         *
 //         */
-//        private User user;
+//        private user user;
 //
 //        @Override
 //        public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -80,19 +68,19 @@ public class UserService { //implements UserDetailsService {
 //        }
 //
 //        /**  */
-//        public User getUser() {
+//        public user getUser() {
 //            return user;
 //        }
 //
 //        /**  */
-//        public void setUser(User user) {
+//        public void setUser(user user) {
 //            this.user = user;
 //        }
 //
 //        /**
 //         * @param user
 //         */
-//        UserInfo(final User user) {
+//        UserInfo(final user user) {
 //            this.user = user;
 //        }
 //    }

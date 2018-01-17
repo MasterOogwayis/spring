@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("saleorder")
 public class ApiSaleOrderController extends BaseApiController implements SaleOrderBaseClient {
 
+
     /**
      *
      */
@@ -26,40 +27,34 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
 
 
     /**
-     * @param id product id
-     * @return
-     */
-    @PostMapping("test")
-    public String test(@RequestParam final Long id) {
-        saleOrderService.concurrent(id);
-        return "success";
-    }
-
-    /**
-     * @return
-     */
-    @PostMapping("cache")
-    public String cachelock() {
-        return this.saleOrderService.test(1L);
-    }
-
-    /**
      * @param id id
      * @return SaleOrder
      */
+    @Override
     @GetMapping("get")
     public SaleOrderDto get(@RequestParam final Long id) {
 
-        SaleOrderService service = SpringContextUtils.getBean("saleOrderService", SaleOrderService.class);
-
-
-
-        SaleOrder saleOrder = service.getSaleOrder(id);
+        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
         SaleOrderDto saleOrderDto = new SaleOrderDto();
         BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
         ProductDto productDto = new ProductDto();
         BeanUtils.copyProperties(saleOrder.getProduct(), productDto);
         saleOrderDto.setProduct(productDto);
+        return saleOrderDto;
+    }
+
+
+    /**
+     * @param id
+     * @return
+     */
+    @PostMapping("edit")
+    public SaleOrderDto edit(@ModelAttribute final SaleOrderDto saleOrderDto) {
+
+        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(saleOrderDto.getId());
+
+        BeanUtils.copyProperties(saleOrderDto, saleOrder, "id", "product");
+
         return saleOrderDto;
     }
 

@@ -48,6 +48,7 @@ public class BaseJpaRepository<T, ID extends Serializable>
     /**
      * @return EntityManager
      */
+    @Override
     public EntityManager getEntityManager() {
         return this.entityManager;
     }

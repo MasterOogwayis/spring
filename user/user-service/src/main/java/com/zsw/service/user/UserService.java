@@ -3,7 +3,6 @@ package com.zsw.service.user;
 import com.zsw.base.service.BaseService;
 import com.zsw.persistence.bean.User;
 import com.zsw.persistence.repository.BaseUserRepository;
-import com.zsw.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +35,7 @@ public class UserService extends BaseService {
      */
 //    @Cacheable(value = "users", key = "'user:' + #id", condition = "#id != null")
     public User get(final Long id) {
-//        User user = new User();
+//        user user = new user();
 //        user.setId(1L);
 //        user.setAddress("Eeatch");
 //        user.setAge(20);
@@ -48,7 +47,7 @@ public class UserService extends BaseService {
 
     /**
      * @param username username
-     * @return User
+     * @return user
      */
 //    @Cacheable(value = "list", key = "'user:' + #name", condition = "#name != null")
     public User getByUsername(final String username) {
@@ -69,7 +68,7 @@ public class UserService extends BaseService {
      * @return
      */
 //    @CachePut(value = "list", key = "'users:' + #num", condition = "#users != null")
-//    public List<User> test(String num, List<User> users) {
+//    public List<user> test(String num, List<user> users) {
 //        return users;
 //    }
 
