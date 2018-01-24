@@ -3,6 +3,7 @@ package com.zsw.base.redis.dao;
 import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.stereotype.Component;
 
@@ -126,12 +127,7 @@ public class BaseRedisDao extends RedisDao<String, Object> implements BaseCacheD
      */
     @Override
     public String ping() {
-        return this.redisTemplate.execute(new RedisCallback<String>() {
-            @Override
-            public String doInRedis(RedisConnection connection) throws DataAccessException {
-                return connection.ping();
-            }
-        });
+        return this.redisTemplate.execute(RedisConnectionCommands::ping);
     }
 
 }

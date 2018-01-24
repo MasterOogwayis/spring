@@ -45,7 +45,7 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
 
 
     /**
-     * @param id
+     * @param saleOrderDto
      * @return
      */
     @PostMapping("edit")

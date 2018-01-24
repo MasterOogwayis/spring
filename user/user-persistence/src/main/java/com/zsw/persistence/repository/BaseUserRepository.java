@@ -26,7 +26,7 @@ public interface BaseUserRepository extends BaseRepository<User, Long> {
      * @param username username
      * @return List<user>
      */
-    @Query("from user u where u.username = :username")
+    @Query("from User u where u.username = :username")
     User getByUsername(@Param("username") String username);
 
 }

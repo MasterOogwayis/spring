@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConfigurationProperties(prefix = "zsw.base.mq.queue")
-public class RabbitMQConfiguration {
+public class RabbitMqConfiguration {
 
 //
 //    private String queueName;

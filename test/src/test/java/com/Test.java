@@ -1,15 +1,11 @@
 package com;
 
 
-import com.google.common.base.Function;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import org.apache.commons.lang3.concurrent.ConcurrentException;
-import org.springframework.util.StringUtils;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.*;
+import java.util.Date;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
@@ -41,9 +37,35 @@ public class Test {
     }
 
 
+    /**
+     * @param src
+     * @return
+     * @throws Exception
+     */
+    private static String decrypt1(final String src) throws Exception {
+        String tempStr = "";
+        if (null != src && !"".equals(src)) {
+            try {
+                tempStr = DesBase64.decrypt(src);
+            } catch (Exception e) {
+                throw new Exception("解密失败");
+            }
+        }
+        return tempStr;
+    }
+
+
     public static void main(String[] args) throws Exception {
 
-        System.err.println(StringUtils.toLanguageTag(Locale.CHINA));
+        String key = "BaZD+zL/wtp1UY33VEA3rTF57f0jPo1kZpu3KLMZQvO7yTmaVVyjuTQ0225qo/F/ppJPD/nlcq54 zF4qZ2+AEGtBYTYpBN0vFQZrDppKkXcBw4ozKWQs3OAUtv1q/AH5+s3Ug39QjAA/QPqEidYOPe9r omAgCfpq1/72CE0dyWUKfplNt74nSQCU/TrWWlw+t4v5TEtArj32p9Gq+CSDyVaho7TESZKOmmOX 7YvWrw7iOhdQyrxW9vc35GyjNemW";
+
+
+        Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+
+        System.out.println(md5.encodePassword("123456", null));
+
+
+//        System.out.println(decrypt1("09c204bbb5136d76ab867e59e3c2c434"));
 
 //        throw new ConcurrentException("Waiting timeout!", new Exception());
 
@@ -179,25 +201,6 @@ public class Test {
 //        hello("This is zsw speaking! Who is that?", Test::callback);
 
 
-    }
-
-
-    public static <I, O> List<O> map(Stream<I> stream, Function<I, O> mapper) {
-        return stream.reduce(new ArrayList<O>(), (acc, x) -> {
-            // We are copying data from acc to new list instance. It is very inefficient,
-            // but contract of Stream.reduce method requires that accumulator function does
-            // not mutate its arguments.
-            // Stream.collect method could be used to implement more efficient mutable reduction,
-            // but this exercise asks to use reduce method.
-            List<O> newAcc = new ArrayList<>(acc);
-            newAcc.add(mapper.apply(x));
-            return newAcc;
-        }, (List<O> left, List<O> right) -> {
-            // We are copying left to new list to avoid mutating it.
-            List<O> newLeft = new ArrayList<>(left);
-            newLeft.addAll(right);
-            return newLeft;
-        });
     }
 
 

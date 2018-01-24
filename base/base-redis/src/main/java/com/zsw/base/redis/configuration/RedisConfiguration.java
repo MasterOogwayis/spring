@@ -1,8 +1,5 @@
 package com.zsw.base.redis.configuration;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zsw.base.redis.serializer.ProtostuffRedisSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
@@ -44,7 +40,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     /**
      * 默认保存时间 30分钟
      */
-    private Long defaultExpiration = 1800L;
+    private Long defaultExpiration = 60 * 30L;
 
     /**
      * 缓存名称

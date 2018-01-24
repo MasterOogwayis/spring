@@ -12,9 +12,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.InputStream;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 描    述:微信消息工具类
@@ -75,7 +75,7 @@ public class XmlUtils {
      */
     public static String toXml(Object obj, Map<String, Class<?>> alias) {
         if (!CollectionUtils.isEmpty(alias)) {
-            alias.forEach((key, value) -> xstream.alias(key, value));
+            alias.forEach(xstream::alias);
         }
         return xstream.toXML(obj);
     }
@@ -92,8 +92,7 @@ public class XmlUtils {
      */
     @SuppressWarnings("unchecked")
     public static Map<String, String> parseXml(InputStream inputStream) throws Exception {
-        // 将解析结果存储在HashMap中
-        Map<String, String> map = new HashMap<>();
+
         // 读取输入流
         SAXReader reader = new SAXReader();
         Document document = reader.read(inputStream);
@@ -102,10 +101,8 @@ public class XmlUtils {
         // 得到根元素的所有子节点
         List<Element> elementList = root.elements();
 
-        // 遍历所有子节点
-        elementList.forEach(element -> map.put(element.getName(), element.getText()));
-        return map;
-
+        //将解析结果存储在HashMap中
+        return elementList.stream().collect(Collectors.toMap(Element::getName, Element::getText));
     }
 
 

@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html class="no-js">
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Spring Cloud</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png"/>
-    <link rel="stylesheet" type="text/css" href="core.css"/>
-    <link rel="stylesheet" type="text/css" href="login.css"/>
-</head>
-
 <body>
 <header class="navbar header--navbar desktop-only">
     <div class="navbar-inner">
@@ -33,16 +22,16 @@
         <div id="login-controls" class="control-group">
             <input type="text" class="input-block-level" name="username" placeholder="Username">
             <input type="password" class="input-block-level" name="password" placeholder="Password">
-            <span class="help-inline error-message">Invalid username or password!</div>
-        <input type="submit" class="btn btn-success" value="Login"></input>
-</div>
-</form>
+            <span class="help-inline error-message">Invalid username or password!</span>
+        </div>
+        <input type="submit" class="btn btn-success" value="Login">
+    </form>
 </div>
 
 <script type="text/javascript">
-  if (/\?error/.test(window.location.href)) {
-    document.getElementById("login-controls").classList.add("error")
-  }
+    if (/\?error/.test(window.location.href)) {
+        document.getElementById("login-controls").classList.add("error")
+    }
 </script>
 
 <footer class="footer">
@@ -55,5 +44,16 @@
     </ul>
 </footer>
 </body>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Spring Cloud</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="core.css"/>
+    <link rel="stylesheet" type="text/css" href="login.css"/>
+</head>
 
 </html>
