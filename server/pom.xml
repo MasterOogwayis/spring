@@ -24,6 +24,7 @@
         <module>dashboard</module>
         <module>base-server</module>
         <module>oauth2-server</module>
+        <module>resource-server</module>
     </modules>
 
 </project>

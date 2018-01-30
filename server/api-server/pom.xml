@@ -17,11 +17,11 @@
     </properties>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-cache-lock</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>saleorder-api</artifactId>

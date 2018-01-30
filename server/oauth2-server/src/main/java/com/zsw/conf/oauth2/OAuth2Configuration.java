@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -34,6 +35,7 @@ import java.util.Map;
 /**
  * @author ZhangShaowei on 2017/12/26 15:04
  */
+@EnableAuthorizationServer
 @Configuration
 @ConfigurationProperties(prefix = "com.zsw.oauth")
 public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {

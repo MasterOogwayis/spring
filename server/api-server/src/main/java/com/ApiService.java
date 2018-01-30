@@ -1,6 +1,5 @@
 package com;
 
-import com.zsw.base.cache.annotation.CacheLock;
 import com.zsw.base.service.BaseService;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.service.saleorder.SaleOrderService;
@@ -24,7 +23,7 @@ public class ApiService extends BaseService {
      * @param saleOrderDto
      * @return
      */
-    @CacheLock(key = "#saleOrderDto.getId()")
+//    @CacheLock(key = "#saleOrderDto.getId()")
     @Transactional(rollbackFor = Exception.class)
     public SaleOrderDto edit(final SaleOrderDto saleOrderDto) {
         return this.saleOrderService.edit(saleOrderDto);

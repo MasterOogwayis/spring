@@ -31,6 +31,7 @@
         <module>saleorder</module>
         <module>test</module>
         <module>app-ui</module>
+        <module>oauth2</module>
     </modules>
 
     <properties>
