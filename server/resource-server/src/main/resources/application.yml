@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: resource-server
+server:
+  port: 1112
+security:
+  oauth2:
+    client:
+      client-id: test
+      client-secret: test
+    resource:
+      jwt:
+        key-uri: http://192.168.1.228:1110/oauth/token_key
+      user-info-uri: http://192.168.1.228:1110/user
+      token-info-uri: http://192.168.1.228:1110/oauth/check_token
+#      token-type:
+

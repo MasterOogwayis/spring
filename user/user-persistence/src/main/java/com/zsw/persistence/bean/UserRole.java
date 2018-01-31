@@ -19,7 +19,7 @@ public class UserRole extends BaseBean {
     /**
      *
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.SELECT)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
@@ -27,14 +27,9 @@ public class UserRole extends BaseBean {
     /**
      *
      */
-    @Column(name = "MARK", nullable = false)
-    private String mark;
-
-    /**
-     *
-     */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userRole")
-    private List<RoleAuth> auths;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID", nullable = false)
+    private Role role;
 
 
     /**  */
@@ -48,22 +43,12 @@ public class UserRole extends BaseBean {
     }
 
     /**  */
-    public String getMark() {
-        return mark;
+    public Role getRole() {
+        return role;
     }
 
     /**  */
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
-
-    /**  */
-    public List<RoleAuth> getAuths() {
-        return auths;
-    }
-
-    /**  */
-    public void setAuths(List<RoleAuth> auths) {
-        this.auths = auths;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

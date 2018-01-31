@@ -1,0 +1,12 @@
+server:
+  port: 80
+
+
+spring:
+#  resources:
+#    static-locations: classpath:/templates/
+  application:
+    name: test
+  jackson:
+    serialization:
+      failOnEmptyBeans: false

@@ -4,13 +4,16 @@ import com.zsw.base.bean.commons.BaseBean;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:01
  */
-@Entity
-@Table(name = "ROLE_AUTH")
+//@Entity
+//@Table(name = "ROLE_AUTH")
 public class RoleAuth extends BaseBean {
 
     private static final long serialVersionUID = 3390362341679321609L;

@@ -19,7 +19,7 @@ public class User extends BaseBean {
     /**
      *
      */
-    @Column(name = "USER_NAME", nullable = false, columnDefinition = "")
+    @Column(name = "USER_NAME", nullable = false)
     private String username;
 
     /**
@@ -32,8 +32,14 @@ public class User extends BaseBean {
     /**
      *
      */
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<UserRole> roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID"),
+            foreignKey = @ForeignKey(name = "user_role_ibfk_1"),
+            inverseForeignKey = @ForeignKey(name = "user_role_ibfk_2"))
+    private List<Role> roles;
 
     /**  */
     public String getUsername() {
@@ -56,12 +62,12 @@ public class User extends BaseBean {
     }
 
     /**  */
-    public List<UserRole> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
     /**  */
-    public void setRoles(List<UserRole> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

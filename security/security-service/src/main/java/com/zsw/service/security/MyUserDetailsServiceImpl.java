@@ -1,7 +1,7 @@
 package com.zsw.service.security;
 
+import com.zsw.persistence.bean.Role;
 import com.zsw.persistence.bean.User;
-import com.zsw.persistence.bean.UserRole;
 import com.zsw.service.userrole.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,9 +42,8 @@ public class MyUserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
 
-        List<GrantedAuthority> auths =
-                user.getRoles().stream()
-                        .map(UserRole::getMark).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        List<GrantedAuthority> auths = user.getRoles().stream()
+                        .map(Role::getMark).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
         return new org.springframework.security.core.userdetails.User(
                 username, user.getPassword(), true,

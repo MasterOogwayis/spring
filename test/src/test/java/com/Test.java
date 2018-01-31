@@ -5,10 +5,11 @@ import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
+import java.util.*;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
@@ -56,128 +57,162 @@ public class Test {
         return tempStr;
     }
 
+    public static void build(final TempDayPlanDto planDto, final DayOfMonthData data) {
+        planDto.addNumber(data.getTotal());
+        if (data.getUnfinished() > 0) {
+            planDto.setType(0);
+        }
+    }
+
+//    public static TempDayPlanDto build(List<DayOfMonthData> data) {
+//        TempDayPlanDto tempDayPlanDto = new TempDayPlanDto(data.get(0).getDayOfMonth(), 0, 0);
+//        data.forEach(dayOfMonthData -> tempDayPlanDto.addNumber(dayOfMonthData.getTotal()));
+//        return tempDayPlanDto;
+//    }
+
 
     public static void main(String[] args) throws Exception {
 
-
-        String key = "BaZD+zL/wtp1UY33VEA3rTF57f0jPo1kZpu3KLMZQvO7yTmaVVyjuTQ0225qo/F/ppJPD/nlcq54 zF4qZ2+AEGtBYTYpBN0vFQZrDppKkXcBw4ozKWQs3OAUtv1q/AH5+s3Ug39QjAA/QPqEidYOPe9r omAgCfpq1/72CE0dyWUKfplNt74nSQCU/TrWWlw+t4v5TEtArj32p9Gq+CSDyVaho7TESZKOmmOX 7YvWrw7iOhdQyrxW9vc35GyjNemW";
-
-
-        Md5PasswordEncoder md5 = new Md5PasswordEncoder();
-
-        System.out.println(md5.encodePassword("123456", null));
+//        List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7");
+//
+//        String str1 = list.stream().collect(Collectors.joining(",", "[", "]"));
+//        System.out.println("str1: " + str1);
 
 
-//        System.out.println(decrypt1("09c204bbb5136d76ab867e59e3c2c434"));
+//        StringBuilder str2 = list.stream()
+//                .reduce(new StringBuilder(),
+//                        (builder, string) -> {
+//                            if (builder.length() > 0) {
+//                                builder.append(",");
+//                            }
+//                            builder.append(string);
+//                            return builder;
+//                        },
+//                        (left, right) -> {return left.append(right);});
 
-//        throw new ConcurrentException("Waiting timeout!", new Exception());
+//        String str3 = list.stream()
+//                .collect(Collectors.reducing("", Function.identity(), (left, right) -> left  + "," + right));
 
-//        Set<String> set = Sets.newHashSet(Arrays.asList("1", "2", "3", "4"));
-//
-//
-//        Map<String, String> map = Maps.asMap(set, str -> str);
-//
-//        System.out.println(map);
+//        String str3 = list.stream().reduce("", (left, right) -> left + "," + right);
 
+//        Set set1 = list.stream().collect(Collectors.reducing(new HashSet(),
+//                (string) -> {
+//                    HashSet s = new HashSet<>();
+//                    s.add(string);
+//                    return s;
+//                }, (left, right) -> {
+//                    left.addAll(right);
+//                    return left;
+//                }));
 
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Set set1 = list.stream().reduce(
+//                new HashSet(),
+//                (set, string) -> {
+//                    set.add(string);
+//                    return set;
+//                },
+//                (left, right) -> right
+//        );
 //
-//        Date date = sdf.parse("2017-12-15");
-//
-//        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-//
-//        LocalTime localTime = LocalTime.parse("20:01", DateTimeFormatter.ofPattern("HH:mm"));
-//
-//
-//        System.err.println(localTime.compareTo(localTime1));
-
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//
-//        LocalDateTime localDateTime = LocalDateTime.parse("2017-12-13 12:00:01", formatter);
-//
-//        System.out.println("LocalDate:" + localDateTime.toLocalDate());
-//        System.out.println("LocalTime:" + localDateTime.toLocalTime());
-//        System.err.println(localDateTime.format(DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH时mm分ss秒")));
-//
-//        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-//        System.out.println(date);
-
-//        Date useDate = Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-
-//        CyclicBarrier cyclicBarrier = new CyclicBarrier(10);
-//
-//
-//        BigInteger bigInteger = BigInteger.valueOf(1L);
-//
-//        Number number = bigInteger;
-//
-//        System.out.println(number.intValue());
-//
-//        System.out.println(bigInteger.intValue());
-
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("1", "10");
-//        map.put("2", "20");
-//        map.put("3", "30");
-//
-//        Map<String, Number> m = map.merge();
-
-//        List<Map<String, Object>> l1 = new ArrayList<>();
-//        Map<String, Object> m = new HashMap<>();
-//        m.put("id", "1");
-//        m.put("time", "20");
-//        l1.add(m);
-//
-//        Map<String, Object> n = new HashMap<>();
-//        n.put("id", "2");
-//        n.put("time", "30");
-//        l1.add(n);
-//
-//
-//        Map<Long, House> map = l1.stream().collect(Collectors.toMap(m1 -> Long.valueOf(m1.get("id").toString()), m2 -> {
-//            House house = new House();
-//            house.setId(m2.get("id").toString());
-//            house.setTime(m2.get("time").toString());
-//            return house;
-//        }));
-
-//        Map<Long, House> map = l1.stream()
-//
-//
-//        System.out.println(map);
+//        System.out.println("set1: " + set1.toString());
 
 
-//        LocalDate localDate = LocalDate.parse("2017-11-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//
-//        LocalDate last = localDate.with(TemporalAdjusters.lastDayOfMonth());
-//
-//        System.out.println(last);
-//        LocalDate l = last.plusDays(1);
-//        System.out.println(l);
-//
-//        System.out.println(last.getDayOfMonth());
 
-//        user user = new user();
-//
-//        Optional<user> optional = Optional.ofNullable(user);
-//
-//
-//
-//        Optional.ofNullable(user).map(user::getAddress)
-//                .map(Address::getProvince)
-//                .map(Province::getCity)
-//                .map(City::getRegion)
-//                .map(Region::getHouse)
-//                .orElseThrow(Exception::new);
+        DayOfMonthData data1 = new DayOfMonthData();
+        data1.setDayOfMonth(1);
+        data1.setTotal(1);
+        data1.setUnfinished(1);
+
+        DayOfMonthData data2 = new DayOfMonthData();
+        data2.setDayOfMonth(2);
+        data2.setTotal(2);
+        data2.setUnfinished(2);
+
+        Map<Integer, DayOfMonthData> map1 = Arrays.asList(data1, data2).stream()
+                .collect(Collectors.toMap(DayOfMonthData::getDayOfMonth, Function.identity()));
 
 
-//        Map<String, Integer> map = new HashMap<>();
-//        map.put("1", 1);
+        DayOfMonthData data3 = new DayOfMonthData();
+        data3.setDayOfMonth(2);
+        data3.setTotal(3);
+        data3.setUnfinished(3);
+
+        Map<Integer, DayOfMonthData> map2 = Collections.singletonMap(data3.getDayOfMonth(), data3);
+
+        // 分组
+        Map<Integer, List<DayOfMonthData>> gmap = Stream.of(map1, map2)
+                .flatMap(map -> map.entrySet().stream())
+                .map(HashMap.Entry::getValue)
+                .collect(Collectors.groupingBy(DayOfMonthData::getDayOfMonth));
+
+        System.out.println("gmap: " + gmap);
+
+        // 分块
+        Map<Boolean, List<DayOfMonthData>> bmap = Stream.of(map1, map2).flatMap(map -> map.entrySet().stream())
+                .map(HashMap.Entry::getValue)
+                .collect(
+                        Collectors.partitioningBy(dayOfMonthData -> dayOfMonthData.getTotal() > 1)
+                );
+        System.out.println("bmap: " + bmap);
+
+        // 聚合
+//        TempDayPlanDto d = Stream.of(map1, map2)
+//                .flatMap(map -> map.entrySet().stream())
+//                .map(HashMap.Entry::getValue)
+//                .collect(Collectors.reducing(new TempDayPlanDto(),
+//                        (data) -> new TempDayPlanDto(data.getDayOfMonth(), data.getTotal(), 0),
+//                        (left, right) -> {
+//                            left.addNumber(right.getNumber());
+//                            return left;
+//                        }));
 //
-//        System.out.println(map.compute("2", Integer::valueOf));
-////        System.out.println(map.computeIfPresent("2", Integer::valueOf));
+//        System.err.println(d.getNumber());
+
+        Map<Integer, TempDayPlanDto> smap = Stream.of(map1, map2)
+                .flatMap(map -> map.entrySet().stream())
+                .map(HashMap.Entry::getValue)
+                .collect(
+                        Collectors.groupingBy(
+                                DayOfMonthData::getDayOfMonth,
+                                Collectors.mapping(
+                                        dto -> new TempDayPlanDto(dto.getDayOfMonth(), dto.getTotal(), 0),
+                                        Collectors.reducing(
+                                                new TempDayPlanDto(),
+                                                (left, right) -> {
+                                                    right.addNumber(left.getNumber());
+                                                    return right;
+                                                }
+                                        )
+                                )
+                        )
+                );
+
+        smap.forEach((key, value) -> {
+            System.out.println(key + " : " + value.toString());
+        });
+
+//        Map<Integer,TempDayPlanDto> tmap = Stream.of(map1, map2)
+//                .flatMap(map -> map.entrySet().stream())
+//                .map(HashMap.Entry::getValue)
+//                .collect(
+//                        Collectors.groupingBy(
+//                                DayOfMonthData::getDayOfMonth,
+//                                Collectors.reducing(
+//                                        new TempDayPlanDto(),
+//                                        (data) -> new TempDayPlanDto(data.getDayOfMonth(), data.getTotal(), 0),
+//                                        (left, right) -> {
+//                                            left.setDayOfMonth(right.getDayOfMonth());
+//                                            left.addNumber(right.getNumber());
+//                                            return left;
+//                                        }
+//                                )
+//                        )
+//                );
 //
-//        System.err.println(map);
+//        tmap.forEach((key, value) -> {
+//            System.out.println(key + " : " + value.toString());
+//        });
+
 //        List<Person> list = new ArrayList<>();
 //        list.add(new Person(1, "1", "Earth", ThreadLocalRandom.current().nextInt(10)));
 //        list.add(new Person(2, "2", "Moon", ThreadLocalRandom.current().nextInt(10)));
