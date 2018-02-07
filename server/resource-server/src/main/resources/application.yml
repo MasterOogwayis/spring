@@ -10,8 +10,8 @@ security:
       client-secret: test
     resource:
       jwt:
-        key-uri: http://192.168.1.228:1110/oauth/token_key
-      user-info-uri: http://192.168.1.228:1110/user
-      token-info-uri: http://192.168.1.228:1110/oauth/check_token
+        key-uri: https://192.168.1.228:1110/oauth/token_key
+      user-info-uri: https://192.168.1.228:1110/user
+      token-info-uri: https://192.168.1.228:1110/oauth/check_token
 #      token-type:
 

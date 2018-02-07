@@ -2,7 +2,9 @@ package com;
 
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -72,6 +74,19 @@ public class Test {
 
 
     public static void main(String[] args) throws Exception {
+
+        System.out.println(new BCryptPasswordEncoder().encode("111111"));
+
+        long ms = System.currentTimeMillis();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date now1 = sdf.parse("2018-02-05");
+        Date now2 = sdf.parse("2018-02-05");
+
+
+
+        System.out.println(now1.equals(now2));
 
 //        List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7");
 //

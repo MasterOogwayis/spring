@@ -1,6 +1,7 @@
 package com;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

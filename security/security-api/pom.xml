@@ -17,6 +17,16 @@
             <artifactId>security-service</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>login-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

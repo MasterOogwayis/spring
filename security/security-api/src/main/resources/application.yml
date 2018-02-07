@@ -1,2 +1,9 @@
 server:
   port: 1110
+spring:
+  freemarker:
+    suffix: .html
+
+
+security:
+  ignored: /assets/**,/commons/**

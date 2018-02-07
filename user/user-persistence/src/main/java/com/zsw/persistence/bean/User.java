@@ -30,7 +30,7 @@ public class User extends BaseBean {
 
 
     /**
-     *
+     * 角色
      */
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(

@@ -23,7 +23,7 @@
         <module>other-server</module>
         <module>dashboard</module>
         <module>base-server</module>
-        <module>oauth2-server</module>
+        <module>authorization-server</module>
         <module>resource-server</module>
     </modules>
 

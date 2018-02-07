@@ -8,7 +8,6 @@ server:
 #      name: OTHERSESSIONID
 
 
-
 security:
 #  user:
 #    password: 111111
@@ -20,8 +19,8 @@ security:
     client:
       client-id: 2a1b448f53f7b4ee1bc5
       client-secret: 9ac0814f8f098395033d99031620c13d6279bad8
-      accessTokenUri: http://192.168.1.223:1110/oauth/token
-      userAuthorizationUri: http://192.168.1.223:1110/oauth/authorize
+      accessTokenUri: https://www.demo.com:1110/oauth/token
+      userAuthorizationUri: https://www.demo.com:1110/oauth/authorize
 #      accessTokenUri: https://github.com/login/oauth/access_token
 #      userAuthorizationUri: https://github.com/login/oauth/authorize
       scope: scope
@@ -31,7 +30,7 @@ security:
 #      userInfoUri: https://api.github.com/user
       preferTokenInfo: false
       jwt:
-        key-uri: http://192.168.1.223:1110/oauth/token_key
+        key-uri: https://www.demo.com:1110/oauth/token_key
 debug: true
 
 #logging:
@@ -41,4 +40,7 @@ logging:
     org:
       springframework:
         security: DEBUG
+spring:
+  freemarker:
+    suffix: .html
 

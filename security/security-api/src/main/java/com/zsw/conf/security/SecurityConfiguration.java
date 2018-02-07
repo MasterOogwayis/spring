@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,16 +37,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //        auth.eraseCredentials(false);
     }
 
-    /**
-     * 忽略css、img等文件
-     *
-     * @param web
-     * @throws Exception
-     */
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**");
-//    }
 
 
     /**
@@ -59,14 +50,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .and()
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login.html").loginProcessingUrl("/login").defaultSuccessUrl("/").permitAll()
                 .and()
-                .logout().deleteCookies("remove").invalidateHttpSession(false)
-                .and()
-                .httpBasic()
+                .logout().deleteCookies("remove").invalidateHttpSession(false).logoutSuccessUrl("/")
                 .and()
                 .csrf().disable()
-                .anonymous().disable();
+                .httpBasic();
 //        http.authorizeRequests()
 ////                .antMatchers("/user").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.OPTIONS).permitAll()
@@ -86,6 +75,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    /**
+     * 忽略css、img等文件
+     *
+     * @param web
+     * @throws Exception
+     */
+    @Override
+    public void configure(final WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/assets/**", "/commons/**");
     }
 
 }
