@@ -9,19 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>server</artifactId>
     <packaging>pom</packaging>
 
+    <artifactId>oauth2</artifactId>
+
     <modules>
-        <module>register-server</module>
-        <module>api-server</module>
-        <module>zuul-server</module>
-        <module>admin-server</module>
-        <module>config-server</module>
-        <module>ui-server</module>
-        <module>turbine-server</module>
-        <module>dashboard</module>
-        <module>base-server</module>
+        <module>authorization-server</module>
+        <module>sso-client</module>
     </modules>
+
 
 </project>

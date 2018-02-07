@@ -1,18 +1,10 @@
 server:
-  port: 80
+  port: 9000
   ssl:
     enabled: false
-#  context-path: /client
-#  session:
-#    cookie:
-#      name: OTHERSESSIONID
 
 
 security:
-#  user:
-#    password: 111111
-  ignored: /
-  sessions: never
   oauth2:
     sso:
       login-path: /login

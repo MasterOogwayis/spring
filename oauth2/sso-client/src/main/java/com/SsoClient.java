@@ -1,5 +1,6 @@
 package com;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,10 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 
 @SpringBootApplication
-public class OtherApplication {
+public class SsoClient {
 
     public static void main(String[] args) {
-        SpringApplication.run(OtherApplication.class, args);
+        SpringApplication.run(SsoClient.class, args);
     }
 
 }
