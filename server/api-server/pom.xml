@@ -42,7 +42,7 @@
 
         <!-- 监控 -->
         <dependency>
-            <groupId>io.prometheus</groupId>
+                <groupId>io.prometheus</groupId>
             <artifactId>simpleclient_spring_boot</artifactId>
         </dependency>
 

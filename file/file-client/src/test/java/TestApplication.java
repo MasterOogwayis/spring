@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 /**
  * @author ZhangShaowei on 2017/7/28 11:32
  */
-@RunWith(SpringRunner.class)
+`
 @SpringBootTest(classes = UIFileApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestApplication {
 

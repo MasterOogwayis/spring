@@ -1,19 +1,12 @@
 package com;
 
 
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -72,21 +65,33 @@ public class Test {
 //        return tempDayPlanDto;
 //    }
 
+    private static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public static String format(final Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(TIMESTAMP_FORMAT);
+    }
+
+    public static Date format(final String dateTime) {
+        return Date.from(LocalDateTime.parse(dateTime, TIMESTAMP_FORMAT).atZone(ZoneId.systemDefault()).toInstant());
+    }
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println(new BCryptPasswordEncoder().encode("111111"));
+        LocalDateTime now = LocalDateTime.now();
 
-        long ms = System.currentTimeMillis();
+        LocalDateTime time = LocalDateTime.parse(
+                "2018-02-26 21:57:23",
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        );
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        boolean isBefore = time.isBefore(now);
+        System.out.println(isBefore);
 
-        Date now1 = sdf.parse("2018-02-05");
-        Date now2 = sdf.parse("2018-02-05");
+        StringBuilder sb = new StringBuilder();
+        Period period = Period.between(time.toLocalDate(), now.toLocalDate());
+        Duration duration = Duration.between(time.toLocalTime(), now.toLocalTime());
+        System.out.println(period.getDays());
 
-
-
-        System.out.println(now1.equals(now2));
 
 //        List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7");
 //
@@ -132,43 +137,42 @@ public class Test {
 //        System.out.println("set1: " + set1.toString());
 
 
-
-        DayOfMonthData data1 = new DayOfMonthData();
-        data1.setDayOfMonth(1);
-        data1.setTotal(1);
-        data1.setUnfinished(1);
-
-        DayOfMonthData data2 = new DayOfMonthData();
-        data2.setDayOfMonth(2);
-        data2.setTotal(2);
-        data2.setUnfinished(2);
-
-        Map<Integer, DayOfMonthData> map1 = Arrays.asList(data1, data2).stream()
-                .collect(Collectors.toMap(DayOfMonthData::getDayOfMonth, Function.identity()));
-
-
-        DayOfMonthData data3 = new DayOfMonthData();
-        data3.setDayOfMonth(2);
-        data3.setTotal(3);
-        data3.setUnfinished(3);
-
-        Map<Integer, DayOfMonthData> map2 = Collections.singletonMap(data3.getDayOfMonth(), data3);
-
-        // 分组
-        Map<Integer, List<DayOfMonthData>> gmap = Stream.of(map1, map2)
-                .flatMap(map -> map.entrySet().stream())
-                .map(HashMap.Entry::getValue)
-                .collect(Collectors.groupingBy(DayOfMonthData::getDayOfMonth));
-
-        System.out.println("gmap: " + gmap);
-
-        // 分块
-        Map<Boolean, List<DayOfMonthData>> bmap = Stream.of(map1, map2).flatMap(map -> map.entrySet().stream())
-                .map(HashMap.Entry::getValue)
-                .collect(
-                        Collectors.partitioningBy(dayOfMonthData -> dayOfMonthData.getTotal() > 1)
-                );
-        System.out.println("bmap: " + bmap);
+//        DayOfMonthData data1 = new DayOfMonthData();
+//        data1.setDayOfMonth(1);
+//        data1.setTotal(1);
+//        data1.setUnfinished(1);
+//
+//        DayOfMonthData data2 = new DayOfMonthData();
+//        data2.setDayOfMonth(2);
+//        data2.setTotal(2);
+//        data2.setUnfinished(2);
+//
+//        Map<Integer, DayOfMonthData> map1 = Arrays.asList(data1, data2).stream()
+//                .collect(Collectors.toMap(DayOfMonthData::getDayOfMonth, Function.identity()));
+//
+//
+//        DayOfMonthData data3 = new DayOfMonthData();
+//        data3.setDayOfMonth(2);
+//        data3.setTotal(3);
+//        data3.setUnfinished(3);
+//
+//        Map<Integer, DayOfMonthData> map2 = Collections.singletonMap(data3.getDayOfMonth(), data3);
+//
+//        // 分组
+//        Map<Integer, List<DayOfMonthData>> gmap = Stream.of(map1, map2)
+//                .flatMap(map -> map.entrySet().stream())
+//                .map(HashMap.Entry::getValue)
+//                .collect(Collectors.groupingBy(DayOfMonthData::getDayOfMonth));
+//
+//        System.out.println("gmap: " + gmap);
+//
+//        // 分块
+//        Map<Boolean, List<DayOfMonthData>> bmap = Stream.of(map1, map2).flatMap(map -> map.entrySet().stream())
+//                .map(HashMap.Entry::getValue)
+//                .collect(
+//                        Collectors.partitioningBy(dayOfMonthData -> dayOfMonthData.getTotal() > 1)
+//                );
+//        System.out.println("bmap: " + bmap);
 
         // 聚合
 //        TempDayPlanDto d = Stream.of(map1, map2)
@@ -183,28 +187,28 @@ public class Test {
 //
 //        System.err.println(d.getNumber());
 
-        Map<Integer, TempDayPlanDto> smap = Stream.of(map1, map2)
-                .flatMap(map -> map.entrySet().stream())
-                .map(HashMap.Entry::getValue)
-                .collect(
-                        Collectors.groupingBy(
-                                DayOfMonthData::getDayOfMonth,
-                                Collectors.mapping(
-                                        dto -> new TempDayPlanDto(dto.getDayOfMonth(), dto.getTotal(), 0),
-                                        Collectors.reducing(
-                                                new TempDayPlanDto(),
-                                                (left, right) -> {
-                                                    right.addNumber(left.getNumber());
-                                                    return right;
-                                                }
-                                        )
-                                )
-                        )
-                );
-
-        smap.forEach((key, value) -> {
-            System.out.println(key + " : " + value.toString());
-        });
+//        Map<Integer, TempDayPlanDto> smap = Stream.of(map1, map2)
+//                .flatMap(map -> map.entrySet().stream())
+//                .map(HashMap.Entry::getValue)
+//                .collect(
+//                        Collectors.groupingBy(
+//                                DayOfMonthData::getDayOfMonth,
+//                                Collectors.mapping(
+//                                        dto -> new TempDayPlanDto(dto.getDayOfMonth(), dto.getTotal(), 0),
+//                                        Collectors.reducing(
+//                                                new TempDayPlanDto(),
+//                                                (left, right) -> {
+//                                                    right.addNumber(left.getNumber());
+//                                                    return right;
+//                                                }
+//                                        )
+//                                )
+//                        )
+//                );
+//
+//        smap.forEach((key, value) -> {
+//            System.out.println(key + " : " + value.toString());
+//        });
 
 //        Map<Integer,TempDayPlanDto> tmap = Stream.of(map1, map2)
 //                .flatMap(map -> map.entrySet().stream())
@@ -227,28 +231,6 @@ public class Test {
 //        tmap.forEach((key, value) -> {
 //            System.out.println(key + " : " + value.toString());
 //        });
-
-//        List<Person> list = new ArrayList<>();
-//        list.add(new Person(1, "1", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(2, "2", "Moon", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(3, "3", "Mars", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(4, "4", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(5, "5", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(6, "6", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(7, "7", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(8, "8", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(9, "9", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//        list.add(new Person(10, "10", "Earth", ThreadLocalRandom.current().nextInt(10)));
-//
-//        Map<Integer, List<String>> map = list.stream().collect(
-//                Collectors.groupingBy(Person::getAge, Collectors.mapping(Person::getName, Collectors.toList()))
-//        );
-//
-//        System.out.println(map);
-//
-//
-//        String names = list.stream().map(Person::getName).collect(Collectors.joining(","));
-//        System.out.println(names);
 
 
 //        hello("This is zsw speaking! Who is that?", Test::callback);

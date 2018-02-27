@@ -1,0 +1,52 @@
+#服务器端口
+server:
+  port: 1110
+#  ssl:
+#    enabled: true
+#    key-store: classpath:oauth2.jks
+#    key-password: 111111
+#    key-alias: oauth2
+
+##微服务名
+spring:
+  freemarker:
+    suffix: .html
+  application:
+    name: oauth2-client
+
+  ##必要，RedisCacheManager 存储索引
+  ##spring.cache.cache-names=users
+  ##自定义RedisCacheManger配置
+  ## 名称 -- 缓存有效期：s -------不同缓存分类后制定不同的有效期
+zsw:
+  base:
+    redis:
+      configuration:
+        expires:
+          list: 1800
+          proxy: 900
+          users: 1800
+          customers: 1800
+com:
+  zsw:
+    oauth:
+      key-store-file: oauth2.jks
+      key-store-pwd: 111111
+      key-pair: oauth2
+
+#logging:
+#  level: debug
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+info:
+  version: @project.version@
+#debug: true
