@@ -18,16 +18,13 @@
     </parent>
 
     <modules>
-        <module>Swagger2</module>
         <module>file</module>
         <module>server</module>
         <module>base</module>
         <module>user</module>
-        <module>customer</module>
         <module>security</module>
         <module>product</module>
         <module>saleorder</module>
-        <module>test</module>
         <module>app-ui</module>
         <module>oauth2</module>
         <module>dev-server</module>
