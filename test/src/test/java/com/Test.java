@@ -1,10 +1,17 @@
 package com;
 
 
-import java.time.*;
+import com.zsw.base.utils.RandomCodeUtils;
+import org.apache.commons.lang.math.RandomUtils;
+import org.springframework.util.StringUtils;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -21,17 +28,28 @@ public class Test {
     /**
      *
      */
-//    @org.junit.Test
-    public void test() {
+    @org.junit.Test
+    public void test() throws Exception {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Callable<String> callable = () -> {
+            Thread.sleep(5 * 1000);
+            return "123";
+        };
 
-        System.err.println("123");
+        Future future = executorService.submit(callable);
+
+        if (future.isDone()) {
+            System.out.println(future.get());
+        }
+
+        System.out.println("456");
+
 
     }
 
-    private static Boolean before(final Date date) {
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate now = LocalDate.now(ZoneId.systemDefault());
-        return localDate.isBefore(now);
+    @org.junit.Test
+    public void random() {
+        System.out.println(RandomCodeUtils.randomCode());
     }
 
 
@@ -77,23 +95,22 @@ public class Test {
 
     public static void main(String[] args) throws Exception {
 
-        LocalDateTime now = LocalDateTime.now();
+        LocalDate localDate = LocalDate.now();
 
-        LocalDateTime time = LocalDateTime.parse(
-                "2018-02-26 21:57:23",
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        );
+        LocalDateTime localDateTime = localDate.atTime(23, 59, 59);
 
-        boolean isBefore = time.isBefore(now);
-        System.out.println(isBefore);
-
-        StringBuilder sb = new StringBuilder();
-        Period period = Period.between(time.toLocalDate(), now.toLocalDate());
-        Duration duration = Duration.between(time.toLocalTime(), now.toLocalTime());
-        System.out.println(period.getDays());
+        System.err.println(Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant()));
+        System.err.println(Date.from(localDateTime.toLocalDate().atTime(LocalTime.MAX).atZone(ZoneId.systemDefault()).toInstant()));
 
 
-//        List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7");
+    }
+
+
+    /**
+     * 分组分块聚合
+     */
+    private static void model() {
+        //        List<String> list = Arrays.asList("1", "2", "3", "4", "5", "6", "7");
 //
 //        String str1 = list.stream().collect(Collectors.joining(",", "[", "]"));
 //        System.out.println("str1: " + str1);
@@ -231,11 +248,6 @@ public class Test {
 //        tmap.forEach((key, value) -> {
 //            System.out.println(key + " : " + value.toString());
 //        });
-
-
-//        hello("This is zsw speaking! Who is that?", Test::callback);
-
-
     }
 
 
@@ -277,11 +289,11 @@ public class Test {
     }
 
 
-    private static void unSee() {
+    @org.junit.Test
+    public void unSee() {
+        System.err.println(StringUtils.hasText("‬"));
         System.out.println("1‬".length()); //不可见字符
         System.out.println("1".length());
-
-        System.err.println((int) ("1‬".charAt(1)));
 
         char hide = (char) 8236;
         String str = "1" + String.valueOf(hide);
@@ -289,10 +301,6 @@ public class Test {
         System.out.println(str.length());
     }
 
-    private static boolean t() {
-        System.out.println(1);
-        return true;
-    }
 
     static Integer sum(Stream<Integer> stream) {
         return stream.mapToInt(num -> num).sum();

@@ -1,7 +1,7 @@
 package com.zsw.base.service;
 
-import ch.qos.logback.classic.Logger;
 import com.zsw.base.utils.JacksonSerializer;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -13,6 +13,6 @@ public class BaseService extends JacksonSerializer {
     /**
      *
      */
-    protected final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 }

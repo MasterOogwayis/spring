@@ -306,4 +306,18 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
         this.redisTemplate.expire(key, timeout, unit);
     }
 
+    /**
+     * @param key
+     * @return
+     */
+    @Override
+    public long pttl(K key) {
+        return this.redisTemplate.getExpire(key);
+    }
+
+    @Override
+    public long pttl(K key, TimeUnit timeUnit) {
+        return this.redisTemplate.getExpire(key, timeUnit);
+    }
+
 }

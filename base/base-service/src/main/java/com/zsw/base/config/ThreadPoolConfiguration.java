@@ -2,16 +2,15 @@ package com.zsw.base.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Spring的线程池
+ * implements AsyncConfigurer
  *
  * @author ZhangShaowei on 2017/7/3 10:56
  */
@@ -43,7 +42,7 @@ public class ThreadPoolConfiguration {
      * @return
      */
     @Bean
-    public Executor threadPoolTaskExecutor() {
+    public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(CORE_POOL_SIZE);
         executor.setMaxPoolSize(MAX_POOL_SIZE);
@@ -65,6 +64,11 @@ public class ThreadPoolConfiguration {
 //    @Bean
 //    public AsyncTaskExecutor taskExecutor() {
 //        return (ThreadPoolTaskExecutor) threadPoolTaskExecutor();
+//    }
+
+//    @Override
+//    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+//        return MyAsyncUncaughtExceptionHandler();
 //    }
 
 }

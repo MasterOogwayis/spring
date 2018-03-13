@@ -1,24 +1,26 @@
 package com;
 
+import ch.qos.logback.classic.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.bean.SaleOrder;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.json.JsonTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Set;
 
 /**
  * This is a test file.
@@ -28,6 +30,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestApp {
+    
+    /**
+     * logger
+     */
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(TestApp.class);
 
     /**
      *
@@ -36,9 +43,22 @@ public class TestApp {
 
     private final Gson gson = new GsonBuilder().create();
 
+    /**
+     *
+     */
+    @Autowired
+    private BaseCacheDao cacheDao;
+
 
     @Autowired
     private SaleOrderService saleOrderService;
+
+
+    @Test
+    public void testCache() {
+        Set<String> keys = cacheDao.keys("asd:*");
+        keys.forEach(key -> logger.info("------------" + key));
+    }
 
     @Test
 //    @WithMockUser 虚拟用户

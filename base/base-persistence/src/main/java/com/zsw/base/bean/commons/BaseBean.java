@@ -27,7 +27,7 @@ public class BaseBean implements Serializable {
     /**
      *
      */
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
+    @Column(name = "CREATE_TIMESTAMP", updatable = false, nullable = false)
     private Date createTimestamp;
 
 

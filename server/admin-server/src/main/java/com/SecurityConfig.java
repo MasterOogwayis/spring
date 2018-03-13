@@ -2,8 +2,10 @@ package com;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
@@ -11,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Profile("secure")
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -21,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/**.html","/**.css", "/img/**", "/**.js","/third-party/**");
+        web.ignoring().antMatchers("/**.html", "/**.css", "/img/**", "/**.js", "/third-party/**");
     }
 
     @Override
@@ -30,9 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .and()
-                .formLogin().loginPage("/login.html").loginProcessingUrl("/login").permitAll().defaultSuccessUrl("/")
+                .formLogin()
+                .loginPage("/login.html").loginProcessingUrl("/login").permitAll().defaultSuccessUrl("/")
                 .and()
-                .logout()
+                .logout().logoutUrl("/logout")
                 .deleteCookies("remove")
                 .logoutSuccessUrl("/login.html").permitAll()
                 .and()
@@ -55,7 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        // Enable so that the clients can authenticate via HTTP basic for registering
 //        http.httpBasic();
     }
-
 
 
 }

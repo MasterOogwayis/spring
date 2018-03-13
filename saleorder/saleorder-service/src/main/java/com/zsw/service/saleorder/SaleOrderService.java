@@ -3,6 +3,8 @@ package com.zsw.service.saleorder;
 import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import com.zsw.base.service.BaseService;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
+import com.zsw.mq.BaseMqMessage;
+import com.zsw.mq.MqService;
 import com.zsw.persistence.bean.Product;
 import com.zsw.persistence.bean.SaleOrder;
 import com.zsw.persistence.repository.SaleOrderRepository;
@@ -10,6 +12,7 @@ import com.zsw.service.product.ProductService;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author ZhangShaowei on 2017/10/12 15:15
  */
-@Service("saleOrderService")
+@Service
 @Transactional(rollbackFor = Exception.class)
 public class SaleOrderService extends BaseService {
 
@@ -62,6 +65,12 @@ public class SaleOrderService extends BaseService {
     private Executor threadPoolExecutor;
 
     /**
+     *
+     */
+    @Autowired
+    private MqService msgService;
+
+    /**
      * @param id id
      * @return SaleOrder
      */
@@ -76,17 +85,23 @@ public class SaleOrderService extends BaseService {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public SaleOrderDto edit(final SaleOrderDto saleOrderDto) {
+    @CacheEvict(value = "list", key = "'saleorder:' + #saleOrderDto.getId()")
+    public SaleOrder edit(final SaleOrderDto saleOrderDto) {
 
         SaleOrder saleOrder = this.saleOrderRepository.findOne(saleOrderDto.getId());
+
+        msgService.transactionSimpleMessage(new BaseMqMessage());
 
         BeanUtils.copyProperties(saleOrderDto, saleOrder, "id", "product");
 
         this.saleOrderRepository.saveOrUpdate(saleOrder);
 
-        return saleOrderDto;
-    }
+//        if (1 == 1) {
+//            throw new RuntimeException("This is a Test");
+//        }
 
+        return saleOrder;
+    }
 
 
     /**

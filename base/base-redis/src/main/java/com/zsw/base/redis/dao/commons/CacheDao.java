@@ -143,6 +143,19 @@ public interface CacheDao<K, V> {
      * @param key
      * @return
      */
+    long pttl(K key);
+
+    /**
+     * @param key
+     * @param timeUnit
+     * @return
+     */
+    long pttl(K key, TimeUnit timeUnit);
+
+    /**
+     * @param key
+     * @return
+     */
     //其他
     Boolean exists(K key);
 

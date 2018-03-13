@@ -46,4 +46,12 @@ public class SaleOrder extends BaseBean {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    @Override
+    public String toString() {
+        return "SaleOrder{" +
+                "quantity=" + quantity +
+                ", product=" + product +
+                '}';
+    }
 }

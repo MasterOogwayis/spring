@@ -32,6 +32,6 @@ management:
 security:
   user:
     name: user
-    password: pass
+    password: user
   basic:
     enabled: false

@@ -2,7 +2,6 @@ package com.zsw.base.utils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -14,6 +13,19 @@ import java.util.Date;
  * @author ZhangShaowei on 2018/1/15 14:10
  */
 public class DateUtils extends org.apache.commons.lang.time.DateUtils {
+
+    /**
+     * Number of seconds in a standard minute.
+     */
+    public static final long SECOND_PER_MINUTE = 60;
+    /**
+     * Number of seconds in a standard hour.
+     */
+    public static final long SECOND_PER_HOUR = 60 * SECOND_PER_MINUTE;
+    /**
+     * Number of seconds in a standard day.
+     */
+    public static final long SECOND_PER_DAY = 24 * SECOND_PER_HOUR;
 
     /**
      * yyyy-MM-dd
@@ -247,36 +259,36 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 
     /**
      * 计算到现在的时差
+     *
      * @param date Date
+     * @return 1天2小时7分钟17秒前 or 1天2小时7分钟17秒前后
      */
-    public static String between(final Date date) {
-        return between(zonedDateTime(date).toLocalDateTime());
+    public static String dateTimeString(final Date date) {
+        return dateTimeString(zonedDateTime(date).toLocalDateTime());
     }
 
     /**
      * 计算到现在的时差
+     *
      * @param localDateTime LocalDateTime
      * @return
      */
-    public static String between(final LocalDateTime localDateTime) {
+    public static String dateTimeString(final LocalDateTime localDateTime) {
         LocalDateTime now = LocalDateTime.now();
-
-//        LocalDateTime time = LocalDateTime.parse(
-//                "2018-02-27 13:57:23",
-//                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-//        );
         boolean isBefore = localDateTime.isBefore(now);
 
         StringBuilder sb = new StringBuilder();
+        // 计算日期差
         Period period;
+        // 计算时间差
         Duration duration;
-        // 小于当前时间
+        // 小于当前时间 由于有纳秒存在 所以不会出现相等的情况
         if (isBefore) {
             // 处理日期
             period = Period.between(localDateTime.toLocalDate(), now.toLocalDate());
             duration = Duration.between(localDateTime.toLocalTime(), now.toLocalTime());
         } else {
-        // 当前时间之后
+            // 当前时间之后
             period = Period.between(now.toLocalDate(), localDateTime.toLocalDate());
             duration = Duration.between(now.toLocalTime(), localDateTime.toLocalTime());
         }
@@ -286,8 +298,6 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
             period = period.plusDays(-1);
             duration = duration.plusDays(1);
         }
-        System.out.println(period.isZero());
-        System.out.println(duration.getNano());
         if (period.isZero() && duration.getSeconds() == 0) {
             sb.append("1秒");
         } else {
@@ -295,9 +305,9 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
             sb.append(period.getMonths() == 0 ? "" : (period.getMonths() + "月"));
             sb.append(period.getDays() == 0 ? "" : (period.getDays() + "天"));
 
-            long hours = duration.getSeconds() / (MILLIS_PER_HOUR);
-            long minutes = duration.getSeconds() % (60 * 60) / 60;
-            long seconds = duration.getSeconds() % (60 * 60) % 60;
+            long hours = duration.getSeconds() / SECOND_PER_HOUR;
+            long minutes = duration.getSeconds() % SECOND_PER_HOUR / SECOND_PER_MINUTE;
+            long seconds = duration.getSeconds() % SECOND_PER_HOUR % SECOND_PER_MINUTE;
 
             sb.append(hours == 0 ? "" : (hours + "小时"));
             sb.append(minutes == 0 ? "" : (minutes + "分钟"));

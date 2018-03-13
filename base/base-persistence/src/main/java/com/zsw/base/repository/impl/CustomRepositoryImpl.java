@@ -32,6 +32,10 @@ public class CustomRepositoryImpl<T> implements CustomRepository<T> {
     @PersistenceContext
     private EntityManager entityManager;
 
+    protected EntityManager getEntityManager() {
+        return this.entityManager;
+    }
+
     /**
      * @return Class
      */

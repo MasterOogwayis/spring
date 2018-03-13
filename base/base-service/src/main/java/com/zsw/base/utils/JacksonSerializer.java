@@ -1,6 +1,7 @@
 package com.zsw.base.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -50,5 +51,18 @@ public class JacksonSerializer {
      */
     protected ObjectMapper getMapper() {
         return mapper;
+    }
+
+    /**
+     * @param object data
+     * @return
+     */
+    protected String toJson(Object object) {
+        try {
+            return this.mapper.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

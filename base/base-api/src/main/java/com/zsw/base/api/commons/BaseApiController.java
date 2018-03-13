@@ -1,8 +1,8 @@
 package com.zsw.base.api.commons;
 
+import ch.qos.logback.classic.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,13 +17,13 @@ public class BaseApiController {
     /**
      *
      */
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
 
 
     /**
      *
      */
-    protected Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+    protected final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
 
     /**
@@ -34,7 +34,7 @@ public class BaseApiController {
     @ResponseBody
     protected Object exceptionHandler(Exception ex) {
         ex.printStackTrace();
-        return ex.getMessage();
+        return ex;
     }
 
 }
