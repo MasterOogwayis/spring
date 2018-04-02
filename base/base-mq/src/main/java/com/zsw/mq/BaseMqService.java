@@ -12,6 +12,6 @@ public interface BaseMqService {
      *
      * @param message BaseMqMessage
      */
-    void sendSimpleMessage(BaseMqMessage message);
+    boolean sendSimpleMessage(BaseMqMessage message);
 
 }

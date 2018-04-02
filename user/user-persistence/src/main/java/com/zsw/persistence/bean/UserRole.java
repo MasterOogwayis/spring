@@ -1,11 +1,8 @@
 package com.zsw.persistence.bean;
 
 import com.zsw.base.bean.commons.BaseBean;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:01
@@ -20,7 +17,6 @@ public class UserRole extends BaseBean {
      *
      */
     @ManyToOne(fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SELECT)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 

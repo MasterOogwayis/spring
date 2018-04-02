@@ -17,11 +17,6 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>base-cache-lock</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>saleorder-api</artifactId>
@@ -41,9 +36,18 @@
         </dependency>
 
         <!-- 监控 -->
+        <!--<dependency>-->
+            <!--<groupId>io.prometheus</groupId>-->
+            <!--<artifactId>simpleclient_spring_boot</artifactId>-->
+        <!--</dependency>-->
+
         <dependency>
-                <groupId>io.prometheus</groupId>
-            <artifactId>simpleclient_spring_boot</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-spring-legacy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
 

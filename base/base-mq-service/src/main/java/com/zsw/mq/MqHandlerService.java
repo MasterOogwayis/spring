@@ -4,7 +4,6 @@ import ch.qos.logback.classic.Logger;
 import com.zsw.base.utils.DateUtils;
 import com.zsw.base.utils.SpringContextUtils;
 import com.zsw.mq.cache.BaseMqMessageCache;
-import com.zsw.mq.cache.impl.BaseMqMessageRedis;
 import com.zsw.mq.persistence.bean.MessageAddress;
 import com.zsw.mq.service.MessageAddressService;
 import com.zsw.utils.RandomCodeUtils;
@@ -18,7 +17,6 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @author ZhangShaowei on 2018/3/6 15:17
  **/
 @Service
-public class MqService {
+public class MqHandlerService {
 
     /**
      * LOGGER
@@ -62,7 +60,7 @@ public class MqService {
 
 
     /**
-     * 标记为发送失败的消息 - 代发表中 超过 30S未发送的 标记为失败
+     * 标记为发送失败的消息 - 待发表中 超过 30S未发送的 标记为失败
      * 程序启动时写入到失败队列
      */
     private static final long SEND_FAIL_TIME = 30 * 1000L;
@@ -86,7 +84,7 @@ public class MqService {
     /**
      * 定制的 消息缓存 带泛型
      */
-    @Resource(name = BaseMqMessageRedis.BEAN_NAME)
+    @Autowired
     private BaseMqMessageCache cache;
 
 
@@ -114,7 +112,7 @@ public class MqService {
             public void afterCommit() {
                 // 这里无法使用 AopContext.currentProxy() 获取当前代理对象
                 // ThreadLocal中的对象是调用此 service 的上级对象
-                SpringContextUtils.getBean("mqService", MqService.class)
+                SpringContextUtils.getBean("mqService", MqHandlerService.class)
                         .sendMessageAsync(message, address, key);
             }
 
@@ -209,7 +207,7 @@ public class MqService {
     /**
      * 每小时执行一次
      */
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 ? * * * *")
     public void compensate() {
         this.logger.info("消息失败补偿...");
         BaseMqMessage message;

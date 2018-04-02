@@ -5,7 +5,6 @@ server:
     port-header: PUT,DELETE,OPTIONS,GET,POST
 
 
-
 ##微服务名
 spring:
 #  devtools:
@@ -86,7 +85,7 @@ spring:
     ## Redis服务器连接端口
     port: 6379
     ## Redis服务器连接密码（默认为空）
-    password: 111111
+    password:
     pool:
       ## 连接池最大连接数（使用负值表示没有限制）
       max-active: 8
@@ -124,27 +123,36 @@ eureka:
     prefer-ip-address: true
     ip-address: localhost
 
-logging:
-  level: debug
-
-debug: true
+#logging:
+#  level: debug
+#
+#debug: true
 
 management:
   security:
     enabled: false
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: /*
+endpoints:
+  prometheus:
+    enabled: true
+
 #  health:
 #    redis:
 #      enabled: true
 
-security:
-  user:
-    name: admin
-    password: 111111
-#  basic:
-#    enabled: false
+
 
 info:
   version: @project.version@
+
+
 
 
 

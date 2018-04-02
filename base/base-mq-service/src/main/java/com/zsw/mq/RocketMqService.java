@@ -18,7 +18,8 @@ public class RocketMqService implements BaseMqService {
     private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
     
     @Override
-    public void sendSimpleMessage(BaseMqMessage message) {
+    public boolean sendSimpleMessage(BaseMqMessage message) {
         this.logger.info("rocketmq send message: " + message.toString());
+        return true;
     }
 }

@@ -3,9 +3,9 @@ package com.zsw.persistence.repository;
  * @author ZhangShaowei on 2017/10/12 15:13
  */
 
-import com.zsw.base.repository.BaseRepository;
 import com.zsw.persistence.bean.SaleOrder;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 @Qualifier("saleOrderRepository")
-public interface SaleOrderRepository extends BaseRepository<SaleOrder, Long> {
+public interface SaleOrderRepository extends JpaRepository<SaleOrder, Long> {
 
 }

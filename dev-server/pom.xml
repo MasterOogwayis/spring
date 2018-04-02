@@ -12,19 +12,58 @@
     <artifactId>dev-server</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-client</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-mq-service</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-swagger2</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-elasticsearch</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-controller</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>verification-code</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-persistence</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -26,8 +26,11 @@
         <module>login-ui</module>
         <module>base-admin-client</module>
         <module>base-hystrix-dashborad</module>
-        <module>base-mq</module>
-        <module>base-mq-service</module>
+        <!--<module>base-mq</module>
+        <module>base-mq-service</module>-->
+        <module>base-swagger2</module>
+        <module>base-elasticsearch</module>
+        <module>verification-code</module>
     </modules>
 
 

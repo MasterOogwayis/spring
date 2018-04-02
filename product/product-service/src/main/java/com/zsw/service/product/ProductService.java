@@ -25,7 +25,7 @@ public class ProductService {
      * @return
      */
     public Product saveOrUpdate(Product product) {
-        return this.productRepository.saveOrUpdate(product);
+        return this.productRepository.save(product);
     }
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
     <!--
-        不能使用默认 logback.xml or 无法读取yml文件参数, 默认 logback.xml 会在yml之前加载
+        使用默认 logback.xml or 无法读取yml文件参数, logback.xml 会在yml之前加载
         logback-spring.xml会生成 appName = bootstrap前置文件
     -->
     <springProperty name="appName" scope="context" source="spring.application.name"/>
@@ -126,6 +126,7 @@
         <!--<appender-ref ref="INFO"/>-->
     </root>
 
+    <!-- additivity 不需要重复打印 -->
     <logger name="com.api" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
@@ -134,6 +135,6 @@
         <appender-ref ref="DEBUG"/>
         <appender-ref ref="INFO"/>
     </logger>
-    <!-- jxm 动态日志 -->
+    <!-- jmx 动态日志 -->
     <jmxConfigurator/>
 </configuration>

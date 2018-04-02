@@ -12,13 +12,9 @@ import java.util.Set;
  *
  * @author ZhangShaowei on 2018/3/8 10:34
  **/
-@Component(BaseMqMessageRedis.BEAN_NAME)
+@Component
 public class BaseMqMessageRedis extends RedisDao<String, BaseMqMessage> implements BaseMqMessageCache {
 
-    /**
-     *
-     */
-    public static final String BEAN_NAME = "baseMqMessageRedis";
 
     /**
      * @param pattern

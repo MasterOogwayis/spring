@@ -3,8 +3,8 @@ package com.zsw.persistence.repository;
  * @author ZhangShaowei on 2017/9/21 14:08
  */
 
-import com.zsw.base.repository.BaseRepository;
 import com.zsw.persistence.bean.UserRole;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author ZhangShaowei on 2017/9/21 14:08
  **/
 @Repository
-public interface UserRoleRepository extends BaseRepository<UserRole, Long> {
+public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
     /**
      * @param userId userId

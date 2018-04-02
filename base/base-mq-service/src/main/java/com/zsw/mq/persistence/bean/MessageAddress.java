@@ -5,12 +5,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 消息暂存地址
+ * JPA 会自动建表
+ * 消息暂存地址 保证事务提交后消息同步存储 发送成功后删除
  *
  * @author ZhangShaowei on 2018/3/8 14:08
  **/
 @Entity
-@Table(name = "MESSAGE_ADDRESS", indexes = {@Index(name = "ADDRESS", columnList = "ADDRESS")})
+@Table(name = "MESSAGE_ADDRESS")
 public class MessageAddress implements Serializable {
 
     private static final long serialVersionUID = -7456190903411207874L;
@@ -27,7 +28,7 @@ public class MessageAddress implements Serializable {
     /**
      * 消息地址  redis key
      */
-    @Column(name = "ADDRESS", nullable = false)
+    @Column(name = "ADDRESS", nullable = false, unique = true)
     private String address;
 
     /**
@@ -39,12 +40,7 @@ public class MessageAddress implements Serializable {
     /**
      *
      */
-    @Column(
-            name = "CREATE_TIMESTAMP",
-            nullable = false,
-            updatable = false,
-            columnDefinition = "datetime DEFAULT CURRENT_TIMESTAMP"
-    )
+    @Column(name = "CREATE_TIMESTAMP", nullable = false, updatable = false)
     private Date createTimestamp;
 
     /**  */

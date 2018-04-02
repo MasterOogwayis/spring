@@ -1,12 +1,14 @@
 package com.api;
 
-import com.zsw.base.redis.dao.commons.BaseCacheDao;
-import com.zsw.mq.persistence.bean.MessageAddress;
-import com.zsw.mq.service.MessageAddressService;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author ZhangShaowei on 2018/1/12 14:48
@@ -23,35 +25,43 @@ public class ApiController {
     /**
      *
      */
-    @Autowired
-    private MessageAddressService messageAddressService;
-
-    /**
-     *
-     */
-    @Autowired
-    private BaseCacheDao cache;
+//    @Autowired
+//    private MessageAddressService messageAddressService;
+//
+//    /**
+//     *
+//     */
+//    @Autowired
+//    private BaseCacheDao cache;
 
     /**
      * @param messageAddress
      * @return
      */
-    @PostMapping("add")
-    public MessageAddress add(@ModelAttribute final MessageAddress messageAddress) {
-        return this.messageAddressService.saveOrUpdate(messageAddress);
-    }
+//    @PostMapping("add")
+//    @ApiOperation("添加地址")
+//    public MessageAddress add(@ModelAttribute final MessageAddress messageAddress) {
+//        return this.messageAddressService.saveOrUpdate(messageAddress);
+//    }
 
     /**
      * @param msg
      * @return
      */
     @GetMapping("log")
+    @ApiOperation("日志输出")
     public String log(String msg) {
-        this.logger.error("error: " + msg);
-        this.logger.warn("warn: " + msg);
-        this.logger.debug("debug: " + msg);
-        this.logger.info("info: " + msg);
+        this.logger.error("message error: " + msg);
+        this.logger.warn("message warn: " + msg);
+        this.logger.debug("message debug: " + msg);
+        this.logger.info("message info: " + msg);
+
+        List<String> list = Arrays.asList("1", "2", "3", msg);
+
+        this.logger.info("list: {}", list);
+
         return "{\"success\": true}";
     }
+
 
 }

@@ -4,9 +4,13 @@ import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import com.zsw.cache.Address;
 import com.zsw.cache.AddressRepository;
 import com.zsw.cache.SaleOrderCache;
+import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.bean.SaleOrder;
+import com.zsw.promethues.annotation.PrometheusMetrics;
 import com.zsw.service.ApiService;
+import com.zsw.service.saleorder.SaleOrderService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +48,9 @@ public class ApiController {
     @Autowired
     private AddressRepository addressRepository;
 
+    @Autowired
+    private SaleOrderService saleOrderService;
+
     /**
      * @param saleOrderDto
      * @return
@@ -64,13 +71,42 @@ public class ApiController {
     public Address address(@RequestParam String address) {
         Address add = new Address();
         add.setAddress(address);
-        return this.addressRepository.saveOrUpdate(add);
+        return this.addressRepository.save(add);
     }
 
     @GetMapping("pttl")
     @Transactional(rollbackFor = Exception.class)
     public Long pttl(@RequestParam String key) {
         return this.cache.pttl(key, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @GetMapping("get")
+    public SaleOrderDto get(@RequestParam final Long id) {
+        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
+        SaleOrderDto saleOrderDto = new SaleOrderDto();
+        BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
+        ProductDto productDto = new ProductDto();
+        BeanUtils.copyProperties(saleOrder.getProduct(), productDto);
+        saleOrderDto.setProduct(productDto);
+        return saleOrderDto;
+    }
+
+    @GetMapping("get1")
+    public SaleOrderDto get1(@RequestParam final Long id) throws Exception {
+        if (id != 10) {
+            throw new Exception("错了");
+        }
+        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
+        SaleOrderDto saleOrderDto = new SaleOrderDto();
+        BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
+        ProductDto productDto = new ProductDto();
+        BeanUtils.copyProperties(saleOrder.getProduct(), productDto);
+        saleOrderDto.setProduct(productDto);
+        return saleOrderDto;
     }
 
 

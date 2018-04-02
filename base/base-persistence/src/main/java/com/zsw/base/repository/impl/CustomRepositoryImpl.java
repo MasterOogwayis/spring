@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Logger;
 import com.zsw.base.repository.CustomRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -18,6 +19,7 @@ import java.util.Map;
  * @param <T> T
  * @author ZhangShaowei on 2017/9/12 15:41
  */
+@NoRepositoryBean
 public class CustomRepositoryImpl<T> implements CustomRepository<T> {
 
     /**

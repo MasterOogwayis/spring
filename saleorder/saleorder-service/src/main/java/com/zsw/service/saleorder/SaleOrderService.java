@@ -3,8 +3,6 @@ package com.zsw.service.saleorder;
 import com.zsw.base.redis.dao.commons.BaseCacheDao;
 import com.zsw.base.service.BaseService;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.mq.BaseMqMessage;
-import com.zsw.mq.MqService;
 import com.zsw.persistence.bean.Product;
 import com.zsw.persistence.bean.SaleOrder;
 import com.zsw.persistence.repository.SaleOrderRepository;
@@ -67,8 +65,8 @@ public class SaleOrderService extends BaseService {
     /**
      *
      */
-    @Autowired
-    private MqService msgService;
+//    @Autowired
+//    private MqHandlerService msgService;
 
     /**
      * @param id id
@@ -90,11 +88,11 @@ public class SaleOrderService extends BaseService {
 
         SaleOrder saleOrder = this.saleOrderRepository.findOne(saleOrderDto.getId());
 
-        msgService.transactionSimpleMessage(new BaseMqMessage());
+//        msgService.transactionSimpleMessage(new BaseMqMessage());
 
         BeanUtils.copyProperties(saleOrderDto, saleOrder, "id", "product");
 
-        this.saleOrderRepository.saveOrUpdate(saleOrder);
+        this.saleOrderRepository.save(saleOrder);
 
 //        if (1 == 1) {
 //            throw new RuntimeException("This is a Test");
