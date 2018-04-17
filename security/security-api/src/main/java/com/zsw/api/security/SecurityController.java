@@ -1,6 +1,5 @@
 package com.zsw.api.security;
 
-import com.zsw.persistence.bean.UserRole;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -318,5 +318,18 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return sb.toString();
     }
 
+    /**
+     * long to String
+     *
+     * @param time
+     * @return
+     */
+    public static String dateTimeFormat(Long time) {
+        return dateTimeFormat(LocalDateTime.ofEpochSecond(
+                time / 1000L,
+                0,
+                ZoneOffset.ofHours(8)));
+    }
+
 
 }

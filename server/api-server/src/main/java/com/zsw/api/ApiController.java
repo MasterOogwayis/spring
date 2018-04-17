@@ -7,15 +7,15 @@ import com.zsw.cache.SaleOrderCache;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.bean.SaleOrder;
-import com.zsw.promethues.annotation.PrometheusMetrics;
 import com.zsw.service.ApiService;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.HealthEndpoint;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executor;
 
 /**
  * @author ZhangShaowei on 2018/1/12 14:48
@@ -51,6 +51,13 @@ public class ApiController {
     @Autowired
     private SaleOrderService saleOrderService;
 
+
+    /**
+     *
+     */
+    @Autowired
+    private Executor executor;
+
     /**
      * @param saleOrderDto
      * @return
@@ -61,11 +68,6 @@ public class ApiController {
         return data;
     }
 
-    @PostMapping("keys")
-    public Object keys(@RequestParam String keys) {
-        return this.saleOrderCache.keys(keys);
-    }
-
     @PostMapping("address")
     @Transactional(rollbackFor = Exception.class)
     public Address address(@RequestParam String address) {
@@ -74,19 +76,19 @@ public class ApiController {
         return this.addressRepository.save(add);
     }
 
-    @GetMapping("pttl")
-    @Transactional(rollbackFor = Exception.class)
-    public Long pttl(@RequestParam String key) {
-        return this.cache.pttl(key, TimeUnit.MILLISECONDS);
-    }
-
     /**
      * @param id
      * @return
      */
     @GetMapping("get")
-    public SaleOrderDto get(@RequestParam final Long id) {
-        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
+//    @Timed(value = "api.counter.requests", histogram = true)
+    public SaleOrderDto get(@RequestParam final Long id) throws Exception {
+
+        if (id % 7 == 0) {
+            throw new Exception("错了");
+        }
+
+        SaleOrder saleOrder = this.saleOrderService.getCached(id);
         SaleOrderDto saleOrderDto = new SaleOrderDto();
         BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
         ProductDto productDto = new ProductDto();
@@ -95,18 +97,12 @@ public class ApiController {
         return saleOrderDto;
     }
 
-    @GetMapping("get1")
-    public SaleOrderDto get1(@RequestParam final Long id) throws Exception {
-        if (id != 10) {
-            throw new Exception("错了");
-        }
-        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
-        SaleOrderDto saleOrderDto = new SaleOrderDto();
-        BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
-        ProductDto productDto = new ProductDto();
-        BeanUtils.copyProperties(saleOrder.getProduct(), productDto);
-        saleOrderDto.setProduct(productDto);
-        return saleOrderDto;
+    @Autowired
+    HealthEndpoint healthEndpoint;
+
+    @GetMapping("health")
+    public Object health() {
+        return healthEndpoint.invoke();
     }
 
 

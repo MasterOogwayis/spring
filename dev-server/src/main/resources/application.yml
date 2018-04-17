@@ -1,16 +1,18 @@
 ##服务器端口
 server:
-  port: 3334
+  port: 3335
 
 
 spring:
   jackson:
     serialization:
       failOnEmptyBeans: false
+    date-format: yyyy-MM-dd HH:mm:ss
   application:
     name: dev-server
   datasource:
-    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
+    name: spring
+    url: jdbc:mysql://localhost:3306/${spring.datasource.name}?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
@@ -62,12 +64,13 @@ spring:
       time-between-eviction-runs-millis: ${spring.datasource.timeBetweenEvictionRunsMillis}
       min-evictable-idle-time-millis: ${spring.datasource.minEvictableIdleTimeMillis}
 #      max-evictable-idle-time-millis:
-      filters: ${spring.datasource.filters}#配置多个英文逗号分隔
+      #配置多个英文逗号分隔
+      filters: ${spring.datasource.filters}
       # ------      监控配置    ------
       # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
-      web-stat-filter:
-        enable: true
-        url-pattern: /*
+#      web-stat-filter:
+#        enable: true
+#        url-pattern: /*
 #        exclusions:
 #        session-stat-enable:
 #        session-stat-max-count:
@@ -75,10 +78,10 @@ spring:
 #        principal-cookie-name:
 #        profile-enable:
       # StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
-      stat-view-servlet:
-        enabled: true
-        url-pattern: /druid/*
-        reset-enable: false # 禁用页面上的Reset All功能
+#      stat-view-servlet:
+#        enabled: true
+#        url-pattern: /druid/*
+#        reset-enable: false # 禁用页面上的Reset All功能
 #        login-username:
 #        login-password:
 #        allow: # 白名单 127.0.0.1,192.0.0.1
@@ -125,9 +128,18 @@ spring:
     ## 连接超时时间（毫秒）
     timeout: 0
 
-druid:
-  monitor:
-    enable: true;
+#druid:
+#  monitor:
+#    enable: true;
+
+endpoints:
+  prometheus:
+    enabled: true
+    sensitive: false
+
+management:
+  security:
+    enabled: false
 
 zsw:
   base:

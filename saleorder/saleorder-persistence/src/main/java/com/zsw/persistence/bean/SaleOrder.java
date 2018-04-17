@@ -22,7 +22,7 @@ public class SaleOrder extends BaseBean {
     /**
      *
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product product;
 

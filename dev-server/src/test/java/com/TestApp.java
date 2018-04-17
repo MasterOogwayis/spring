@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -83,7 +82,7 @@ public class TestApp {
 
     @Test
     //@WithMockUser 虚拟用户
-    @WithUserDetails(ADMIN)
+//    @WithUserDetails(ADMIN)
     public void test() {
         logger.debug("test");
     }

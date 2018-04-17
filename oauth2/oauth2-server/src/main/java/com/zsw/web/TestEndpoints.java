@@ -23,7 +23,7 @@ public class TestEndpoints {
     @GetMapping("/product/{id}")
     public String getProduct(@PathVariable String id) {
         //for debug
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "product id : " + id;
     }
 
@@ -34,7 +34,7 @@ public class TestEndpoints {
     @GetMapping("/order/{id}")
     public String getOrder(@PathVariable String id) {
         //for debug
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return "order id : " + id;
     }
 

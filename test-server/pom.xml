@@ -12,12 +12,12 @@
     <artifactId>test-server</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>saleorder-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!--query dsl -->
+        &lt;!&ndash;query dsl &ndash;&gt;
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
@@ -29,6 +29,10 @@
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 

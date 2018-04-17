@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <!-- 1.4.6.RELEASE 前 spring-boot-starter-redis -->
         </dependency>
@@ -27,11 +31,11 @@
         </dependency>
         <!-- protobuff序列化开源工具-->
         <dependency>
-            <groupId>com.dyuproject.protostuff</groupId>
+            <groupId>io.protostuff</groupId>
             <artifactId>protostuff-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.dyuproject.protostuff</groupId>
+            <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
         </dependency>
         <!-- protobuff序列化开源工具-->

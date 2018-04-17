@@ -1,10 +1,10 @@
 package com.zsw.base.redis.serializer;
 
 
-import com.dyuproject.protostuff.GraphIOUtil;
-import com.dyuproject.protostuff.LinkedBuffer;
-import com.dyuproject.protostuff.Schema;
-import com.dyuproject.protostuff.runtime.RuntimeSchema;
+import io.protostuff.*;
+import io.protostuff.runtime.RuntimeSchema;
+
+import java.io.IOException;
 
 /**
  * Protostuff序列化，线程安全，支持任意对象类型。
@@ -15,28 +15,15 @@ import com.dyuproject.protostuff.runtime.RuntimeSchema;
  */
 public class ProtostuffSerializer {
 
-    private static Schema<Content> schema = RuntimeSchema.getSchema(Content.class);
+    private static Schema<ObjectWrapper> schema = RuntimeSchema.getSchema(ObjectWrapper.class);
 
-    /**
-     * 私有化构造方法。
-     */
-    private ProtostuffSerializer() {
-    }
+//    private static CustomSchema<ObjectWrapper> customSchema = new CustomSchema<ObjectWrapper>(schemaBase) {
+//        @Override
+//        public void writeTo(Output output, ObjectWrapper message) throws IOException {
+//            super.writeTo(output, message);
+//        }
+//    };
 
-    /**
-     * 内部用于包装原始对象的类。
-     */
-    private static class Content {
-        private Object object;
-
-        Content(Object object) {
-            this.object = object;
-        }
-
-        public Object getObject() {
-            return object;
-        }
-    }
 
     /**
      * 对象序列化。
@@ -46,7 +33,12 @@ public class ProtostuffSerializer {
      */
     public static byte[] serialize(Object object) {
         LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
-        return GraphIOUtil.toByteArray(new Content(object), schema, buffer);
+        try {
+//        ProtostuffIOUtil.toByteArray(new ObjectWrapper(object), schema, buffer);
+            return GraphIOUtil.toByteArray(new ObjectWrapper(object), schema, buffer);
+        } finally {
+            buffer.clear();
+        }
     }
 
     /**
@@ -56,13 +48,11 @@ public class ProtostuffSerializer {
      * @return 对象实例。
      */
     @SuppressWarnings("unchecked")
-    public static <T> T deserialize(byte[] bytes) {
-        if (bytes == null) {
-            return null;
-        }
-        Content content = schema.newMessage();
-        GraphIOUtil.mergeFrom(bytes, content, schema);
-        return (T) content.getObject();
+    public static Object deserialize(byte[] bytes) {
+        ObjectWrapper objectWrapper = schema.newMessage();
+        GraphIOUtil.mergeFrom(bytes, objectWrapper, schema);
+//        ProtostuffIOUtil.mergeFrom(bytes, objectWrapper, schema);
+        return objectWrapper.getObject();
     }
 
 }

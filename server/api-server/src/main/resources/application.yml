@@ -5,6 +5,7 @@ server:
     port-header: PUT,DELETE,OPTIONS,GET,POST
 
 
+
 ##微服务名
 spring:
 #  devtools:
@@ -13,6 +14,7 @@ spring:
 #  resources:
 #    static-locations: classpath:/templates/
   jackson:
+    dateFormat: yyyy-MM-dd HH:mm:ss
     serialization:
       failOnEmptyBeans: false
   application:
@@ -23,7 +25,8 @@ spring:
 #    sampler:
 #      percentage: 1
   datasource:
-    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
+    name: spring
+    url: jdbc:mysql://localhost:3306/${spring.datasource.name}?useUnicode=true&characterEncoding=utf-8
 #    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
@@ -56,7 +59,49 @@ spring:
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
     keepAlive: true
-  #JPA Configuration:
+
+    # https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter
+    druid:
+      # ------      连接池配置      ------
+      initial-size: ${spring.datasource.initialSize}
+      max-active: ${spring.datasource.maxActive}
+      min-idle: ${spring.datasource.minIdle}
+      max-wait: ${spring.datasource.maxWait}
+      pool-prepared-statements: ${spring.datasource.poolPreparedStatements}
+      max-pool-prepared-statement-per-connection-size: ${spring.datasource.maxPoolPreparedStatementPerConnectionSize}
+#      max-open-prepared-statements: # statement cache的大小，默认为-1，也就是不限制
+      validation-query: ${spring.datasource.validationQuery}
+#      validation-query-timeout:
+      test-on-borrow: ${spring.datasource.testOnBorrow}
+      test-on-return: ${spring.datasource.testOnReturn}
+      test-while-idle: ${spring.datasource.testWhileIdle}
+      time-between-eviction-runs-millis: ${spring.datasource.timeBetweenEvictionRunsMillis}
+      min-evictable-idle-time-millis: ${spring.datasource.minEvictableIdleTimeMillis}
+#      max-evictable-idle-time-millis:
+      filters: ${spring.datasource.filters}#配置多个英文逗号分隔
+      # ------      监控配置    ------
+      # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
+      web-stat-filter:
+        enable: true
+        url-pattern: /*
+#        exclusions:
+#        session-stat-enable:
+#        session-stat-max-count:
+#        principal-session-name:
+#        principal-cookie-name:
+#        profile-enable:
+      # StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false # 禁用页面上的Reset All功能
+#        login-username:
+#        login-password:
+#        allow: # 白名单 127.0.0.1,192.0.0.1
+#        deny: #黑名单 192.0.0.1
+      # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+#      aop-patterns: # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+#JPA Configuration:
   jpa:
     database: MYSQL
     show-sql: true
@@ -131,27 +176,32 @@ eureka:
 management:
   security:
     enabled: false
-  metrics:
-    export:
-      prometheus:
-        enabled: true
-  endpoints:
-    web:
-      exposure:
-        include: /*
+#  metrics:
+#    export:
+#      prometheus:
+#        enabled: true
+#    distribution:
+#      percentiles-histogram[http.server.requests]: true
+#    web:
+#      server:
+#        requests-metric-name: app.server.requests
+#    use-global-registry: false
 endpoints:
   prometheus:
     enabled: true
+    sensitive: false
+#  druid:
+#    enabled: true
+#  metrics:
+#    enabled: false
 
 #  health:
 #    redis:
 #      enabled: true
 
 
-
 info:
   version: @project.version@
-
 
 
 

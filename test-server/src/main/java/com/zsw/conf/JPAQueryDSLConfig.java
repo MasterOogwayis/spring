@@ -1,24 +1,17 @@
 package com.zsw.conf;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import javax.persistence.EntityManager;
-
 /**
  * JPA QueryDSL 配置。
  */
-@Configuration
+//@Configuration
 public class JPAQueryDSLConfig {
 
-    @Autowired
-    private EntityManager entityManager;
-
-    @Bean
-    public JPAQueryFactory queryFactory() {
-        return new JPAQueryFactory(entityManager);
-    }
+//    @Autowired
+//    private EntityManager entityManager;
+//
+//    @Bean
+//    public JPAQueryFactory queryFactory() {
+//        return new JPAQueryFactory(entityManager);
+//    }
 
 }

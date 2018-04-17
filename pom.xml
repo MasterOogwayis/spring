@@ -30,6 +30,8 @@
         <module>oauth2</module>
         <module>dev-server</module>
         <module>test-server</module>
+        <module>simple-app</module>
+        <module>common-query</module>
     </modules>
 
     <properties>
@@ -40,7 +42,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <org.slf4j.version>1.7.25</org.slf4j.version>
         <maven.war.dependentWarExcludes>WEB-INF/web.xml</maven.war.dependentWarExcludes>
-        <protostuff.version>1.1.2</protostuff.version>
+        <protostuff.version>1.6.0</protostuff.version>
         <querydsl.version>4.1.4</querydsl.version>
         <micrometer.version>1.0.2</micrometer.version>
     </properties>
@@ -62,12 +64,12 @@
             </dependency>
             <!-- protobuff序列化开源工具-->
             <dependency>
-                <groupId>com.dyuproject.protostuff</groupId>
+                <groupId>io.protostuff</groupId>
                 <artifactId>protostuff-core</artifactId>
                 <version>${protostuff.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.dyuproject.protostuff</groupId>
+                <groupId>io.protostuff</groupId>
                 <artifactId>protostuff-runtime</artifactId>
                 <version>${protostuff.version}</version>
             </dependency>
@@ -154,7 +156,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.1.9</version>
+                <version>1.1.7</version>
             </dependency>
 
             <!-- xml -->

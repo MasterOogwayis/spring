@@ -34,7 +34,7 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
     @GetMapping("get")
     public SaleOrderDto get(@RequestParam final Long id) {
 
-        SaleOrder saleOrder = this.saleOrderService.getSaleOrder(id);
+        SaleOrder saleOrder = this.saleOrderService.get(id);
         SaleOrderDto saleOrderDto = new SaleOrderDto();
         BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
         ProductDto productDto = new ProductDto();

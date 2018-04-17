@@ -21,12 +21,12 @@ public class ThreadPoolConfiguration {
     /**
      * 核心线程数
      */
-    private static final int CORE_POOL_SIZE = 1;
+    private static final int CORE_POOL_SIZE = 4;
 
     /**
      * 最大线程数:CPU核心数-N  1.计算密集型：N + 1   2.IO密集型：2N+1
      */
-    private static final int MAX_POOL_SIZE = 9;
+    private static final int MAX_POOL_SIZE = 50;
 
     /**
      * 线程池维护线程所允许的空闲时间
@@ -36,7 +36,7 @@ public class ThreadPoolConfiguration {
     /**
      * 队列最大长度 >=mainExecutor.maxSize
      */
-    private static final int QUEUE_CAPACITY = 300;
+    private static final int QUEUE_CAPACITY = 500;
 
     /**
      * @return
