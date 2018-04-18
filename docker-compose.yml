@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
 #  redis:
 #    container_name: redis
@@ -10,7 +10,7 @@ services:
     container_name: eureka
     build: ./server/register-server
     image: zsw/register-server
-    restart: 'no'
+    restart: "no"
     networks:
       - backend
     ports:
@@ -36,15 +36,17 @@ services:
       - eureka
     environment:
       SERVER_PORT: 3334
-      MYSQL_HOST: 192.168.56.1
+      MYSQL_HOST: 192.168.99.1
       MYSQL_PORT: 3306
+      MYSQL_NAME: spring
       MYSQL_USERNAME: root
       MYSQL_PASSWORD: root
       EUREKA_HOST: eureka
       EUREKA_PORT: 1111
-      REDIS_HOST: 192.168.56.1
+      REDIS_HOST: 192.168.99.1
       REDIS_PORT: 6379
       REDIS_PASSWORD: 111111
+      eureka: eureka
 #      - redis
 #    links:
 #      - eureka

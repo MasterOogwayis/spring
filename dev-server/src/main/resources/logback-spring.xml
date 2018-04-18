@@ -119,21 +119,20 @@
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="ERROR"/>
-        <appender-ref ref="WARN"/>
+        <!--<appender-ref ref="FILE"/>-->
+        <!--<appender-ref ref="ERROR"/>-->
+        <!--<appender-ref ref="WARN"/>-->
         <!--<appender-ref ref="DEBUG"/>-->
         <!--<appender-ref ref="INFO"/>-->
     </root>
 
     <!-- additivity 不需要重复打印 -->
-    <logger name="com.api" additivity="false">
-        <level value="DEBUG"/>
+    <logger name="com.api" additivity="false" level="DEBUG">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="ERROR"/>
-        <appender-ref ref="WARN"/>
-        <appender-ref ref="DEBUG"/>
-        <appender-ref ref="INFO"/>
+        <!--<appender-ref ref="ERROR"/>-->
+        <!--<appender-ref ref="WARN"/>-->
+        <!--<appender-ref ref="DEBUG"/>-->
+        <!--<appender-ref ref="INFO"/>-->
     </logger>
     <!-- jmx 动态日志 -->
     <jmxConfigurator/>

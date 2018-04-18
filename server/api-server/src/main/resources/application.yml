@@ -1,6 +1,6 @@
 ##服务器端口
 server:
-  port: 3334 #${SERVER_PORT}
+  port: ${SERVER_PORT}
   tomcat:
     port-header: PUT,DELETE,OPTIONS,GET,POST
 
@@ -25,11 +25,11 @@ spring:
 #    sampler:
 #      percentage: 1
   datasource:
-    name: spring
-    url: jdbc:mysql://localhost:3306/${spring.datasource.name}?useUnicode=true&characterEncoding=utf-8
+    name: ${MYSQL_NAME}
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${spring.datasource.name}?useUnicode=true&characterEncoding=utf-8
 #    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: root
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
     removeAbandoned: false
     removeAbandonedTimeout: 1000
     logAbandoned: false
@@ -126,11 +126,11 @@ spring:
     #        - 192.168.0.9:6391
     #        - 192.168.0.9:6392
       ##Redis服务器地址---如果没有配置 默认 127.0.0.1:6379 无密码
-    host: localhost
+    host: ${REDIS_HOST}
     ## Redis服务器连接端口
-    port: 6379
+    port: ${REDIS_PORT}
     ## Redis服务器连接密码（默认为空）
-    password:
+    password: ${REDIS_PASSWORD}
     pool:
       ## 连接池最大连接数（使用负值表示没有限制）
       max-active: 8
@@ -161,10 +161,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
-    eureka-server-port: 1111
+    eureka-server-port: ${EUREKA_PORT}
     disable-delta: true
   instance:
-    hostname: localhost
+    hostname: ${EUREKA_HOST}
     prefer-ip-address: true
     ip-address: localhost
 

@@ -38,18 +38,19 @@ public class StaticTests {
     }
 
     public static void main(String[] args) throws Exception {
-
-        List<Room> rooms = new ArrayList<>();
-        rooms.add(new Room(1L, 10));
-        rooms.add(new Room(1L, 20));
-        rooms.add(new Room(1L, 30));
-        rooms.add(new Room(1L, 40));
-        rooms.add(new Room(1L, 50));
-
-        Map<Long, Integer> map1  = rooms.stream().collect(Collectors.groupingBy(Room::getId, Collectors.summingInt(Room::getNumber)));
-        Map<Long, List<Room>> map2  = rooms.stream().collect(Collectors.groupingBy(Room::getId, Collectors.toList()));
-
-        System.out.println(map1);
+        System.out.println(Long.MAX_VALUE);
+//
+//        List<Room> rooms = new ArrayList<>();
+//        rooms.add(new Room(1L, 10));
+//        rooms.add(new Room(1L, 20));
+//        rooms.add(new Room(1L, 30));
+//        rooms.add(new Room(1L, 40));
+//        rooms.add(new Room(1L, 50));
+//
+//        Map<Long, Integer> map1  = rooms.stream().collect(Collectors.groupingBy(Room::getId, Collectors.summingInt(Room::getNumber)));
+//        Map<Long, List<Room>> map2  = rooms.stream().collect(Collectors.groupingBy(Room::getId, Collectors.toList()));
+//
+//        System.out.println(map1);
 
 //        System.out.println(new SaleOrder().getClass().getName());
 

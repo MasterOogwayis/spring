@@ -84,7 +84,7 @@ public class ApiController {
 //    @Timed(value = "api.counter.requests", histogram = true)
     public SaleOrderDto get(@RequestParam final Long id) throws Exception {
 
-        if (id % 7 == 0) {
+        if (id % 7 == 1) {
             throw new Exception("错了");
         }
 

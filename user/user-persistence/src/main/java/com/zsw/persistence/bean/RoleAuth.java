@@ -1,6 +1,8 @@
 package com.zsw.persistence.bean;
 
 import com.zsw.base.bean.commons.BaseBean;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -12,6 +14,8 @@ import javax.persistence.ManyToOne;
 /**
  * @author ZhangShaowei on 2017/9/21 14:01
  */
+@Getter
+@Setter
 //@Entity
 //@Table(name = "ROLE_AUTH")
 public class RoleAuth extends BaseBean {
@@ -39,33 +43,4 @@ public class RoleAuth extends BaseBean {
     private Integer method;
 
 
-    /**  */
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    /**  */
-    public void setUser(UserRole userRole) {
-        this.userRole = userRole;
-    }
-
-    /**  */
-    public String getUriSource() {
-        return uriSource;
-    }
-
-    /**  */
-    public void setUriSource(String uriSource) {
-        this.uriSource = uriSource;
-    }
-
-    /**  */
-    public Integer getMethod() {
-        return method;
-    }
-
-    /**  */
-    public void setMethod(Integer method) {
-        this.method = method;
-    }
 }

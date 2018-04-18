@@ -22,7 +22,6 @@
         <module>file</module>
         <module>server</module>
         <module>base</module>
-        <module>user</module>
         <module>security</module>
         <module>product</module>
         <module>saleorder</module>
@@ -32,6 +31,7 @@
         <module>test-server</module>
         <module>simple-app</module>
         <module>common-query</module>
+        <module>user</module>
     </modules>
 
     <properties>
@@ -257,6 +257,14 @@
                 <artifactId>commons-io</artifactId>
                 <version>2.5</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.20</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

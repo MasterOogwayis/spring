@@ -12,11 +12,11 @@
     <artifactId>dev-server</artifactId>
 
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-client</artifactId>
             <version>${project.version}</version>
-        </dependency>-->
+        </dependency>
         <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-mq-service</artifactId>

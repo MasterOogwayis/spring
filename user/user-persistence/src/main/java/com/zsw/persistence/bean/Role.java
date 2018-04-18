@@ -1,5 +1,8 @@
 package com.zsw.persistence.bean;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,6 +11,8 @@ import java.io.Serializable;
  *
  * @author ZhangShaowei on 2018/1/30 11:20
  **/
+@Getter
+@Setter
 @Entity
 @Table(name = "ROLE")
 public class Role implements Serializable {
@@ -34,33 +39,4 @@ public class Role implements Serializable {
     @Column(name = "MARK", nullable = false)
     private String mark;
 
-    /**  */
-    public Long getId() {
-        return id;
-    }
-
-    /**  */
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    /**  */
-    public String getName() {
-        return name;
-    }
-
-    /**  */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**  */
-    public String getMark() {
-        return mark;
-    }
-
-    /**  */
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
 }

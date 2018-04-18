@@ -1,9 +1,13 @@
 server:
-  port: 1111 #${SERVER_PORT}
+  port: ${SERVER_PORT}
 
 spring:
   application:
     name: Eureka
+
+management:
+  security:
+    enabled: false
 
 eureka:
 #  dashboard:

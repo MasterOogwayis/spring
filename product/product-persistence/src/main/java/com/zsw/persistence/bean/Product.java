@@ -1,6 +1,8 @@
 package com.zsw.persistence.bean;
 
 import com.zsw.base.bean.commons.BaseBean;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.Table;
 /**
  * @author ZhangShaowei on 2017/10/12 11:15
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "PRODUCT")
 public class Product extends BaseBean {
@@ -22,14 +26,4 @@ public class Product extends BaseBean {
     @Column(name = "NUMBER", nullable = false)
     private Integer number;
 
-
-    /**  */
-    public Integer getNumber() {
-        return number;
-    }
-
-    /**  */
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
 }

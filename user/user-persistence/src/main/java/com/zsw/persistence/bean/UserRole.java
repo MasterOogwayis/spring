@@ -1,12 +1,16 @@
 package com.zsw.persistence.bean;
 
 import com.zsw.base.bean.commons.BaseBean;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:01
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "USER_ROLE")
 public class UserRole extends BaseBean {
@@ -28,23 +32,4 @@ public class UserRole extends BaseBean {
     private Role role;
 
 
-    /**  */
-    public User getUser() {
-        return user;
-    }
-
-    /**  */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    /**  */
-    public Role getRole() {
-        return role;
-    }
-
-    /**  */
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

@@ -56,10 +56,6 @@ public class ApiController {
         this.logger.debug("message debug: " + msg);
         this.logger.info("message info: " + msg);
 
-        List<String> list = Arrays.asList("1", "2", "3", msg);
-
-        this.logger.info("list: {}", list);
-
         return "{\"success\": true}";
     }
 

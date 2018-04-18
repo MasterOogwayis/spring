@@ -2,6 +2,8 @@ package com.zsw.base.bean.commons;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +12,8 @@ import java.util.Date;
 /**
  * @author ZhangShaowei on 2017/9/12 13:28
  */
+@Getter
+@Setter
 @MappedSuperclass
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -29,27 +33,4 @@ public class BaseBean implements Serializable {
      */
     @Column(name = "CREATE_TIMESTAMP", updatable = false, nullable = false)
     private Date createTimestamp;
-
-
-    /**  */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id primary key
-     */
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    /**  */
-    public Date getCreateTimestamp() {
-        return createTimestamp;
-    }
-
-    /**  */
-    public void setCreateTimestamp(Date createTimestamp) {
-        this.createTimestamp = createTimestamp;
-    }
 }
