@@ -25,7 +25,6 @@
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>login-ui</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

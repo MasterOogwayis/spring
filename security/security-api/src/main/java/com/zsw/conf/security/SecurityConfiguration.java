@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:43
@@ -54,14 +55,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
 //                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 //                .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login.html").loginProcessingUrl("/login").defaultSuccessUrl("/").permitAll()
+                .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/").permitAll()
                 .and()
                 .logout().deleteCookies("remove").invalidateHttpSession(false).logoutSuccessUrl("/")
                 .and()
                 .csrf().disable()
                 .httpBasic();
+        // 自定义验证码 拦截器
+        http.addFilterBefore(new LoginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 //        http.authorizeRequests()
 ////                .antMatchers("/user").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.OPTIONS).permitAll()
@@ -72,6 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .csrf().disable().anonymous().disable();
 
     }
+
 
     /**
      * @return
@@ -84,14 +89,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 忽略css、img等文件
+     * 忽略css、img等静态资源文件
+     * 忽略 验证码接口
      *
      * @param web
      * @throws Exception
      */
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assets/**", "/commons/**");
+        web.ignoring().antMatchers("/static/**", "/verify/code", "/prometheus");
     }
 
 }

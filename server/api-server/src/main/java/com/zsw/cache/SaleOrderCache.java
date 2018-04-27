@@ -1,7 +1,7 @@
 package com.zsw.cache;
 
 import com.zsw.base.redis.dao.commons.CacheDao;
-import com.zsw.persistence.bean.SaleOrder;
+import com.zsw.persistence.timedtask.bean.SaleOrder;
 
 import java.util.Set;
 

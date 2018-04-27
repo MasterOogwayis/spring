@@ -15,12 +15,10 @@
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-api</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-client</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>

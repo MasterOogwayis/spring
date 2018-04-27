@@ -1,7 +1,7 @@
 package com.zsw.cache;
 
 import com.zsw.base.redis.dao.RedisDao;
-import com.zsw.persistence.bean.SaleOrder;
+import com.zsw.persistence.timedtask.bean.SaleOrder;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;

@@ -2,9 +2,7 @@ package com.zsw.service.saleorder;
 
 import com.zsw.base.service.BaseService;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.bean.SaleOrder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.zsw.persistence.timedtask.bean.SaleOrder;
 
 /**
  * @author ZhangShaowei on 2017/10/12 15:15

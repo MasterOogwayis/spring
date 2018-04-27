@@ -82,7 +82,8 @@ hystrix:
           # 2 SEMAPHORE: 在调用线程上执行，并发请求量受信号量计数限制
           #   高并发(单个实例每秒达到几百个调用)的调用时，才需要修改HystrixCommands 的隔离策略为semaphore
           #   semaphore 隔离策略通常只用于非网络调用
-          strategy: THREAD # default
+          # default
+          strategy: THREAD
 #          semaphore:
              # 当使用SEMAPHORE的隔离策略时，设置最大的并发量 设置 HystrixCommand.Fallback() 方法允许从调用线程发出的请求的最大数量。
 #            maxConcurrentRequests: 10

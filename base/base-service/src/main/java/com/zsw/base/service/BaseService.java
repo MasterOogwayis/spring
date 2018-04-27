@@ -66,4 +66,6 @@ public interface BaseService<T, E extends Serializable> {
      */
     Page<T> findAll(T t, int page, int limit);
 
+    Page<T> findAll(T t, int page, int limit, String sourName, String sortType);
+
 }

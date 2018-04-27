@@ -1,1 +1,0 @@
-从config-server读取配置文件

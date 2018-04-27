@@ -1,5 +1,6 @@
 package com.zsw.base.controller.verifycode;
 
+import com.zsw.base.utils.VerifyCode;
 import com.zsw.base.verifycode.Captcha;
 import com.zsw.base.verifycode.GifCaptcha;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * 验证码图片 Verification code
@@ -38,10 +39,13 @@ public class VerifyCodeController {
         // gif验证码, 宽、高、位数
         Captcha captcha = new GifCaptcha(130, 38, 5);
         // 存入servletContext
-        request.getSession().setAttribute("verificationCode", captcha.text().toLowerCase());
+        request.getSession().setAttribute(VerifyCode.SESSION_KEY, captcha.text().toLowerCase());
 
-        //输出图片
-        captcha.out(response.getOutputStream());
+        try (OutputStream out = response.getOutputStream()){
+            //输出图片
+            captcha.out(out);
+        }
+
     }
 
     /**

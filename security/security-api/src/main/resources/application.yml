@@ -1,10 +1,14 @@
-server:
-  port: 1110
-spring:
-  freemarker:
-    suffix: .html
+#server:
+#  port: 1110
+#spring:
+#  freemarker:
+#    suffix: .html
+#    request-context-attribute: request
+#    template-loader-path: classpath: /templates
+#  mvc:
+#    static-path-pattern: /static/**
+#    prefix:
+#security:
+#  ignored: /assets/**,/commons/**
 
-
-security:
-  ignored: /assets/**,/commons/**
 

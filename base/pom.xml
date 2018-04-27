@@ -18,8 +18,6 @@
         <module>base-api</module>
         <module>base-persistence</module>
         <module>base-redis</module>
-        <module>spring-boot</module>
-        <!--<module>base-security</module>-->
         <module>base-rabbitmq</module>
         <module>base-cache-lock</module>
         <module>base-ui</module>

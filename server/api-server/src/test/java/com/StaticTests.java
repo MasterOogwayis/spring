@@ -3,17 +3,9 @@ package com;
 import ch.qos.logback.classic.Level;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.zsw.persistence.bean.SaleOrder;
-import org.apache.commons.lang.math.RandomUtils;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * test
@@ -38,7 +30,7 @@ public class StaticTests {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(Long.MAX_VALUE);
+        System.out.println(0x9999);
 //
 //        List<Room> rooms = new ArrayList<>();
 //        rooms.add(new Room(1L, 10));

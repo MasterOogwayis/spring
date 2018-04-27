@@ -27,11 +27,11 @@
         <module>saleorder</module>
         <module>app-ui</module>
         <module>oauth2</module>
-        <module>dev-server</module>
-        <module>test-server</module>
         <module>simple-app</module>
         <module>common-query</module>
         <module>user</module>
+        <module>timedtask</module>
+        <module>simple</module>
     </modules>
 
     <properties>
@@ -51,13 +51,108 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-admin-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-admin-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-cache-lock</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-controller</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-elasticsearch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-hystrix-dashborad</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-micrometer</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-rabbitmq</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-redis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-swagger2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>login-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>verification-code</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>security-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>security-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
 
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <!--<version>Camden.SR6</version>-->
-                <version>Dalston.SR4</version>
+                <version>Dalston.SR5</version>
                 <!--<version>Edgware.M1</version>-->
                 <type>pom</type>
                 <scope>import</scope>
@@ -178,12 +273,6 @@
                 <version>1.2.40</version>
             </dependency>
 
-            <!-- 监控 prometheus -->
-            <dependency>
-                <groupId>io.prometheus</groupId>
-                <artifactId>simpleclient_spring_boot</artifactId>
-                <version>0.1.0</version>
-            </dependency>
 
             <!-- 监控 micrometer -->
             <dependency>
@@ -204,8 +293,6 @@
                 <artifactId>micrometer-registry-influx</artifactId>
                 <version>${micrometer.version}</version>
             </dependency>
-
-
 
 
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
@@ -264,6 +351,21 @@
                 <artifactId>lombok</artifactId>
                 <version>1.16.20</version>
             </dependency>
+
+            <!-- jsqlparser -->
+            <dependency>
+                <groupId>com.github.jsqlparser</groupId>
+                <artifactId>jsqlparser</artifactId>
+                <version>1.1</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+
 
 
         </dependencies>

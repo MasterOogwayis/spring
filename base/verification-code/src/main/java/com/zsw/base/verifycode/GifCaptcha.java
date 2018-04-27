@@ -33,33 +33,25 @@ public class GifCaptcha extends Captcha {
 
     @Override
     public void out(OutputStream os) {
-        try {
-            GifEncoder gifEncoder = new GifEncoder();   // gif编码类，这个利用了洋人写的编码类，所有类都在附件中
-            //生成字符
-            gifEncoder.start(os);
-            gifEncoder.setQuality(180);
-            gifEncoder.setDelay(100);
-            gifEncoder.setRepeat(0);
-            BufferedImage frame;
-            char[] rands = textChar();
-            Color[] fontcolor = new Color[len];
-            for (int i = 0; i < len; i++) {
-                fontcolor[i] = new Color(20 + num(110), 20 + num(110), 20 + num(110));
-            }
-            for (int i = 0; i < len; i++) {
-                frame = graphicsImage(fontcolor, rands, i);
-                gifEncoder.addFrame(frame);
-                frame.flush();
-            }
-            gifEncoder.finish();
-        } finally {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        // gif编码类，这个利用了洋人写的编码类，所有类都在附件中
+        GifEncoder gifEncoder = new GifEncoder();
+        //生成字符
+        gifEncoder.start(os);
+        gifEncoder.setQuality(180);
+        gifEncoder.setDelay(100);
+        gifEncoder.setRepeat(0);
+        BufferedImage frame;
+        char[] rands = textChar();
+        Color[] fontcolor = new Color[len];
+        for (int i = 0; i < len; i++) {
+            fontcolor[i] = new Color(20 + num(110), 20 + num(110), 20 + num(110));
         }
-
+        for (int i = 0; i < len; i++) {
+            frame = graphicsImage(fontcolor, rands, i);
+            gifEncoder.addFrame(frame);
+            frame.flush();
+        }
+        gifEncoder.finish();
     }
 
     /**

@@ -1,11 +1,10 @@
 package com.zsw.api.saleorder;
 
 import com.zsw.base.api.commons.BaseApiController;
-import com.zsw.base.utils.SpringContextUtils;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderBaseClient;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.bean.SaleOrder;
+import com.zsw.persistence.timedtask.bean.SaleOrder;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,7 +15,6 @@
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-controller</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -2,7 +2,7 @@ package com.zsw.service;
 
 import com.zsw.base.service.BaseService;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.bean.SaleOrder;
+import com.zsw.persistence.timedtask.bean.SaleOrder;
 
 /**
  * @author ZhangShaowei on 2018/1/12 14:49

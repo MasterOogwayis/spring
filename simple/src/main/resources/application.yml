@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  freemarker:
+    suffix: .html
+  mvc:
+    static-path-pattern: /static/**
+#  resources:
+#    static-locations: classpath:/templates/,classpath:/static/

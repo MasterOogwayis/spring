@@ -6,7 +6,7 @@ import com.zsw.cache.AddressRepository;
 import com.zsw.cache.SaleOrderCache;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.bean.SaleOrder;
+import com.zsw.persistence.timedtask.bean.SaleOrder;
 import com.zsw.service.ApiService;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.BeanUtils;

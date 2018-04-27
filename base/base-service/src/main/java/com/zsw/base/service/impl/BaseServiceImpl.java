@@ -1,6 +1,5 @@
 package com.zsw.base.service.impl;
 
-import com.zsw.base.bean.commons.BaseBean;
 import com.zsw.base.service.BaseService;
 import com.zsw.base.utils.JacksonSerializer;
 import org.apache.commons.lang.StringUtils;
@@ -13,12 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.persistence.Id;
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author ZhangShaowei on 2017/9/8 16:24
@@ -88,6 +83,11 @@ public abstract class BaseServiceImpl<T, E extends Serializable> extends Jackson
      */
     @Override
     public List<T> findAll(T record) {
+//        ExampleMatcher matcher = ExampleMatcher.matching() //构建对象
+//                .withStringMatcher(StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
+//                .withIgnoreCase(true) //改变默认大小写忽略方式：忽略大小写
+//                .withMatcher("address", GenericPropertyMatchers.startsWith()) //地址采用“开始匹配”的方式查询
+//                .withIgnorePaths("focus");  //忽略属性：是否关注。因为是基本类型，需要忽略掉
         return this.getRepository().findAll(Example.of(record));
     }
 
@@ -99,7 +99,18 @@ public abstract class BaseServiceImpl<T, E extends Serializable> extends Jackson
      */
     @Override
     public Page<T> findAll(T t, int page, int limit) {
-        return this.getRepository().findAll(Example.of(t), buildPageRequest(page, limit, null, null));
+        return this.findAll(t, page, limit, null, null);
+    }
+
+    /**
+     * @param t
+     * @param page
+     * @param limit
+     * @return
+     */
+    @Override
+    public Page<T> findAll(T t, int page, int limit, String sortName, String sortType) {
+        return this.getRepository().findAll(Example.of(t), buildPageRequest(page, limit, sortName, sortType));
     }
 
     /**
@@ -114,11 +125,11 @@ public abstract class BaseServiceImpl<T, E extends Serializable> extends Jackson
     }
 
     /**
-     * 属性拷贝
+     * 属性拷贝  目标属性会被源覆盖
      *
-     * @param source
-     * @param target
-     * @param ignoreProperties
+     * @param source           源
+     * @param target           目标
+     * @param ignoreProperties 忽略字段
      */
     protected void copyProperties(Object source, Object target, String... ignoreProperties) {
         BeanUtils.copyProperties(source, target, ignoreProperties);

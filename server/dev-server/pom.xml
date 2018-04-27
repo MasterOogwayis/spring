@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>server</artifactId>
+        <groupId>com.zsw</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>dev-server</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-client</artifactId>
+        </dependency>
+        <!--<dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-mq-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-swagger2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>spring-security-test</artifactId>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <!--<dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-elasticsearch</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-controller</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>verification-code</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-micrometer</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.zsw</groupId>-->
+            <!--<artifactId>timedtask-service</artifactId>-->
+            <!--<version>${project.version}</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>security-api</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
