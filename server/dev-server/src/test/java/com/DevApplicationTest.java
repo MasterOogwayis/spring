@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>ÈýÔÂ 20, 2018</pre>
+ * @since <pre>ä¸‰æœˆ 20, 2018</pre>
  */
 public class DevApplicationTest {
 

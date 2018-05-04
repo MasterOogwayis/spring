@@ -1,8 +1,10 @@
 package com;
 
 import ch.qos.logback.classic.Level;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.zsw.base.utils.JacksonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -26,11 +28,19 @@ public class StaticTests {
     static {
         ch.qos.logback.classic.Logger root =
                 (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME);
-        root.setLevel(Level.INFO);
+        root.setLevel(Level.DEBUG);
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(0x9999);
+
+        JacksonSerializer jacksonSerializer = new JacksonSerializer();
+        String data = "{\"na-me\":\"zsw\"}";
+
+        PaDto dto = new PaDto();
+        dto.setName("123");
+
+        System.out.println(dto);
+
 //
 //        List<Room> rooms = new ArrayList<>();
 //        rooms.add(new Room(1L, 10));
@@ -69,6 +79,28 @@ public class StaticTests {
 
 
 
+    }
+
+    public static class PaDto {
+        @JsonProperty("na-me")
+        private String name;
+
+        /**  */
+        public String getName() {
+            return name;
+        }
+
+        /**  */
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "PaDto{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
     }
 
     public static Object get(Integer id){

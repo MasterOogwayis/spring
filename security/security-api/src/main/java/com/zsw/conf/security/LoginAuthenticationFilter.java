@@ -1,6 +1,7 @@
 package com.zsw.conf.security;
 
 import com.zsw.base.utils.VerifyCode;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -42,7 +43,8 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         String code = obtainVerifyCode(request);
         String verfyCode = request.getSession().getAttribute(VerifyCode.SESSION_KEY).toString();
         if (!verfyCode.equalsIgnoreCase(code)) {
-            unsuccessfulAuthentication(request, response, new InsufficientAuthenticationException("Wrong verification code."));
+
+            unsuccessfulAuthentication(request, response, new BadCredentialsException("验证码错误"));
             return;
         }
         chain.doFilter(request, response);
@@ -64,6 +66,6 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
      * request token to the <code>AuthenticationManager</code>
      */
     protected String obtainVerifyCode(HttpServletRequest request) {
-        return request.getParameter(VerifyCode.SESSION_KEY);
+        return request.getParameter("code");
     }
 }

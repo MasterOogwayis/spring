@@ -49,7 +49,7 @@ public class JacksonSerializer {
     /**
      * @return ObjectMapper
      */
-    protected ObjectMapper getMapper() {
+    public ObjectMapper getMapper() {
         return mapper;
     }
 

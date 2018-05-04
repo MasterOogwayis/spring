@@ -16,19 +16,19 @@ public class FreeMakerConfiguration {
     /**
      * @return
      */
-    @Bean
-    public ViewResolver viewResolver() {
-        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-        resolver.setCache(false);
-        resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
-        resolver.setRequestContextAttribute("request");
-        //resolver.setExposeSpringMacroHelpers(true);
-        resolver.setExposeRequestAttributes(true);
-        resolver.setExposeSessionAttributes(true);
-        resolver.setSuffix(".html");
-        resolver.setContentType("text/html; charset=UTF-8");
-        return resolver;
-    }
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
+//        resolver.setCache(false);
+//        resolver.setViewClass(org.springframework.web.servlet.view.freemarker.FreeMarkerView.class);
+//        resolver.setRequestContextAttribute("request");
+//        //resolver.setExposeSpringMacroHelpers(true);
+//        resolver.setExposeRequestAttributes(true);
+//        resolver.setExposeSessionAttributes(true);
+//        resolver.setSuffix(".html");
+//        resolver.setContentType("text/html; charset=UTF-8");
+//        return resolver;
+//    }
 
 //    @Bean
 //    public FreeMarkerConfigurer freemarkerConfig() throws IOException, TemplateException {

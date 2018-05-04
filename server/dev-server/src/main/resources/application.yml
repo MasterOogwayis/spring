@@ -4,6 +4,9 @@ server:
 
 
 spring:
+  freemarker:
+    suffix: .html
+    request-context-attribute: request
   jackson:
     serialization:
       failOnEmptyBeans: false
@@ -151,9 +154,9 @@ endpoints:
 
 
 
-#management:
-#  security:
-#    enabled: false
+management:
+  security:
+    enabled: false
 #  endpoint:
 #    prometheus:
 #      enabled: true
