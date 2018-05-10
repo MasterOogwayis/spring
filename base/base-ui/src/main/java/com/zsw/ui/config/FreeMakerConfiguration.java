@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  *
  * @author ZhangShaowei on 2018/4/26 14:03
  **/
-@Configuration
+//@Configuration
 public class FreeMakerConfiguration {
 
     /**

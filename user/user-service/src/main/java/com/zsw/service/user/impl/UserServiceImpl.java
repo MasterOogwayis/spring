@@ -1,8 +1,8 @@
 package com.zsw.service.user.impl;
 
 import com.zsw.base.service.impl.BaseServiceImpl;
-import com.zsw.persistence.timedtask.bean.User;
-import com.zsw.persistence.timedtask.repository.UserRepository;
+import com.zsw.persistence.user.bean.User;
+import com.zsw.persistence.user.repository.UserRepository;
 import com.zsw.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;

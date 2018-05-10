@@ -1,12 +1,5 @@
 package com;
 
-import org.junit.Test;
-
-import javax.persistence.Id;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.util.Objects;
-
 /**
  * demo
  *
@@ -69,7 +62,7 @@ public class SimpleTest {
     }
 
     static class City extends Province {
-        @Id
+        //        @Id
         private Long id;
 
         /**  */

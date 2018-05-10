@@ -1,7 +1,7 @@
 package com.zsw.service.product;
 
-import com.zsw.persistence.timedtask.bean.Product;
-import com.zsw.persistence.timedtask.repository.ProductRepository;
+import com.zsw.persistence.user.bean.Product;
+import com.zsw.persistence.user.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

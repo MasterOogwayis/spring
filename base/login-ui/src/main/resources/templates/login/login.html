@@ -21,20 +21,22 @@
             <form method="post" action="/login" class="layui-form">
                 <div class="layui-form-item">
                     <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-username">&#xe770;</label>
-                    <input type="text" name="username" id="LAY-user-login-username" lay-verType="tips" lay-verify="required"
-                           placeholder="用户名(admin)" class="layui-input">
+                    <input name="username" id="LAY-user-login-username" lay-verType="tips" lay-verify="required"
+                           placeholder="用户名(admin)" class="layui-input" value="${RequestParameters.username!}">
                 </div>
                 <div class="layui-form-item">
                     <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-password">&#xe688;</label>
                     <input type="password" name="password" id="LAY-user-login-password" lay-verType="tips"
-                           lay-verify="required" placeholder="密码(123456)" class="layui-input">
+                           lay-verify="required" placeholder="密码(123456)" class="layui-input"
+                           value="${RequestParameters.username!}">
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-row">
                         <div class="layui-col-xs7">
                             <label class="layadmin-user-login-icon layui-icon" for="LAY-user-login-vercode">&#xe672;</label>
-                            <input type="text" name="code" id="LAY-user-login-vercode" lay-verType="tips"
-                                   lay-verify="required||length_6||vercode" placeholder="图形验证码" class="layui-input">
+                            <input name="code" id="LAY-user-login-vercode" lay-verType="tips"
+                                   lay-verify="required||length_6||vercode" placeholder="图形验证码" class="layui-input"
+                                   value="${RequestParameters.code!}">
                         </div>
                         <div class="layui-col-xs5">
                             <div style="margin-left: 10px;">
@@ -45,7 +47,12 @@
                     </div>
                 </div>
                 <div class="layui-form-item" style="margin-bottom: 20px;">
-                    <span style="color: red;float: left;margin-top: 7px;">${RequestParameters.error!}</span>
+                    <span style="color: red;float: left;margin-top: 7px;">
+                        <!--${RequestParameters.error!}-->
+                        <#if Session.SPRING_SECURITY_LAST_EXCEPTION?exists>
+                            ${Session.SPRING_SECURITY_LAST_EXCEPTION.message}
+                        </#if>
+                    </span>
                     <a href="javascript:;" class="layadmin-user-jump-change layadmin-link"
                        style="margin-top: 7px;">忘记密码？</a>
                 </div>

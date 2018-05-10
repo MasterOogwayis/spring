@@ -4,13 +4,15 @@ import com.zsw.base.api.commons.BaseApiController;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderBaseClient;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.timedtask.bean.SaleOrder;
+import com.zsw.persistence.user.bean.SaleOrder;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * ApiSaleOrderController
+ *
  * @author ZhangShaowei on 2017/10/12 15:21
  */
 @RestController
@@ -44,14 +46,14 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
 
 
     /**
-     * @param saleOrderDto
-     * @return
+     * 编辑SaleOrder
+     *
+     * @param saleOrderDto SaleOrderDto
+     * @return SaleOrder
      */
     @PostMapping("edit")
     public SaleOrder edit(@ModelAttribute final SaleOrderDto saleOrderDto) {
-        SaleOrder saleOrder = this.saleOrderService.edit(saleOrderDto);
-        System.err.println("Commited!");
-        return saleOrder;
+        return this.saleOrderService.edit(saleOrderDto);
     }
 
 }

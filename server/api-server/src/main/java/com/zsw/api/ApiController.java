@@ -6,14 +6,19 @@ import com.zsw.cache.AddressRepository;
 import com.zsw.cache.SaleOrderCache;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.timedtask.bean.SaleOrder;
+import com.zsw.persistence.user.bean.SaleOrder;
 import com.zsw.service.ApiService;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.HealthEndpoint;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.Executor;
 
@@ -48,6 +53,9 @@ public class ApiController {
     @Autowired
     private AddressRepository addressRepository;
 
+    /**
+     *
+     */
     @Autowired
     private SaleOrderService saleOrderService;
 
@@ -59,8 +67,8 @@ public class ApiController {
     private Executor executor;
 
     /**
-     * @param saleOrderDto
-     * @return
+     * @param saleOrderDto SaleOrderDto
+     * @return SaleOrder
      */
     @PostMapping("edit")
     public SaleOrder edit(@ModelAttribute final SaleOrderDto saleOrderDto) {
@@ -68,26 +76,26 @@ public class ApiController {
         return data;
     }
 
+    /**
+     * @param address address
+     * @return Address
+     */
     @PostMapping("address")
     @Transactional(rollbackFor = Exception.class)
-    public Address address(@RequestParam String address) {
+    public Address address(@RequestParam final String address) {
         Address add = new Address();
         add.setAddress(address);
         return this.addressRepository.save(add);
     }
 
     /**
-     * @param id
-     * @return
+     * @param id id
+     * @return SaleOrderDto SaleOrderDto
+     * @throws Exception e
      */
     @GetMapping("get")
 //    @Timed(value = "api.counter.requests", histogram = true)
     public SaleOrderDto get(@RequestParam final Long id) throws Exception {
-
-        if (id % 7 == 1) {
-            throw new Exception("错了");
-        }
-
         SaleOrder saleOrder = this.saleOrderService.getCached(id);
         SaleOrderDto saleOrderDto = new SaleOrderDto();
         BeanUtils.copyProperties(saleOrder, saleOrderDto, "PRODUCT");
@@ -97,9 +105,15 @@ public class ApiController {
         return saleOrderDto;
     }
 
+    /**
+     *
+     */
     @Autowired
-    HealthEndpoint healthEndpoint;
+    private HealthEndpoint healthEndpoint;
 
+    /**
+     * @return health
+     */
     @GetMapping("health")
     public Object health() {
         return healthEndpoint.invoke();

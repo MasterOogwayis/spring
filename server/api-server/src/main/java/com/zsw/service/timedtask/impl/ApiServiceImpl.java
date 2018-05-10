@@ -2,7 +2,7 @@ package com.zsw.service.timedtask.impl;
 
 import com.zsw.base.service.impl.BaseServiceImpl;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
-import com.zsw.persistence.timedtask.bean.SaleOrder;
+import com.zsw.persistence.user.bean.SaleOrder;
 import com.zsw.service.ApiService;
 import com.zsw.service.saleorder.SaleOrderService;
 import org.springframework.beans.factory.annotation.Autowired;

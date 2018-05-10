@@ -16,15 +16,6 @@
             <groupId>com.zsw</groupId>
             <artifactId>base-client</artifactId>
         </dependency>
-        <!--<dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>base-mq-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-swagger2</artifactId>
@@ -39,18 +30,9 @@
             <!--<artifactId>spring-security-test</artifactId>-->
             <!--<scope>test</scope>-->
         <!--</dependency>-->
-        <!--<dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>base-elasticsearch</artifactId>
-            <version>${project.version}</version>
-        </dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-controller</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>verification-code</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -58,17 +40,8 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-persistence</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zsw</groupId>
             <artifactId>base-micrometer</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.zsw</groupId>-->
-            <!--<artifactId>timedtask-service</artifactId>-->
-            <!--<version>${project.version}</version>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>security-api</artifactId>

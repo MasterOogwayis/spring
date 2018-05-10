@@ -1,0 +1,9 @@
+# static 下面的 index.html 会被spring boot 自动映射到 root path /
+#spring:
+#  freemarker:
+#    suffix: .html
+#    request-context-attribute: request
+#    expose-request-attributes: true
+#    expose-session-attributes: true
+#    expose-spring-macro-helpers: true
+#    emplate-loader-path:

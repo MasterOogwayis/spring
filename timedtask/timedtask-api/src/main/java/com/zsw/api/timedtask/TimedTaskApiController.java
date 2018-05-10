@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ZhangShaowei on 2018/4/19 14:21
  **/
 @RestController
-@RequestMapping("timedtask")
+@RequestMapping("user")
 public class TimedTaskApiController extends BaseApiController {
 
     /**

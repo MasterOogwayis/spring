@@ -1,6 +1,7 @@
 package com.zsw.conf.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:43
@@ -20,6 +22,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    /**
+     *  spring boot 1.5.x 以上 开启了 @EnableWebSecurity 实际上 security.ignored 是被忽略了的
+     *  所以在此处手动加入
+     */
+    @Autowired
+    private SecurityProperties security;
 
     /**
      *
@@ -58,7 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").loginProcessingUrl("/login").defaultSuccessUrl("/").permitAll()
+                .formLogin().loginPage("/login")
+                .loginProcessingUrl("/login").defaultSuccessUrl("/").permitAll()
                 .and()
                 .logout().deleteCookies("remove").invalidateHttpSession(false).logoutSuccessUrl("/")
                 .and()
@@ -66,15 +76,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic();
         // 自定义验证码 拦截器
         http.addFilterBefore(new LoginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-//        http.authorizeRequests()
-////                .antMatchers("/user").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.OPTIONS).permitAll()
-//                .anyRequest().authenticated()
-//                .and().formLogin()
-//                .and().httpBasic()
-//                .and()
-//                .csrf().disable().anonymous().disable();
-
     }
 
 
@@ -89,15 +90,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 忽略css、img等静态资源文件
+     * 忽略资源
      * 忽略 验证码接口
+     * 忽略 css、img等静态
+     * 忽略 prometheus 监控接口
      *
      * @param web
      * @throws Exception
      */
     @Override
     public void configure(final WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**", "/verify/code", "/prometheus");
+        web.ignoring().antMatchers("/static/**", "/verify/code");
+        // spring boot 1.5.x 以上 开启了 @EnableWebSecurity 实际上 security.ignored 是被忽略了的
+        // 所以在此处手动加入
+        if (!CollectionUtils.isEmpty(this.security.getIgnored())) {
+            web.ignoring().antMatchers(this.security.getIgnored().toArray(new String[]{}));
+        }
     }
 
 }

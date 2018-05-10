@@ -5,9 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zsw.base.utils.JacksonSerializer;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
+
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * test
@@ -33,13 +38,6 @@ public class StaticTests {
 
     public static void main(String[] args) throws Exception {
 
-        JacksonSerializer jacksonSerializer = new JacksonSerializer();
-        String data = "{\"na-me\":\"zsw\"}";
-
-        PaDto dto = new PaDto();
-        dto.setName("123");
-
-        System.out.println(dto);
 
 //
 //        List<Room> rooms = new ArrayList<>();
@@ -78,6 +76,10 @@ public class StaticTests {
 //        }
 
 
+
+    }
+
+    public void valid(@NotNull String str){
 
     }
 

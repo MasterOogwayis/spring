@@ -1,6 +1,6 @@
 package com.zsw.api.user;
 
-import com.zsw.persistence.timedtask.bean.User;
+import com.zsw.persistence.user.bean.User;
 import com.zsw.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

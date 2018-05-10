@@ -1,7 +1,7 @@
 package com.zsw.service.security.impl;
 
-import com.zsw.persistence.timedtask.bean.Role;
-import com.zsw.persistence.timedtask.bean.User;
+import com.zsw.persistence.user.bean.Role;
+import com.zsw.persistence.user.bean.User;
 import com.zsw.service.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

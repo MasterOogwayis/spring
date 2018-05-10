@@ -1,7 +1,7 @@
 package com.zsw.service.quartz.core;
 
 import com.zsw.base.utils.DateUtils;
-import com.zsw.persistence.timedtask.bean.TimedTask;
+import com.zsw.persistence.user.bean.TimedTask;
 import com.zsw.service.timedtask.TimedTaskService;
 import org.quartz.*;
 import org.slf4j.Logger;
@@ -51,7 +51,8 @@ public class QuartzTaskService implements ApplicationListener<ContextRefreshedEv
                 return true;
             }
         } catch (SchedulerException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            logger.error("检查定时任务出错：{}", e.getMessage());
         }
         return false;
     }
@@ -80,7 +81,7 @@ public class QuartzTaskService implements ApplicationListener<ContextRefreshedEv
                 logger.info("---任务[{}]已经运行，请勿再次启动-------", triggerKey.getName());
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
         return false;
     }

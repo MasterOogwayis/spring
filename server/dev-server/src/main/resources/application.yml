@@ -7,6 +7,9 @@ spring:
   freemarker:
     suffix: .html
     request-context-attribute: request
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
   jackson:
     serialization:
       failOnEmptyBeans: false
@@ -147,16 +150,23 @@ eureka:
     prefer-ip-address: true
     ip-address: localhost
 
+
 endpoints:
+  shutdown:
+    enabled: true
+    sensitive: false
   prometheus:
+    enabled: true
+    sensitive: false
+  health:
     enabled: true
     sensitive: false
 
 
 
-management:
-  security:
-    enabled: false
+#management:
+#  security:
+#    enabled: false
 #  endpoint:
 #    prometheus:
 #      enabled: true
@@ -175,7 +185,11 @@ zsw:
           customers: 1800
 
 logging:
-  file: G:\data\spring\${spring.application.name}.log
+  file: /data/spring/${spring.application.name}.log
+
+# 忽略 接口
+security:
+  ignored: /shutdown,/prometheus
 #  config: classpath:logback-spring.xml
 
 

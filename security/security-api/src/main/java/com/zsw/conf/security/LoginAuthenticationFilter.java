@@ -6,6 +6,8 @@ import org.springframework.security.authentication.InsufficientAuthenticationExc
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.GenericFilterBean;
@@ -27,11 +29,15 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
 
 
     protected LoginAuthenticationFilter() {
+        // 只拦截 登录 POST login
         super(new AntPathRequestMatcher("/login", "POST"));
+        // 失败后跳转地址
+        setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler("/login?error"));
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(
+            ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
@@ -43,7 +49,6 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         String code = obtainVerifyCode(request);
         String verfyCode = request.getSession().getAttribute(VerifyCode.SESSION_KEY).toString();
         if (!verfyCode.equalsIgnoreCase(code)) {
-
             unsuccessfulAuthentication(request, response, new BadCredentialsException("验证码错误"));
             return;
         }
@@ -51,7 +56,9 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(
+            HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException, IOException, ServletException {
         return null;
     }
 

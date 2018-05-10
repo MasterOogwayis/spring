@@ -1,0 +1,13 @@
+endpoints:
+  prometheus:
+    enabled: true
+    sensitive: false
+#  health:
+#    sensitive: false
+
+
+# 一般采用脱敏的方式
+#management:
+#  security:
+#    enabled: false
+
