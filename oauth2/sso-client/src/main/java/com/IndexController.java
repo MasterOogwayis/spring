@@ -1,6 +1,7 @@
 package com;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -11,11 +12,6 @@ import java.security.Principal;
 @RestController
 public class IndexController {
 
-    @GetMapping("index")
-    public String index() {
-        return "index";
-    }
-
 
     /**
      * @param principal
@@ -24,6 +20,11 @@ public class IndexController {
     @GetMapping("user")
     public Principal user(Principal principal) {
         return principal;
+    }
+
+    @PostMapping("hello")
+    public String hello(String name) {
+        return "hello " + name;
     }
 
 

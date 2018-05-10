@@ -26,11 +26,11 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>security-service</artifactId>
+            <artifactId>base-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>base-redis</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 

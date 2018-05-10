@@ -22,7 +22,6 @@
         <module>turbine-server</module>
         <module>dashboard</module>
         <module>base-server</module>
-        <module>test-server</module>
         <module>dev-server</module>
     </modules>
 

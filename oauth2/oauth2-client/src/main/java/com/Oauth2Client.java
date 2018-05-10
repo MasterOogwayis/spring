@@ -4,15 +4,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * This is test server.
+ * Oauth2Client
  *
- * @author ZhangShaowei on 2018/3/13 13:59
+ * @author ZhangShaowei on 2018/5/10 16:00
  **/
 @SpringBootApplication
-public class TestServer {
+public class Oauth2Client {
 
     public static void main(String[] args) {
-        SpringApplication.run(TestServer.class, args);
+        SpringApplication.run(Oauth2Client.class, args);
     }
 
 }

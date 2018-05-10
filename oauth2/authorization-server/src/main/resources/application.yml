@@ -22,9 +22,14 @@ spring:
 #    static-locations: classpath:/templates/
   freemarker:
     suffix: .html
+    request-context-attribute: request
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
   jackson:
     serialization:
       failOnEmptyBeans: false
+    date-format: yyyy-MM-dd HH:mm:ss
   application:
     name: base-server
 #  zipkin:
