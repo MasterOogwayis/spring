@@ -13,6 +13,13 @@ server:
     key-password: 111111
     key-alias: oauth2
 
+com:
+  zsw:
+    oauth2:
+      key-store-file: oauth2.jks
+      key-store-pwd: 111111
+      key-pair: oauth2
+
 ##微服务名
 spring:
 #  devtools:
@@ -126,12 +133,7 @@ zsw:
           proxy: 900
           users: 1800
           customers: 1800
-com:
-  zsw:
-    oauth:
-      key-store-file: oauth2.jks
-      key-store-pwd: 111111
-      key-pair: oauth2
+
 
 #logging:
 #  level: debug
@@ -141,12 +143,20 @@ logging:
       springframework:
         security: DEBUG
 
-management:
-  security:
-    enabled: false
+#management:
+#  security:
+#    enabled: false
 
 
 
 info:
   version: @project.version@
 #debug: true
+
+#/oauth/authorize：验证接口， AuthorizationEndpoint
+#/oauth/token：获取token
+#/oauth/confirm_access：用户授权
+#/oauth/error：认证失败
+#/oauth/check_token：资源服务器用来校验token
+#/oauth/token_key：jwt模式下获取公钥；位于：TokenKeyEndpoint ，通过 JwtAccessTokenConverter 访问key
+

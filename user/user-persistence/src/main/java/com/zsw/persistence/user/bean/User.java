@@ -2,9 +2,7 @@ package com.zsw.persistence.user.bean;
 
 
 import com.zsw.base.bean.commons.BaseBean;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "USER")
 public class User extends BaseBean {

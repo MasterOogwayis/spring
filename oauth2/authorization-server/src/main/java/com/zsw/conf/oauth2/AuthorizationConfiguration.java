@@ -37,7 +37,7 @@ import java.util.Map;
  */
 @EnableAuthorizationServer
 @Configuration
-@ConfigurationProperties(prefix = "com.zsw.oauth")
+@ConfigurationProperties(prefix = "com.zsw.oauth2")
 public class AuthorizationConfiguration extends AuthorizationServerConfigurerAdapter {
 
     /**
@@ -145,12 +145,17 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     }
 
     /**
+     * 生成秘钥公钥
+     * 秘钥由认证服务器保留
+     * 公钥分配给资源服务器
+     *
+     * https://stackoverflow.com/questions/32867898/generate-private-and-public-key-file-using-keytool
      * token converter
      *
      * @return
      */
     @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
+    public JwtAccessTokenConverter  accessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
         KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource(this.keyStoreFile), this.keyStorePwd.toCharArray())
                 .getKeyPair(this.keyPair);
@@ -172,8 +177,9 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
 //            }
 //
 //        };
-//        accessTokenConverter.setSigningKey("123");// 测试用,资源服务使用相同的字符达到一个对称加密的效果,生产时候使用RSA非对称加密方式
         accessTokenConverter.setKeyPair(keyPair);
+        // 测试用,资源服务使用相同的字符达到一个对称加密的效果,生产时候使用RSA非对称加密方式
+//        accessTokenConverter.setSigningKey("123");
         return accessTokenConverter;
     }
 
@@ -193,5 +199,20 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     /**  */
     public void setKeyPair(String keyPair) {
         this.keyPair = keyPair;
+    }
+
+    /**  */
+    public String getKeyStoreFile() {
+        return keyStoreFile;
+    }
+
+    /**  */
+    public String getKeyStorePwd() {
+        return keyStorePwd;
+    }
+
+    /**  */
+    public String getKeyPair() {
+        return keyPair;
     }
 }

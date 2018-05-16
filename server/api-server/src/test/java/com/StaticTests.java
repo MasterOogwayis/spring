@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotNull;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -38,6 +40,13 @@ public class StaticTests {
 
     public static void main(String[] args) throws Exception {
 
+
+
+
+//        String encode = Base64.getEncoder().encodeToString("123".getBytes(Charset.forName("utf-8")));
+//        System.out.println(encode);
+//        String message = new String(Base64.getDecoder().decode(encode));
+//        System.err.println(message);
 
 //
 //        List<Room> rooms = new ArrayList<>();

@@ -61,6 +61,6 @@ logging:
   level:
     org.springframework.security: DEBUG
 security:
-                       oauth2:
-                         resource:
-                           filter-order: 3
+  oauth2:
+    resource:
+      filter-order: 3

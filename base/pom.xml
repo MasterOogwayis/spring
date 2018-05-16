@@ -28,6 +28,7 @@
         <module>base-elasticsearch</module>
         <module>verification-code</module>
         <module>base-micrometer</module>
+        <module>google-authenticator</module>
     </modules>
 
 
