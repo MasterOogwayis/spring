@@ -56,7 +56,7 @@ public class TestControllerTest {
     }
 
     @Test
-    public void testOriginList() throws Exception {
+    public void test() throws Exception {
         MvcResult mvcResult = mvc.perform(
                 MockMvcRequestBuilders.get("/test/get")
                         .contentType(MediaType.APPLICATION_JSON)

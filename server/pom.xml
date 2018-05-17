@@ -18,10 +18,7 @@
         <module>zuul-server</module>
         <module>admin-server</module>
         <module>config-server</module>
-        <module>ui-server</module>
         <module>turbine-server</module>
-        <module>dashboard</module>
-        <module>base-server</module>
         <module>dev-server</module>
     </modules>
 
