@@ -47,9 +47,9 @@ public class ExportCert {
         BASE64Encoder encoder = new BASE64Encoder();
         String encoded = encoder.encode(privateKey.getEncoded());
         FileWriter fileWriter = new FileWriter(exportFile);
-//        fileWriter.write("-----BEGIN PRIVATE KEY-----\r\n");//非必须
+        fileWriter.write("-----BEGIN PRIVATE KEY-----\r\n");//非必须
         fileWriter.write(encoded);
-//        fileWriter.write("\r\n-----END PRIVATE KEY-----");//非必须
+        fileWriter.write("\r\n-----END PRIVATE KEY-----");//非必须
         fileWriter.close();
     }
 
@@ -58,15 +58,15 @@ public class ExportCert {
         BASE64Encoder encoder = new BASE64Encoder();
         String encoded = encoder.encode(publicKey.getEncoded());
         FileWriter fileWriter = new FileWriter(exportFile);
-//        fileWriter.write("-----BEGIN PUBLIC KEY-----\r\n");//非必须
+        fileWriter.write("-----BEGIN PUBLIC KEY-----\r\n");//非必须
         fileWriter.write(encoded);
-//        fileWriter.write("\r\n-----END PUBLIC KEY-----");//非必须
+        fileWriter.write("\r\n-----END PUBLIC KEY-----");//非必须
         fileWriter.close();
     }
 
     public static void main(String[] args) throws Exception{
         String keyStoreType = "jks";
-        String keystoreFile = "G:\\My Github\\spring\\oauth2\\authorization-server\\src\\main\\resources\\oauth2.jks";
+        String keystoreFile = "/data/keystore/oauth2.jks";
         String password = "111111"; //keystore的解析密码
         String friendPassword = "111111";//条目的解析密码
 

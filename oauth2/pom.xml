@@ -16,7 +16,7 @@
     <modules>
         <module>authorization-server</module>
         <module>sso-client</module>
-        <module>oauth2-client</module>
+        <module>resource-server</module>
     </modules>
 
 

@@ -9,14 +9,14 @@ server:
 #      name: OAUTH2SESSION
   ssl:
     enabled: true
-    key-store: classpath:oauth2.jks
+    key-store: /data/keystore/oauth2.jks
     key-password: 111111
     key-alias: oauth2
 
 com:
   zsw:
     oauth2:
-      key-store-file: oauth2.jks
+      key-store-file: /data/keystore/oauth2.jks
       key-store-pwd: 111111
       key-pair: oauth2
 
