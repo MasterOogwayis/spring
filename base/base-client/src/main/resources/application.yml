@@ -1,0 +1,12 @@
+feign:
+  # Hystrix支持，如果为true，hystrix库必须在classpath中
+  # 使用 dashboard 必须开启此选项 EnableHystrix
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+    max-connections-per-route: 50 # default
+    max-connections: 200 # default
+  okhttp:
+    # default true
+    enabled: false

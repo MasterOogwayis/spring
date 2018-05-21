@@ -134,7 +134,7 @@ eureka:
 #    enable-replicated-request-compression: false
     # 自我保护 - 短时间丢失过多客户端多(网络波动等原因) 则 eureka进入自我保护模式 不移除任何服务 增强系统健壮性、稳定性
     # 故障恢复时 会自动退出保护模式
-    enable-self-preservation: false # default true
+    enable-self-preservation: true # default true
     # 清理间隔 单位ms 默认 60 * 1000  测试 or 开发可适当调短
 #    eviction-interval-timer-in-ms: 60000
 #    g-zip-content-from-remote-region: true

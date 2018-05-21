@@ -20,6 +20,7 @@
         <module>config-server</module>
         <module>turbine-server</module>
         <module>dev-server</module>
+        <module>ui-server</module>
     </modules>
 
 </project>

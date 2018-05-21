@@ -362,8 +362,33 @@
                 <version>2.3.0</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+            <!-- 使用 okhttp 替换 feignclient默认的httpclient -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>3.10.0</version>
+            </dependency>
 
-            <!-- Mockito -->
+
+            <!--           FeignClient 默认使用 HttpURLConnection 每次请求都建立一个新的连接             -->
+            <!--           效率非常低。为了提高效率，可以通过连接池提高效率             -->
+            <!--           可以使用 appache httpclient  & OkHttpClient             -->
+            <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>9.7.0</version>
+            </dependency>
+            <!-- 增加feign-httpclient -->
+            <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-httpclient -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-httpclient</artifactId>
+                <version>9.7.0</version>
+            </dependency>
+
+            <!-- Mockito spring-boot-starter-test 集成了这个-->
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
