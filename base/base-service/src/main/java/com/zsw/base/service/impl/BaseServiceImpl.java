@@ -6,10 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
@@ -110,7 +107,9 @@ public abstract class BaseServiceImpl<T, E extends Serializable> extends Jackson
      */
     @Override
     public Page<T> findAll(T t, int page, int limit, String sortName, String sortType) {
-        return this.getRepository().findAll(Example.of(t), buildPageRequest(page, limit, sortName, sortType));
+        // 字符串模糊查询
+        ExampleMatcher matcher = ExampleMatcher.matching().withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        return this.getRepository().findAll(Example.of(t, matcher), buildPageRequest(page, limit, sortName, sortType));
     }
 
     /**

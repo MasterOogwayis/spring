@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -58,9 +57,9 @@ public class ResourceConfiguration extends ResourceServerConfigurerAdapter {
                 .and()
                 .anonymous()
                 .and()
-                .authorizeRequests()
-//                    .antMatchers("/product/**").access("#oauth2.hasScope('select') and hasRole('ROLE_USER')")
-                .antMatchers("/resource/save").authenticated();//配置order访问控制，必须认证过后才可以访问
+                .authorizeRequests().anyRequest().authenticated() //必须认证过后才可以访问
+                .and()
+                .csrf().disable();
         // @formatter:on
     }
 

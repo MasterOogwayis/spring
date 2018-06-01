@@ -52,8 +52,11 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
      * @return SaleOrder
      */
     @PostMapping("edit")
-    public SaleOrder edit(@ModelAttribute final SaleOrderDto saleOrderDto) {
-        return this.saleOrderService.edit(saleOrderDto);
+    public SaleOrderDto edit(@RequestBody final SaleOrderDto saleOrderDto) {
+        SaleOrder saleOrder = this.saleOrderService.edit(saleOrderDto);
+        SaleOrderDto data = new SaleOrderDto();
+        BeanUtils.copyProperties(saleOrder, data, "PRODUCT");
+        return data;
     }
 
 }

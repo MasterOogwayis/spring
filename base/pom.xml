@@ -29,6 +29,7 @@
         <module>verification-code</module>
         <module>base-micrometer</module>
         <module>google-authenticator</module>
+        <module>base-logging</module>
     </modules>
 
 

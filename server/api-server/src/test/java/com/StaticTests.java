@@ -4,17 +4,16 @@ import ch.qos.logback.classic.Level;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.zsw.base.utils.JacksonSerializer;
-import org.junit.Assert;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotNull;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 
 /**
  * test
@@ -40,9 +39,9 @@ public class StaticTests {
 
     public static void main(String[] args) throws Exception {
 
-        List<Room> rooms = new ArrayList<>();
+        String basic = "ZWFzeWxpbmVzLWFwaTplYXN5bGluZXMtYXBp";
 
-
+        System.out.println(new String(Base64.getDecoder().decode(basic)));
 
 
 //        String encode = Base64.getEncoder().encodeToString("123".getBytes(Charset.forName("utf-8")));
@@ -87,10 +86,9 @@ public class StaticTests {
 //        }
 
 
-
     }
 
-    public void valid(@NotNull String str){
+    public void valid(@NotNull String str) {
 
     }
 
@@ -116,7 +114,7 @@ public class StaticTests {
         }
     }
 
-    public static Object get(Integer id){
+    public static Object get(Integer id) {
         try {
             return restTemplate.getForObject(
                     "http://www.demo.com:3334/api/get?id=" + id, Object.class);
@@ -126,35 +124,14 @@ public class StaticTests {
         }
     }
 
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
     static class Room {
         private Long id;
 
         private Integer number;
-
-        /**  */
-        public Long getId() {
-            return id;
-        }
-
-        /**  */
-        public void setId(Long id) {
-            this.id = id;
-        }
-
-        /**  */
-        public Integer getNumber() {
-            return number;
-        }
-
-        /**  */
-        public void setNumber(Integer number) {
-            this.number = number;
-        }
-
-        public Room(Long id, Integer number) {
-            this.id = id;
-            this.number = number;
-        }
     }
 
 }

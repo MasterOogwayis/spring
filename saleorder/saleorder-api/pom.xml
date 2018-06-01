@@ -14,6 +14,10 @@
     <dependencies>
         <dependency>
             <groupId>com.zsw</groupId>
+            <artifactId>base-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
             <artifactId>base-api</artifactId>
         </dependency>
         <dependency>
@@ -24,6 +28,10 @@
             <groupId>com.zsw</groupId>
             <artifactId>saleorder-service</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>resource-server</artifactId>
         </dependency>
 
 

@@ -1,5 +1,6 @@
 package com.zsw.conf.base.saleorder;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,10 @@ public interface SaleOrderBaseClient {
 
     @RequestMapping(value = "saleorder/get", method = RequestMethod.GET)
     SaleOrderDto get(@RequestParam("id") final Long id);
+
+
+    @RequestMapping(value = "saleorder/edit")
+    SaleOrderDto edit(@RequestBody final SaleOrderDto saleOrderDto);
 
 
 }

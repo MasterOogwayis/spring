@@ -14,4 +14,11 @@ public class SaleOrderClientImpl implements SaleOrderClient {
         saleOrderDto.setId(0L);
         return saleOrderDto;
     }
+
+    @Override
+    public SaleOrderDto edit(SaleOrderDto dto) {
+        SaleOrderDto saleOrderDto = new SaleOrderDto();
+        saleOrderDto.setId(0L);
+        return saleOrderDto;
+    }
 }

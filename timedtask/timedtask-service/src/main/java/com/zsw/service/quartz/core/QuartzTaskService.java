@@ -1,7 +1,7 @@
 package com.zsw.service.quartz.core;
 
 import com.zsw.base.utils.DateUtils;
-import com.zsw.persistence.user.bean.TimedTask;
+import com.zsw.persistence.timedtask.bean.TimedTask;
 import com.zsw.service.timedtask.TimedTaskService;
 import org.quartz.*;
 import org.slf4j.Logger;

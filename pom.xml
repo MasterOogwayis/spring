@@ -32,6 +32,7 @@
         <module>user</module>
         <module>timedtask</module>
         <module>simple</module>
+        <module>test</module>
     </modules>
 
     <properties>
@@ -52,6 +53,21 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-logging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>resource-server</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>oauth2-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.zsw</groupId>
                 <artifactId>base-admin-client</artifactId>

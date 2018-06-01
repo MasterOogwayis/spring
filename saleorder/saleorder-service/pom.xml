@@ -24,10 +24,6 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zsw</groupId>
             <artifactId>saleorder-base-client</artifactId>
             <version>${project.version}</version>
         </dependency>

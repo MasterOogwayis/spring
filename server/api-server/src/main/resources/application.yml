@@ -8,6 +8,12 @@ server:
 
 ##微服务名
 spring:
+  freemarker:
+    suffix: .html
+    request-context-attribute: request
+    expose-request-attributes: true
+    expose-session-attributes: true
+    expose-spring-macro-helpers: true
 #  devtools:
 #    restart:
 #      exclude: static/**,public/**,com
@@ -191,6 +197,10 @@ endpoints:
   prometheus:
     enabled: true
     sensitive: false
+
+security:
+  ignored: /prometheus
+
 #  druid:
 #    enabled: true
 #  metrics:

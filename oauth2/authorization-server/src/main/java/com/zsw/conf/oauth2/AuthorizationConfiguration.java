@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -70,8 +71,8 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     /**
      *
      */
-    @Autowired
-    private UserDetailsService myUserDetailsService;
+//    @Autowired
+//    private UserDetailsService myUserDetailsService;
 
     /**
      * ClientDetails实现
@@ -113,8 +114,8 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager)
                 .tokenServices(this.tokenServices())
-                .accessTokenConverter(this.accessTokenConverter())
-                .userDetailsService(this.myUserDetailsService);
+                .accessTokenConverter(this.accessTokenConverter());
+//                .userDetailsService(this.myUserDetailsService);
     }
 
 
@@ -157,7 +158,7 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     @Bean
     public JwtAccessTokenConverter  accessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        KeyPair keyPair = new KeyStoreKeyFactory(new ClassPathResource(this.keyStoreFile), this.keyStorePwd.toCharArray())
+        KeyPair keyPair = new KeyStoreKeyFactory(new FileSystemResource(this.keyStoreFile), this.keyStorePwd.toCharArray())
                 .getKeyPair(this.keyPair);
 //                new JwtAccessTokenConverter() {
 //            /***

@@ -22,6 +22,8 @@ com:
 
 ##微服务名
 spring:
+  application:
+    name: oauth2-server
 #  devtools:
 #    restart:
 #      exclude: static/**,public/**,com
@@ -37,15 +39,13 @@ spring:
     serialization:
       failOnEmptyBeans: false
     date-format: yyyy-MM-dd HH:mm:ss
-  application:
-    name: base-server
 #  zipkin:
 #    base-url: http://localhost:8080
 #  sleuth:
 #    sampler:
 #      percentage: 1
   datasource:
-    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/oauth2?useUnicode=true&characterEncoding=utf-8
 #    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
@@ -120,20 +120,6 @@ spring:
     ## 连接超时时间（毫秒）
     timeout: 0
 
-  ##必要，RedisCacheManager 存储索引
-  ##spring.cache.cache-names=users
-  ##自定义RedisCacheManger配置
-  ## 名称 -- 缓存有效期：s -------不同缓存分类后制定不同的有效期
-zsw:
-  base:
-    redis:
-      configuration:
-        expires:
-          list: 1800
-          proxy: 900
-          users: 1800
-          customers: 1800
-
 
 #logging:
 #  level: debug
@@ -149,9 +135,16 @@ logging:
 
 
 
-info:
-  version: @project.version@
-#debug: true
+eureka:
+  server:
+      hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 1111
+  instance:
+    hostname: localhost
+#    prefer-ip-address: true
 
 #/oauth/authorize：验证接口， AuthorizationEndpoint
 #/oauth/token：获取token
@@ -160,3 +153,5 @@ info:
 #/oauth/check_token：资源服务器用来校验token
 #/oauth/token_key：jwt模式下获取公钥；位于：TokenKeyEndpoint ，通过 JwtAccessTokenConverter 访问key
 
+info:
+  version: @project.version@

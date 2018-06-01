@@ -11,10 +11,10 @@ eureka:
 #    enabled: true
     # 监控 root path
 #    path: /monitor
-#  instance:
+  instance:
 #    # 服务名，默认取 spring.application.name 配置值，如果没有则为 unknown
 #    appname: Eureka
-#    hostname: localhost
+    hostname: localhost
 #    host-info:
 #    a-s-g-name:
 #    app-group-name:
@@ -63,8 +63,8 @@ eureka:
     # 默认的Value为 http://localhost:8761/eureka ，如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔。
     # 如果服务注册中心加入了安全验证，这里配置的地址格式为： http://<username>:<password>@localhost:8761/eureka
     # 其中 <username> 为安全校验的用户名；<password> 为该用户的密码
-#    serviceUrl:
-#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
     # 这是 eureka 集群同步数据 为true时，可以启动，但报异常：Cannot execute request on any known server
     fetchRegistry: false
     # 表示 conf 间隔多久去拉取服务注册信息 默认 30s
@@ -134,7 +134,7 @@ eureka:
 #    enable-replicated-request-compression: false
     # 自我保护 - 短时间丢失过多客户端多(网络波动等原因) 则 eureka进入自我保护模式 不移除任何服务 增强系统健壮性、稳定性
     # 故障恢复时 会自动退出保护模式
-    enable-self-preservation: true # default true
+    enable-self-preservation: false # default true
     # 清理间隔 单位ms 默认 60 * 1000  测试 or 开发可适当调短
 #    eviction-interval-timer-in-ms: 60000
 #    g-zip-content-from-remote-region: true
