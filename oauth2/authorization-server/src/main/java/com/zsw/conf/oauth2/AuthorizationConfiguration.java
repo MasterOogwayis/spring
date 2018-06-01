@@ -57,6 +57,12 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     /**
      *
      */
+//    @Autowired
+//    private UserDetailsService userDetailsService;
+
+    /**
+     *
+     */
     @Autowired
     @Qualifier("authenticationManagerBean")
     private AuthenticationManager authenticationManager;
@@ -69,7 +75,9 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
 
 
     /**
+     * @TODO
      *
+     * 支持 sso 登录   需要 security 的功能  使用 security client 还是 service
      */
 //    @Autowired
 //    private UserDetailsService myUserDetailsService;
@@ -115,7 +123,7 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
         endpoints.authenticationManager(this.authenticationManager)
                 .tokenServices(this.tokenServices())
                 .accessTokenConverter(this.accessTokenConverter());
-//                .userDetailsService(this.myUserDetailsService);
+//                .userDetailsService(this.userDetailsService);
     }
 
 

@@ -70,6 +70,11 @@
             </dependency>
             <dependency>
                 <groupId>com.zsw</groupId>
+                <artifactId>oauth2-feign</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
                 <artifactId>base-admin-client</artifactId>
                 <version>${project.version}</version>
             </dependency>

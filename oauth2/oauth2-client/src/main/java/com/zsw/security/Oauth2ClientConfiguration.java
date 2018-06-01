@@ -1,4 +1,4 @@
-package com.zsw.security.oauth2;
+package com.zsw.security;
 
 import lombok.Setter;
 import org.springframework.beans.factory.ObjectProvider;
@@ -108,23 +108,23 @@ public class Oauth2ClientConfiguration {
      *
      * @return OAuth2ProtectedResourceDetails
      */
-    @Bean
-    public OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails() {
-        ClientCredentialsResourceDetails resource = new ClientCredentialsResourceDetails();
+//    @Bean
+//    public OAuth2ProtectedResourceDetails oAuth2ProtectedResourceDetails() {
+//        ClientCredentialsResourceDetails resource = new ClientCredentialsResourceDetails();
+//
+//        resource.setAccessTokenUri(this.accessTokenUri);
+//        resource.setClientId(this.clientId);
+//        resource.setClientSecret(this.clientSecret);
+////        resource.setGrantType("client_credentials"); default
+//        // Authorization Basic Base64.getEncoder().encoder(clientId + ":" + clientSecret)
+//        resource.setClientAuthenticationScheme(AuthenticationScheme.header);
+//        return resource;
+//    }
 
-        resource.setAccessTokenUri(this.accessTokenUri);
-        resource.setClientId(this.clientId);
-        resource.setClientSecret(this.clientSecret);
-//        resource.setGrantType("client_credentials"); default
-        // Authorization Basic Base64.getEncoder().encoder(clientId + ":" + clientSecret)
-        resource.setClientAuthenticationScheme(AuthenticationScheme.header);
-        return resource;
-    }
-
-    @Bean
-    public OAuth2ClientContext oAuth2ClientContext() {
-        return new DefaultOAuth2ClientContext();
-    }
+//    @Bean
+//    public OAuth2ClientContext oAuth2ClientContext() {
+//        return new DefaultOAuth2ClientContext();
+//    }
 
 
 }

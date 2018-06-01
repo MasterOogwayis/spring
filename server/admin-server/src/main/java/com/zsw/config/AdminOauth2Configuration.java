@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
  *
  * @author ZhangShaowei on 2018/5/28 9:59
  **/
-@Configuration
+//@Configuration
 public class AdminOauth2Configuration {
 
     /**

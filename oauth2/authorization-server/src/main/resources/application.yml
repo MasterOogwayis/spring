@@ -8,7 +8,7 @@ server:
 #    cookie:
 #      name: OAUTH2SESSION
   ssl:
-    enabled: true
+    enabled: false
     key-store: /data/keystore/oauth2.jks
     key-password: 111111
     key-alias: oauth2
@@ -29,6 +29,7 @@ spring:
 #      exclude: static/**,public/**,com
 #  resources:
 #    static-locations: classpath:/templates/
+  # 支持 sso 登录
   freemarker:
     suffix: .html
     request-context-attribute: request

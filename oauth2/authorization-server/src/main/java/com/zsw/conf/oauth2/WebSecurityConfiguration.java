@@ -18,11 +18,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @param auth AuthenticationManagerBuilder
      * @throws Exception
      */
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("admin").authorities("ADMIN");
-//        auth.eraseCredentials(false);
-    }
+//    @Override
+//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser("admin").password("admin").authorities("ADMIN");
+////        auth.eraseCredentials(false);
+//    }
 
 
     /**

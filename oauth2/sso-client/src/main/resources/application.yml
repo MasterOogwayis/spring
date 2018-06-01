@@ -17,6 +17,8 @@ security:
 #      accessTokenUri: https://github.com/login/oauth/access_token
 #      userAuthorizationUri: https://github.com/login/oauth/authorize
       scope: scope
+      # 默认 authorization_code
+      grant-type: authorization_code
 #      authentication-scheme: form
 #      client-authentication-scheme: form
     resource:
