@@ -1,0 +1,14 @@
+# 健康检查脚本 0=health,1=unhealth,2=保留字段
+#!/bin/bash
+# set -eo pipefail
+
+host="$(hostname --ip-address || echo '127.0.0.1')"
+
+if health="$(curl -f "http://$host:19101/health")"; then
+    health="$(echo "$health" | grep -Po '"status":".*?"' |awk -F ':' '{print $2}')"
+        if [ "$health" = 'UP' ]; then
+            exit 0
+        fi
+        echo >&2 "unexpected health status: $health"
+fi
+exit 1

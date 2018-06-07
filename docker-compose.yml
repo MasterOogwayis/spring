@@ -1,4 +1,10 @@
-version: "3"
+#version: "3"
+version: "2.1"
+
+# 指定一个专用的网段
+networks:
+  backend:
+
 services:
 #  redis:
 #    container_name: redis
@@ -11,6 +17,9 @@ services:
     build: ./server/register-server
     image: zsw/register-server
     restart: "no"
+    mem_limit: 512MB
+    volumes:
+      - /data/bcpt:/data/bcpt
     networks:
       - backend
     ports:

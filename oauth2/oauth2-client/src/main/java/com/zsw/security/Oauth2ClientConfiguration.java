@@ -1,26 +1,21 @@
 package com.zsw.security;
 
-import lombok.Setter;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.DefaultUserInfoRestTemplateFactory;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateCustomizer;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.token.AccessTokenProviderChain;
 import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsAccessTokenProvider;
-import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeAccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.implicit.ImplicitAccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider;
-import org.springframework.security.oauth2.common.AuthenticationScheme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +29,10 @@ import java.util.stream.Stream;
  *
  * @author ZhangShaowei on 2018/5/28 9:59
  **/
-@Setter
+//@Setter
+//@EnableOAuth2Client
 @Configuration
-@ConfigurationProperties(prefix = "security.oauth2.client")
+//@ConfigurationProperties(prefix = "security.oauth2.client")
 public class Oauth2ClientConfiguration {
 
 //    /**
@@ -45,21 +41,29 @@ public class Oauth2ClientConfiguration {
 //    private static final Logger logger = LoggerFactory.getLogger(Oauth2ClientConfiguration.class);
 
 
-    /**
-     *
-     */
-    private String clientId;
+//    /**
+//     *
+//     */
+//    private String clientId;
+//
+//    /**
+//     *
+//     */
+//    private String clientSecret;
+//
+//    /**
+//     *
+//     */
+//    private String accessTokenUri;
 
     /**
+     * 注入 UserInfoRestTemplateCustomizer , OAuth2ProtectedResourceDetails , OAuth2ClientContext
      *
+     * @param customizers
+     * @param details
+     * @param oauth2ClientContext
+     * @return
      */
-    private String clientSecret;
-
-    /**
-     *
-     */
-    private String accessTokenUri;
-
     @Bean
     public UserInfoRestTemplateFactory userInfoRestTemplateFactory(
             ObjectProvider<List<UserInfoRestTemplateCustomizer>> customizers,
@@ -68,6 +72,7 @@ public class Oauth2ClientConfiguration {
         return new DefaultUserInfoRestTemplateFactory(customizers, details, oauth2ClientContext);
     }
 
+    //
     @Bean
     public OAuth2RestTemplate oAuth2RestOperations(UserInfoRestTemplateFactory userInfoRestTemplateFactory) {
         return userInfoRestTemplateFactory.getUserInfoRestTemplate();
@@ -75,14 +80,10 @@ public class Oauth2ClientConfiguration {
 
 
     /**
-     * 无需 自定义 new OAuth2RestTemplete()
+     * new OAuth2RestTemplete()
      * {@link org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerTokenServicesConfiguration}
-     * <p>
      * {@link UserInfoRestTemplateFactory}
-     * 注入 UserInfoRestTemplateCustomizer , OAuth2ProtectedResourceDetails , OAuth2ClientContext
-     * <p>
      * 这里配置的 accessToken server 地址 使用了微服务中的 服务名称 所以需要 配置 LoadBalancerInterceptor 解析
-     * <p>
      * 若使用了 spring-retry 这里 是无法注入 LoadBalancerInterceptor
      *
      * @param loadBalancerInterceptor LoadBalancerInterceptor

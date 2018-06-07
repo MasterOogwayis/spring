@@ -15,10 +15,16 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 @Configuration
 public class OAuth2FeignClientConfiguration {
 
+    /**
+     * {@link org.springframework.cloud.netflix.feign.FeignClient} 拦截器 增加 oauth 头消息
+     *
+     * @param oAuth2RestTemplate
+     * @return
+     */
     @Bean
     public RequestInterceptor oauth2FeignRequestInterceptor(OAuth2RestTemplate oAuth2RestTemplate) {
-        OAuth2AccessToken accessToken = oAuth2RestTemplate.getAccessToken();
         return template -> {
+            OAuth2AccessToken accessToken = oAuth2RestTemplate.getAccessToken();
             template.header(HttpHeaders.AUTHORIZATION, accessToken.getTokenType() + " " + accessToken.getValue());
         };
     }

@@ -20,8 +20,9 @@ eureka:
 
 com:
   zsw:
-    servername:
+    server:
       saleorder: saleorder-api
+      oauth2: oauth2-server
 
 feign:
   httpclient:
@@ -38,9 +39,8 @@ security:
     client:
       client-id: 2a1b448f53f7b4ee1bc5
       client-secret: 9ac0814f8f098395033d99031620c13d6279bad8
-      access-token-uri: http://oauth2-server/oauth/token
+      access-token-uri: http://${com.zsw.server.oauth2}/oauth/token
       grant-type: client_credentials
-#      user-authorization-uri: http://oauth2-server/oauth/authorize
+      user-authorization-uri: http://oauth2-server/oauth/authorize
 #      pre-established-redirect-uri: http://localhost:1301/callback
-
 

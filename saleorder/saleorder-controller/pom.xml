@@ -28,7 +28,7 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>oauth2-fe</artifactId>
+            <artifactId>oauth2-feign</artifactId>
         </dependency>
     </dependencies>
 
