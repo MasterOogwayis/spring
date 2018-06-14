@@ -10,3 +10,125 @@ feign:
   okhttp:
     # default true
     enabled: false
+#  compression:
+#    request:
+#      #支持压缩的 mime types
+#      enabled: true
+#      mime-types: text/xml,application/xml,application/json
+#      min-request-size: 2048
+#    response:
+#      ensbled: true
+
+
+#ribbon:
+#  eager-load:
+#    # 服务启动则初始化客户端
+#    enabled: true
+#    # 需要初始化的 client
+#    clients: saleorder-api
+#  ConnectTimeout: 500
+#  ReadTimeOut: 5000
+#  OkToRetryOnAllOperations: true # 重试
+#  MaxAutoRetriesNextServer: 2 # 切换次数
+#  MaxAutoRetries: 1 # 重试次数
+
+
+#hystrix:
+#  command:
+#    HystrixCommandKey:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 100000
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false #禁用熔断器超时时间 默认 true
+#        isolation:
+          # 表示HystrixCommand.run()的执行时的隔离策略，有以下两种策略  default THREAD
+          # 1 THREAD: 在单独的线程上执行，并发请求受线程池中的线程数限制
+          #   在默认情况下，推荐HystrixCommands 使用 thread 隔离策略，HystrixObservableCommand 使用 semaphore 隔离策略
+          # 2 SEMAPHORE: 在调用线程上执行，并发请求量受信号量计数限制
+          #   高并发(单个实例每秒达到几百个调用)的调用时，才需要修改HystrixCommands 的隔离策略为semaphore
+          #   semaphore 隔离策略通常只用于非网络调用
+#          strategy: THREAD # default
+#          semaphore:
+             # 当使用SEMAPHORE的隔离策略时，设置最大的并发量 设置 HystrixCommand.Fallback() 方法允许从调用线程发出的请求的最大数量。
+#            maxConcurrentRequests: 10
+#          thread:
+#            timeoutInMilliseconds: 5000 #熔断器超时时间。解决第一次调用失败问题。  最好配置 eager-load
+#            interruptOnTimeout: true # 表示设置是否在执行超时时 中断执行 default true
+#            interruptOnCancel: false # 是否在取消任务时 中断执行 default false
+#      fallback:
+        # 是否开启fallback功能 default true
+#        enabled: true # default
+#        isolation:
+#          semaphore:
+            # 此属性设置从调用线程允许HystrixCommand.getFallback（）方法允许的最大并发请求数
+            # 如果达到最大的并发量，则接下来的请求会被拒绝并且抛出异常. default 10
+#            maxConcurrentRequests: 10 # default
+#      circuitBreaker:
+        # 确定断路器是否将用于跟踪运行状况和短路请求（如果熔断）。
+#        enabled: true
+        # 如果设置true，则强制使断路器跳闸，则会拒绝所有的请求.此值会覆盖circuitBreaker.forceClosed的值
+#        forceOpen: false # default
+        # 如果设置true，则强制使断路器进行关闭状态，此时会允许执行所有请求
+        # 无论是否失败的次数达到circuitBreaker.errorThresholdPercentage值
+#        forceClosed: flase # default
+        # 断路器跳闸的最小请求数量
+        # 如果此属性值为20，则在窗口时间内（如10s内），如果只收到19个请求且都失败了，则断路器也不会开启 default 20
+#        requestVolumeThreshold: 20 # default
+        # 断路器跳闸后，在此值的时间的内，hystrix会拒绝新的请求，只有过了这个时间断路器才会打开闸门 default 5000ms
+        # 多线程下只会有一个线程会尝试调用 run() 来确定是否闭合链路
+#        sleepWindowInMilliseconds: 5000 # default
+        # 设置失败百分比的阈值。如果失败比率超过这个值，则断路器跳闸并且进入fallback逻辑 default 50
+#        errorThresholdPercentage: 50 # default
+#      metrics:
+#        rollingStats:
+          # 设置统计滚动窗口的时间长度 如果此值为10s，将窗口分成10个桶，每个桶表示1s时间
+#          timeInMilliseconds: 10000 # default
+          # 设置统计滚动窗口的桶数量 必须能整除 timeInMilliseconds 在高并发的环境里，每个桶的时间长度建议大于100ms
+#          numBuckets: 10 # default
+#        rollingPercentile:
+          # 设置执行延迟是否被跟踪，并且被计算在失败百分比中。如果设置为false,则所有的统计数据返回-1  default true
+#          enabled: true
+          # 此属性设置统计滚动百分比窗口的持续时间
+#          timeInMilliseconds: 60000 # default
+          # 设置统计滚动百分比窗口的桶数量
+#          numBuckets: 6 # default        timeInMilliseconds % numBuckets = 0
+          # 此属性设置每个桶保存的执行时间的最大值。如果桶数量是100，统计窗口为10s
+          # 如果这10s里有500次执行，只有最后100次执行会被统计到bucket里去
+#          bucketSize: 100 # default
+#        healthSnapshot:
+          # 采样时间间隔
+#          intervalInMilliseconds: 500 # default
+#        requestCache:
+          # 是否开启请求缓存功能
+#          enabled: true # default
+#        requestLog:
+          # 表示是否开启日志，打印执行HystrixCommand的情况和事件
+#          enabled: true # default
+#  collapser:
+#    default:
+      # 设置同时批量执行的请求的最大数量
+#      maxRequestsInBatch: Integer.MAX_VALUE # default
+      # 时间窗,批量执行创建多久之后，再触发真正的请求
+#      timerDelayInMilliseconds: 10
+#  threadpool:
+#    default:
+      # 此属性设置核心线程池大小。 这是可以同时执行的Hystrix命令的最大数量。
+#      coreSize: 10
+      # 此属性设置BlockingQueue实现的最大队列大小。
+#      maxQueueSize: -1
+      # 此属性设置队列大小拒绝阈值
+#      queueSizeRejectionThreshold: 5
+      # 保持活动时间，以分钟为单位
+#      keepAliveTimeMinutes: 1
+#      metrics:
+#        rollingStats:
+          # 此属性设置统计滚动窗口的持续时间（以毫秒为单位）。 这是为线程池保留多长时间
+#          timeInMilliseconds: 10000
+          # 滚动统计窗口划分的桶数
+#          numBuckets: 10
+
+# 大幅降低 第一次调用失败问题，保留默认熔断机制

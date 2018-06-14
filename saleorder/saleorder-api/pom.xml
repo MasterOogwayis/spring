@@ -22,10 +22,6 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zsw</groupId>
             <artifactId>saleorder-service</artifactId>
             <version>${project.version}</version>
         </dependency>

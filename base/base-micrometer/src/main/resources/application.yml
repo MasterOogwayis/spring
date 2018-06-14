@@ -1,7 +1,10 @@
 endpoints:
+  # 开启 micrometer 以 prometheus 输出，然后脱敏
   prometheus:
     enabled: true
     sensitive: false
+  # 大部分 actuator 需要 ACTUATOR 才能访问 这里脱敏 普通 security 可访问
+  sensitive: false
 #  health:
 #    sensitive: false
 
@@ -11,3 +14,5 @@ endpoints:
 #  security:
 #    enabled: false
 
+#logging:
+#  config: classpath:logging-config.xml

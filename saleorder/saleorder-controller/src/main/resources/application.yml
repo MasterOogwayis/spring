@@ -44,3 +44,7 @@ security:
       user-authorization-uri: http://oauth2-server/oauth/authorize
 #      pre-established-redirect-uri: http://localhost:1301/callback
 
+logging:
+  level:
+    org.apache.http.impl.conn: DEBUG
+    org.springframework.cloud.netflix.feign: DEBUG

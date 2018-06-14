@@ -14,7 +14,7 @@ public interface SaleOrderBaseClient {
     SaleOrderDto get(@RequestParam("id") final Long id);
 
 
-    @RequestMapping(value = "saleorder/edit")
+    @RequestMapping(value = "saleorder/edit", method = RequestMethod.POST)
     SaleOrderDto edit(@RequestBody final SaleOrderDto saleOrderDto);
 
 
