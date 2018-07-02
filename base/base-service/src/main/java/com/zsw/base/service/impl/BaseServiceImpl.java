@@ -100,6 +100,9 @@ public abstract class BaseServiceImpl<T, E extends Serializable> extends Jackson
     }
 
     /**
+     * 事实上并不常用，用hql吧，简单方便！
+     * 分页方式也不常用
+     *
      * @param t
      * @param page
      * @param limit

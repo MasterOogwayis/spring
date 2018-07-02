@@ -39,9 +39,8 @@ public class StaticTests {
 
     public static void main(String[] args) throws Exception {
 
-        String basic = "ZWFzeWxpbmVzLWFwaTplYXN5bGluZXMtYXBp";
 
-        System.out.println(new String(Base64.getDecoder().decode(basic)));
+        System.out.println(0x99999);
 
 
 //        String encode = Base64.getEncoder().encodeToString("123".getBytes(Charset.forName("utf-8")));
