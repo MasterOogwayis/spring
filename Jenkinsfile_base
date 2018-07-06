@@ -23,6 +23,10 @@ pipeline {
         string(name: "icGatewayPort", defaultValue: "19110", description: "ic gateway服务端口")
         string(name: "openGatewayPort", defaultValue: "19111", description: "open gateway服务端口")
     }
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
     stages {
         stage('编译：Compile') {
             tools {
@@ -34,56 +38,41 @@ pipeline {
             }
         }
         stage('单元测试：Test') {
-            tools {
-                maven 'maven'
-            }
+//            tools {
+//                maven 'maven'
+//            }
             steps {
-                script {
-                    if (params.junitTest) {
-                        sh 'mvn jacoco:prepare-agent test'
-                        // 聚合报告
-                        junit '**/target/surefire-reports/*.xml'
-                        jacoco changeBuildStatus: true, deltaLineCoverage: '5',
+                sh 'mvn jacoco:prepare-agent test'
+                // 聚合报告
+                junit '**/target/surefire-reports/*.xml'
+                jacoco changeBuildStatus: true, deltaLineCoverage: '5',
 //                        execPattern: '**/**.exec',
 //                        classPattern: '**/classes',
 //                        sourcePattern: '**/src/main/java',
-                                exclusionPattern: 'src/test/*'
-                    } else {
-                        echo 'skip jUnit Test...'
-                    }
+                        exclusionPattern: 'src/test/*'
                 }
             }
         }
         stage('静态检查：SonarQube') {
             steps {
-                script {
-                    if (params.sonarQube) {
-                        scannerHome = tool 'sonar scanner'
-                        // 使用 jenkins 默认配置
-                        withSonarQubeEnv('sonar server') {
-                            sh "${scannerHome}/bin/sonar-scanner"
-                        }
-                    } else {
-                        echo 'skip sonarQube......'
-                    }
+                scannerHome = tool 'sonar scanner'
+                // 使用 jenkins 默认配置
+                withSonarQubeEnv('sonar server') {
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
         stage('打包：Package') {
-            tools {
-                maven 'maven'
-            }
+//            tools {
+//                maven 'maven'
+//            }
             steps {
                 script {
-                    if (params.package) {
-                        echo "Package..."
-                        sh 'mvn package -DskipTests'
-                        // 归档成品 记录指纹
-                        archiveArtifacts '**/target/*.jar'
-                        fingerprint '**/target/*.jar'
-                    } else {
-                        echo '跳过打包'
-                    }
+                    echo "Package..."
+                    sh 'mvn package -DskipTests'
+                    // 归档成品 记录指纹
+                    archiveArtifacts '**/target/*.jar'
+                    fingerprint '**/target/*.jar'
                 }
             }
         }
@@ -92,19 +81,15 @@ pipeline {
                 maven 'maven'
             }
             steps {
-                // 清除 所有废弃 none images
                 script {
-                    if (params.buildImages) {
-                        echo 'build docker Images......'
-                        sh 'mvn dockerfile:build -DskipTests'
-                        try {
-                            echo '清理 images'
-                            sh 'docker rmi $(docker images | grep "^<none>" | awk "{print $3}")'
-                        } catch (Exception e) {
-                            echo '忽略清理报错......'
-                        }
-                    } else {
-                        echo 'skip build docker Images...... '
+                    echo 'build docker Images......'
+                    sh 'mvn dockerfile:build -DskipTests'
+                    try {
+                        // 清除 所有废弃 none images
+                        echo '清理 images'
+                        sh 'docker rmi $(docker images | grep "^<none>" | awk "{print $3}")'
+                    } catch (Exception e) {
+                        echo '忽略清理报错......'
                     }
                 }
             }
@@ -131,16 +116,12 @@ pipeline {
             }
         }
         stage('接口测试：Api Test') {
-            tools {
-                jdk 'jdk8'
-            }
+//            tools {
+//                jdk 'jdk8'
+//            }
             steps {
                 script {
-                    if (params.katalon) {
-                        sh 'katalon -propertiesFile="/data/katalon/auto-test-script/auto-test/Test Suites/TS1.properties" -runMode=console'
-                    } else {
-                        echo 'skip API test...'
-                    }
+                    sh 'katalon -propertiesFile="/data/katalon/auto-test-script/auto-test/Test Suites/TS1.properties" -runMode=console'
                 }
             }
         }
@@ -206,4 +187,4 @@ pipeline {
 //            }
 //        }
 //    }
-}
+//}

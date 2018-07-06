@@ -60,14 +60,13 @@ public class BaseApiController {
         } else if (ex instanceof ConstraintViolationException) {
             ConstraintViolationException ce = (ConstraintViolationException) ex;
             Set<ConstraintViolation<?>> set = ce.getConstraintViolations();
-            List<String> list = set.stream()
+            return set.stream()
                     .map(constraintViolation -> {
                         PathImpl pathImpl = (PathImpl) constraintViolation.getPropertyPath();
                         return pathImpl.getLeafNode().getName() + "=" + pathImpl.getLeafNode().getValue()
                                 + ", error=" + constraintViolation.getMessage();
                     })
                     .collect(Collectors.toList());
-            return list;
         }
         return ex;
     }
