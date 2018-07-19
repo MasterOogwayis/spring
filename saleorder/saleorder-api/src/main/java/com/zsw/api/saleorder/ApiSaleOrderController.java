@@ -55,7 +55,7 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
     public SaleOrderDto edit(@RequestBody final SaleOrderDto saleOrderDto) {
         SaleOrder saleOrder = this.saleOrderService.edit(saleOrderDto);
         SaleOrderDto data = new SaleOrderDto();
-        BeanUtils.copyProperties(saleOrder, data, "PRODUCT");
+        BeanUtils.copyProperties(saleOrder, data, "product");
         return data;
     }
 

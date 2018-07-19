@@ -12,10 +12,10 @@
     <artifactId>saleorder-persistence</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-persistence</artifactId>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>product-persistence</artifactId>

@@ -12,6 +12,7 @@ pipeline {
         booleanParam(name: 'sonarQube', defaultValue: false, description: '静态检查')
         booleanParam(name: 'package', defaultValue: false, description: '打包 package')
         booleanParam(name: 'buildImages', defaultValue: false, description: '构建 image，必须先打包')
+        booleanParam(name: 'clearImages', defaultValue: false, description: '清理 废弃 none images')
         booleanParam(name: 'startServers', defaultValue: false, description: '启动全部服务')
         booleanParam(name: 'katalon', defaultValue: false, description: 'katalon API 接口测试')
         booleanParam(name: 'repository', defaultValue: false, description: '推送测试仓库')
@@ -23,6 +24,19 @@ pipeline {
         string(name: "icGatewayPort", defaultValue: "19110", description: "ic gateway服务端口")
         string(name: "openGatewayPort", defaultValue: "19111", description: "open gateway服务端口")
     }
+    //环境变量，初始确定后一般不需更改
+//    tools {
+//        maven 'maven3'
+//        jdk 'jdk8'
+//    }
+//    options {
+//        //保持构建的最大个数
+//        buildDiscarder(logRotator(numToKeepStr: '10'))
+//    }
+    //定期检查开发代码更新，工作日每晚4点做daily build
+//    triggers {
+//        pollSCM('H 4 * * 1-5')
+//    }
     stages {
         stage('编译：Compile') {
             tools {
@@ -43,13 +57,14 @@ pipeline {
                         sh 'mvn jacoco:prepare-agent test'
                         // 聚合报告
                         junit '**/target/surefire-reports/*.xml'
-                        jacoco changeBuildStatus: true, deltaLineCoverage: '5',
+                        // 代码覆盖率低于 5% 则失败
+                        jacoco changeBuildStatus: true, maximumLineCoverage: '5',
 //                        execPattern: '**/**.exec',
 //                        classPattern: '**/classes',
 //                        sourcePattern: '**/src/main/java',
                                 exclusionPattern: 'src/test/*'
                     } else {
-                        echo 'skip jUnit Test...'
+                        echo '跳过 jUnit Test...'
                     }
                 }
             }
@@ -63,8 +78,17 @@ pipeline {
                         withSonarQubeEnv('sonar server') {
                             sh "${scannerHome}/bin/sonar-scanner"
                         }
+//                        timeout(time: 1, unit: 'HOURS') {
+                        // 等待 sonar 反馈 30min 超时
+//                        timeout(30) {
+//                            //利用sonar webhook功能通知pipeline代码检测结果，未通过质量阈，pipeline将会fail
+//                            def qg = waitForQualityGate()
+//                            if (qg.status != 'OK') {
+//                                error "未通过Sonarqube的代码质量阈检查，请及时修改！failure: ${qg.status}"
+//                            }
+//                        }
                     } else {
-                        echo 'skip sonarQube......'
+                        echo '跳过 sonarQube......'
                     }
                 }
             }
@@ -82,7 +106,7 @@ pipeline {
                         archiveArtifacts '**/target/*.jar'
                         fingerprint '**/target/*.jar'
                     } else {
-                        echo '跳过打包'
+                        echo '跳过 package'
                     }
                 }
             }
@@ -97,14 +121,16 @@ pipeline {
                     if (params.buildImages) {
                         echo 'build docker Images......'
                         sh 'mvn dockerfile:build -DskipTests'
+                    } else {
+                        echo '跳过 build docker Images...... '
+                    }
+                    if (params.clearImages) {
                         try {
                             echo '清理 images'
                             sh 'docker rmi $(docker images | grep "^<none>" | awk "{print $3}")'
                         } catch (Exception e) {
                             echo '忽略清理报错......'
                         }
-                    } else {
-                        echo 'skip build docker Images...... '
                     }
                 }
             }
@@ -139,7 +165,7 @@ pipeline {
                     if (params.katalon) {
                         sh 'katalon -propertiesFile="/data/katalon/auto-test-script/auto-test/Test Suites/TS1.properties" -runMode=console'
                     } else {
-                        echo 'skip API test...'
+                        echo '跳过 API test...'
                     }
                 }
             }
@@ -155,7 +181,9 @@ pipeline {
                         def instances = params.instances.split(",")
                         withDockerRegistry(url: "${params.dockerRepository}") {
                             for (String instance : instances) {
-                                docker.image("bcpt/${instance.trim()}:${params.tag}").push()
+                                def image = "bcpt/${instance.trim()}:${params.tag}"
+                                echo image
+                                docker.image(image).push()
                             }
                         }
                     } else {
