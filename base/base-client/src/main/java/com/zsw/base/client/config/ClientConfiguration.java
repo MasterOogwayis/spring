@@ -1,8 +1,8 @@
 package com.zsw.base.client.config;
 
 import lombok.Setter;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
+import okhttp3.ConnectionPool;
+import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,6 +11,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2017/11/6 16:07
@@ -40,6 +42,18 @@ public class ClientConfiguration {
      */
     private static final Logger logger = LoggerFactory.getLogger(ClientConfiguration.class);
 
+
+    @Bean
+    public OkHttpClient okHttpClient() {
+        return new okhttp3.OkHttpClient.Builder()
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .writeTimeout(120, TimeUnit.SECONDS)
+                .connectionPool(new ConnectionPool(maxConnections, 5, TimeUnit.MINUTES))
+                // .addInterceptor();
+                .build();
+    }
+
     /**
      * FeignClient 默认使用 HttpURLConnection 每次请求都建立一个新的连接
      * 效率非常低。为了提高效率，可以通过连接池提高效率
@@ -47,12 +61,14 @@ public class ClientConfiguration {
      *
      * @return
      */
-    @Bean
-    public HttpClient httpClient() {
-        return HttpClientBuilder.create()
-                .setMaxConnTotal(this.maxConnections)
-                .setMaxConnPerRoute(this.maxConnectionsPerRoute)
-                .build();
+//    @Bean
+//    public HttpClient httpClient() {
+//        return HttpClientBuilder.create()
+//                .setMaxConnTotal(this.maxConnections)
+//                .setMaxConnPerRoute(this.maxConnectionsPerRoute)
+//                .build();
+
+
 //        logger.info("init feign httpclient configuration " );
 //        // 生成默认请求配置
 //        RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
@@ -92,6 +108,6 @@ public class ClientConfiguration {
 //        logger.info("===== Apache httpclient 初始化连接池===");
 //
 //        return client;
-    }
+//    }
 
 }

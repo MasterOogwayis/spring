@@ -13,7 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * test
@@ -39,9 +44,16 @@ public class StaticTests {
 
     public static void main(String[] args) throws Exception {
 
+        List<PaDto> list = new ArrayList<>();
 
-        System.out.println(0x99999);
+        list.add(new PaDto("1"));
+        list.add(new PaDto("2"));
+        list.add(new PaDto("3"));
+        list.add(new PaDto("4"));
 
+        Map<String, PaDto> map = list.stream().collect(Collectors.toMap(PaDto::getName, Function.identity()));
+
+        System.out.println(map);
 
 //        String encode = Base64.getEncoder().encodeToString("123".getBytes(Charset.forName("utf-8")));
 //        System.out.println(encode);
@@ -110,6 +122,10 @@ public class StaticTests {
             return "PaDto{" +
                     "name='" + name + '\'' +
                     '}';
+        }
+
+        public PaDto(String name) {
+            this.name = name;
         }
     }
 

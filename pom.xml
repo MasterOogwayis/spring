@@ -13,7 +13,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <!--<version>2.0.0.RELEASE</version>-->
-        <version>1.5.11.RELEASE</version>
+        <version>1.5.13.RELEASE</version>
         <!--<version>2.0.0.M6</version>-->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
@@ -45,7 +45,7 @@
         <maven.war.dependentWarExcludes>WEB-INF/web.xml</maven.war.dependentWarExcludes>
         <protostuff.version>1.6.0</protostuff.version>
         <querydsl.version>4.1.4</querydsl.version>
-        <micrometer.version>1.0.2</micrometer.version>
+        <micrometer.version>1.0.3</micrometer.version>
         <mockito.version>2.8.47</mockito.version>
     </properties>
 
@@ -53,6 +53,18 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <!--<version>Camden.SR6</version>-->
+                <version>Dalston.SR5</version>
+                <!--<version>Edgware.M1</version>-->
+                <!--<version>Finchley</version>-->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>com.zsw</groupId>
                 <artifactId>base-logging</artifactId>
@@ -165,15 +177,6 @@
             </dependency>
 
 
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <!--<version>Camden.SR6</version>-->
-                <version>Dalston.SR5</version>
-                <!--<version>Edgware.M1</version>-->
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <!-- protobuff序列化开源工具-->
             <dependency>
                 <groupId>io.protostuff</groupId>
@@ -385,11 +388,11 @@
 
             <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
             <!-- 使用 okhttp 替换 feignclient默认的httpclient -->
-            <dependency>
+            <!--<dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
                 <version>3.10.0</version>
-            </dependency>
+            </dependency>-->
 
 
             <!--           FeignClient 默认使用 HttpURLConnection 每次请求都建立一个新的连接             -->
@@ -399,14 +402,14 @@
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-okhttp</artifactId>
-                <version>9.7.0</version>
+                <version>9.5.0</version>
             </dependency>
             <!-- 增加feign-httpclient -->
             <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-httpclient -->
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-httpclient</artifactId>
-                <version>9.7.0</version>
+                <version>9.5.0</version>
             </dependency>
 
             <!--<dependency>

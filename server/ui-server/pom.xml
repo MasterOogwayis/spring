@@ -17,10 +17,6 @@
             <artifactId>saleorder-client</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-        </dependency>
     </dependencies>
 
 </project>
