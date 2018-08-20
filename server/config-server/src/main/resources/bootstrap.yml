@@ -1,29 +1,37 @@
 server:
-  port: 7001
+  port: 1112
 
 spring:
   application:
     name: config-server
-  profiles:
-    active: native
-  config:
-    location:
+  rabbitmq:
+    username: guest
+    password: guest
+    addresses: localhost
+    port: 5672
+#  profiles:
+#    active: nativespring-cloud-config
+#  config:
+#    location:
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:repo/
-          add-label-locations: false
+#        native:
+#          search-locations: classpath:repo/
+#          add-label-locations: false
           #, file:D:\config
-#        git:
-#          uri: https://github.com/4*******7/spring/config/
-#          uri: git@gitee.com:******/spring-cloud-config.git
-#          search-paths: config-repo
-#          clone-on-start: true
-#          uri: https://gitee.com/shaoweizhang/spring-cloud-learning.git
-#          username: 499504777@qq.com
-#          password: z1989s07w29
-#      label: master
+        # config server 会自动更新git
+        git:
+          # 若使用 ssh, 默认使用本机配置的.ssh rsa
+          uri: ****
+          # 强制更新本地副本，防止副本被修改导致无法更新配置
+          force-pull: true
+          deleteUntrackedBranches: true
+          search-paths: dev,cloud,distribution,pro,test
+          clone-on-start: true
+          username: ****
+          password: ****
+      label: master
 
 
 eureka:

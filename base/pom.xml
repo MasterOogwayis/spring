@@ -30,6 +30,7 @@
         <module>base-micrometer</module>
         <module>google-authenticator</module>
         <module>base-logging</module>
+        <module>config-client</module>
     </modules>
 
 

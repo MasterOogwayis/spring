@@ -25,6 +25,7 @@
             <artifactId>saleorder-service</artifactId>
             <version>${project.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>resource-server</artifactId>
