@@ -91,8 +91,7 @@ public class RedisConfiguration extends CachingConfigurerSupport {
         //  3. GenericJackson2JsonRedisSerializer 解决 2 不需要传类型参数
         //
         //  4. protostuff  比Jackson性能好，空间少的方式，value为二进制方式  --  jpa的代理对象无法被序列化二进制
-        //     *** 可读性略差
-        //     *** ProtostuffIOUtil.toByteArray()无法序列化 jpa 代理对象handler,  使用GraphIOUtil.toByteArray()
+        //     *** 可读性略差, 底层为 Unsafe 反射拷贝！所以遇见 hibernate 代理对象就要炸！
         //     由google提供
         //
         //
