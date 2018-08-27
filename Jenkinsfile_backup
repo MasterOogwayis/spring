@@ -1,0 +1,271 @@
+#!/usr/bin/env groovy Jenkinsfile
+//Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any
+    // 使用到的工具
+//    tools {
+//        maven 'maven'
+//        jdk 'jdk8'
+//    }
+    // 参数，可以在流水线启动前输入
+    parameters {
+        // tag 版本 artifactId
+        string(name: "tag", defaultValue: "2.0-SNAPSHOT", description: "版本号")
+        string(name: "dockerRepository", defaultValue: "192.168.1.12:18082", description: "docker 本地仓库地址，必填")
+        choice(name: 'env', choices: 'dev\ntest\ncloud\npro', description: '环境')
+        booleanParam(name: 'junitTest', defaultValue: false, description: '单元测试')
+        booleanParam(name: 'sonarQube', defaultValue: false, description: '静态检查')
+        booleanParam(name: 'katalon', defaultValue: false, description: 'katalon API 接口测试')
+        booleanParam(name: 'repository', defaultValue: false, description: '推送测试仓库')
+        text(name: 'instances', defaultValue: '', description: '需要发布的服务,逗号分隔')
+        choice(name: 'startServers', choices: '换包\n构建环境\nskip', description: '启动服务')
+        string(name: "eurekaPort", defaultValue: "19101", description: "注册服务端口")
+        string(name: "configPort", defaultValue: "19102", description: "配置服务端口")
+        string(name: "adminPort", defaultValue: "19104", description: "admin服务端口")
+        string(name: "gatewayPort", defaultValue: "17100", description: "gateway服务端口")
+        string(name: "icGatewayPort", defaultValue: "19110", description: "ic gateway服务端口")
+        string(name: "openGatewayPort", defaultValue: "19111", description: "open gateway服务端口")
+    }
+//    options {
+//        //保持构建的最大个数
+//        buildDiscarder(logRotator(numToKeepStr: '10'))
+//    }
+    //定期检查开发代码更新，工作日每晚4点做daily build
+//    triggers {
+//        pollSCM('H 4 * * 1-5')
+//    }
+    stages {
+//        stage('编译：Compile') {
+//            steps {
+//                echo "Compile..."
+//                sh 'mvn compile'
+//            }
+//        }
+        stage('jUnit') {
+            tools {
+                maven 'maven'
+            }
+            steps {
+                script {
+                    if (params.junitTest) {
+                        sh 'mvn jacoco:prepare-agent test'
+                        // 聚合报告
+                        junit '**/target/surefire-reports/*.xml'
+                        // 代码覆盖率低于 5% 则失败
+                        jacoco changeBuildStatus: true, maximumLineCoverage: '5',
+//                        execPattern: '**/**.exec',
+//                        classPattern: '**/classes',
+//                        sourcePattern: '**/src/main/java',
+                                exclusionPattern: 'src/test/*'
+                    } else {
+                        echo '跳过 jUnit Test...'
+                    }
+                }
+            }
+        }
+        stage('SonarQube') {
+            steps {
+                script {
+                    if (params.sonarQube) {
+                        scannerHome = tool 'sonar scanner'
+                        // 使用 jenkins 默认配置
+                        withSonarQubeEnv('sonar server') {
+                            sh "${scannerHome}/bin/sonar-scanner"
+                        }
+//                        timeout(time: 1, unit: 'HOURS') {
+                        // 等待 sonar 反馈 30min 超时
+//                        timeout(30) {
+//                            //利用sonar webhook功能通知pipeline代码检测结果，未通过质量阈，pipeline将会fail
+//                            def qg = waitForQualityGate()
+//                            if (qg.status != 'OK') {
+//                                error "未通过Sonarqube的代码质量阈检查，请及时修改！failure: ${qg.status}"
+//                            }
+//                        }
+                    } else {
+                        echo '跳过 sonarQube......'
+                    }
+                }
+            }
+        }
+        stage('Package') {
+            tools {
+                maven 'maven'
+            }
+            steps {
+                script {
+                    if (params.repository) {
+                        sh 'mvn package -DskipTests'
+                        // 归档成品 记录指纹
+//                        archiveArtifacts '**/target/*.jar'
+//                        fingerprint '**/target/*.jar'
+                    } else {
+                        echo '跳过 package'
+                    }
+                }
+            }
+        }
+        stage('Build images') {
+            tools {
+                maven 'maven'
+            }
+            steps {
+                script {
+                    if (params.repository) {
+                        def servers = ["admin", "config", "gateway", "oauth2", "register", "zipkin"]
+                        def instances = params.instances.split(",")
+                        for (String instance : instances) {
+                            instance = instance.trim()
+                            def parent = instance.substring(0, instance.lastIndexOf("-"))
+                            parent = parent.substring(parent.lastIndexOf("-") + 1, parent.length())
+                            parent = servers.contains(parent) ? "server" : parent
+                            def path = "${parent}/${instance}"
+                            sh "mvn dockerfile:build dockerfile:tag@tag-version -f ${path}"
+                        }
+//                        sh "mvn dockerfile:build dockerfile:tag@tag-version"
+                        try {
+                            echo '清理 images'
+                            sh 'docker rmi $(docker images | grep "none" | awk \'{print $3}\') || echo 0'
+                        } catch (Exception e) {
+                            echo '忽略清理报错......'
+                        }
+                        // tag latest
+                    } else {
+                        echo '跳过 build docker Images...... '
+                    }
+                }
+            }
+        }
+        stage('Push Repository') {
+            environment {
+                // docker仓库地址
+                DOCKER_REGISTRY_URL = "http://${params.dockerRepository}"
+            }
+            steps {
+                script {
+                    if ((params.startServers == "换包" || params.repository) && params.instances) {
+                        def instances = params.instances.split(",")
+                        withDockerRegistry(url: "${params.dockerRepository}") {
+                            for (String instance : instances) {
+                                def image = "bcpt/${instance.trim()}:${params.tag}"
+                                echo image
+                                docker.image(image).push()
+                                def imageLatest = "bcpt/${instance.trim()}:latest"
+                                echo imageLatest
+                                docker.image(imageLatest).push()
+                            }
+                        }
+                    } else {
+                        echo '没有需要推送的 images'
+                    }
+                }
+            }
+        }
+        stage('启动服务') {
+            environment {
+                TZ = "Asia/Shanghai"
+                LOCAL_REPOSITORY = "${params.dockerRepository}"
+                START_ENV = "${params.env}"
+                EUREKA_PORT = "${params.eurekaPort}"
+                CONFIG_PORT = "${params.configPort}"
+                ADMIN_PORT = "${params.adminPort}"
+                GATEWAY_PORT = "${params.gatewayPort}"
+                IC_GATEWAY_PORT = "${params.icGatewayPort}"
+                OPEN_GATEWAY_PORT = "${params.openGatewayPort}"
+                TAG = "latest"
+            }
+            steps {
+                script {
+                    if (params.startServers == "换包" && params.instances) {
+                        echo "换包: ${params.instances}"
+                        def instances = params.instances.split(",")
+                        def envs = []
+                        for (String instance : instances) {
+                            instance = instance.trim().replaceAll("-", "_").toUpperCase()
+                            envs.add("${instance}=always")
+                        }
+                        withEnv(envs) {
+                            sh "docker-compose up -d"
+                        }
+                    } else if(params.startServers == "构建环境") {
+                        echo "构建 ${params.env} 环境"
+                        sh "docker-compose up -d"
+                    } else {
+                        echo '不启动 服务'
+                    }
+                }
+            }
+        }
+        stage('Api Test') {
+            tools {
+                jdk 'jdk8'
+            }
+            steps {
+                script {
+                    if (params.katalon) {
+                        sh 'katalon -propertiesFile="/data/katalon/auto-test-script/auto-test/Test Suites/TS1.properties" -runMode=console'
+                    } else {
+                        echo '跳过 API test...'
+                    }
+                }
+            }
+        }
+        stage('发布演练环境...') {
+            steps {
+                echo '启动演练环境......'
+//                sh 'rsync -avzP docker-compose.yml root@192.168.1.12:/home/docker/bcpt/upload -e \'ssh -p 22\''
+//                sh 'ssh root@120.55.115.22 \'docker-compose -f /home/docker/bcpt/upload/docker-compose.yml up -d\''
+            }
+        }
+        stage('集成单元测试...') {
+            steps {
+                echo '集成单元测试......'
+            }
+        }
+        stage('发布远端仓库...') {
+            steps {
+                echo '推送image到生产仓库'
+            }
+        }
+//        stage('灰度发布...') {
+//            steps {
+//                echo '更换新包...'
+//            }
+//        }
+        stage('全量发布...') {
+            steps {
+                echo '更换新包...'
+            }
+        }
+    }
+    // 需要设置操作用户的邮件地址
+//    post {
+//        success {
+//            script {
+//                wrap([$class: 'BuildUser']) {
+//                    mail to: "${env.BUILD_USER_EMAIL}",
+//                            subject: "PineLine '${JOB_NAME}' (${BUILD_NUMBER}) result",
+//                            body: "${env.BUILD_USER}'s pineline '${JOB_NAME}' (${BUILD_NUMBER}) run success\n请及时前往${env.BUILD_URL} 进行查看"
+//                }
+//            }
+//        }
+//        failure {
+//            script {
+//                wrap([$class: 'BuildUser']) {
+//                    mail to: "${env.BUILD_USER_EMAIL}",
+//                            subject: "PineLine '${JOB_NAME}' (${BUILD_NUMBER}) result",
+//                            body: "${env.BUILD_USER}'s pineline  '${JOB_NAME}' (${BUILD_NUMBER}) run failure\n请及时前往 ${env.BUILD_URL} 进行查看"
+//                }
+//            }
+//
+//        }
+//        unstable {
+//            script {
+//                wrap([$class: 'BuildUser']) {
+//                    mail to: "${env.BUILD_USER_EMAIL}",
+//                            subject: "PineLine '${JOB_NAME}' (${BUILD_NUMBER})结果",
+//                            body: "${env.BUILD_USER}'s pineline '${JOB_NAME}' (${BUILD_NUMBER}) run unstable\n请及时前往${env.BUILD_URL}进行查看"
+//                }
+//            }
+//        }
+//    }
+}
