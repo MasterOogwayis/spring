@@ -103,8 +103,8 @@ pipeline {
                         echo "Package..."
                         sh 'mvn package -DskipTests'
                         // 归档成品 记录指纹
-                        archiveArtifacts '**/target/*.jar'
-                        fingerprint '**/target/*.jar'
+//                        archiveArtifacts '**/target/*.jar'
+//                        fingerprint '**/target/*.jar'
                     } else {
                         echo '跳过 package'
                     }
