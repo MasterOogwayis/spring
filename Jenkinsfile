@@ -38,15 +38,15 @@ pipeline {
 //        pollSCM('H 4 * * 1-5')
 //    }
     stages {
-        stage('编译：Compile') {
-            tools {
-                maven 'maven'
-            }
-            steps {
-                echo "Compile..."
-//                sh 'mvn clean compile'
-            }
-        }
+//        stage('编译：Compile') {
+//            tools {
+//                maven 'maven'
+//            }
+//            steps {
+//                echo "Compile..."
+////                sh 'mvn clean compile'
+//            }
+//        }
         stage('单元测试：Test') {
             tools {
                 maven 'maven'
