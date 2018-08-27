@@ -30,6 +30,7 @@
         <module>google-authenticator</module>
         <module>base-logging</module>
         <module>config-client</module>
+        <module>transaction-mq</module>
     </modules>
 
 

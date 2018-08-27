@@ -171,7 +171,12 @@
             <dependency>
                 <groupId>com.zsw</groupId>
                 <artifactId>config-client</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>transaction-mq</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
 
