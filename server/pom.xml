@@ -20,7 +20,8 @@
         <module>turbine-server</module>
         <module>dev-server</module>
         <module>ui-server</module>
-        <module>test-server</module>
+        <module>wechat-server</module>
+        <module>consul-server</module>
     </modules>
 
 </project>
