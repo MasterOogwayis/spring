@@ -6,7 +6,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutImageMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 
 /**
- * @author Binary Wang(https://github.com/binarywang)
+ * @author ZhangShaowei on 2018/8/28 14:29
  */
 public class ImageBuilder extends AbstractBuilder {
 

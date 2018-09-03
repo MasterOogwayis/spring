@@ -7,7 +7,6 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import org.springframework.stereotype.Component;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -26,7 +25,7 @@ public class ImageHandler extends AbstractHandler {
             URL url = new URL(wxMessage.getPicUrl());
             Files.copy(
                     url.openStream(),
-                    Paths.get("/data/image.jpg"),
+                    Paths.get("/data/" + wxMessage.getFromUser() + "/" + wxMessage.getMediaId() + ".jpg"),
                     StandardCopyOption.REPLACE_EXISTING
             );
         } catch (Exception e) {

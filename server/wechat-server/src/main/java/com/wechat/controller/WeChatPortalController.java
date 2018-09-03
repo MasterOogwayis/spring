@@ -17,7 +17,7 @@ import java.util.Objects;
  **/
 @RestController
 @RequestMapping("/wechat/portal")
-public class WeChatController {
+public class WeChatPortalController {
 
     /**
      * logger

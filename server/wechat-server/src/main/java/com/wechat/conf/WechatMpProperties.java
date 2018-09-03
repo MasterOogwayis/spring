@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * wechat mp properties
  *
- * @author Binary Wang(https://github.com/binarywang)
+ * @author ZhangShaowei on 2018/8/28 14:29
  */
 @Getter
 @Setter

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * @author Binary Wang(https://github.com/binarywang)
+ * @author ZhangShaowei on 2018/8/28 14:29
  */
 @Component
 public class UnsubscribeHandler extends AbstractHandler {

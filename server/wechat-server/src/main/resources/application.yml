@@ -1,43 +1,14 @@
 spring:
   application:
     name: wechat-server
-  # 使用mq bus刷新
-#  rabbitmq:
-#    username: guest
-#    password: guest
-#    addresses: localhost
-#    port: 5672
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
-      profile: test
-      failFast: true
-      name: file
 server:
   port: 80
-
-eureka:
-  server:
-    hostname: localhost
-  client:
-    serviceUrl:
-      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
-    eureka-server-port: 1111
-  instance:
-    hostname: localhost
-    prefer-ip-address: true
-
-management:
-  security:
-    enabled: false
 wechat:
   mp:
-    app-id: ****
-    secret: ****
-    token: ****
-    oauth2redirect-uri: ****
+    app-id: wx99a5a3383c6f0bb2
+    secret: 590ab159862fd0f2167131b507e4f32a
+    token: fo4CexQa4OBgvmcFRp4pAydnNtmwtZbV
+    oauth2redirect-uri: http://3109faaf.nat123.cc/oauth2/code
 #    aes-key:
 
 

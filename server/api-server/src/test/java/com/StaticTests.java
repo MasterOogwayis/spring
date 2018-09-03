@@ -44,7 +44,7 @@ public class StaticTests {
 
     public static void main(String[] args) throws Exception {
 
-        System.err.println(Double.MIN_VALUE);
+        System.err.println(1 << 8);
 //        String encode = Base64.getEncoder().encodeToString("123".getBytes(Charset.forName("utf-8")));
 //        System.out.println(encode);
 //        String message = new String(Base64.getDecoder().decode(encode));
