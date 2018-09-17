@@ -31,6 +31,7 @@
         <module>timedtask</module>
         <module>simple</module>
         <module>test</module>
+        <module>encryption</module>
     </modules>
 
     <properties>

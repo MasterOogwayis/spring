@@ -22,9 +22,7 @@
         <module>base-cache-lock</module>
         <module>base-ui</module>
         <module>login-ui</module>
-        <module>base-hystrix-dashborad</module>
         <module>base-swagger2</module>
-        <module>base-elasticsearch</module>
         <module>verification-code</module>
         <module>base-micrometer</module>
         <module>google-authenticator</module>
