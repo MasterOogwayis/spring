@@ -32,6 +32,7 @@
         <module>simple</module>
         <module>test</module>
         <module>encryption</module>
+        <module>pattern</module>
     </modules>
 
     <properties>
