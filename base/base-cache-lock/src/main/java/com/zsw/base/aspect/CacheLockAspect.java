@@ -15,13 +15,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -78,7 +75,6 @@ public class CacheLockAspect {
     public void after(JoinPoint joinPoint) {
 
     }
-
 
 
     private boolean lock(final String key, final long timeout, final long expire) {
