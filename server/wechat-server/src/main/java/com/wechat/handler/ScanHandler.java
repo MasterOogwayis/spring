@@ -1,6 +1,5 @@
 package com.wechat.handler;
 
-import javafx.event.EventType;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;

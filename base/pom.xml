@@ -29,6 +29,8 @@
         <module>base-logging</module>
         <module>config-client</module>
         <module>transaction-mq</module>
+        <module>base-http</module>
+        <module>base-commons</module>
     </modules>
 
 

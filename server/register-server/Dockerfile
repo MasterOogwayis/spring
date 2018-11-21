@@ -15,6 +15,7 @@ ADD application_docker.yml application.yml
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 RUN apk update
 RUN apk add --no-cache curl
+#时间插件，用于设置本地时间
 RUN apk add --no-cache tzdata
 #COPY docker-healthcheck /usr/local/bin/
 #RUN chmod 777 /usr/local/bin/docker-healthcheck

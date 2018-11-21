@@ -32,7 +32,7 @@ public class ThreadPoolConfiguration {
     /**
      * 最大线程数:CPU核心数-N  1.计算密集型：N + 1   2.IO密集型：2N+1
      */
-    private Integer maxPoolSize = 50;
+    private Integer maxPoolSize = Runtime.getRuntime().availableProcessors() * 2 +1;
 
     /**
      * 线程池维护线程所允许的空闲时间
