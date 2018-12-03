@@ -1,11 +1,9 @@
 package com.zsw.test;
 
 import com.zsw.base.ui.commons.BaseController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author ZhangShaowei on 2018/10/11 17:14
@@ -15,15 +13,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController extends BaseController {
 
 
-    @Autowired
-    private TicketService ticketService;
-
-
-    @PostMapping("ticket")
-    public Ticket save(@RequestBody String requestBody) {
-        Ticket ticket = this.gson.fromJson(requestBody, Ticket.class);
-        return this.ticketService.save(ticket);
+    @PostMapping()
+    public String save(@RequestParam Map<String, String> params) {
+        System.out.println(params);
+        System.err.println(params.size());
+        return "success";
     }
 
+
+    public static void main(String[] args) {
+        String s1 = "eyJGUEtKWFhfRlBUWFgiOnsiRlBRUUxTSCI6IjIwMTgxNTQyODg1MzE2Njk1MDE4IiwiRFNQVEJNIjoiMTQ0VFZDQ04iLCJOU1JTQkgiOiIxNTAwMDEyMDM5MDkyNDgwMzIiLCJOU1JNQyI6IjE1MDAwMTIwMzkwOTI0ODAzMiIsIk5TUkRaREFIIjpudWxsLCJTV0pHX0RNIjpudWxsLCJES0JaIjoiMCIsIlNHQloiOm51bGwsIlBZRE0iOiIwMDAwMDEiLCJLUFhNIjoi6L+Z5piv5Liq5rWL6K+V5ZWG5ZOBIiwiQk1CX0JCSCI6IjMxLjAiLCJYSEZfTlNSU0JIIjoiMTUwMDAxMjAzOTA5MjQ4MDMyIiwiWEhGTUMiOiIxNTAwMDEyMDM5MDkyNDgwMzIiLCJYSEZfRFoiOiLmiJDpg70iLCJYSEZfREgiOiIxODQyODM1MjU4MyIsIlhIRl9ZSFpIIjoiNzE3MjM2NDYxMjgzODE4MTEzNCIsIkdIRk1DIjoi5rGq5bCP6I+yIiwiR0hGX05TUlNCSCI6IjE1MDAwMTIwMzkwOTI0ODAzMiIsIkdIRl9EWiI6Iui0reS5sOaWueWcsOWdgCIsIkdIRl9TRiI6bnVsbCwiR0hGX0dEREgiOm51bGwsIkdIRl9TSiI6IjE4MzgwMTYwOTgwIiwiR0hGX0VNQUlMIjpudWxsLCJHSEZRWUxYIjoiMDMiLCJHSEZfWUhaSCI6IjcxNzIzNjQ2MTI4MzgxODExMzQiLCJIWV9ETSI6bnVsbCwiSFlfTUMiOm51bGwsIktQWSI6IuW8gOelqOS6uiIsIlNLWSI6IuaUtuasvuS6uiIsIkZIUiI6IuWkjeaguOWRmCIsIktQUlEiOm51bGwsIktQTFgiOiIxIiwiRlBaTF9ETSI6IjAxIiwiWUZQX0RNIjpudWxsLCJZRlBfSE0iOm51bGwsIlRTQ0hCWiI6IjAiLCJDWkRNIjoiMTAiLCJRRF9CWiI6IjAiLCJRRFhNTUMiOm51bGwsIkNIWVkiOm51bGwsIktQSEpKRSI6IjEwMC4wMSIsIkhKQkhTSkUiOiIwIiwiSEpTRSI6IjAiLCJCWiI6Iui/meaYr+S4quWkh+azqCIsIkJZWkQxIjpudWxsLCJCWVpEMiI6bnVsbCwiQllaRDMiOm51bGwsIkJZWkQ0IjpudWxsLCJCWVpENSI6bnVsbH0sIkZQS0pYWF9YTVhYUyI6W10sIkZQS0pYWF9ERFhYIjp7IkRESCI6ImNzUzAzMTgwMTk1NzgxIiwiVEhESCI6bnVsbCwiREREQVRFIjpudWxsfSwiRlBLSlhYX0RETVhYWFMiOm51bGwsIkZQS0pYWF9aRlhYIjpudWxsLCJGUEtKWFhfV0xYWCI6bnVsbH0=";
+        String s2 = "eyJGUEtKWFhfRlBUWFgiOnsiRlBRUUxTSCI6IjIwMTgxNTQyODg1MzE2Njk1MDE4IiwiRFNQVEJNIjoiMTQ0VFZDQ04iLCJOU1JTQkgiOiIxNTAwMDEyMDM5MDkyNDgwMzIiLCJOU1JNQyI6IjE1MDAwMTIwMzkwOTI0ODAzMiIsIk5TUkRaREFIIjpudWxsLCJTV0pHX0RNIjpudWxsLCJES0JaIjoiMCIsIlNHQloiOm51bGwsIlBZRE0iOiIwMDAwMDEiLCJLUFhNIjoi6L+Z5piv5Liq5rWL6K+V5ZWG5ZOBIiwiQk1CX0JCSCI6IjMxLjAiLCJYSEZfTlNSU0JIIjoiMTUwMDAxMjAzOTA5MjQ4MDMyIiwiWEhGTUMiOiIxNTAwMDEyMDM5MDkyNDgwMzIiLCJYSEZfRFoiOiLmiJDpg70iLCJYSEZfREgiOiIxODQyODM1MjU4MyIsIlhIRl9ZSFpIIjoiNzE3MjM2NDYxMjgzODE4MTEzNCIsIkdIRk1DIjoi5rGq5bCP6I+yIiwiR0hGX05TUlNCSCI6IjE1MDAwMTIwMzkwOTI0ODAzMiIsIkdIRl9EWiI6Iui0reS5sOaWueWcsOWdgCIsIkdIRl9TRiI6bnVsbCwiR0hGX0dEREgiOm51bGwsIkdIRl9TSiI6IjE4MzgwMTYwOTgwIiwiR0hGX0VNQUlMIjpudWxsLCJHSEZRWUxYIjoiMDMiLCJHSEZfWUhaSCI6IjcxNzIzNjQ2MTI4MzgxODExMzQiLCJIWV9ETSI6bnVsbCwiSFlfTUMiOm51bGwsIktQWSI6IuW8gOelqOS6uiIsIlNLWSI6IuaUtuasvuS6uiIsIkZIUiI6IuWkjeaguOWRmCIsIktQUlEiOm51bGwsIktQTFgiOiIxIiwiRlBaTF9ETSI6IjAxIiwiWUZQX0RNIjpudWxsLCJZRlBfSE0iOm51bGwsIlRTQ0hCWiI6IjAiLCJDWkRNIjoiMTAiLCJRRF9CWiI6IjAiLCJRRFhNTUMiOm51bGwsIkNIWVkiOm51bGwsIktQSEpKRSI6IjEwMC4wMSIsIkhKQkhTSkUiOiIwIiwiSEpTRSI6IjAiLCJCWiI6Iui/meaYr+S4quWkh+azqCIsIkJZWkQxIjpudWxsLCJCWVpEMiI6bnVsbCwiQllaRDMiOm51bGwsIkJZWkQ0IjpudWxsLCJCWVpENSI6bnVsbH0sIkZQS0pYWF9YTVhYUyI6W10sIkZQS0pYWF9ERFhYIjp7IkRESCI6ImNzUzAzMTgwMTk1NzgxIiwiVEhESCI6bnVsbCwiREREQVRFIjpudWxsfSwiRlBLSlhYX0RETVhYWFMiOm51bGwsIkZQS0pYWF9aRlhYIjpudWxsLCJGUEtKWFhfV0xYWCI6bnVsbH0=";
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                System.out.println(i);
+                System.out.println(s1.charAt(i) + "-" +s2.charAt(i));
+            }
+
+        }
+
+
+    }
 
 }
