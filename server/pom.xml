@@ -22,7 +22,6 @@
         <module>ui-server</module>
         <module>wechat-server</module>
         <module>consul-server</module>
-        <module>gateway-server</module>
     </modules>
 
 </project>
