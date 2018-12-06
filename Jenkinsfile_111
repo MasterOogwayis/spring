@@ -58,14 +58,14 @@ pipeline {
 						// 聚合报告
 						junit '**/target/surefire-reports/*.xml'
 						// 代码覆盖率低于 5% 则失败
-						jacoco changeBuildStatus: true, maximumLineCoverage: '5',
+						jacoco changeBuildStatus: true, maximumLineCoverage: '5',asd
 //						execPattern: '**/**.exec',
 //						classPattern: '**/classes',
 //						sourcePattern: '**/src/main/java',
-								exclusionPattern: 'src/test/*'
+								exclusionPattern: 'src/test/*'asdasd
 					} else {
 						echo '跳过 jUnit Test...'
-					}
+					}asd
 				}
 			}
 		}
@@ -94,7 +94,7 @@ pipeline {
 			}
 		}
 		stage('打包：Package') {
-			tools {
+			tools {asd
 				maven 'maven'
 			}
 			steps {
@@ -113,7 +113,7 @@ pipeline {
 		}
 		stage('打包docker镜像：DockerPackage') {
 			tools {
-				maven 'maven'
+				maven 'maven'asd
 			}
 			steps {
 				// 清除 所有废弃 none images
@@ -141,7 +141,7 @@ pipeline {
 				EUREKA_PORT = "${params.eurekaPort}"
 				CONFIG_PORT = "${params.configPort}"
 				ADMIN_PORT = "${params.adminPort}"
-				GATEWAY_PORT = "${params.gatewayPort}"
+				GATEWAY_PORT = "${params.gatewayPort}"asd
 				IC_GATEWAY_PORT = "${params.icGatewayPort}"
 				OPEN_GATEWAY_PORT = "${params.openGatewayPort}"
 			}
@@ -158,7 +158,7 @@ pipeline {
 		}
 		stage('接口测试：Api Test') {
 			tools {
-				jdk 'jdk8'
+				jdk 'jdk8'asd
 			}
 			steps {
 				script {
@@ -186,7 +186,7 @@ pipeline {
 								docker.image(image).push()
 							}
 						}
-					} else {
+					} else {asd
 						echo '没有需要推送的 images'
 					}
 				}
@@ -208,13 +208,13 @@ pipeline {
 //		success {
 //			script {
 //				wrap([$class: 'BuildUser']) {
-//					mail to: "${env.BUILD_USER_EMAIL}",
+//					mail to: "${env.BUILD_USER_EMAIL}",asd
 //							subject: "PineLine '${JOB_NAME}' (${BUILD_NUMBER}) result",
 //							body: "${env.BUILD_USER}'s pineline '${JOB_NAME}' (${BUILD_NUMBER}) run success\n请及时前往${env.BUILD_URL} 进行查看"
 //				}
 //			}
 //		}
-//		failure {
+//		failure {asd
 //			script {
 //				wrap([$class: 'BuildUser']) {
 //					mail to: "${env.BUILD_USER_EMAIL}",
