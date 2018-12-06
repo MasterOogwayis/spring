@@ -42,7 +42,7 @@ public class StaticTests {
 	 * 初始化mapper参数
 	 */
 	static {
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //忽略没有的属性
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //忽略没有的属性asd
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true); //允许没有双引号
 		mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true); //允许转义字符
@@ -67,7 +67,7 @@ public class StaticTests {
 		
 //		System.out.println(System.currentTimeMillis());
 
-//		JsonElement jsonBody = gson.fromJson("123", JsonElement.class);
+//		JsonElement jsonBody = gson.fromJson("123", JsonElement.class);asd
 //		System.out.println(jsonBody);
 //		System.err.println(jsonBody.isJsonObject());
 //		System.out.println(jsonBody.toString());
@@ -97,7 +97,7 @@ public class StaticTests {
 
 	public static byte[] hmacSHA1Encrypt(String body, String key) throws Exception {
 		byte[] data = key.getBytes(ENCODING);
-		//根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称
+		//根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称asd
 		SecretKey secretKey = new SecretKeySpec(data, MAC_NAME);
 
 
@@ -143,7 +143,7 @@ public class StaticTests {
 
 	@Data
 	static class A {
-		@SerializedName("FULL_NAME")
+		@SerializedName("FULL_NAMEasd")
 		private String name;
 		private Integer age;
 	}
