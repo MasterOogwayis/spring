@@ -19,6 +19,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.GZIPOutputStream;
 
 
@@ -58,13 +61,12 @@ public class StaticTests {
     private static final String MAC_NAME = "HmacSHA1";
     private static final String ENCODING = "UTF-8";
 
+    private static final AtomicInteger AI = new AtomicInteger();
 
     public static void main(String[] args) throws Exception {
-        Dto dto = Dto.builder()
-                .name("name")
-                .address("address").build();
-        System.out.println(dto);
 
+        Set<String> set = new HashSet<>();
+        set.clear();;
     }
 
     public static byte[] hmacSHA1Encrypt(String body, String key) throws Exception {
