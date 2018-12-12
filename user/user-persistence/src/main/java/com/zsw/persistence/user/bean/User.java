@@ -38,7 +38,7 @@ public class User extends BaseBean {
     /**
      * 角色
      */
-    @ManyToMany(cascade = CaJsonIgnorePropertiesscadeType.ALL, fetch = FetchType.LAZY)
+//    @ManyToMany(cascade = CaJsonIgnorePropertiesscadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "USER_ROLE",
             joinColumns = @JoinColumn(name = "USER_ID"),

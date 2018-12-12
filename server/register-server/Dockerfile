@@ -31,4 +31,4 @@ RUN apk add --no-cache tzdata
 # docker镜像服务的内存不能全部给“-Xmx”，因为JVM消耗的内存不仅仅是Heap。
 # JVM = Heap + Method Area +Constant Pool + Thread Stack * num of thread 。
 # Xmx的值可设置为镜像上限减去150m或200m。当然还需要考虑应用自身的特点，比如class数目，并发线程数等
-ENTRYPOINT ["java", "-Xms64m", "-Xmx64m", "-Djava.security.egd=file:/pro/./urandom", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Xms256m", "-Xmx256m", "-Djava.security.egd=file:/pro/./urandom", "-jar", "/app.jar"]

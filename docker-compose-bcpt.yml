@@ -1,0 +1,880 @@
+#version: '3.6' 大多注释的配置3.0以后才生效 先忽略
+version: '2.1'
+
+
+# 这个启动文件 对每个 container 增加了 healthcheck 以便于按顺序 启动所有容器
+# 只有当前一个容器已经准备就绪 并且可以访问时才会启动下一个容器
+# 所有 环境变量 均指定了一个默认值 以便能单独启动容器
+
+# 时间单位： https://docs.docker.com/compose/compose-file/compose-file-v2/#specifying-durations
+# 内存单位： https://docs.docker.com/compose/compose-file/compose-file-v2/#specifying-byte-values
+# 健康检查： https://docs.docker.com/compose/compose-file/compose-file-v2/#healthcheck
+
+# 指定一个专用的网段，每个环境都不共享网段，实现网络阻断
+networks:
+  backend:
+    name: bcpt-${START_ENV:-dev}
+
+services:
+
+  bcpt-register-server:
+    container_name: bcpt-register-server-${START_ENV:-dev}
+#    build: ./server/bcpt-register-server
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-register-server:${TAG:-latest}
+    # version 3
+#    deploy:
+#      resources:
+#        limits:
+#          memory: 1G
+#        reservations:
+#          memory: 128M
+    # 1GB
+#    mem_limit: 256MB
+#    memswap_limit: 2000000000
+#    mem_reservation: 512m
+    volumes:
+      - /data/bcpt:/data/bcpt
+    restart: ${BCPT_REGISTER_SERVER:-no}
+    networks:
+      - backend
+    environment:
+      SERVER_PORT: ${EUREKA_PORT:-19101}
+      TZ: "Asia/Shanghai"
+    ports:
+      - ${EUREKA_PORT:-19101}:${EUREKA_PORT:-19101}
+    healthcheck:
+      # 若使用 alpine 需要在容器安装 curl
+      test: ['CMD', 'curl', '--fail', 'http://localhost:${EUREKA_PORT:-19101}/health']
+      # 检查间隔 默认 30s
+      interval: 30s
+      # 检查次数， 超时 全部失败则为 unhealthy 默认 3
+      # 若容器启动比较耗时，则适当增加检测次数，比如rc-api 启动时间大于100s，默认配置最终结果为unhealthy，导致无法继续编排后续容器
+      retries: 6
+      # 检查脚本超时时间 默认30s
+      timeout: 30s
+
+
+  bcpt-config-server:
+    container_name: bcpt-config-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-config-server:${TAG:-latest}
+#    mem_limit: 256MB
+    volumes:
+      - /root/.ssh/:/root/.ssh/
+      - /data/bcpt/:/data/bcpt/
+      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_CONFIG_SERVER:-no}
+    networks:
+      - backend
+    environment:
+      SERVER_PORT: ${CONFIG_PORT:-19102}
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      TZ: "Asia/Shanghai"
+    ports:
+      - ${CONFIG_PORT:-19102}:${CONFIG_PORT:-19102}
+    depends_on:
+      bcpt-register-server:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD', 'curl', 'http://localhost:${CONFIG_PORT:-19102}/health']
+      retries: 6
+      # 由于使用了 环境变量 environment  所以无法使用 links 连接
+#    links:
+#      - bcpt-register-server-${START_ENV:-dev}
+    external_links:
+      - bcpt-register-server-${START_ENV:-dev}
+
+
+  bcpt-oauth2-server:
+    container_name: bcpt-oauth2-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-oauth2-server:${TAG:-latest}
+#    mem_limit: 256MB
+    volumes:
+      - /data/bcpt/:/data/bcpt/
+      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_OAUTH2_SERVER:-no}
+    networks:
+      - backend
+    ports:
+      - 17103:17103
+    environment:
+      SERVER_PORT: 17103
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-config-server:
+        condition: service_healthy
+    external_links:
+      - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      # 不需要 --fail 参数，由于有 oauth2 验证 这里只需要能访问有返回值
+      test: ["CMD", "curl", "http://localhost:17103/health"]
+      retries: 6
+
+
+  bcpt-admin-server:
+    container_name: bcpt-admin-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-admin-server:${TAG:-latest}
+#    mem_limit: 512MB
+    volumes:
+      - /data/bcpt/:/data/bcpt/
+      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_ADMIN_SERVER:-no}
+    networks:
+      - backend
+    ports:
+      - ${ADMIN_PORT:-19104}:${ADMIN_PORT:-19104}
+    environment:
+      SERVER_PORT: ${ADMIN_PORT:-19104}
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      USERNAME: admin
+      PASSWORD: admin
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-oauth2-server:
+        condition: service_healthy
+    external_links:
+      - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:${ADMIN_PORT:-19104}/health"]
+
+
+  bcpt-gateway-server:
+    container_name: bcpt-gateway-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-gateway-server:${TAG:-latest}
+#    mem_limit: 256MB
+    volumes:
+      - /data/bcpt/:/data/bcpt/
+      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_GATEWAY_SERVER:-no}
+    networks:
+      - backend
+    ports:
+      - ${GATEWAY_PORT:-17100}:${GATEWAY_PORT:-17100}
+    environment:
+      SERVER_PORT: ${GATEWAY_PORT:-17100}
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-oauth2-server:
+        condition: service_healthy
+    external_links:
+      - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:${GATEWAY_PORT:-17100}/health"]
+      retries: 6
+
+
+  bcpt-security-api:
+    container_name: bcpt-security-api-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-security-api:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_SECURITY_API:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19204:19204
+    environment:
+      SERVER_PORT: 19204
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-gateway-server:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19204/health"]
+      retries: 6
+
+
+  bcpt-security-controller:
+    container_name: bcpt-security-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-security-controller:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_SECURITY_CONTROLLER:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19203:19203
+    environment:
+      SERVER_PORT: 19203
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-security-api:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19203/health"]
+      retries: 6
+
+
+  bcpt-smc-api:
+    container_name: bcpt-smc-api-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-smc-api:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_SMC_API:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19201:19201
+    environment:
+      SERVER_PORT: 19201
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-security-controller:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19201/health"]
+      retries: 6
+
+
+  bcpt-smc-controller:
+    container_name: bcpt-smc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-smc-controller:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_SMC_CONTROLLER:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19202:19202
+    environment:
+      SERVER_PORT: 19202
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-smc-api:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19202/health"]
+      retries: 6
+
+
+  bcpt-pmc-api:
+    container_name: bcpt-pmc-api-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pmc-api:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_PMC_API:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19301:19301
+    environment:
+      SERVER_PORT: 19301
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-smc-controller:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19301/health"]
+      retries: 6
+
+  bcpt-pmc-controller:
+    container_name: bcpt-pmc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pmc-controller:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_PMC_CONTROLLER:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19302:19302
+    environment:
+      SERVER_PORT: 19302
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-pmc-api:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19302/health"]
+      retries: 6
+
+
+  bcpt-pc-api:
+    container_name: bcpt-pc-api-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pc-api:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_PC_API:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19501:19501
+    environment:
+      SERVER_PORT: 19501
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-pmc-api:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19501/health"]
+      retries: 6
+
+  bcpt-pc-controller:
+    container_name: bcpt-pc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pc-controller:${TAG:-latest}
+    #    mem_limit: 256MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_PC_CONTROLLER:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19502:19502
+    environment:
+      SERVER_PORT: 19502
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-pc-api:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19502/health"]
+      retries: 6
+
+
+#  bcpt-tc-api:
+#    container_name: bcpt-tc-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-tc-api:${TAG:-latest}
+#    #    mem_limit: 768MB
+#    volumes:
+#    - /data/bcpt/:/data/bcpt/
+#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_TC_API:-no}
+#    networks:
+#    - backend
+#    #    ports:
+#    #      - 18401:18401
+#    environment:
+#      SERVER_PORT: 18401
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-pc-controller:
+#        condition: service_healthy
+#    external_links:
+#    - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:18401/health"]
+#      retries: 6
+#
+#  bcpt-tc-controller:
+#    container_name: bcpt-tc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-tc-controller:${TAG:-latest}
+#    #    mem_limit: 300MB
+#    volumes:
+#    - /data/bcpt/:/data/bcpt/
+#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_TC_CONTROLLER:-no}
+#    networks:
+#    - backend
+#    #    ports:
+#    #      - 18402:18402
+#    environment:
+#      SERVER_PORT: 18402
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-tc-api:
+#        condition: service_healthy
+#    external_links:
+#    - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:18402/health"]
+#      retries: 6
+
+
+#  bcpt-ic-api:
+#    container_name: bcpt-ic-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-ic-api:${TAG:-latest}
+#    #    mem_limit: 256MB
+#    volumes:
+#    - /data/bcpt/:/data/bcpt/
+#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_IC_API:-no}
+#    networks:
+#    - backend
+#    #    ports:
+#    #      - 19901:19901
+#    environment:
+#      SERVER_PORT: 19901
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-tc-controller:
+#        condition: service_healthy
+#    external_links:
+#    - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:19901/health"]
+#      retries: 6
+#
+#
+#  bcpt-open-ic-controller:
+#    container_name: bcpt-open-ic-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-open-ic-controller:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_OPEN_IC_CONTROLLER:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 8312:8312
+#    environment:
+#      SERVER_PORT: 8312
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-ic-api:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:8312/health"]
+#      retries: 6
+#
+#
+#  bcpt-oc-api:
+#    container_name: bcpt-oc-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-oc-api:${TAG:-latest}
+#    #    mem_limit: 512MB
+#    volumes:
+#    - /data/bcpt/:/data/bcpt/
+#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_OC_API:-no}
+#    networks:
+#    - backend
+#    #    ports:
+#    #      - 18702:18702
+#    environment:
+#      SERVER_PORT: 18702
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-open-ic-controller:
+#        condition: service_healthy
+#    external_links:
+#    - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:18702/health"]
+#      retries: 6
+#
+#  bcpt-ic-gateway-server:
+#    container_name: bcpt-ic-gateway-server-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-ic-gateway-server:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_IC_GATEWAY_SERVER:-no}
+#    networks:
+#      - backend
+#    ports:
+#      - ${IC_GATEWAY_PORT:-19110}:${IC_GATEWAY_PORT:-19110}
+#    environment:
+#      SERVER_PORT: ${IC_GATEWAY_PORT:-19110}
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-oc-api:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:${IC_GATEWAY_PORT:-19110}/health"]
+#      retries: 6
+#
+#
+#  bcpt-open-gateway-server:
+#    container_name: bcpt-open-gateway-server-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-open-gateway-server:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_OPEN_GATEWAY_SERVER:-no}
+#    networks:
+#      - backend
+#    ports:
+#      - ${OPEN_GATEWAY_PORT:-19111}:${OPEN_GATEWAY_PORT:-19111}
+#    environment:
+#      SERVER_PORT: ${OPEN_GATEWAY_PORT:-19111}
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-ic-gateway-server:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:${OPEN_GATEWAY_PORT:-19111}/health"]
+#      retries: 6
+
+
+  bcpt-mc-api:
+    container_name: bcpt-mc-api-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-mc-api:${TAG:-latest}
+    #    mem_limit: 768MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_MC_API:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 19501:19501
+    environment:
+      SERVER_PORT: 19501
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+#      bcpt-open-gateway-server:
+      bcpt-pc-controller:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:19501/health"]
+      retries: 6
+
+  bcpt-mc-controller:
+    container_name: bcpt-mc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-mc-controller:${TAG:-latest}
+    #    mem_limit: 300MB
+    volumes:
+    - /data/bcpt/:/data/bcpt/
+    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+    restart: ${BCPT_MC_CONTROLLER:-no}
+    networks:
+    - backend
+    #    ports:
+    #      - 18402:18402
+    environment:
+      SERVER_PORT: 18402
+      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_PORT: ${EUREKA_PORT:-19101}
+      CONFIG_PROFILE: ${START_ENV:-dev}
+      TZ: "Asia/Shanghai"
+    depends_on:
+      bcpt-mc-api:
+        condition: service_healthy
+    external_links:
+    - bcpt-register-server-${START_ENV:-dev}
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost:18402/health"]
+      retries: 6
+
+
+#  bcpt-qmc-api:
+#    container_name: bcpt-qmc-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-qmc-api:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_QMC_API:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 20087:20087
+#    environment:
+#      SERVER_PORT: 20087
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-mc-controller:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:20087/health"]
+#      retries: 6
+#
+#  bcpt-qmc-controller:
+#    container_name: bcpt-qmc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-qmc-controller:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_QMC_CONTROLLER:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 20086:20086
+#    environment:
+#      SERVER_PORT: 20086
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-qmc-api:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:20086/health"]
+#      retries: 6
+#
+#
+#  bcpt-rc-api:
+#    container_name: bcpt-rc-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-rc-api:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_RC_API:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 17701:17701
+#    environment:
+#      SERVER_PORT: 17701
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-qmc-controller:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:17701/health"]
+#      retries: 6
+#
+#  bcpt-rc-controller:
+#    container_name: bcpt-rc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-rc-controller:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_RC_CONTROLLER:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 17702:17702
+#    environment:
+#      SERVER_PORT: 17702
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-rc-api:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:17702/health"]
+#      retries: 6
+#
+#
+#  bcpt-sc-api:
+#    container_name: bcpt-sc-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-sc-api:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_SC_API:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 18601:18601
+#    environment:
+#      SERVER_PORT: 18601
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-rc-controller:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:18601/health"]
+#      retries: 6
+#
+#  bcpt-sc-controller:
+#    container_name: bcpt-sc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-sc-controller:${TAG:-latest}
+##    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: ${BCPT_SC_CONTROLLER:-no}
+#    networks:
+#      - backend
+##    ports:
+##      - 18602:18602
+#    environment:
+#      SERVER_PORT: 18602
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#      TZ: "Asia/Shanghai"
+#    depends_on:
+#      bcpt-sc-api:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:18602/health"]
+#      retries: 6
+
+
+
+
+#  bcpt-zipkin-server:
+#    container_name: bcpt-zipkin-server-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-zipkin-server:${TAG:-latest}
+#    mem_limit: 512MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: 'no'
+#    networks:
+#      - backend
+#    ports:
+#      - 16888:16888
+#    environment:
+#      SERVER_PORT: 16888
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#    depends_on:
+#      bcpt-config-server:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+
+# 代码还未同步
+#  bcpt-fc-api:
+#    container_name: bcpt-fc-api-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-fc-api:${TAG:-latest}
+#    mem_limit: 256MB
+#    volumes:
+#      - /data/bcpt/:/data/bcpt/
+#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#    restart: 'no'
+#    networks:
+#      - backend
+##    ports:
+##      - 19605:19605
+#    environment:
+#      SERVER_PORT: 19605
+#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_PORT: ${EUREKA_PORT:-19101}
+#      CONFIG_PROFILE: ${START_ENV:-dev}
+#    depends_on:
+#      bcpt-open-gateway-server:
+#        condition: service_healthy
+#    external_links:
+#      - bcpt-register-server-${START_ENV:-dev}
+#    healthcheck:
+#      test: ["CMD", "curl", "http://localhost:19605/health"]
+
+
+#bcpt-register-server,
+#bcpt-config-server,
+#bcpt-oauth2-server,
+#bcpt-admin-server,
+#bcpt-gateway-server,
+#bcpt-ic-gateway-server,
+#bcpt-open-gateway-server,
+#bcpt-ic-api,bcpt-open-ic-controller,
+#bcpt-oc-api,
+#bcpt-pc-api,bcpt-pc-controller,
+#bcpt-pmc-api,bcpt-pmc-controller,
+#bcpt-qmc-api,bcpt-qmc-controller,
+#bcpt-rc-api,bcpt-rc-controller,
+#bcpt-sc-api,bcpt-sc-controller,
+#bcpt-security-api,bcpt-security-controller,
+#bcpt-smc-api,bcpt-smc-controller,
+#bcpt-tc-api,bcpt-tc-controller,
+#bcpt-mc-api,bcpt-mc-controller
