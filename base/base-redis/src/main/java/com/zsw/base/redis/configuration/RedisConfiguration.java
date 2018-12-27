@@ -136,8 +136,8 @@ public class RedisConfiguration extends CachingConfigurerSupport {
      * @return
      */
     @Bean
-    public Cache cache() {
-        return cacheManager().getCache("app_default");
+    public Cache cache(CacheManager cacheManager) {
+        return cacheManager.getCache("app_default");
     }
 
     /**

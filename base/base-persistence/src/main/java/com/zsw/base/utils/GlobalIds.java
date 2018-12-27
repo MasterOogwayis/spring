@@ -43,6 +43,12 @@ public class GlobalIds {
     private GlobalIds() {
     }
 
+    public static void main(String[] args) {
+        for (int i = 0; i < 10; i++) {
+            System.out.println(nextId());
+        }
+    }
+
     /**
      * 初始化机器标识及进程标识。
      */

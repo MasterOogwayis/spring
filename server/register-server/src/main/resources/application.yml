@@ -191,3 +191,8 @@ eureka:
 #    use-read-only-response-cache: true
 #    wait-time-in-ms-when-sync-empty: 0
 #    xml-codec-name:
+
+
+# 删除实例
+# http://192.168.1.13:9101/eureka/apps/{appname}/{status}
+# http://192.168.1.13:9101/eureka/apps/bcpt-epc-api/ShaoweiZhang-PC:bcpt-epc-api:80
