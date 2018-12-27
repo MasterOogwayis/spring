@@ -31,6 +31,7 @@
         <module>transaction-mq</module>
         <module>base-http</module>
         <module>base-commons</module>
+        <module>base-mybatis</module>
     </modules>
 
 
