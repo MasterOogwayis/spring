@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lombok.Data;
 import lombok.SneakyThrows;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.crypto.codec.Base64;
@@ -14,11 +13,8 @@ import org.springframework.security.crypto.codec.Base64;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,7 +39,6 @@ public abstract class StaticTests {
      * 初始化mapper参数
      */
     static {
-        System.out.println(1);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false); //忽略没有的属性
         mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true); //允许没有双引号
@@ -69,7 +64,27 @@ public abstract class StaticTests {
 //        System.out.println(new String(Base64.decode("ZWFzeWxpbmVzLWVwYzplYXN5bGluZXMtZXBj".getBytes())));
 //        System.err.println(new String(Base64.encode("easylines-epc-api:easylines-epc-api".getBytes())));
 
+        String str = "2018-12-29T02:26:22.019651713Z";
+//
+//        System.out.println(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(str));
 
+//        System.out.println(ZonedDateTime.parse(str));
+//        System.out.println(ZonedDateTime.parse("2018-12-29T12:00:00.0"));
+
+//        MonthDay monthDay = MonthDay.now();
+//        System.out.println(monthDay.getDayOfMonth());
+
+
+//        Stream.of("17000000123", "17100000079", "17000000001", "17100000001", "18728002331")
+//                .map(CiphertextUtils::encryption).forEach(System.out::println);
+
+//        for (int i = 0; i < 100; i++) {
+//            System.out.println((int) ((Math.random()*9+1)*1000));
+//        }
+
+        System.out.println(new String(Base64.decode("MTAwMDAwMDAwMDM=".getBytes())));
+
+        Arrays.asList(new String[]{"1"});
     }
 
 
@@ -90,7 +105,6 @@ public abstract class StaticTests {
     }
 
 
-
     public static byte[] hmacSHA1Encrypt(String body, String key) throws Exception {
         byte[] data = key.getBytes(ENCODING);
         //根据给定的字节数组构造一个密钥,第二参数指定一个密钥算法的名称
@@ -105,8 +119,6 @@ public abstract class StaticTests {
         //完成 Mac 操作
         return mac.doFinal(body.getBytes(ENCODING));
     }
-
-
 
 
 }

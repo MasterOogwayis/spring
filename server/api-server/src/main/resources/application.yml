@@ -194,6 +194,7 @@ management:
 #        requests-metric-name: app.server.requests
 #    use-global-registry: false
 endpoints:
+  sensitive: false
   prometheus:
     enabled: true
     sensitive: false

@@ -127,6 +127,11 @@
         <!--<appender-ref ref="INFO"/>-->
     </root>
 
+    <!-- 熔断器日志 -->
+    <!--<logger name="com.netflix.hystrix" additivity="false" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </logger>-->
+
     <!-- additivity 不需要重复打印 -->
     <logger name="com.api" additivity="false">
         <level value="DEBUG"/>
