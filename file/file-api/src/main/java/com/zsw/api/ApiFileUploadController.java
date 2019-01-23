@@ -87,7 +87,7 @@ public class ApiFileUploadController {
             Files.createDirectories(Paths.get(path));
             Files.copy(
                     file.getInputStream(),
-                    Paths.get(path + file.getOriginalFilename()),
+                    Paths.get(path, file.getOriginalFilename()),
                     StandardCopyOption.REPLACE_EXISTING
             );
 //            file.transferTo(new File(path, builder.toString()));

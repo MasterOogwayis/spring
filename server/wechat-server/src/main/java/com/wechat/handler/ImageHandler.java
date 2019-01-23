@@ -25,7 +25,7 @@ public class ImageHandler extends AbstractHandler {
             URL url = new URL(wxMessage.getPicUrl());
             Files.copy(
                     url.openStream(),
-                    Paths.get("/data/" + wxMessage.getFromUser() + "/" + wxMessage.getMediaId() + ".jpg"),
+                    Paths.get("data", wxMessage.getFromUser(), wxMessage.getMediaId() + ".jpg"),
                     StandardCopyOption.REPLACE_EXISTING
             );
         } catch (Exception e) {

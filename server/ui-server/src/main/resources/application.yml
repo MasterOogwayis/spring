@@ -36,5 +36,10 @@ logging:
       springframework:
         cloud:
           netflix: DEBUG
+#logging:
+#  level:
+#    com:
+#      netflix:
+#        hystrix: DEBUG
 
 

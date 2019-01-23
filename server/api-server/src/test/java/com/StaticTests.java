@@ -6,17 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import lombok.Builder;
+import lombok.Data;
 import lombok.SneakyThrows;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.security.crypto.codec.Base64;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -59,12 +63,19 @@ public abstract class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
+//        RestTemplate restTemplate = new RestTemplate();
+
+        List<Number> list = new ArrayList<>();
+        list.add(null);
+        List<Long> collect = list.stream().map(Number::longValue).collect(Collectors.toList());
+        System.out.println(collect);
+
+
 //        System.out.println(Math.ceil(12d * 0.035));
 
 //        System.out.println(new String(Base64.decode("ZWFzeWxpbmVzLWVwYzplYXN5bGluZXMtZXBj".getBytes())));
 //        System.err.println(new String(Base64.encode("easylines-epc-api:easylines-epc-api".getBytes())));
 
-        String str = "2018-12-29T02:26:22.019651713Z";
 //
 //        System.out.println(DateTimeFormatter.ISO_ZONED_DATE_TIME.parse(str));
 
@@ -82,9 +93,17 @@ public abstract class StaticTests {
 //            System.out.println((int) ((Math.random()*9+1)*1000));
 //        }
 
-        System.out.println(new String(Base64.decode("MTAwMDAwMDAwMDM=".getBytes())));
+//        JsonElement jsonElement = new JsonPrimitive("ASDASDSAD");
+//        System.out.println(jsonElement.toString());
+    }
 
-        Arrays.asList(new String[]{"1"});
+    private static boolean sendSimpleMessageRetry() {
+        int times = 0;
+        while (times < 3) {
+            times++;
+            return true;
+        }
+        return false;
     }
 
 
@@ -92,8 +111,8 @@ public abstract class StaticTests {
         boolean shouldFilter = true;
         List<String> list = Arrays.asList("/open/api", "/user/*", "/customer/info");
         for (String url : list) {
-            if (StringUtils.endsWith(url, "*")) {
-                shouldFilter = !StringUtils.startsWith(requestURI, StringUtils.replace(url, "*", ""));
+            if (org.apache.commons.lang.StringUtils.endsWith(url, "*")) {
+                shouldFilter = !org.apache.commons.lang.StringUtils.startsWith(requestURI, StringUtils.replace(url, "*", ""));
             } else {
                 shouldFilter = !Objects.equals(url, requestURI);
             }
@@ -118,6 +137,13 @@ public abstract class StaticTests {
 
         //完成 Mac 操作
         return mac.doFinal(body.getBytes(ENCODING));
+    }
+
+    @Data
+    @Builder
+    static class Dto {
+        @SerializedName("t_name")
+        private String name;
     }
 
 

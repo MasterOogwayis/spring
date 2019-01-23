@@ -19,6 +19,8 @@ import java.security.SecureRandom;
  */
 public class AESUtil {
 
+    public static final String DEFAULT_KEY = "l4cdpko1gxdawgg9ziqf6yzr6shsndhh";
+
     private static final String KEY_AES = "AES/ECB/PKCS5Padding";
 
     public static String encrypt(String data, String aesKey) throws Exception {
@@ -52,6 +54,13 @@ public class AESUtil {
 
         byte[] original = cipher.doFinal(encrypted1);
         return new String(original);
+    }
+
+    public static void main(String[] args) throws Exception {
+        String enc = encrypt("3",DEFAULT_KEY);
+        System.out.println(enc);
+        String dec = decrypt(enc, DEFAULT_KEY);
+        System.err.println(dec);
     }
 
 }
