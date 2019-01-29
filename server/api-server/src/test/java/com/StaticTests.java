@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.zsw.AESUtil;
 import lombok.Builder;
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -16,11 +17,9 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 
 /**
@@ -65,10 +64,14 @@ public abstract class StaticTests {
 
 //        RestTemplate restTemplate = new RestTemplate();
 
-        List<Number> list = new ArrayList<>();
-        list.add(null);
-        List<Long> collect = list.stream().map(Number::longValue).collect(Collectors.toList());
-        System.out.println(collect);
+//        String str = "YICqxIrgX/3UlP/CgQ1OuV6lLjhuQPuE8Rrjb5SyD8vKFdVTma7V9l48Qphu0qcO";
+//        String json = AESUtil.decrypt(str, AESUtil.DEFAULT_KEY);
+//        System.out.println(json);
+//        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
+//        System.err.println(jsonObject.get("mobile").toString());
+
+        String encrypt = "vwGZFx9+ArVmEFMVtQSDolqYBOjtT0xDxPHQi1nUalF275wnCNN7G4TSJnOKtrm0";
+        System.err.println(AESUtil.decrypt(encrypt, AESUtil.DEFAULT_KEY));
 
 
 //        System.out.println(Math.ceil(12d * 0.035));
