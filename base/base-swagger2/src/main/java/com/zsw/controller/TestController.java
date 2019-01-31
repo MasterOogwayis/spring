@@ -1,6 +1,5 @@
 package com.zsw.controller;
 
-import com.zsw.base.ui.commons.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,10 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "测试 swagger2", description = "测试Swagger2 实体类参数返回值")
 @RequestMapping("test")
 @RestController
-public class TestController extends BaseController {
+public class TestController {
 
 
     /**
+     * doc: http://springfox.github.io/springfox/docs/current/
+     *
+     * 注意 @ApiImplicitParam 和 @ApiParam的区别
+     * {@link io.swagger.annotations.ApiImplicitParam#paramType} 可以是多种类型的参数
+     * {@link io.swagger.annotations.ApiParam} 注解原数据，只能是 post
+     * 对于自定义的 Class 参数类推荐使用 @ApiParam + @ApiModel，@ApiImplicitParam无法描述对象参数
+     *
      * @param testParam
      * @return
      */

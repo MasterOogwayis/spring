@@ -3,6 +3,7 @@ package com.zsw.config;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -11,6 +12,8 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.time.LocalDate;
 
 /**
  * Swagger2 Configuration
@@ -30,9 +33,14 @@ public class Swagger2Configuration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com"))
+                .apis(RequestHandlerSelectors.basePackage("com.zsw.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .pathMapping("/")
+                .directModelSubstitute(LocalDate.class, String.class)
+                .genericModelSubstitutes(ResponseEntity.class)
+                .useDefaultResponseMessages(false)
+                .enableUrlTemplating(true);
     }
 
     /**
