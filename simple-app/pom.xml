@@ -25,6 +25,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-swagger2</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

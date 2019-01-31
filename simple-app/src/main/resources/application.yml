@@ -1,8 +1,2 @@
 server:
   port: 80
-
-zsw:
-  test:
-    list:
-        - /asd
-        - /qwe

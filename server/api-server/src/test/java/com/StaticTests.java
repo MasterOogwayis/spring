@@ -70,8 +70,8 @@ public abstract class StaticTests {
 //        JsonObject jsonObject = gson.fromJson(json, JsonObject.class);
 //        System.err.println(jsonObject.get("mobile").toString());
 
-        String encrypt = "vwGZFx9+ArVmEFMVtQSDolqYBOjtT0xDxPHQi1nUalF275wnCNN7G4TSJnOKtrm0";
-        System.err.println(AESUtil.decrypt(encrypt, AESUtil.DEFAULT_KEY));
+        String str = "YICqxIrgX/3UlP/CgQ1OuZ5zUOCG6mfpc96rcSUuoZFLFeRfWWX8T9WaPP8qMX+RBV5LDIXxBoTJFlzE7Hhh2wtsm4Hs23lhw189Gg2PS7a59Ig6B/LblljfLFP0cJg1";
+        System.out.println(AESUtil.decrypt(str, AESUtil.DEFAULT_KEY));
 
 
 //        System.out.println(Math.ceil(12d * 0.035));
