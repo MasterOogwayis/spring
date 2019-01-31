@@ -22,7 +22,7 @@ import java.time.LocalDate;
  **/
 @Configuration
 @EnableSwagger2
-@ConditionalOnProperty(name = "swagger2.enable", havingValue = "true")
+//@ConditionalOnProperty(name = "swagger2.enable", havingValue = "true")
 public class Swagger2Configuration {
 
     /**
