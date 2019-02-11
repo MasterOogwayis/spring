@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import com.zsw.AESUtil;
 import lombok.Builder;
@@ -73,6 +74,8 @@ public abstract class StaticTests {
         String str = "YICqxIrgX/3UlP/CgQ1OuZ5zUOCG6mfpc96rcSUuoZFLFeRfWWX8T9WaPP8qMX+RBV5LDIXxBoTJFlzE7Hhh2wtsm4Hs23lhw189Gg2PS7a59Ig6B/LblljfLFP0cJg1";
         System.out.println(AESUtil.decrypt(str, AESUtil.DEFAULT_KEY));
 
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.
 
 //        System.out.println(Math.ceil(12d * 0.035));
 

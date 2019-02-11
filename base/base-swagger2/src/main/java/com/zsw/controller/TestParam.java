@@ -7,10 +7,12 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * ApiModel value最好别使用中文，如果 亦或请用 ApiParam代理说明
+ *
  * @author ZhangShaowei on 2019/1/30 17:29
  **/
 @Data
-@ApiModel(value = "测试参数", description = "测试实体类参数")
+@ApiModel(description = "测试实体类参数")
 public class TestParam implements Serializable {
     private static final long serialVersionUID = -8532644894217945961L;
 

@@ -33,7 +33,7 @@ public class Swagger2Configuration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zsw.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.zsw"))
                 .paths(PathSelectors.any())
                 .build()
                 .pathMapping("/")
