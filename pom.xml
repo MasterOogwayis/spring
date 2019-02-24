@@ -33,6 +33,7 @@
         <module>encryption</module>
         <module>pattern</module>
         <module>aes</module>
+        <module>jvm-demo</module>
     </modules>
 
     <properties>
