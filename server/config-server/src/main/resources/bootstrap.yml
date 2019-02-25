@@ -34,6 +34,7 @@ spring:
 #          ignore-local-ssh-settings: true
           privateKey: |
                         privateKey
+          timeout:
 eureka:
   client:
     serviceUrl:
