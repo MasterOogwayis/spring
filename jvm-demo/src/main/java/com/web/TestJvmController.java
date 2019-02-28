@@ -6,8 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * -Xms64m -Xmx64m -Xmn32m -XX:+PrintGCDetails -XX:+UseG1GC
+ * -Xms64m -Xmx64m -Xmn32m -XX:+PrintGCDetails -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\Users\ZhangShaowei\Desktop\dump
  *
  * @author ZhangShaowei on 2019/2/25 9:40
  **/
@@ -23,11 +26,20 @@ public class TestJvmController {
     @SneakyThrows
     @GetMapping("test")
     public Object test() {
-        for (int i = 0; i < 1000000; i++) {
-            byte[] data = new byte[1024];
-            Thread.sleep(1L);
+        List<Object> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            list.add(new byte[1024 * 1024]);
         }
         return "success";
+    }
+
+    @GetMapping("dead")
+    public Object dead() {
+        return testDead("dead");
+    }
+
+    private String testDead(String str) {
+        return testDead(str);
     }
 
 

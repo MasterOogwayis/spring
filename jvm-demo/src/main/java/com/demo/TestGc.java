@@ -1,4 +1,4 @@
-package com.deom;
+package com.demo;
 
 import lombok.SneakyThrows;
 
