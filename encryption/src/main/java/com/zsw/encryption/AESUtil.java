@@ -28,18 +28,18 @@ public class AESUtil {
         int blockSize = cipher.getBlockSize();
 
         byte[] dataBytes = data.getBytes();
-        int plaintextLength = dataBytes.length;
-        if (plaintextLength % blockSize != 0) {
-            plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
-        }
-
-        byte[] plaintext = new byte[plaintextLength];
-        System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
+//        int plaintextLength = dataBytes.length;
+//        if (plaintextLength % blockSize != 0) {
+//            plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
+//        }
+//
+//        byte[] plaintext = new byte[plaintextLength];
+//        System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
 
         SecretKeySpec keyspec = new SecretKeySpec(aesKey.getBytes(), "AES");
 
         cipher.init(Cipher.ENCRYPT_MODE, keyspec);
-        byte[] encrypted = cipher.doFinal(plaintext);
+        byte[] encrypted = cipher.doFinal(dataBytes);
 
         return Base64Utils.encodeToString(encrypted);
     }

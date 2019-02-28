@@ -2,6 +2,7 @@ package com.zsw.conf.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,8 @@ import org.springframework.util.CollectionUtils;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
+     *  注意若配置了 security.ignored 系统自带静态资源忽略将失效
+     * @see SpringBootWebSecurityConfiguration#DEFAULT_IGNORED
      *  spring boot 1.5.x 以上 开启了 @EnableWebSecurity 实际上 security.ignored 是被忽略了的
      *  所以在此处手动加入
      */
