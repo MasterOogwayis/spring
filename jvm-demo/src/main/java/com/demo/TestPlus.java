@@ -1,6 +1,8 @@
 package com.demo;
 
 /**
+ * i++ 和 ++i 最终编译的字节码是一样的 当然效率就一样咯
+ *
  * @author Shaowei Zhang on 2019/2/25 1:11
  **/
 public class TestPlus {

@@ -1,6 +1,11 @@
 package com.demo;
 
 /**
+ * 演示String 和StringBuilder 的原理
+ * 这里闲着的效率
+ *
+ * 结论：StringBuilder 明显优于String,String的拼接操作实际上每次都是new StringBuilder进行append操作
+ *
  * @author Shaowei Zhang on 2019/2/25 1:02
  **/
 public class StringTests {

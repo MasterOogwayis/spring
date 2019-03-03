@@ -1,6 +1,11 @@
 package com.demo;
 
 /**
+ * 测试 finally
+ *
+ * 结论，return 的时候值已经赋给返回地址，所以在后面无论怎么修改都不会更改结果
+ * 其他后续补充
+ *
  * @author Shaowei Zhang on 2019/2/25 1:21
  **/
 public class TestFinally {

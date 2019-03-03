@@ -5,6 +5,9 @@ import lombok.SneakyThrows;
 import java.util.stream.Stream;
 
 /**
+ * 测试死锁，通过工具jstack分析死锁
+ *
+ *
  * @author ZhangShaowei on 2019/2/28 9:26
  **/
 public class TestDeadLock implements Runnable {
