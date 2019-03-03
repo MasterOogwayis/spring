@@ -1,19 +1,23 @@
 package com.demo;
 
+import lombok.SneakyThrows;
+
+import javax.script.ScriptEngineManager;
+
 /**
  * @author ZhangShaowei on 2019/2/27 14:15
  **/
 public class StaticTests {
 
+
+    @SneakyThrows
     public static void main(String[] args) {
+//        ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
-        byte[] data1 = new byte[2 * 1024 * 1024];
-        byte[] data2 = new byte[2 * 1024 * 1024];
-        byte[] data3 = new byte[2 * 1024 * 1024];
-        byte[] data4 = new byte[4 * 1024 * 1024];
-
-        System.gc();
-
+        Class<?> clazz = Class.forName("com.demo.Dto");
+        Dto dto = (Dto) clazz.newInstance();
+        dto.setName("name");
+        System.out.println(dto);
     }
 
 

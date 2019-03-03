@@ -2,6 +2,8 @@ package com.demo;
 
 import lombok.SneakyThrows;
 
+import java.util.stream.Stream;
+
 /**
  * @author ZhangShaowei on 2019/2/28 9:26
  **/
@@ -13,6 +15,14 @@ public class TestDeadLock implements Runnable {
     public static void main(String[] args) {
 
         new TestDeadLock().run();
+        Thread.getAllStackTraces().forEach((key, value) -> {
+
+            if (!key.equals(Thread.currentThread())) {
+                System.out.println("线程 " + key.getName());
+                Stream.of(value).forEach(System.out::println);
+            }
+
+        });
 
     }
 
