@@ -17,15 +17,14 @@ public class TestDeadLock implements Runnable {
 
     public static void main(String[] args) {
 
-        new TestDeadLock().run();
-        Thread.getAllStackTraces().forEach((key, value) -> {
+        // 1
+//        new TestDeadLock().run();
 
-            if (!key.equals(Thread.currentThread())) {
-                System.out.println("线程 " + key.getName());
-                Stream.of(value).forEach(System.out::println);
-            }
-
-        });
+        // 2 Integer [-128, 127] 之间使用的是缓存，所以Integer.valueOf()返回的是同一个缓存中的对象
+        for (int i = 0; i < 200; i++) {
+            new Thread(new SynAddRunnable(1, 2)).start();
+            new Thread(new SynAddRunnable(2, 1)).start();
+        }
 
     }
 
@@ -70,5 +69,23 @@ public class TestDeadLock implements Runnable {
         }
     }
 
+
+    static class SynAddRunnable implements Runnable {
+        int a,b;
+
+        public SynAddRunnable(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public void run() {
+            synchronized (Integer.valueOf(a)) {
+                synchronized (Integer.valueOf(b)) {
+                    System.out.println(a + b);
+                }
+            }
+        }
+    }
 
 }

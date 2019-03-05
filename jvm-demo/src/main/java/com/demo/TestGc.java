@@ -5,7 +5,7 @@ import lombok.SneakyThrows;
 /**
  * 测试 young 满了后的担保，仔细观察GC日志
  *
- * -Xms20m -Xmx20m -Xmn10m -XX:+PrintGCDetails
+ * -Xms20m -Xmx20m -Xmn10m -XX:+PrintGCDetails -XX:+PrintGCTimeStamps
  *
  * @author ZhangShaowei on 2019/2/25 9:21
  **/
