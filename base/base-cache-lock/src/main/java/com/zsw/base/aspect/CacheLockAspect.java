@@ -7,10 +7,7 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +42,11 @@ public class CacheLockAspect {
      */
     @Pointcut("@annotation(com.zsw.base.cache.annotation.CacheLock)")
     public void methods() {
+    }
+
+    @Before("methods()")
+    public void before() {
+
     }
 
 
