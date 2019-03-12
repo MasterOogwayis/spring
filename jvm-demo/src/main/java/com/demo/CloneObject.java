@@ -10,8 +10,6 @@ import java.io.*;
 @Data
 public class CloneObject implements Cloneable, Serializable {
 
-    private Dto dto;
-
 
     @Override
     protected Object clone() throws CloneNotSupportedException {

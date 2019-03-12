@@ -1,22 +1,22 @@
 package com.zsw.base.service.impl;
 
-import com.zsw.base.service.BaseService;
-import com.zsw.base.utils.JacksonSerializer;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.zsw.base.service.BaseDataService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
+ * 封装了一些常用方法
+ *
  * @author ZhangShaowei on 2017/9/8 16:24
  */
-
-public abstract class BaseServiceImpl<T, E extends Serializable> extends JacksonSerializer implements BaseService<T, E> {
+@Slf4j
+public abstract class BaseDataServiceImpl<T, E extends Serializable> implements BaseDataService<T, E> {
 
     /**
      * 实例 JpaRepository
@@ -24,11 +24,6 @@ public abstract class BaseServiceImpl<T, E extends Serializable> extends Jackson
      * @return
      */
     public abstract JpaRepository<T, E> getRepository();
-
-    /**
-     *
-     */
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     /**

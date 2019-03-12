@@ -32,7 +32,6 @@
         <module>test</module>
         <module>encryption</module>
         <module>pattern</module>
-        <module>aes</module>
         <module>jvm-demo</module>
     </modules>
 
@@ -375,7 +374,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.16.20</version>
+                <version>1.16.18</version>
             </dependency>
 
             <!-- jsqlparser -->

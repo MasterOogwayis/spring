@@ -12,7 +12,7 @@
     <artifactId>jvm-demo</artifactId>
 
     <properties>
-        <start-class>com.web.TestJvmController</start-class>
+        <start-class>com.TestWeb</start-class>
         <docker.image.prefix>zsw</docker.image.prefix>
     </properties>
 
@@ -32,6 +32,10 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-service</artifactId>
         </dependency>
     </dependencies>
 

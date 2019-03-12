@@ -1,12 +1,13 @@
 package com.zsw.service.user;
 
+import com.zsw.base.service.BaseDataService;
 import com.zsw.base.service.BaseService;
 import com.zsw.persistence.user.bean.User;
 
 /**
  * @author ZhangShaowei on 2017/9/12 16:07
  */
-public interface UserService extends BaseService<User, Long> {
+public interface UserService extends BaseDataService<User, Long> {
 
 
     /**

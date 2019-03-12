@@ -1,7 +1,7 @@
 package com.zsw.service.saleorder.impl;
 
 import com.zsw.base.redis.dao.commons.BaseCacheDao;
-import com.zsw.base.service.impl.BaseServiceImpl;
+import com.zsw.base.service.impl.BaseDataServiceImpl;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.user.bean.Product;
 import com.zsw.persistence.user.bean.SaleOrder;
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrder, Long> implements SaleOrderService {
+public class SaleOrderServiceImpl extends BaseDataServiceImpl<SaleOrder, Long> implements SaleOrderService {
 
     /**
      *

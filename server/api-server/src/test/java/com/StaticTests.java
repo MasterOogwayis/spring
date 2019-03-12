@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -41,8 +43,11 @@ public abstract class StaticTests {
 
     public static void main(String[] args) {
 
-        byte[] data = new byte[2 * 1024 * 1024];
-
+        Map<Integer, Integer> map = new HashMap<>(10000, 1);
+        for (int i = 0; i < 10000000; i++) {
+            map.put(i, i);
+        }
+        System.out.println(map.size());
 
 
 //        System.out.println(StaticTests.class.getClassLoader().getParent().getParent());

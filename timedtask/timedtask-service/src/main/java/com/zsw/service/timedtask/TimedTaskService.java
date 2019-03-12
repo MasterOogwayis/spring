@@ -1,5 +1,6 @@
 package com.zsw.service.timedtask;
 
+import com.zsw.base.service.BaseDataService;
 import com.zsw.base.service.BaseService;
 import com.zsw.persistence.timedtask.bean.TimedTask;
 
@@ -8,5 +9,5 @@ import com.zsw.persistence.timedtask.bean.TimedTask;
  *
  * @author ZhangShaowei on 2018/4/19 14:17
  **/
-public interface TimedTaskService extends BaseService<TimedTask, Long> {
+public interface TimedTaskService extends BaseDataService<TimedTask, Long> {
 }
