@@ -1,6 +1,8 @@
 package com.demo;
 
+import lombok.Cleanup;
 import lombok.Data;
+import lombok.SneakyThrows;
 
 import java.io.*;
 
@@ -21,19 +23,15 @@ public class CloneObject implements Cloneable, Serializable {
     }
 
 
+    @SneakyThrows
     public Object deepClone() {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(this);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        @Cleanup ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(this);
 
-            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-            ObjectInputStream ois = new ObjectInputStream(bis);
-            return ois.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        @Cleanup ObjectInputStream ois = new ObjectInputStream(bis);
+        return ois.readObject();
     }
 
 }

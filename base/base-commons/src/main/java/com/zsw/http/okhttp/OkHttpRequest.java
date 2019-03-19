@@ -21,6 +21,11 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class OkHttpRequest implements RequestHttp {
 
+    public static void main(String[] args) {
+        String s = new FormPoster("https://ddpt.e1le-cloud.com/invoice/v1").callForString();
+        System.out.println(s);
+    }
+
     protected static final Gson gson = new GsonBuilder()
             .setLenient()
             .enableComplexMapKeySerialization()

@@ -8,7 +8,8 @@ public class TestClass {
     private String name;
 
     public String getName() {
-        return this.name;
+        int i = 1;
+        return this.name + i;
     }
 
 
