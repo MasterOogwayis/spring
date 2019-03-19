@@ -12,7 +12,7 @@
     <artifactId>jvm-demo</artifactId>
 
     <properties>
-        <start-class>com.TestWeb</start-class>
+        <start-class>com.JvmTest</start-class>
         <docker.image.prefix>zsw</docker.image.prefix>
     </properties>
 
@@ -36,6 +36,10 @@
         <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-actuator</artifactId>
         </dependency>
     </dependencies>
 

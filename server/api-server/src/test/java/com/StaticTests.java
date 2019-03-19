@@ -6,10 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Data;
+import lombok.SneakyThrows;
+import org.junit.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -19,9 +24,16 @@ import java.util.Map;
  **/
 public abstract class StaticTests {
 
-    private static final Gson gson = new GsonBuilder()
+//    private static final Gson gson = new GsonBuilder()
+//            .setLenient()
+//            .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+    protected static final Gson gson = new GsonBuilder()
             .setLenient()
-            .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            .enableComplexMapKeySerialization()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
+            .disableHtmlEscaping()
+            .create();
 
     /**
      * jackson的json转换器
@@ -40,30 +52,56 @@ public abstract class StaticTests {
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
     }
 
+    public static AtomicInteger atomicInteger = new AtomicInteger(0);
 
+    public static void increase(){
+        atomicInteger.incrementAndGet();
+    }
+
+    @SneakyThrows
     public static void main(String[] args) {
 
-        Map<Integer, Integer> map = new HashMap<>(10000, 1);
-        for (int i = 0; i < 10000000; i++) {
-            map.put(i, i);
+        Collections.synchronizedSortedSet()
+
+        int num = 20;
+
+        List<Thread> list = new ArrayList<>();
+
+        for (int i = 0; i < num; i++) {
+            Thread thread = new Thread(() -> {
+                for (int j = 0; j < 10000; j++) {
+                    increase();
+                }
+            });
+            list.add(thread);
+            thread.start();
         }
-        System.out.println(map.size());
+
+        while (Thread.activeCount() > 2) {
+            System.out.println(Thread.activeCount());
+            Thread.yield();
+            Thread.sleep(1000);
+        }
+        System.out.println(atomicInteger);
 
 
-//        System.out.println(StaticTests.class.getClassLoader().getParent().getParent());
-//        System.out.println(StaticTests.class.getClassLoader().getParent());
-//        System.out.println(StaticTests.class.getClassLoader());
-//
-//        System.out.println("--------------");
-//
-//        System.out.println(Object.class.getClassLoader());
-
-//        long maxMemory = Runtime.getRuntime().maxMemory();
-//        long totalMemory = Runtime.getRuntime().totalMemory();
-//
-//        System.out.println("max: " + (maxMemory / 1024 / 1024) + "mb");
-//        System.out.println("total: " + (totalMemory / 1024 / 1024) + "mb");
 
     }
+
+    @Test
+    public void test() {
+        A a = new A();
+        a.setA("a");
+        a.setB(1);
+        System.out.println(gson.toJson(a));
+    }
+
+
+    @Data
+    static class A {
+        public String a;
+        public int b;
+    }
+
 
 }
