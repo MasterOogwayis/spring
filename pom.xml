@@ -31,7 +31,6 @@
         <module>timedtask</module>
         <module>test</module>
         <module>encryption</module>
-        <module>pattern</module>
         <module>jvm-demo</module>
     </modules>
 
