@@ -1,7 +1,6 @@
 package com.zsw.service.user;
 
 import com.zsw.base.service.BaseDataService;
-import com.zsw.base.service.BaseService;
 import com.zsw.persistence.user.bean.User;
 
 /**
