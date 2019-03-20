@@ -61,7 +61,6 @@ public abstract class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        Collections.synchronizedSortedSet()
 
         int num = 20;
 
