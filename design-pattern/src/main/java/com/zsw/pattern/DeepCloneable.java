@@ -13,8 +13,10 @@ public class DeepCloneable<T> implements Cloneable, Serializable {
     private static final long serialVersionUID = -6208047485273535771L;
 
     @Override
+    @SneakyThrows
+    @SuppressWarnings("unchecked")
     public T clone() {
-        return this.deepClone();
+        return (T) super.clone();
     }
 
     /**
@@ -24,7 +26,7 @@ public class DeepCloneable<T> implements Cloneable, Serializable {
      */
     @SneakyThrows
     @SuppressWarnings("unchecked")
-    private T deepClone() {
+    public T deepClone() {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         @Cleanup ObjectOutputStream oos = new ObjectOutputStream(bos);
 
@@ -32,7 +34,6 @@ public class DeepCloneable<T> implements Cloneable, Serializable {
 
         ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
         @Cleanup ObjectInputStream ois = new ObjectInputStream(bis);
-
         return (T) ois.readObject();
     }
 
