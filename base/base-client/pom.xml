@@ -32,14 +32,19 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>io.github.openfeign</groupId>-->
-            <!--<artifactId>feign-httpclient</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-okhttp</artifactId>
+            <artifactId>feign-httpclient</artifactId>
         </dependency>
+        <!--<dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+        </dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>io.github.openfeign</groupId>-->
+            <!--<artifactId>feign-okhttp</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>

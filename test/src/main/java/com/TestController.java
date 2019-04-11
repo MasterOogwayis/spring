@@ -15,10 +15,18 @@ public class TestController {
     @Autowired
     TestProperties properties;
 
+    @Autowired
+    TestService testService;
+
     @GetMapping
     public Object test() {
         return this.properties;
     }
 
+    @GetMapping("hello")
+    public Object hello(String name) {
+        this.testService.sayhello(name);
+        return name;
+    }
 
 }

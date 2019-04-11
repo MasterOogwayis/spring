@@ -7,6 +7,12 @@ feign:
     enabled: false
     max-connections-per-route: 50 # default
     max-connections: 200 # default
+    # 连接超时，默认：2000/毫秒
+#    connection-timeout: 2000
+    # 生存时间，默认：900L
+#    time-to-live: 900
+    # 响应超时的时间单位，默认：TimeUnit.SECONDS
+#    timeToLiveUnit: SECONDS
   okhttp:
     # default true
     enabled: true

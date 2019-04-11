@@ -1,8 +1,9 @@
 package com.zsw.base.client.config;
 
 import lombok.Setter;
-import okhttp3.ConnectionPool;
-import okhttp3.OkHttpClient;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -43,14 +44,24 @@ public class ClientConfiguration {
     private static final Logger logger = LoggerFactory.getLogger(ClientConfiguration.class);
 
 
+//    @Bean
+//    public OkHttpClient okHttpClient() {
+//        return new okhttp3.OkHttpClient.Builder()
+//                .readTimeout(60, TimeUnit.SECONDS)
+//                .connectTimeout(60, TimeUnit.SECONDS)
+//                .writeTimeout(120, TimeUnit.SECONDS)
+//                .retryOnConnectionFailure(true)
+//                .connectionPool(new ConnectionPool(maxConnections, 5, TimeUnit.MINUTES))
+//                // .addInterceptor();
+//                .build();
+//    }
+
     @Bean
-    public OkHttpClient okHttpClient() {
-        return new okhttp3.OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(120, TimeUnit.SECONDS)
-                .connectionPool(new ConnectionPool(maxConnections, 5, TimeUnit.MINUTES))
-                // .addInterceptor();
+    public HttpClient httpClient() {
+        return HttpClientBuilder.create()
+                .setConnectionTimeToLive(900L, TimeUnit.SECONDS)
+                .setMaxConnTotal(this.maxConnections)
+                .setMaxConnPerRoute(this.maxConnectionsPerRoute)
                 .build();
     }
 

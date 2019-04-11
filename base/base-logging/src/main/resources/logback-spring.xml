@@ -6,7 +6,7 @@
     -->
     <springProperty name="appName" scope="context" source="spring.application.name"/>
     <!--定义日志文件的存储地址 勿在 logback 的配置中使用相对路径-->
-    <springProperty name="LOG_HOME" scope="context" source="logging.home" defaultValue="/data/spring/logs"/>
+    <springProperty name="LOG_HOME" scope="context" source="logging.path" defaultValue="/data/spring/logs"/>
     <!-- 这是基础配置 -->
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
@@ -32,13 +32,13 @@
     </appender>
 
     <!-- 出错日志 appender  -->
-    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 按天回滚 daily -->
-            <!-- log.dir 在maven profile里配置 -->
+            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
+            &lt;!&ndash; log.dir 在maven profile里配置 &ndash;&gt;
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.error.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
-            <!--<maxHistory>60</maxHistory>-->
+            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
+            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -46,19 +46,19 @@
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
-    <!-- 警告日志 appender  -->
+    &lt;!&ndash; 警告日志 appender  &ndash;&gt;
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.warn.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
-            <!--<maxHistory>60</maxHistory>-->
+            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
+            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -66,56 +66,56 @@
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
             <level>WARN</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
-    <!-- info日志 appender  -->
+    &lt;!&ndash; info日志 appender  &ndash;&gt;
     <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 按天回滚 daily -->
+            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.debug.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
-            <!--<maxHistory>60</maxHistory>-->
+            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
+            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
-        <!--日志文件最大的大小-->
+        &lt;!&ndash;日志文件最大的大小&ndash;&gt;
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
             <level>DEBUG</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
-    <!-- info日志 appender  -->
+    &lt;!&ndash; info日志 appender  &ndash;&gt;
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- 按天回滚 daily -->
+            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.info.log</fileNamePattern>
-            <!-- 日志最大的历史 60天 -->
-            <!--<maxHistory>60</maxHistory>-->
+            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
+            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
-        <!--日志文件最大的大小-->
+        &lt;!&ndash;日志文件最大的大小&ndash;&gt;
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-    </appender>
+    </appender>-->
 
     <!-- 日志输出级别 -->
     <root level="INFO">
@@ -133,8 +133,7 @@
     </logger>-->
 
     <!-- additivity 不需要重复打印 -->
-    <logger name="com.api" additivity="false">
-        <level value="DEBUG"/>
+    <logger name="com.api" additivity="false" level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <!--<appender-ref ref="ERROR"/>-->

@@ -15,6 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ZService("InvoiceInfoDto")
 public class InvoiceInfoDto implements Serializable {
 
     /**

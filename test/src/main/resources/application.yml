@@ -8,6 +8,33 @@ com:
           a:
             name: zsw
             address: Earth
+
+feign:
+  # Hystrix支持，如果为true，hystrix库必须在classpath中
+  # 使用 dashboard 必须开启此选项 EnableHystrix
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+    max-connections-per-route: 50 # default
+    max-connections: 200 # default
+    # 连接超时，默认：2000/毫秒
+    #    connection-timeout: 2000
+    # 生存时间，默认：900L
+    time-to-live: 900
+    # 响应超时的时间单位，默认：TimeUnit.SECONDS
+    timeToLiveUnit: SECONDS
+  okhttp:
+    # default true
+    enabled: false
+#  compression:
+#    request:
+#      #支持压缩的 mime types
+#      enabled: true
+#      mime-types: text/xml,application/xml,application/json
+#      min-request-size: 2048
+#    response:
+#      ensbled: true
 #\u5FAE\u670D\u52A1\u540D
 #spring:
 #  datasource:
@@ -81,5 +108,13 @@ com:
 #  output:
 #    ansi:
 #      enabled: detect
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.instance.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 1111
+    disable-delta: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
 

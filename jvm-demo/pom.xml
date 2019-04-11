@@ -41,6 +41,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-micrometer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-client</artifactId>
+        </dependency>
     </dependencies>
 
 

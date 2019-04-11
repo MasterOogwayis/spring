@@ -27,6 +27,7 @@ feign:
     enabled: true
     max-connections-per-route: 50 # default
     max-connections: 200 # default
+    time-ti-live: 900L
   okhttp:
     # default true
     enabled: false

@@ -48,6 +48,7 @@
         <micrometer.version>1.0.2</micrometer.version>
         <mockito.version>2.8.47</mockito.version>
         <weixin.java.version>3.3.0</weixin.java.version>
+        <spring.admin.server.version>1.5.7</spring.admin.server.version>
     </properties>
 
 
@@ -58,7 +59,8 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <!--<version>Camden.SR6</version>-->
-                <version>Dalston.SR5</version>
+                <!--<version>Dalston.SR5</version>-->
+                <version>Edgware.SR5</version>
                 <!--<version>Edgware.M1</version>-->
                 <!--<version>Finchley</version>-->
                 <type>pom</type>
@@ -237,42 +239,42 @@
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server</artifactId>
-                <version>1.5.4</version>
+                <version>1.5.7</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui-login</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui-turbine</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-samples</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
             <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-server-ui-activiti</artifactId>
-                <version>1.5.4</version>
+                <version>${spring.admin.server.version}</version>
             </dependency>
 
             <!-- druid -->
@@ -424,6 +426,15 @@
                 <artifactId>feign-httpclient</artifactId>
                 <version>9.5.0</version>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.netflix.feign/feign-httpclient -->
+            <!-- 和io.github.openfeign区别是 使用了即将废弃的方法 -->
+            <!--<dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-httpclient</artifactId>
+                <version>8.18.0</version>
+            </dependency>-->
+
 
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
