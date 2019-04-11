@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * 全局异常捕获，优先级高于默认错误页面。
  */
-@Component
+//@Component
 public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
     /**
