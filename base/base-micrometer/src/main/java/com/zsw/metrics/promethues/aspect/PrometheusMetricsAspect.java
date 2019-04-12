@@ -1,4 +1,4 @@
-package com.zsw.promethues.aspect;
+package com.zsw.metrics.promethues.aspect;
 
 /**
  * PrometheusMetricsAspect
@@ -13,7 +13,7 @@ public class PrometheusMetricsAspect {
 //    private static final Counter requestError = Counter.build().name("couter_error").labelNames("api").help("response Error couter of api").register();
 //    private static final Histogram histogram = Histogram.build().name("histogram_consuming").labelNames("api").help("response consuming of api").register();
 //
-//    @Pointcut("@annotation(com.zsw.promethues.annotation.PrometheusMetrics)")
+//    @Pointcut("@annotation(PrometheusMetrics)")
 //    public void pointcut() {
 //    }
 //

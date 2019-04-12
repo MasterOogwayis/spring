@@ -1,4 +1,4 @@
-package com.zsw.promethues.annotation;
+package com.zsw.metrics.promethues.annotation;
 
 import java.lang.annotation.*;
 

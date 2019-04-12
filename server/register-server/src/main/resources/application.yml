@@ -4,11 +4,13 @@ server:
 spring:
   application:
     name: Eureka
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
-#  dashboard:
-    # 是否开启 eureka 监控
-#    enabled: true
+  dashboard:
+    #是否开启 eureka 监控
+    enabled: true
     # 监控 root path
 #    path: /monitor
   instance:

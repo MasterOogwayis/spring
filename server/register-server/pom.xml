@@ -20,7 +20,8 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+            <!--<artifactId>spring-cloud-starter-eureka-server</artifactId> 1.x-->
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId><!-- 2.x -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

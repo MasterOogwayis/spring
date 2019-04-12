@@ -23,6 +23,15 @@ public class AESUtil {
 
     private static final String KEY_AES = "AES/ECB/PKCS5Padding";
 
+    public static void main(String[] args) throws Exception {
+        String data = "{\"name\":\"zsw\"}";
+        System.out.println("length: " + data.length());
+        String encrypt = encrypt(data, DEFAULT_KEY);
+        System.out.println(encrypt);
+        String c = decrypt(encrypt, DEFAULT_KEY);
+        System.err.println(c.equals(data));
+    }
+
     public static String encrypt(String data, String aesKey) throws Exception {
         Cipher cipher = Cipher.getInstance(KEY_AES);
         int blockSize = cipher.getBlockSize();
@@ -54,13 +63,6 @@ public class AESUtil {
 
         byte[] original = cipher.doFinal(encrypted1);
         return new String(original);
-    }
-
-    public static void main(String[] args) throws Exception {
-        String enc = encrypt("3",DEFAULT_KEY);
-        System.out.println(enc);
-        String dec = decrypt(enc, DEFAULT_KEY);
-        System.err.println(dec);
     }
 
 }

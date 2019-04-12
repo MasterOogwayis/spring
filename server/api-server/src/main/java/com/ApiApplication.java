@@ -9,8 +9,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnablePrometheusEndpoint
-//@EnableSpringBootMetricsCollector
 public class ApiApplication {
 
     /**
