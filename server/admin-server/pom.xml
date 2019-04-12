@@ -12,74 +12,61 @@
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
-        <!-- 通过注册服务器发现instances -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- tag::dependency-eureka[] -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!-- end::dependency-eureka[] -->
+        <dependency>
+            <groupId>org.jolokia</groupId>
+            <artifactId>jolokia-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- 添加 security 认证 -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-starter-oauth2</artifactId>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-security</artifactId>
-        </dependency>
-        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
-
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui-login</artifactId>
         </dependency>
-
-        <!-- 添加 hystrix 仪表盘ui -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui-hystrix</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-server-ui-turbine</artifactId>
-        </dependency>
-
-        <!--<dependency>
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>-->
 
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.AdminApplication</mainClass>
-                    <!--<outputDirectory>/home/ylkytestwars</outputDirectory>-->
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
+                            <goal>build-info</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <mainClass>com.SpringBootAdminEurekaApplication</mainClass>
+                    <addResources>false</addResources>
+                </configuration>
             </plugin>
-
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
@@ -91,7 +78,6 @@
                     </buildArgs>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
