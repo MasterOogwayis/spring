@@ -1,0 +1,5 @@
+spring:
+  jackson:
+    serialization:
+      failOnEmptyBeans: false
+    default-property-inclusion: non_null
