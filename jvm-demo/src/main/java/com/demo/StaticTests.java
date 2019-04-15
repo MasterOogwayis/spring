@@ -3,6 +3,7 @@ package com.demo;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.Vector;
 
@@ -16,8 +17,7 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        String str = "123456789";
-        System.out.println(str.substring("123".length()));
+        System.out.println(HandlerMapping.class.getName());
     }
 
     public static int[] twoSum(int[] nums, int target) {

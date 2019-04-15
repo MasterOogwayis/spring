@@ -1,46 +1,10 @@
-#server:
-#  port: 80
-#
-#spring:
-#  application:
-#    name: jvmTest
-#eureka:
-#  server:
-#    hostname: localhost
-#  client:
-#    serviceUrl:
-#      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
-#    eureka-server-port: 1111
-#  instance:
-#    #    hostname: localhost
-#    prefer-ip-address: true
-#endpoints:
-#  # 开启 micrometer 以 prometheus 输出，然后脱敏
-#  prometheus:
-#    enabled: true
-#    sensitive: false
-#  # 大部分 actuator 需要 ACTUATOR 才能访问 这里脱敏 普通 security 可访问
-#  sensitive: false
-#  logfile:
-#    enabled: true
-#    path: ${logging.path}
-#    external-file: ${logging.file}
-##  health:
-##    sensitive: false
-#
-#
-## 一般采用脱敏的方式
-#management:
-#  security:
-#    enabled: false
-#com:
-#  zsw:
-#    base:
-#      application:
-#        threadPool:
-#          corePoolSize: 20
-#          maxPoolSize: 200
-#logging:
-#  config: classpath:logback-spring.xml
-#  file: ${logging.path}/${spring.application.name}.log
-#  home: /data/spring/logs
+server:
+  port: 80
+
+spring:
+  application:
+    name: jvmTest
+  jackson:
+    serialization:
+      failOnEmptyBeans: false
+    default-property-inclusion: non_null

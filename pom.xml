@@ -35,6 +35,8 @@
         <module>encryption</module>
         <module>jvm-demo</module>
         <module>design-pattern</module>
+        <module>simple-mvc</module>
+        <module>spring-mvc</module>
     </modules>
 
     <properties>
