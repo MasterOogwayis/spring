@@ -18,6 +18,7 @@ spring:
           user.password:  ${security.user.password}
       monitor:
         period: 5000
+
 #  cloud:
 #    config:
 #      discovery:

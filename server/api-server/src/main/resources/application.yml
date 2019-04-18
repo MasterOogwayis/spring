@@ -11,6 +11,8 @@ spring:
 #      password: user
   application:
     name: api-server
+    admin:
+      enabled: true
 ##服务发现地址
 eureka:
   client:
