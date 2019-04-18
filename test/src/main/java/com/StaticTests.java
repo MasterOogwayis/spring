@@ -1,38 +1,44 @@
 package com;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
-import org.springframework.beans.factory.config.BeanDefinitionHolder;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.*;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.stereotype.Component;
+import org.springframework.core.ResolvableType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ClassUtils;
 
-import java.beans.Introspector;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2019/4/3 13:53
  **/
+@Slf4j
 public class StaticTests {
 
     public static void main(String[] args) {
-        AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(Product.class);
-
-        AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(abd.getMetadata(), DependsOn.class);
-
-        BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, "asd");
-        System.out.println("--" + definitionHolder.getAliases());
-
-        System.err.println(attributes);
-
-        abd.setDependsOn(attributes.getStringArray("value"));
-
-        System.err.println(abd);
+        Stream.of(Children.class.getDeclaredFields()).forEach(System.out::println);
 
     }
 
+
+//    public static void main(String[] args) {
+//        AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(Product.class);
+//
+//        AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(abd.getMetadata(), DependsOn.class);
+//
+//        BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, "asd");
+//        System.out.println("--" + definitionHolder.getAliases());
+//
+//        System.err.println(attributes);
+//
+//        abd.setDependsOn(attributes.getStringArray("value"));
+//
+//        System.err.println(abd);
+//
+//    }
 
 
     @Description("asd")

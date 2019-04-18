@@ -56,6 +56,26 @@ spring:
       filters: ${spring.datasource.filters}
       # ------      监控配置    ------
       # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
+      web-stat-filter:
+        enable: true
+        url-pattern: /*
+        #        exclusions:
+        #        session-stat-enable:
+        #        session-stat-max-count:
+        #        principal-session-name:
+        #        principal-cookie-name:
+        #        profile-enable:
+        # StatViewServlet配置，说明请参考Druid Wiki，配置_StatViewServlet配置
+        stat-view-servlet:
+          enabled: true
+          url-pattern: /druid/*
+          reset-enable: false # 禁用页面上的Reset All功能
+        #        login-username:
+        #        login-password:
+        #        allow: # 白名单 127.0.0.1,192.0.0.1
+        #        deny: #黑名单 192.0.0.1
+        # Spring监控配置，说明请参考Druid Github Wiki，配置_Druid和Spring关联监控配置
+      #      aop-patterns: # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
 #JPA Configuration:
   jpa:
     database: MYSQL

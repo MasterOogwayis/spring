@@ -1,4 +1,4 @@
-package com.zsw;
+package com.zsw.base.utils;
 
 import lombok.SneakyThrows;
 import org.apache.commons.codec.binary.Base64;

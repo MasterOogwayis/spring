@@ -1,3 +1,16 @@
+# 监控相关配置
+spring:
+  zipkin:
+    base-url: http://****:7888
+      #      sampler:
+    #采样率
+  #        percentage: 1
+  sleuth:
+    #监控开关
+    enabled: false
+
+
+
 endpoints:
   # 开启 micrometer 以 prometheus 输出，然后脱敏
   prometheus:
@@ -5,8 +18,15 @@ endpoints:
     sensitive: false
   # 大部分 actuator 需要 ACTUATOR 才能访问 这里脱敏 普通 security 可访问
   sensitive: false
-#  health:
-#    sensitive: false
+  health:
+    sensitive: false
+    enabled: true
+  shutdown:
+    enabled: true
+    sensitive: false
+  logfile:
+    enabled: true
+    external-file: /data/spring/logs/${spring.application.name}
 
 
 # 一般采用脱敏的方式

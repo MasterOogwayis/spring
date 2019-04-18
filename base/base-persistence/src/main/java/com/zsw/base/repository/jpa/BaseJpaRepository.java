@@ -76,6 +76,6 @@ public class BaseJpaRepository<T, ID extends Serializable>
      */
     @Override
     public T saveOrUpdate(T t) {
-        return entityManager.merge(t);
+        return super.save(t);
     }
 }
