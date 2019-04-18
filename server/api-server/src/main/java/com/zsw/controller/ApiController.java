@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequestMapping
 @RestController
-@ManagedResource(description = "emmm ...")
+//@ManagedResource(description = "emmm ...")
 public class ApiController {
 
     @Autowired
@@ -32,16 +32,19 @@ public class ApiController {
 
     @GetMapping("/pause")
     @SneakyThrows
-    public String pause() {
-        Thread.sleep(20 * 1000);
+    public String pause(@RequestParam("seconds") Integer seconds) {
+        for (int i = 0; i < seconds; i++) {
+            log.warn(" Shutdown count down {}", seconds - i);
+            Thread.sleep(1000);
+        }
         return "Pause complete";
     }
 
 
-    @ManagedOperation(description = "shutdown")
-    public void shutdown() {
-        SpringApplication.exit(this.applicationContext);
-    }
+//    @ManagedOperation(description = "shutdown")
+//    public void shutdown() {
+//        SpringApplication.exit(this.applicationContext);
+//    }
 
 }
 
