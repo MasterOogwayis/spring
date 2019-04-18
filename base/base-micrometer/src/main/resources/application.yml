@@ -1,5 +1,8 @@
 # 监控相关配置
 spring:
+  application:
+    admin:
+      enabled: true
   zipkin:
     base-url: http://****:7888
       #      sampler:
