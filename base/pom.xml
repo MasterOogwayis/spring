@@ -32,6 +32,7 @@
         <module>base-http</module>
         <module>base-commons</module>
         <module>base-mybatis</module>
+        <module>base-jdbc</module>
     </modules>
 
 
