@@ -31,4 +31,8 @@
         <constructor-arg name="dataSource" ref="dataSource"/>
     </bean>
 
+    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg name="classicJdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+
 </beans>

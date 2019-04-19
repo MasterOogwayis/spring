@@ -17,7 +17,15 @@
     <context:component-scan base-package="com"/>
 
     <!-- 开启组件扫描 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <!-- json 转换 -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+
 
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
