@@ -35,7 +35,6 @@
         <module>encryption</module>
         <module>jvm-demo</module>
         <module>design-pattern</module>
-        <module>simple-mvc</module>
         <module>spring-mvc</module>
     </modules>
 
@@ -45,8 +44,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <org.slf4j.version>1.7.25</org.slf4j.version>
         <maven.war.dependentWarExcludes>WEB-INF/web.xml</maven.war.dependentWarExcludes>
+        <org.slf4j.version>1.7.25</org.slf4j.version>
         <protostuff.version>1.6.0</protostuff.version>
         <querydsl.version>4.1.4</querydsl.version>
         <micrometer.version>1.0.2</micrometer.version>
