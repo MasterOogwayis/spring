@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * {@link org.springframework.cloud.netflix.feign.ribbon.FeignRibbonClientAutoConfiguration}
  */
 @Setter
-@ConfigurationProperties(prefix = "feign.httpclient")
+//@ConfigurationProperties(prefix = "feign.httpclient")
 @Configuration
 @EnableHystrix
 @EnableDiscoveryClient
@@ -56,14 +56,14 @@ public class ClientConfiguration {
 //                .build();
 //    }
 
-    @Bean
-    public HttpClient httpClient() {
-        return HttpClientBuilder.create()
-                .setConnectionTimeToLive(900L, TimeUnit.SECONDS)
-                .setMaxConnTotal(this.maxConnections)
-                .setMaxConnPerRoute(this.maxConnectionsPerRoute)
-                .build();
-    }
+//    @Bean
+//    public HttpClient httpClient() {
+//        return HttpClientBuilder.create()
+//                .setConnectionTimeToLive(900L, TimeUnit.SECONDS)
+//                .setMaxConnTotal(this.maxConnections)
+//                .setMaxConnPerRoute(this.maxConnectionsPerRoute)
+//                .build();
+//    }
 
     /**
      * FeignClient 默认使用 HttpURLConnection 每次请求都建立一个新的连接
