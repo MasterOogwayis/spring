@@ -1,16 +1,14 @@
 package com;
 
-import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
-import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
-import org.springframework.beans.factory.config.BeanDefinitionHolder;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.context.annotation.*;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ClassUtils;
 
-import java.beans.Introspector;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2019/4/3 13:53
@@ -18,21 +16,51 @@ import java.beans.Introspector;
 public class StaticTests {
 
     public static void main(String[] args) {
-        AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(Product.class);
+        List<Map<String, Integer>> list = new ArrayList<>();
 
-        AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(abd.getMetadata(), DependsOn.class);
+        Map<String, Integer> map1 = new HashMap<>();
+        map1.put("1", 1);
+        map1.put("2", 2);
+        map1.put("3", 3);
+        map1.put("4", 4);
+        map1.put("5", 5);
+        map1.put("6", 6);
 
-        BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, "asd");
-        System.out.println("--" + definitionHolder.getAliases());
+        list.add(map1);
 
-        System.err.println(attributes);
+        Map<String, Integer> map2 = new HashMap<>();
+        map2.put("1", 1);
+        map2.put("2", 2);
+        map2.put("3", 3);
+        map2.put("4", 4);
+        map2.put("5", 5);
+        map2.put("6", 6);
 
-        abd.setDependsOn(attributes.getStringArray("value"));
+        list.add(map2);
 
-        System.err.println(abd);
+
+        Stream<Map<String, Integer>> stream;
+
+        if (list.size() < 2) {
+            stream = list.stream();
+        }else {
+            stream = list.parallelStream();
+        }
+
+        stream.forEach(row -> {
+            row.entrySet().forEach(entity -> {
+                int value = entity.getValue();
+                if (value % 2 == 0) {
+                    entity.setValue(value * value);
+                }
+            });
+        });
+
+
+        System.out.println(list);
+
 
     }
-
 
 
     @Description("asd")
