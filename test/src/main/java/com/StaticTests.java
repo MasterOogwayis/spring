@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -19,13 +20,9 @@ public class StaticTests {
 
     public static void main(String[] args) {
 
-        Field[] fields = TestDto.class.getDeclaredFields();
+        List<String> list = Arrays.asList("1", "2", "3");
 
-        for (Field field : fields) {
-            System.out.println(field.getName() + ": static=" + Modifier.isStatic(field.getModifiers()));
-            System.out.println(field.getName() + ": final=" + Modifier.isFinal(field.getModifiers()));
-        }
-
+        System.out.println(list.stream().collect(Collectors.joining("", "", "")));
 
     }
 

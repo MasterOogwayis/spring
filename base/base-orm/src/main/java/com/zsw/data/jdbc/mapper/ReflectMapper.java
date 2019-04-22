@@ -1,4 +1,4 @@
-package com.zsw.orm.jdbc.mapper;
+package com.zsw.data.jdbc.mapper;
 
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;

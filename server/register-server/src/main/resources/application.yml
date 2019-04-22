@@ -74,7 +74,7 @@ eureka:
 #    registry-fetch-interval-seconds: 30
 #    allow-redirects: false
 #    availability-zones:
-#    backup-registry-impl:
+#    backup-registry-support:
 #    cache-refresh-executor-exponential-back-off-bound: 10
 #    cache-refresh-executor-thread-pool-size: 2
 #    conf-data-accept:
