@@ -197,6 +197,11 @@
                 <artifactId>transaction-mq</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-orm</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
 
             <!-- protobuff序列化开源工具-->

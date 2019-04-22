@@ -32,8 +32,12 @@
             <artifactId>spring-boot-actuator</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>base-client</artifactId>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 

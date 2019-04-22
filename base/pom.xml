@@ -33,6 +33,7 @@
         <module>base-commons</module>
         <module>base-mybatis</module>
         <module>base-jdbc</module>
+        <module>base-orm</module>
     </modules>
 
 

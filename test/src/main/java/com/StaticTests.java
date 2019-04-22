@@ -1,16 +1,16 @@
 package com;
 
-import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
-import org.springframework.beans.factory.annotation.AnnotatedGenericBeanDefinition;
-import org.springframework.beans.factory.config.BeanDefinitionHolder;
-import org.springframework.beans.factory.support.GenericBeanDefinition;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.context.annotation.*;
-import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ClassUtils;
 
-import java.beans.Introspector;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2019/4/3 13:53
@@ -18,32 +18,17 @@ import java.beans.Introspector;
 public class StaticTests {
 
     public static void main(String[] args) {
-        AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(Product.class);
 
-        AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(abd.getMetadata(), DependsOn.class);
+        Field[] fields = TestDto.class.getDeclaredFields();
 
-        BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, "asd");
-        System.out.println("--" + definitionHolder.getAliases());
+        for (Field field : fields) {
+            System.out.println(field.getName() + ": static=" + Modifier.isStatic(field.getModifiers()));
+            System.out.println(field.getName() + ": final=" + Modifier.isFinal(field.getModifiers()));
+        }
 
-        System.err.println(attributes);
-
-        abd.setDependsOn(attributes.getStringArray("value"));
-
-        System.err.println(abd);
 
     }
 
 
-
-    @Description("asd")
-    @Role(1)
-    @DependsOn("testApp")
-    @Lazy()
-    @Primary
-    @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS, value = "prototype")
-    @Service(value = "product")
-    class Product {
-
-    }
 
 }

@@ -12,7 +12,7 @@ feign:
     # 生存时间，默认：900L
 #    time-to-live: 900
     # 响应超时的时间单位，默认：TimeUnit.SECONDS
-#    timeToLiveUnit: SECONDS
+    timeToLiveUnit: SECONDS
   okhttp:
     # default true
     enabled: true
