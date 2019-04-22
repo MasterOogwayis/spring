@@ -1,6 +1,6 @@
 package com.zsw.mq.service;
 
-import com.zsw.base.utils.RandomCodeUtils;
+import com.zsw.orm.utils.RandomCodeUtils;
 import com.zsw.mq.base.BaseMqMessage;
 import com.zsw.mq.cache.MessageWrapper;
 import com.zsw.mq.cache.MessageWrapperCache;

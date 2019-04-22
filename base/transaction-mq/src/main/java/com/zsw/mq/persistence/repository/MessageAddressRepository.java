@@ -1,7 +1,7 @@
 package com.zsw.mq.persistence.repository;
 
 
-import com.zsw.base.repository.BaseRepository;
+import com.zsw.orm.repository.BaseRepository;
 import com.zsw.mq.persistence.domain.MessageAddress;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

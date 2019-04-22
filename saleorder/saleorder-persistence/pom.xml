@@ -14,7 +14,7 @@
     <dependencies>
         <!--<dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-persistence</artifactId>
+            <artifactId>orm-persistence</artifactId>
         </dependency>-->
         <dependency>
             <groupId>com.zsw</groupId>

@@ -1,7 +1,7 @@
 package com.zsw.mq.cache;
 
 
-import com.zsw.base.redis.dao.commons.CacheDao;
+import com.zsw.orm.redis.dao.commons.CacheDao;
 
 import java.util.Set;
 

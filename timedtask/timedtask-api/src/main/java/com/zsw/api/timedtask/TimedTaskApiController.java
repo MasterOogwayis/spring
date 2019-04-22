@@ -1,6 +1,6 @@
 package com.zsw.api.timedtask;
 
-import com.zsw.base.api.commons.BaseApiController;
+import com.zsw.orm.api.commons.BaseApiController;
 import com.zsw.service.timedtask.TimedTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

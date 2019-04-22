@@ -1,7 +1,7 @@
 package com.zsw.service.saleorder.impl;
 
-import com.zsw.base.redis.dao.commons.BaseCacheDao;
-import com.zsw.base.service.impl.BaseDataServiceImpl;
+import com.zsw.orm.redis.dao.commons.BaseCacheDao;
+import com.zsw.orm.service.impl.BaseDataServiceImpl;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.user.bean.Product;
 import com.zsw.persistence.user.bean.SaleOrder;

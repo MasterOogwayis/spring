@@ -34,7 +34,7 @@ public class ProductService {
      * @return Product
      */
     public Product get(final Long id) {
-        return this.productRepository.findOne(id);
+        return this.productRepository.getOne(id);
     }
 
 }

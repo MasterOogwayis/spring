@@ -1,6 +1,6 @@
 package com.zsw.persistence.user.bean;
 
-import com.zsw.base.bean.commons.BaseBean;
+import com.zsw.orm.bean.commons.BaseBean;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Fetch;

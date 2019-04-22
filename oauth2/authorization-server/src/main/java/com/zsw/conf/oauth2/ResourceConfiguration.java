@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 /**
  * ResourceConfiguration
  *
- * 使用 test {@link com.zsw.base.utils.ExportCert} 生成公钥
+ * 使用 test {@link com.zsw.orm.utils.ExportCert} 生成公钥
  *
  *
  *

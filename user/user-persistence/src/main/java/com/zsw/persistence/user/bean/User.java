@@ -1,7 +1,7 @@
 package com.zsw.persistence.user.bean;
 
 
-import com.zsw.base.bean.commons.BaseBean;
+import com.zsw.orm.bean.commons.BaseBean;
 import lombok.*;
 
 import javax.persistence.*;

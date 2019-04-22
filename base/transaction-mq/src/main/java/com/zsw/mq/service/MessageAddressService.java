@@ -1,6 +1,6 @@
 package com.zsw.mq.service;
 
-import com.zsw.base.utils.JacksonSerializer;
+import com.zsw.orm.utils.JacksonSerializer;
 import com.zsw.mq.base.BaseMqMessage;
 import com.zsw.mq.persistence.domain.MessageAddress;
 import com.zsw.mq.persistence.repository.MessageAddressRepository;

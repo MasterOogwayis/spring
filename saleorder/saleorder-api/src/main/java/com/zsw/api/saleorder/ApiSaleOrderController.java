@@ -1,6 +1,6 @@
 package com.zsw.api.saleorder;
 
-import com.zsw.base.api.commons.BaseApiController;
+import com.zsw.orm.api.commons.BaseApiController;
 import com.zsw.conf.base.saleorder.ProductDto;
 import com.zsw.conf.base.saleorder.SaleOrderBaseClient;
 import com.zsw.conf.base.saleorder.SaleOrderDto;

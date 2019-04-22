@@ -1,6 +1,6 @@
 package com.zsw.persistence.timedtask.bean;
 
-import com.zsw.base.bean.commons.BaseBean;
+import com.zsw.orm.bean.commons.BaseBean;
 import lombok.Getter;
 import lombok.Setter;
 

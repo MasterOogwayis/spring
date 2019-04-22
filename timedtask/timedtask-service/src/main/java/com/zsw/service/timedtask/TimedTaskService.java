@@ -1,7 +1,6 @@
 package com.zsw.service.timedtask;
 
-import com.zsw.base.service.BaseDataService;
-import com.zsw.base.service.BaseService;
+import com.zsw.orm.service.BaseDataService;
 import com.zsw.persistence.timedtask.bean.TimedTask;
 
 /**

@@ -20,7 +20,7 @@ spring:
   application:
     name: api-server
 #  zipkin:
-#    base-url: http://localhost:8080
+#    orm-url: http://localhost:8080
 #  sleuth:
 #    sampler:
 #      percentage: 1

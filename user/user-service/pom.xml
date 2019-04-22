@@ -24,7 +24,7 @@
         </dependency>
         <!--<dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-redis</artifactId>
+            <artifactId>orm-redis</artifactId>
             <version>${project.version}</version>
         </dependency>-->
     </dependencies>

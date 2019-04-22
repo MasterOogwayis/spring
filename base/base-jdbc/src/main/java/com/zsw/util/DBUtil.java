@@ -31,8 +31,8 @@ public class DBUtil {
         Connection conn = null;
         try {
             Class.forName(props.getProperty("drivername"));
-            conn = DriverManager.getConnection
-                    (props.getProperty("url"), props.getProperty("username"), props.getProperty("pwd"));
+            conn = DriverManager.getConnection(
+                    props.getProperty("url"), props.getProperty("username"), props.getProperty("pwd"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {

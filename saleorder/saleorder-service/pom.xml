@@ -29,7 +29,7 @@
         </dependency>
         <!--<dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-mq-service</artifactId>
+            <artifactId>orm-mq-service</artifactId>
             <version>${project.version}</version>
         </dependency>-->
     </dependencies>

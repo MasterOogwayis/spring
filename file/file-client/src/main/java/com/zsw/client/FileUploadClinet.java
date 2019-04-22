@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author ZhangShaowei on 2017/6/13 14:43
  **/
-@FeignClient(value = "${zsw.base.serverName.file}")
+@FeignClient(value = "${zsw.orm.serverName.file}")
 public interface FileUploadClinet {
 
 

@@ -26,7 +26,7 @@
 #  application:
 #    name: api-server
 ##  zipkin:
-##    base-url: http://localhost:8080
+##    orm-url: http://localhost:8080
 ##  sleuth:
 ##    sampler:
 ##      percentage: 1
@@ -155,7 +155,7 @@
 #  ##自定义RedisCacheManger配置
 #  ## 名称 -- 缓存有效期：s -------不同缓存分类后制定不同的有效期
 #zsw:
-#  base:
+#  orm:
 #    redis:
 #      configuration:
 #        expires:

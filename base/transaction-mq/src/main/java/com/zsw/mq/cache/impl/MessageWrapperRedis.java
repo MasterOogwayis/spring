@@ -1,6 +1,6 @@
 package com.zsw.mq.cache.impl;
 
-import com.zsw.base.redis.dao.RedisDao;
+import com.zsw.orm.redis.dao.RedisDao;
 import com.zsw.mq.cache.MessageWrapper;
 import com.zsw.mq.cache.MessageWrapperCache;
 import org.springframework.stereotype.Component;

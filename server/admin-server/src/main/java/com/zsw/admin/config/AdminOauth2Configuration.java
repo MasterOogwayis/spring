@@ -14,22 +14,22 @@ public class AdminOauth2Configuration {
 //     */
 //    private static final Logger logger = LoggerFactory.getLogger(AdminOauth2Configuration.class);
 //
-//    @Value("${anze.base.application.servername.oauth}")
+//    @Value("${anze.orm.application.servername.oauth}")
 //    private String oauthServerName;
 //
-//    @Value("${anze.base.oauthclient.authorization}")
+//    @Value("${anze.orm.oauthclient.authorization}")
 //    private String oauthclientAuthorization;
 //
 //    /**
 //     *
 //     */
-//    @Value("${anze.base.monitor.admin.clientId:admin-server}")
+//    @Value("${anze.orm.monitor.admin.clientId:admin-server}")
 //    private String clientId;
 //
 //    /**
 //     *
 //     */
-//    @Value("${anze.base.monitor.admin.secret:admin-server}")
+//    @Value("${anze.orm.monitor.admin.secret:admin-server}")
 //    private String secret;
 //
 //    @Bean

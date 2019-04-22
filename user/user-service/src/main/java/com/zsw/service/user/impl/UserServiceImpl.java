@@ -1,6 +1,6 @@
 package com.zsw.service.user.impl;
 
-import com.zsw.base.service.impl.BaseDataServiceImpl;
+import com.zsw.orm.service.impl.BaseDataServiceImpl;
 import com.zsw.persistence.user.bean.User;
 import com.zsw.persistence.user.repository.UserRepository;
 import com.zsw.service.user.UserService;
