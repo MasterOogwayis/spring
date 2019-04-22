@@ -24,6 +24,7 @@ eureka:
     hostname: localhost
     prefer-ip-address: true
 
+
 endpoints:
   # 大部分 actuator 需要 ACTUATOR 才能访问 这里脱敏 普通 security 可访问
   sensitive: false
@@ -44,3 +45,19 @@ info:
 logging:
   config: classpath:logback-spring.xml
   path: /data/spring/logs
+feign:
+  # Hystrix支持，如果为true，hystrix库必须在classpath中
+  # 使用 dashboard 必须开启此选项 EnableHystrix
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true
+    max-connections-per-route: 50 # default
+    max-connections: 200 # default
+    # 连接超时，默认：2000/毫秒
+    #    connection-timeout: 2000
+    # 生存时间，默认：900L
+    time-to-live: 900
+    # 响应超时的时间单位，默认：TimeUnit.SECONDS
+    timeToLiveUnit: SECONDS
+

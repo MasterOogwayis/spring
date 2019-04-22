@@ -56,6 +56,10 @@
             <groupId>com.zsw</groupId>
             <artifactId>base-micrometer</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-client</artifactId>
+        </dependency>
 
     </dependencies>
 
