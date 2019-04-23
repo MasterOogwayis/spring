@@ -37,6 +37,8 @@ endpoints:
   logfile:
     enabled: true
     external-file: ${logging.file}
+  prometheus:
+    enabled: true
 
 
 

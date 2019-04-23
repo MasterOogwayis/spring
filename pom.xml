@@ -49,6 +49,7 @@
         <mockito.version>2.8.47</mockito.version>
         <weixin.java.version>3.3.0</weixin.java.version>
         <spring.admin.server.version>1.5.7</spring.admin.server.version>
+        <eureka-consul-adapter.version>0.0.1</eureka-consul-adapter.version>
     </properties>
 
 
@@ -73,6 +74,12 @@
                 <version>0.2.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>at.twinformatics</groupId>
+                <artifactId>eureka-consul-adapter</artifactId>
+                <version>${eureka-consul-adapter.version}</version>
             </dependency>
 
             <dependency>
