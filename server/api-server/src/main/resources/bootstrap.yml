@@ -8,6 +8,8 @@ server:
 spring:
   application:
     name: api-server
+  main:
+    allow-bean-definition-overriding: true
 
 ##服务发现地址
 eureka:
@@ -21,13 +23,22 @@ eureka:
     prefer-ip-address: true
 
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}}
   endpoints:
     web:
       exposure:
         include: "*"
-  endpoint:
-    logfile:
-      enabled: true
-      external-file: ${logging.file}
-logging:
-  file: /data/spring/logs/${spring.application.name}.log
+#  endpoint:
+#    logfile:
+#      enabled: true
+#      external-file: ${logging.file}
+#logging:
+#  file: /data/spring/logs/${spring.application.name}.log
+
+endpoints:
+  # 开启 micrometer 以 prometheus 输出，然后脱敏
+  prometheus:
+    enabled: true
+    sensitive: false

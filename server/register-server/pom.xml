@@ -27,6 +27,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>at.twinformatics</groupId>
+            <artifactId>eureka-consul-adapter</artifactId>
+        </dependency>
     </dependencies>
 
 

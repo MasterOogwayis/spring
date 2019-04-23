@@ -2,7 +2,7 @@ package com.zsw.metrics.micrometer;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
-import org.springframework.boot.actuate.health.DiskSpaceHealthIndicatorProperties;
+import org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthIndicatorProperties;
 
 import javax.annotation.PostConstruct;
 import java.util.Collections;
@@ -31,8 +31,13 @@ public class DiskSpaceHealthMetrics {
         this.functions.put("total", properties.getPath()::getTotalSpace);
         // 磁盘 可用容量 byte
         this.functions.put("free", properties.getPath()::getUsableSpace);
-        // 最小剩余
-        this.functions.put("threshold", properties::getThreshold);
+        // 最小剩余,注意单位是 mb
+        this.functions.put("threshold", new Supplier<Long>() {
+            @Override
+            public Long get() {
+                return properties.getThreshold().toMegabytes();
+            }
+        });
 
     }
 
