@@ -1,6 +1,7 @@
 package com.zsw.data.orm.repository.support;
 
 import com.zsw.data.orm.domain.EntityOperation;
+import com.zsw.data.orm.domain.EntityOperationImpl;
 import com.zsw.data.orm.domain.PropertiesHandler;
 import com.zsw.data.orm.repository.BaseDao;
 import lombok.SneakyThrows;
@@ -10,8 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Shaowei Zhang on 2019/4/20 22:10
@@ -24,7 +23,7 @@ public class SimpleDao<T, ID extends Serializable> implements BaseDao<T, ID> {
     private JdbcTemplate jdbcTemplate;
 
     public SimpleDao() {
-        this.eo = new EntityOperation<>(this.getTClass());
+        this.eo = new EntityOperationImpl<>(this.getTClass());
     }
 
     @Override
@@ -40,8 +39,14 @@ public class SimpleDao<T, ID extends Serializable> implements BaseDao<T, ID> {
 
     @Override
     public List<T> findAll() {
-        String sql = this.eo.findAllSql(null);
+        String sql = this.eo.findAll();
         return this.jdbcTemplate.query(sql, this.eo.getRowMapper());
+    }
+
+    @Override
+    public List<T> find(T t) {
+        PropertiesHandler handler = this.eo.findByParams(t);
+        return this.jdbcTemplate.query(handler.getSql(), handler.getProperties().values().toArray(), this.eo.getRowMapper());
     }
 
 

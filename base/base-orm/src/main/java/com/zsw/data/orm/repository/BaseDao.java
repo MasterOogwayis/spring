@@ -20,6 +20,8 @@ public interface BaseDao<T, ID extends Serializable> {
 
     List<T> findAll();
 
+    List<T> find(T t);
+
     void saveOrUpdate(T t);
 
 }
