@@ -1,8 +1,11 @@
 package com.zsw.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.zsw.persistence.dao.CustomerMapper;
+import com.zsw.persistence.entity.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * @author Shaowei Zhang on 2019/4/24 1:14
@@ -11,9 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MyBatisTempController {
 
-    @GetMapping
-    public Object findAll() {
-        return null;
+    @Autowired
+    private CustomerMapper customerMapper;
+
+    @PostMapping("add")
+    public Object get(@RequestBody Customer customer) {
+        customer.setCreatedate(new Date());
+        return this.customerMapper.insert(customer);
     }
 
 

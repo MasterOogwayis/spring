@@ -124,6 +124,8 @@ feign:
 #    default:
       # 此属性设置核心线程池大小。 这是可以同时执行的Hystrix命令的最大数量。
 #      coreSize: 10
+      # 线程池最大值
+#      maximumSize: 10 default
       # 此属性设置BlockingQueue实现的最大队列大小。
 #      maxQueueSize: -1
       # 此属性设置队列大小拒绝阈值
