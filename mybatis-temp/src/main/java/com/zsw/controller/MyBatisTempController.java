@@ -18,10 +18,14 @@ public class MyBatisTempController {
     private CustomerMapper customerMapper;
 
     @PostMapping("add")
-    public Object get(@RequestBody Customer customer) {
+    public Object add(@RequestBody Customer customer) {
         customer.setCreatedate(new Date());
         return this.customerMapper.insert(customer);
     }
 
+    @GetMapping("get")
+    public Customer get(@RequestParam("id") Long id) {
+        return this.customerMapper.get(id);
+    }
 
 }

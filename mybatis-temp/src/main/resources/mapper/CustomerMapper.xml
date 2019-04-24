@@ -11,6 +11,10 @@
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
   </resultMap>
+  <select id="get" resultMap="BaseResultMap" parameterType="Long">
+    select id,name,age,createDate from t_customer where id=#{id}
+
+  </select>
   <insert id="insert" parameterType="com.zsw.persistence.entity.Customer">
     <!--
       WARNING - @mbg.generated

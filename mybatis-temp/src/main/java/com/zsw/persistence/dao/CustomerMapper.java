@@ -18,4 +18,7 @@ public interface CustomerMapper {
      * @mbg.generated
      */
     int insertSelective(Customer record);
+
+    Customer get(Long id);
+
 }
