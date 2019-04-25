@@ -1,7 +1,9 @@
 package com.zsw.test;
 
+import com.zsw.mybatis.plugin.CustomerInterceptor;
 import com.zsw.persistence.entity.Customer;
 import lombok.Cleanup;
+import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
@@ -40,13 +42,19 @@ public class SimpleTest {
 
 
         // 2. 不使用 XML 构建 SqlSessionFactory
+//        DataSource dataSource = new PooledDataSource("", "", null);
         DataSource dataSource = new DriverManagerDataSource("jdbc:mysql://localhost/mybatis", "root", "root");
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dataSource);
         Configuration configuration = new Configuration(environment);
+        // 类型转换
+//        configuration.getTypeHandlerRegistry().register("com.zsw.mybatis.typehandler");
+//        configuration.getTypeAliasRegistry().registerAliases("com.zsw.mybatis.typehandler");
 //        configuration.addMapper(CustomerMapper.class);
 //        configuration.addMapper(UserMapper.class);
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+        // 插件
+//        configuration.addInterceptor(new CustomerInterceptor());
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml");
         sessionFactoryBean.setMapperLocations(resources);

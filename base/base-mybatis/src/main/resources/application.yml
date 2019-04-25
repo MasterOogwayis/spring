@@ -4,7 +4,9 @@ server:
 # http://www.mybatis.org/mybatis-3/zh/configuration.html
 #默认使用配置
 mybatis:
+  # 一些默认的 alias TypeAliasRegistry
   type-aliases-package: com.zsw.persistence.entity
+  type-handlers-package: com.zsw.mybatis.typehandler
   mapper-locations: classpath:mapper/*.xml
   # 看这种配置方式，应该就能推断出静态调用参数设置的方式
   configuration:
@@ -78,7 +80,7 @@ mybatis:
     use-actual-param-name: true
     # 指定一个提供 Configuration 实例的类。 这个被返回的 Configuration 实例用来加载被反序列化对象的延迟加载属性值。
     # 这个类必须包含一个签名为static Configuration getConfiguration() 的方法。（新增于 3.2.3） 类型别名或者全类名
-#    configuration-factory: java.lang.Object # default 未设置
+#    configuration-factory:  # default 未设置
 spring:
   application:
     name: base-mybatis
