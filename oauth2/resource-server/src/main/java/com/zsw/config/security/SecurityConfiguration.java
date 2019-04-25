@@ -11,9 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  **/
 //@Configuration
 //@EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {//extends WebSecurityConfigurerAdapter {
 
-    @Override
+//    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()

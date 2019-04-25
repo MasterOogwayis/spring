@@ -2,6 +2,7 @@ package com.zsw.controller;
 
 import com.zsw.persistence.dao.CustomerMapper;
 import com.zsw.persistence.entity.Customer;
+import com.zsw.persistence.entity.CustomerExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,9 @@ public class MyBatisTempController {
 
     @GetMapping("get")
     public Customer get(@RequestParam("id") Long id) {
-        return this.customerMapper.get(id);
+        CustomerExample example = new CustomerExample();
+        example.createCriteria().andIdEqualTo(id);
+        return this.customerMapper.selectByExample(example).get(0);
     }
 
 }
