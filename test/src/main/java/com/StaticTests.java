@@ -24,6 +24,8 @@ public class StaticTests {
 
         System.out.println(list.stream().collect(Collectors.joining("", "", "")));
 
+
+
     }
 
 

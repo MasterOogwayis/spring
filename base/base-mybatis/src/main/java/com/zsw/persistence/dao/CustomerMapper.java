@@ -2,6 +2,8 @@ package com.zsw.persistence.dao;
 
 import com.zsw.persistence.entity.Customer;
 import com.zsw.persistence.entity.CustomerExample;
+
+import java.util.HashMap;
 import java.util.List;
 
 public interface CustomerMapper {

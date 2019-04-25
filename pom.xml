@@ -36,7 +36,6 @@
         <module>jvm-demo</module>
         <module>design-pattern</module>
         <module>spring-mvc</module>
-        <module>mybatis-temp</module>
     </modules>
 
     <properties>

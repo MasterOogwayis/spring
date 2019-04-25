@@ -1,9 +1,11 @@
 package com.zsw.test;
 
-import com.zsw.mybatis.plugin.CustomerInterceptor;
+import com.zsw.persistence.dao.CustomerMapper;
+import com.zsw.persistence.dao.UserMapper;
 import com.zsw.persistence.entity.Customer;
+import com.zsw.persistence.entity.User;
 import lombok.Cleanup;
-import org.apache.ibatis.datasource.pooled.PooledDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
@@ -17,10 +19,12 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.util.Date;
 
 /**
  * @author ZhangShaowei on 2019/4/25 9:55
  **/
+@Slf4j
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(classes = BaseMyBatisApplication.class)
 public class SimpleTest {
@@ -50,6 +54,7 @@ public class SimpleTest {
         // 类型转换
 //        configuration.getTypeHandlerRegistry().register("com.zsw.mybatis.typehandler");
 //        configuration.getTypeAliasRegistry().registerAliases("com.zsw.mybatis.typehandler");
+        configuration.getTypeAliasRegistry().registerAliases("com.zsw.mybatis.persistence.entity");
 //        configuration.addMapper(CustomerMapper.class);
 //        configuration.addMapper(UserMapper.class);
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
@@ -64,10 +69,25 @@ public class SimpleTest {
 
         @Cleanup SqlSession session = sessionFactory.openSession();
 
-        Customer o = session.selectOne("com.zsw.persistence.dao.CustomerMapper.get", 1L);
+//        Customer o = session.selectOne("com.zsw.persistence.dao.CustomerMapper.get", 1L);
 
-//        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
-        System.out.println(o);
+        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
+        Customer customer = customerMapper.get(1L);
+        System.out.println(customer);
+        System.out.println(customer.getUser().getId());
+//        Customer customer = new Customer();
+//        customer.setAge(28);
+//        customer.setName("asd");
+//        customer.setCreateDate(new Date());
+//        customerMapper.insertSelective(customer);
+//        System.out.println(customer);
+
+//        UserMapper userMapper = session.getMapper(UserMapper.class);
+//        User user = new User();
+//        user.setUsername("ShaoweiZhang");
+//        user.setPassword("000000");
+
+//        userMapper.save(user);
 
     }
 

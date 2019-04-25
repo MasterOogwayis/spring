@@ -36,7 +36,9 @@ public class Customer {
      *
      * @mbg.generated
      */
-    private Date createdate;
+    private Date createDate;
+
+    private User user;
 
 
 }
