@@ -1,33 +1,20 @@
 package com;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.io.UnsupportedEncodingException;
+import java.util.Base64;
 
 /**
  * @author ZhangShaowei on 2019/4/3 13:53
  **/
 public class StaticTests {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
 
-        List<String> list = Arrays.asList("1", "2", "3");
+        byte[] encode = Base64.getEncoder().encode("root:root".getBytes("UTF-8"));
 
-        System.out.println(list.stream().collect(Collectors.joining("", "", "")));
-
-
+        System.out.println(new String(encode, "UTF-8"));
 
     }
-
 
 
 }

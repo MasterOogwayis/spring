@@ -1,2 +1,10 @@
 server:
   port: 80
+
+spring:
+  application:
+    name: simple-app
+  security:
+    user:
+      name: root
+      password: root

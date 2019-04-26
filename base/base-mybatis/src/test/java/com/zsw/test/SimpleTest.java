@@ -3,6 +3,7 @@ package com.zsw.test;
 import com.zsw.persistence.dao.CustomerMapper;
 import com.zsw.persistence.dao.UserMapper;
 import com.zsw.persistence.entity.Customer;
+import com.zsw.persistence.entity.CustomerExample;
 import com.zsw.persistence.entity.User;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,9 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ZhangShaowei on 2019/4/25 9:55
@@ -54,7 +57,7 @@ public class SimpleTest {
         // 类型转换
 //        configuration.getTypeHandlerRegistry().register("com.zsw.mybatis.typehandler");
 //        configuration.getTypeAliasRegistry().registerAliases("com.zsw.mybatis.typehandler");
-        configuration.getTypeAliasRegistry().registerAliases("com.zsw.mybatis.persistence.entity");
+        configuration.getTypeAliasRegistry().registerAliases("com.zsw.persistence.entity");
 //        configuration.addMapper(CustomerMapper.class);
 //        configuration.addMapper(UserMapper.class);
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
@@ -72,23 +75,11 @@ public class SimpleTest {
 //        Customer o = session.selectOne("com.zsw.persistence.dao.CustomerMapper.get", 1L);
 
         CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
-        Customer customer = customerMapper.get(1L);
-        System.out.println(customer);
-        System.out.println(customer.getUser().getId());
-//        Customer customer = new Customer();
-//        customer.setAge(28);
-//        customer.setName("asd");
-//        customer.setCreateDate(new Date());
-//        customerMapper.insertSelective(customer);
-//        System.out.println(customer);
+//        Customer customer = customerMapper.get(1L);
 
-//        UserMapper userMapper = session.getMapper(UserMapper.class);
-//        User user = new User();
-//        user.setUsername("ShaoweiZhang");
-//        user.setPassword("000000");
-
-//        userMapper.save(user);
-
+        Customer customer = Customer.builder().name("Dog").id(2L).build();
+        int update = customerMapper.update(customer);
+        System.err.println(update);
     }
 
 

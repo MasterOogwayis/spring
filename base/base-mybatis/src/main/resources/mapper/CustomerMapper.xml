@@ -132,9 +132,9 @@
     </select>
 
     <select id="getUser" parameterType="long" resultType="com.zsw.persistence.entity.User">
-        select
-        *
-        from t_user where id = #{id,jdbcType=BIGINT}
+        select *
+        from t_user
+        where id = #{id,jdbcType=BIGINT}
     </select>
 
     <resultMap id="resultMapWithUser" type="com.zsw.persistence.entity.Customer">
@@ -144,5 +144,40 @@
         <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
         <association property="user" column="userId" select="getUser"/>
     </resultMap>
+
+    <select id="findByIds" parameterType="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_customer where id in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findByColumns" parameterType="Customer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_customer
+        <where>
+            <if test="id!=null">
+                id=#{id,jdbcType=BIGINT}
+            </if>
+            <if test="name!=null">
+                AND name like "%"#{name,jdbcType=VARCHAR}"%"
+            </if>
+            <if test="age!=null">
+                AND age = #{age,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+    <update id="update" parameterType="Customer">
+        update t_customer
+            <set>
+              <if test="name!=null">name=#{name},</if>
+              <if test="age!=null">age=#{age},</if>
+              <if test="createDate!=null">createDate=#{createDate}</if>
+            </set>
+        where id=#{id}
+    </update>
 
 </mapper>

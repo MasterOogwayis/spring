@@ -36,4 +36,10 @@ public interface CustomerMapper {
 
     Customer get(Long id);
 
+    List<Customer> findByIds(List<Long> list);
+
+    List<Customer> findByColumns(Customer customer);
+
+    int update(Customer customer);
+
 }
