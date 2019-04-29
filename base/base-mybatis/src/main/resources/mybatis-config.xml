@@ -17,6 +17,9 @@
             </dataSource>
         </environment>
     </environments>
+    <!--<settings>-->
+        <!--<setting name="typeAliases" value=""/>-->
+    <!--</settings>-->
     <mappers>
         <mapper resource="mapper/CustomerMapper.xml"/>
     </mappers>

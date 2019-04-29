@@ -42,4 +42,6 @@ public interface CustomerMapper {
 
     int update(Customer customer);
 
+    int batchInsert(List<Customer> list);
+
 }

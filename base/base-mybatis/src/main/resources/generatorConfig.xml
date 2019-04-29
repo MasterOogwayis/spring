@@ -44,8 +44,8 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
-        <table tableName="t_user"
-               domainObjectName="User"
+        <table tableName="t_blob"
+               domainObjectName="Blob"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
