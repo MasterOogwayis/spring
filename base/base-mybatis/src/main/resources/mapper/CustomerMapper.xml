@@ -180,4 +180,12 @@
         where id=#{id}
     </update>
 
+    <insert id="batchInsert" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into t_customer (id, name, age, createDate)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=BIGINT}, #{item.name,jdbcType=VARCHAR}, #{item.age,jdbcType=INTEGER},#{item.createDate,jdbcType=TIMESTAMP})
+        </foreach>
+    </insert>
+
 </mapper>
