@@ -1,18 +1,12 @@
 package com.zsw.test;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageInterceptor;
-import com.mchange.v2.c3p0.jboss.C3P0PooledDataSource;
-import com.zsw.persistence.dao.BlobMapper;
 import com.zsw.persistence.dao.CustomerMapper;
-import com.zsw.persistence.entity.Blob;
 import com.zsw.persistence.entity.Customer;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.executor.loader.ProxyFactory;
 import org.apache.ibatis.executor.loader.cglib.CglibProxyFactory;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
@@ -27,7 +21,9 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * @author ZhangShaowei on 2019/4/25 9:55
@@ -111,9 +107,11 @@ public class SimpleTest {
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setConfiguration(configuration);
         SqlSessionFactory sessionFactory = sessionFactoryBean.getObject();
+        // openSession 的时候 Executor 会根据插件 被代理，例如 PageInterceptor 被 Plugin 代理
         @Cleanup SqlSession session = sessionFactory.openSession();
 //        Customer o = session.selectOne("com.zsw.persistence.dao.CustomerMapper.get", 1L);
 
+        // Mapper 接口都会使用 MapperProxy 代理实现
         CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
 
         // jdk 1.7 及以下
@@ -141,7 +139,6 @@ public class SimpleTest {
 //
 //        int i = customerMapper.batchInsert(list);
 //        System.err.println(i);
-
 
 
 //        BlobMapper blobMapper = session.getMapper(BlobMapper.class);

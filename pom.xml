@@ -139,16 +139,6 @@
             </dependency>
             <dependency>
                 <groupId>com.zsw</groupId>
-                <artifactId>base-elasticsearch</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-hystrix-dashborad</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
                 <artifactId>base-micrometer</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -226,6 +216,12 @@
                 <groupId>com.zsw</groupId>
                 <artifactId>base-mybatis</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>2.8.4</version>
             </dependency>
 
             <dependency>
