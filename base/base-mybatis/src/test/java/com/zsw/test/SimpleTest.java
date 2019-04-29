@@ -1,5 +1,8 @@
 package com.zsw.test;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.PageInterceptor;
 import com.zsw.persistence.dao.CustomerMapper;
 import com.zsw.persistence.dao.UserMapper;
 import com.zsw.persistence.entity.Customer;
@@ -23,6 +26,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * @author ZhangShaowei on 2019/4/25 9:55
@@ -58,6 +62,13 @@ public class SimpleTest {
 //        configuration.getTypeHandlerRegistry().register("com.zsw.mybatis.typehandler");
 //        configuration.getTypeAliasRegistry().registerAliases("com.zsw.mybatis.typehandler");
         configuration.getTypeAliasRegistry().registerAliases("com.zsw.persistence.entity");
+
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        Properties properties = new Properties();
+//        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("autoRuntimeDialect", "true");
+        pageInterceptor.setProperties(properties);
+        configuration.addInterceptor(pageInterceptor);
 //        configuration.addMapper(CustomerMapper.class);
 //        configuration.addMapper(UserMapper.class);
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
@@ -77,9 +88,10 @@ public class SimpleTest {
         CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
 //        Customer customer = customerMapper.get(1L);
 
-        Customer customer = Customer.builder().name("Dog").id(2L).build();
-        int update = customerMapper.update(customer);
-        System.err.println(update);
+        PageInfo<Object> pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(customerMapper::findAll);
+
+        System.out.println(pageInfo);
+
     }
 
 
