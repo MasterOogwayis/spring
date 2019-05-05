@@ -126,6 +126,8 @@ feign:
 #      coreSize: 10
       # 线程池最大值
 #      maximumSize: 10 default
+      # 1.5.9 以后新增的属性，允许线程池没超过 maximumSize 前按需增长,在这之前 coreSize=maximumSize没多大鸟用
+#      allowMaximumSizeToDivergeFromCoreSize: true
       # 此属性设置BlockingQueue实现的最大队列大小。
 #      maxQueueSize: -1
       # 此属性设置队列大小拒绝阈值

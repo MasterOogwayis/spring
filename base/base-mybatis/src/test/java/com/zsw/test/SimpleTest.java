@@ -1,5 +1,6 @@
 package com.zsw.test;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageInterceptor;
@@ -37,7 +38,7 @@ public class SimpleTest {
 //    private DataSource dataSource;
 
     /**
-     * @throws Exception
+     * @throws Exception e
      */
     @Test
     public void test() throws Exception {
@@ -92,6 +93,8 @@ public class SimpleTest {
 //        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         // 插件
 //        configuration.addInterceptor(new CustomerInterceptor());
+
+        // PageHelper
         PageInterceptor pageInterceptor = new PageInterceptor();
         Properties properties = new Properties();
 //        properties.setProperty("helperDialect", "mysql");
@@ -101,6 +104,7 @@ public class SimpleTest {
         properties.setProperty("pageSizeZero", "true");
         pageInterceptor.setProperties(properties);
         configuration.addInterceptor(pageInterceptor);
+
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml");
         sessionFactoryBean.setMapperLocations(resources);
@@ -120,11 +124,15 @@ public class SimpleTest {
         // jdk 1.8
 //        Page<Customer> page = PageHelper.startPage(1, 10).doSelectPage(customerMapper::findAll);
 //        PageInfo<Customer> pageInfo = new PageInfo<>(page);
-        PageInfo<Customer> pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(customerMapper::findAll);
-        List<Customer> all = pageInfo.getList();
+//        PageInfo<Customer> pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(customerMapper::findAll);
+        Page<Customer> page = PageHelper.startPage(1, 10);
+        PageInfo<Customer> pageInfo = new PageInfo<>(page);
+        List<Customer> list = customerMapper.findAll();
+//        List<Customer> all = pageInfo.getList();
 
-        System.out.println(all);
-        System.err.println(pageInfo);
+        System.out.println(list);
+//        System.out.println(all);
+//        System.err.println(pageInfo);
 
 //        Customer customer = customerMapper.get(1L);
 //
