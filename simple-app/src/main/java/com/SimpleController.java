@@ -1,19 +1,39 @@
 package com;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ZhangShaowei on 2019/4/26 10:46
  **/
-@RequestMapping("test")
+@RequestMapping("product")
 @RestController
 public class SimpleController {
 
-    @GetMapping
-    public Object test() {
-        return "success";
+    @Autowired
+    ProductService productService;
+
+    @GetMapping("get")
+    public Object get(@RequestParam("id") Long id) {
+        return this.productService.get(id);
     }
+
+    @PostMapping("save")
+    public Object save(@RequestBody Product product) {
+        return this.productService.save(product);
+    }
+
+
+    @GetMapping("getCustom")
+    public Object getCustom(@RequestParam("id") Long id) {
+        return this.productService.getCustom(id);
+    }
+
+    @PostMapping("saveCustom")
+    public Object saveCustom(@RequestBody Product product) {
+        return this.productService.saveCustom(product);
+    }
+
+
 
 }

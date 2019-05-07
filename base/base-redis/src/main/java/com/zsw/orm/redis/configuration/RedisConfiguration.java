@@ -3,25 +3,24 @@ package com.zsw.orm.redis.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Collections;
-import java.util.List;
+import java.time.Duration;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -30,13 +29,13 @@ import java.util.Map;
  * @author ZhangShaowei on 2017/5/18 17:38
  */
 @Configuration
-@ConfigurationProperties(prefix = "zsw.orm.redis.configuration")
+@ConfigurationProperties(prefix = "zsw.base.redis.configuration")
 @EnableCaching
 @Validated
-public class RedisConfiguration extends CachingConfigurerSupport {
+public class RedisConfiguration {
 
     /**
-     *
+     * CacheName - ttl(seconds)
      */
     private Map<String, Long> expires;
 
@@ -45,10 +44,6 @@ public class RedisConfiguration extends CachingConfigurerSupport {
      */
     private Long defaultExpiration = 60 * 30L;
 
-    /**
-     * 缓存名称
-     */
-    private List<String> cacheNames;
 
     /**
      * 这是默认的key队列
@@ -56,19 +51,13 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     private static final String BASE_QUEUE = "redis";
 
     /**
-     *
-     */
-    @Autowired
-    private JedisConnectionFactory jedisConnectionFactory;
-
-    /**
      * @return
      */
     @Bean
     @SuppressWarnings("unchecked")
-    public RedisTemplate redisTemplate() {
+    public RedisTemplate redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate redisTemplate = new RedisTemplate();
-        redisTemplate.setConnectionFactory(jedisConnectionFactory);
+        redisTemplate.setConnectionFactory(connectionFactory);
 
         // key:
         // 所有key使用字符串类型
@@ -114,30 +103,34 @@ public class RedisConfiguration extends CachingConfigurerSupport {
      * @return RedisCacheManager 配置
      */
     @Bean
-    @Override
-    public CacheManager cacheManager() {
-        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate());
-//        redisCacheManager.setTransactionAware(false);操作缓存不开启事物 or 不能及时得到缓存数据反馈
+    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+
+        RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
+                .defaultCacheConfig()
+                // 默认配置， 默认超时时间为30min
+                .entryTtl(Duration.ofSeconds(30 * 60L))
+                .computePrefixWith(name -> name + ":")
+                .disableCachingNullValues();
+        RedisCacheManager.RedisCacheManagerBuilder managerBuilder = RedisCacheManager
+                .builder(RedisCacheWriter.lockingRedisCacheWriter(connectionFactory))
+                .cacheDefaults(defaultCacheConfig);
         if (!CollectionUtils.isEmpty(this.expires)) {
-            redisCacheManager.setExpires(this.expires);
-            redisCacheManager.setCacheNames(this.expires.keySet());
-        } else {
-            redisCacheManager.setCacheNames(
-                    CollectionUtils.isEmpty(
-                            this.cacheNames) ? Collections.singletonList(BASE_QUEUE) : this.cacheNames);
-            redisCacheManager.setDefaultExpiration(this.defaultExpiration);
+            Map<String, RedisCacheConfiguration> cacheConfigurations = new LinkedHashMap<>();
+            expires.forEach((key, value) -> {
+                cacheConfigurations.put(key, defaultCacheConfig.entryTtl(Duration.ofSeconds(value)));
+            });
+            managerBuilder.withInitialCacheConfigurations(cacheConfigurations);
         }
-        return redisCacheManager;
-
+        return managerBuilder.build();
     }
 
-    /**
-     * @return
-     */
-    @Bean
-    public Cache cache(CacheManager cacheManager) {
-        return cacheManager.getCache("app_default");
-    }
+//    /**
+//     * @return
+//     */
+//    @Bean
+//    public Cache cache(CacheManager cacheManager) {
+//        return cacheManager.getCache("app_default");
+//    }
 
     /**
      * 缺省key
@@ -145,7 +138,6 @@ public class RedisConfiguration extends CachingConfigurerSupport {
      * @return
      */
     @Bean
-    @Override
     public KeyGenerator keyGenerator() {
         return (target, method, objects) -> {
             StringBuilder sb = new StringBuilder();
@@ -174,24 +166,16 @@ public class RedisConfiguration extends CachingConfigurerSupport {
     }
 
     /**
-     * @param cacheNames cacheNames
+     *
      */
-    public void setCacheNames(final List<String> cacheNames) {
-        this.cacheNames = cacheNames;
-    }
-
-    /**  */
     public Map<String, Long> getExpires() {
         return expires;
     }
 
-    /**  */
+    /**
+     *
+     */
     public Long getDefaultExpiration() {
         return defaultExpiration;
-    }
-
-    /**  */
-    public List<String> getCacheNames() {
-        return cacheNames;
     }
 }

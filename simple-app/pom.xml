@@ -22,11 +22,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-redis</artifactId>
         </dependency>
     </dependencies>
 
