@@ -32,7 +32,7 @@ import java.util.Properties;
 @Slf4j
 //@RunWith(SpringRunner.class)
 //@SpringBootTest(classes = BaseMyBatisApplication.class)
-public class SimpleTest {
+public class MyBatisTests {
 
 //    @Autowired
 //    private DataSource dataSource;
