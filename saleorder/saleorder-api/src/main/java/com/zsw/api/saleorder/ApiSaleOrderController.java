@@ -10,6 +10,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * ApiSaleOrderController
  *
@@ -57,6 +61,12 @@ public class ApiSaleOrderController extends BaseApiController implements SaleOrd
         SaleOrderDto data = new SaleOrderDto();
         BeanUtils.copyProperties(saleOrder, data, "product");
         return data;
+    }
+
+    @GetMapping("find")
+    public List<SaleOrder> find(@RequestParam("ids") String ids) {
+        List<SaleOrder> collect = Stream.of(ids.split(",")).parallel().map(Long::valueOf).map(this.saleOrderService::get).collect(Collectors.toList());
+        return collect;
     }
 
 }

@@ -26,10 +26,10 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.zsw</groupId>
             <artifactId>resource-server</artifactId>
-        </dependency>
+        </dependency>-->
 
 
         <!--<dependency>

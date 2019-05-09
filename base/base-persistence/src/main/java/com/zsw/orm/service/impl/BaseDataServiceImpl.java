@@ -31,7 +31,7 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
      */
     @Override
     public void delete(E id) {
-        this.getRepository().delete(id);
+        this.getRepository().deleteById(id);
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
         if (StringUtils.isEmpty(sortName)) {
             return new PageRequest(pageNumber - 1, pagzSize);
         }
-        Sort sort = new Sort(Sort.Direction.fromStringOrNull(sortType), sortName);
+        Sort sort = new Sort(Sort.Direction.fromString(sortType), sortName);
         return new PageRequest(pageNumber - 1, pagzSize, sort);
     }
 

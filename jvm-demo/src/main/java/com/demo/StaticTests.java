@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.web.servlet.HandlerMapping;
 
+import java.time.LocalDateTime;
 import java.util.Vector;
 
 /**
@@ -17,7 +18,7 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        System.out.println(HandlerMapping.class.getName());
+        System.out.println(LocalDateTime.now().withSecond(0));
     }
 
     public static int[] twoSum(int[] nums, int target) {
