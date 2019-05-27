@@ -1,6 +1,6 @@
-package com.zsw.orm.http.apache;
+package com.zsw.http.apache;
 
-import com.zsw.orm.http.*;
+import com.zsw.http.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.http.HttpHost;

@@ -21,10 +21,6 @@
             <groupId>com.zsw</groupId>
             <artifactId>base-service</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>base-redis</artifactId>
-        </dependency>
     </dependencies>
 
 </project>

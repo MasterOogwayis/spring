@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author ZhangShaowei on 2017/7/3 10:56
  */
 @ConfigurationProperties(
-        prefix = "com.zsw.orm.application.threadPool"
+        prefix = "com.zsw.application.thread-pool"
 )
 @Getter
 @Setter
@@ -47,6 +47,8 @@ public class ThreadPoolConfiguration {
     private Integer queueCapacity = 500;
 
     /**
+     * ExecutorService ??
+     *
      * @return
      */
     @Bean

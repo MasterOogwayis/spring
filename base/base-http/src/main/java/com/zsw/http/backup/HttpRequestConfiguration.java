@@ -1,6 +1,6 @@
-package com.zsw.orm.http.backup;
+package com.zsw.http.backup;
 
-import com.zsw.orm.http.backup.okhttp.OkHttpRequest;
+import com.zsw.http.backup.okhttp.OkHttpRequest;
 import okhttp3.OkHttpClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;

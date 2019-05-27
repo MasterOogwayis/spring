@@ -1,4 +1,4 @@
-package com.zsw.orm.http;
+package com.zsw.http;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;

@@ -1,5 +1,9 @@
 package com.demo;
 
+import lombok.Getter;
+import lombok.Setter;
+import net.jcip.annotations.GuardedBy;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -19,16 +23,22 @@ public class TestThread {
 //        System.err.println(i);
 //        System.out.println(atomicLong.get());
 
-        Td td = new Td();
-        AtomicReference<Td> atomicReference = new AtomicReference<>(td);
-        boolean b = atomicReference.compareAndSet(new Td(), new Td());
-        System.err.println(b);
+        System.out.println(1);
+
 
     }
 
 
     private static class Td {
+        @GuardedBy("this")
+        public int i = 0;
 
+        /**
+         *
+         */
+        public int getI() {
+            return i;
+        }
     }
     
 }

@@ -103,7 +103,7 @@ public class MyBatisTests {
         // pageSize=0 则查询全部
         properties.setProperty("pageSizeZero", "true");
         pageInterceptor.setProperties(properties);
-        configuration.addInterceptor(pageInterceptor);
+//        configuration.addInterceptor(pageInterceptor);
 
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml");

@@ -1,14 +1,12 @@
 package com.zsw.service.saleorder.impl;
 
-import com.zsw.orm.redis.dao.commons.BaseCacheDao;
-import com.zsw.orm.service.impl.BaseDataServiceImpl;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
+import com.zsw.orm.service.impl.BaseDataServiceImpl;
 import com.zsw.persistence.user.bean.Product;
 import com.zsw.persistence.user.bean.SaleOrder;
 import com.zsw.persistence.user.repository.SaleOrderRepository;
 import com.zsw.service.product.ProductService;
 import com.zsw.service.saleorder.SaleOrderService;
-import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.Objects;
 import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2017/10/12 15:15
@@ -54,8 +50,8 @@ public class SaleOrderServiceImpl extends BaseDataServiceImpl<SaleOrder, Long> i
     /**
      *
      */
-    @Autowired
-    private BaseCacheDao cache;
+//    @Autowired
+//    private BaseCacheDao cache;
 
     /**
      *
@@ -119,7 +115,7 @@ public class SaleOrderServiceImpl extends BaseDataServiceImpl<SaleOrder, Long> i
             }
             long left = this.leftTicket(ticket, id);
             if (left >= num) {
-                this.cache.decrement(ticket, num);
+//                this.cache.decrement(ticket, num);
                 this.save(id, num.intValue());
                 return "success";
             } else {
@@ -156,13 +152,14 @@ public class SaleOrderServiceImpl extends BaseDataServiceImpl<SaleOrder, Long> i
      * @return left ticket
      */
     private long leftTicket(final String ticketKey, final Long id) {
-        Object leftTicket = this.cache.get(ticketKey);
-        if (Objects.isNull(leftTicket)) {
-            Product product = this.productService.get(id);
-            this.cache.set(ticketKey, product.getNumber());
-            return product.getNumber();
-        }
-        return Long.parseLong(leftTicket.toString());
+//        Object leftTicket = this.cache.get(ticketKey);
+//        if (Objects.isNull(leftTicket)) {
+//            Product product = this.productService.get(id);
+//            this.cache.set(ticketKey, product.getNumber());
+//            return product.getNumber();
+//        }
+//        return Long.parseLong(leftTicket.toString());
+        return 0;
     }
 
 
@@ -175,21 +172,21 @@ public class SaleOrderServiceImpl extends BaseDataServiceImpl<SaleOrder, Long> i
     private boolean lock(final String key, final long timeout, final long expire) {
         long millTime = System.currentTimeMillis();
         boolean locked = false;
-        try {
-            //在timeout的时间范围内不断轮询锁
-            while (System.currentTimeMillis() - millTime < timeout) {
-                //锁不存在的话，设置锁并设置锁过期时间，即加锁
-                if (this.cache.setNXExpire(key, "locked", expire, TimeUnit.MILLISECONDS)) {
-                    //锁的情况下锁过期后消失，不会造成永久阻塞
-                    locked = true;
-                    break;
-                }
-                //短暂休眠，避免可能的活锁
-                Thread.sleep(5, RandomUtils.nextInt(10));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("locking error", e);
-        }
+//        try {
+//            //在timeout的时间范围内不断轮询锁
+//            while (System.currentTimeMillis() - millTime < timeout) {
+//                //锁不存在的话，设置锁并设置锁过期时间，即加锁
+//                if (this.cache.setNXExpire(key, "locked", expire, TimeUnit.MILLISECONDS)) {
+//                    //锁的情况下锁过期后消失，不会造成永久阻塞
+//                    locked = true;
+//                    break;
+//                }
+//                //短暂休眠，避免可能的活锁
+//                Thread.sleep(5, RandomUtils.nextInt(10));
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException("locking error", e);
+//        }
         return locked;
     }
 
@@ -197,7 +194,7 @@ public class SaleOrderServiceImpl extends BaseDataServiceImpl<SaleOrder, Long> i
      * @param key
      */
     private void unlock(final String key) {
-        this.cache.del(key);
+//        this.cache.del(key);
     }
 
 

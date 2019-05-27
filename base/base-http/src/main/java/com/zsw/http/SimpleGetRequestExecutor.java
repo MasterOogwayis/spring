@@ -1,7 +1,7 @@
-package com.zsw.orm.http;
+package com.zsw.http;
 
 
-import com.zsw.orm.http.apache.ApacheHttpClientSimpleGetRequestExecutor;
+import com.zsw.http.apache.ApacheHttpClientSimpleGetRequestExecutor;
 
 /**
  * 简单的GET请求执行器，请求的参数是String, 返回的结果也是String

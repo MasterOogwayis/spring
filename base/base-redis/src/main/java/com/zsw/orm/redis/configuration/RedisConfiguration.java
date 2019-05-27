@@ -24,7 +24,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 启用SpringCache 使用RedisCacheManager做缓存控制器
+ * 启用SpringCache 使用RedisCacheManager做缓存控制器   RedisCacheConfiguration
  *
  * @author ZhangShaowei on 2017/5/18 17:38
  */
@@ -44,11 +44,6 @@ public class RedisConfiguration {
      */
     private Long defaultExpiration = 60 * 30L;
 
-
-    /**
-     * 这是默认的key队列
-     */
-    private static final String BASE_QUEUE = "redis";
 
     /**
      * @return

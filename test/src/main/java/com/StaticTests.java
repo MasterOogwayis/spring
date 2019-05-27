@@ -1,18 +1,31 @@
 package com;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
+
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2019/4/3 13:53
  **/
 public class StaticTests {
 
-    public static void main(String[] args) throws UnsupportedEncodingException {
 
-        byte[] encode = Base64.getEncoder().encode("root:root".getBytes("UTF-8"));
+    private static final long USER_INFO_CACHE_TIMER = TimeUnit.DAYS.toSeconds(3);
 
-        System.out.println(new String(encode, "UTF-8"));
+    public static void main(String[] args) throws Exception {
+
+
+
+        System.out.println(USER_INFO_CACHE_TIMER);
 
     }
 

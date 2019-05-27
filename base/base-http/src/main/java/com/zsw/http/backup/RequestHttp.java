@@ -1,4 +1,4 @@
-package com.zsw.orm.http.backup;
+package com.zsw.http.backup;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -21,4 +21,6 @@ public interface RequestHttp {
     String post(String uri, String body);
 
     <T> T post(String uri, String data, Type clazz);
+
+    <T> T formSubmit(String uri, Map<String, ?> formData, Class<T> clazz);
 }

@@ -1,6 +1,6 @@
-package com.zsw.orm.http;
+package com.zsw.http;
 
-import com.zsw.orm.http.apache.ApacheSimplePostRequestExecutor;
+import com.zsw.http.apache.ApacheSimplePostRequestExecutor;
 
 /**
  * 用装饰模式实现

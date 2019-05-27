@@ -1,7 +1,7 @@
-package com.zsw.orm.http.apache;
+package com.zsw.http.apache;
 
-import com.zsw.orm.http.RequestHttp;
-import com.zsw.orm.http.SimplePostRequestExecutor;
+import com.zsw.http.RequestHttp;
+import com.zsw.http.SimplePostRequestExecutor;
 import org.apache.http.Consts;
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;

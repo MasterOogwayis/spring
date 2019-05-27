@@ -2,7 +2,7 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
-#    type: com.alibaba.druid.pool.DruidDataSource
+    #    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
     removeAbandoned: false
@@ -34,37 +34,74 @@ spring:
     # 合并多个DruidDataSource的监控数据
     useGlobalDataSourceStat: true
     keepAlive: true
-    # https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter
-    druid:
-      # ------      连接池配置      ------
-      initial-size: ${spring.datasource.initialSize}
-      max-active: ${spring.datasource.maxActive}
-      min-idle: ${spring.datasource.minIdle}
-      max-wait: ${spring.datasource.maxWait}
-      pool-prepared-statements: ${spring.datasource.poolPreparedStatements}
-      max-pool-prepared-statement-per-connection-size: ${spring.datasource.maxPoolPreparedStatementPerConnectionSize}
-#      max-open-prepared-statements: # statement cache的大小，默认为-1，也就是不限制
-      validation-query: ${spring.datasource.validationQuery}
-#      validation-query-timeout:
-      test-on-borrow: ${spring.datasource.testOnBorrow}
-      test-on-return: ${spring.datasource.testOnReturn}
-      test-while-idle: ${spring.datasource.testWhileIdle}
-      time-between-eviction-runs-millis: ${spring.datasource.timeBetweenEvictionRunsMillis}
-      min-evictable-idle-time-millis: ${spring.datasource.minEvictableIdleTimeMillis}
-#      max-evictable-idle-time-millis:
-      #配置多个英文逗号分隔
-      filters: ${spring.datasource.filters}
-      # ------      监控配置    ------
-      # WebStatFilter配置，说明请参考Druid Wiki，配置_配置WebStatFilter
-#JPA Configuration:
+    # 2.x 默认 Hikari 连接池，号称速度最快，稳定性最高的连接池，经测试也通过验证证实
+    hikari:
+      # 自动提交从池中返回的连接
+      auto-commit: true
+      # 等待来自池的连接的最大毫秒数,如果小于250毫秒，则被重置回30秒
+      connection-timeout: 30000
+      # 连接允许在池中闲置的最长时间,
+      # 如果idleTimeout+1秒>maxLifetime 且 maxLifetime>0，则会被重置为0（代表永远不会退出）；
+      # 如果idleTimeout!=0且小于10秒，则会被重置为10秒
+      idle-timeout: 10
+      # 池中连接最长生命周期,如果不等于0且小于30秒则会被重置回30分钟
+      max-lifetime: 30000
+      # 如果您的驱动程序支持JDBC4，我们强烈建议您不要设置此属性
+      connection-test-query: select 1 from dual
+      # 池中维护的最小空闲连接数,minIdle<0或者minIdle>maxPoolSize,则被重置为maxPoolSize
+      minimum-idle: 10
+      # 该属性允许您指定一个 Codahale / Dropwizard MetricRegistry 的实例，供池使用以记录各种指标
+      metric-registry:
+      # 该属性允许您指定池使用的Codahale / Dropwizard HealthCheckRegistry的实例来报告当前健康信息
+      health-check-registry:
+      # 连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置
+      pool-name:
+      # 如果池无法成功初始化连接，则此属性控制池是否将 fail fast
+      initialization-fail-timeout:
+      # 是否在其自己的事务中隔离内部池查询，例如连接活动测试
+      isolate-internal-queries: false
+      # 控制池是否可以通过JMX暂停和恢复
+      allow-pool-suspension: false
+      # 从池中获取的连接是否默认处于只读模式
+      read-only: false
+      # 是否注册JMX管理Bean（MBeans）
+      register-mbeans: false
+      # 为支持 catalog 概念的数据库设置默认 catalog
+      catalog:
+      # 该属性设置一个SQL语句，在将每个新连接创建后，将其添加到池中之前执行该语句。
+      connection-init-sql:
+      # HikariCP将尝试通过仅基于jdbcUrl的DriverManager解析驱动程序，但对于一些较旧的驱动程序，还必须指定driverClassName
+      driver-class-name:
+      #  控制从池返回的连接的默认事务隔离级别
+      transaction-isolation:
+      # 连接将被测试活动的最大时间量,如果小于250毫秒，则会被重置回5秒
+      validation-timeout:
+      # 记录消息之前连接可能离开池的时间量，表示可能的连接泄漏
+      # 如果大于0且不是单元测试，则进一步判断：
+      # (leakDetectionThreshold < SECONDS.toMillis(2) or (leakDetectionThreshold > maxLifetime && maxLifetime > 0)，会被重置为0 .
+      # 即如果要生效则必须>0，而且不能小于2秒，而且当maxLifetime > 0时不能大于maxLifetime
+      leak-detection-threshold:
+      # 这个属性允许你直接设置数据源的实例被池包装，而不是让HikariCP通过反射来构造它
+      data-source-class-name:
+      # 该属性为支持模式概念的数据库设置默认模式
+      schema: MYSQL
+      # 此属性允许您设置将用于创建池使用的所有线程的java.util.concurrent.ThreadFactory的实例
+      thread-factory:
+        # 此属性允许您设置将用于各种内部计划任务的java.util.concurrent.ScheduledExecutorService实例
+      scheduled-executor:
+#    type: com.zaxxer.hikari.HikariDataSource
+  #JPA Configuration:
   jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
     database: MYSQL
     show-sql: true
     generate-ddl: true
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+#        strategy: org.hibernate.cfg.ImprovedNamingStrategy
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: true

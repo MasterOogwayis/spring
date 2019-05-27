@@ -1,7 +1,7 @@
-package com.zsw.orm.http.backup.okhttp;
+package com.zsw.http.backup.okhttp;
 
 import com.google.gson.*;
-import com.zsw.orm.http.backup.RequestHttp;
+import com.zsw.http.backup.RequestHttp;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
@@ -162,7 +162,9 @@ public class OkHttpRequest implements RequestHttp {
             this.builder.url(url);
         }
 
-        /**  */
+        /**
+         *
+         */
         public BodyPoster contentType(String contentType) {
             this.contentType = MediaType.parse(contentType);
             return this;
@@ -307,6 +309,13 @@ public class OkHttpRequest implements RequestHttp {
     @Override
     public String post(String uri, String body) {
         return new BodyPoster(uri).json(body).callForString();
+    }
+
+    @Override
+    public <T> T formSubmit(String uri, Map<String, ?> formData, Class<T> clazz) {
+        return new FormPoster(uri)
+                .map(formData)
+                .callForObject(clazz);
     }
 
 

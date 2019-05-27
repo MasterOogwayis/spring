@@ -1,8 +1,8 @@
-package com.zsw.orm.http.backup.httpclient;
+package com.zsw.http.backup.httpclient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.zsw.orm.http.backup.RequestHttp;
+import com.zsw.http.backup.RequestHttp;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -49,6 +49,11 @@ public class HttpClientRequest extends HttpClient implements RequestHttp {
 
     @Override
     public <T> T post(String uri, String data, Type clazz) {
+        return null;
+    }
+
+    @Override
+    public <T> T formSubmit(String uri, Map<String, ?> formData, Class<T> clazz) {
         return null;
     }
 }

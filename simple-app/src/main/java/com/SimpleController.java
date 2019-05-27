@@ -1,38 +1,27 @@
 package com;
 
+import com.zsw.orm.redis.dao.commons.BaseCacheDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2019/4/26 10:46
  **/
-@RequestMapping("product")
+@RequestMapping("cache")
 @RestController
 public class SimpleController {
 
     @Autowired
-    ProductService productService;
+    BaseCacheDao cache;
 
-    @GetMapping("get")
-    public Object get(@RequestParam("id") Long id) {
-        return this.productService.get(id);
+
+    @GetMapping("pttl")
+    public Object pttl(@RequestParam("key") String key) {
+        return this.cache.pttl(key, TimeUnit.SECONDS);
     }
 
-    @PostMapping("save")
-    public Object save(@RequestBody Product product) {
-        return this.productService.save(product);
-    }
-
-
-    @GetMapping("getCustom")
-    public Object getCustom(@RequestParam("id") Long id) {
-        return this.productService.getCustom(id);
-    }
-
-    @PostMapping("saveCustom")
-    public Object saveCustom(@RequestBody Product product) {
-        return this.productService.saveCustom(product);
-    }
 
 
 

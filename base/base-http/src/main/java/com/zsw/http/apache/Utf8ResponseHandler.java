@@ -1,4 +1,4 @@
-package com.zsw.orm.http.apache;
+package com.zsw.http.apache;
 
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;

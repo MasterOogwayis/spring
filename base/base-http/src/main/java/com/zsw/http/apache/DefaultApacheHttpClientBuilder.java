@@ -1,4 +1,4 @@
-package com.zsw.orm.http.apache;
+package com.zsw.http.apache;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
