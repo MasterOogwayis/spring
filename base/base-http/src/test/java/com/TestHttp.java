@@ -22,7 +22,7 @@ public class TestHttp {
         params.put("name", "张少伟");
         params.put("idNum", "510182198907297030");
 
-        String sign = "EpfLvpuS510182198907297030张少伟";
+        String sign = "appIdEpfLvpuSidNum510182198907297030name张少伟";
         sign = SHA1.hmacSHA1ToBase64String(sign, "lxert2Tf");
 
         params.put("sign", sign);
