@@ -25,7 +25,7 @@ public class StaticTests {
 
 
 
-        System.out.println(USER_INFO_CACHE_TIMER);
+        System.out.println(TimeUnit.MINUTES.toSeconds(30));
 
     }
 

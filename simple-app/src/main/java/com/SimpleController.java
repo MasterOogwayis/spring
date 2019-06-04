@@ -1,28 +1,27 @@
 package com;
 
-import com.zsw.orm.redis.dao.commons.BaseCacheDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
 
 /**
  * @author ZhangShaowei on 2019/4/26 10:46
  **/
-@RequestMapping("cache")
+@RequestMapping("test")
 @RestController
 public class SimpleController {
 
-    @Autowired
-    BaseCacheDao cache;
+    @Resource(name = "simpleService")
+    SimpleService simpleService;
 
 
-    @GetMapping("pttl")
-    public Object pttl(@RequestParam("key") String key) {
-        return this.cache.pttl(key, TimeUnit.SECONDS);
+    @GetMapping("Hello")
+    public Object Hello(@RequestParam("name") String name) {
+        return "Hello " + name;
     }
-
-
 
 
 }

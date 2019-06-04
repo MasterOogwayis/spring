@@ -1,4 +1,6 @@
 spring:
+  cache:
+    type: redis
   redis:
     host: ${REDIS_HOST}
     ## Redis服务器连接端口

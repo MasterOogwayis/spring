@@ -19,3 +19,5 @@ spring-cloud-starter-eureka-client → spring-cloud-starter-netflix-eureka-clien
 ## 3. admin-eureka
 2.0集成了UI，登录等
 采集路径变更，  /actuator/ + ***
+
+

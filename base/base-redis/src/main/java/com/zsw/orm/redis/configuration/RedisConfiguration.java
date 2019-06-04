@@ -3,6 +3,8 @@ package com.zsw.orm.redis.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
+import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -22,6 +24,7 @@ import org.springframework.validation.annotation.Validated;
 import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 启用SpringCache 使用RedisCacheManager做缓存控制器   RedisCacheConfiguration
@@ -96,14 +99,18 @@ public class RedisConfiguration {
      * 使用SpringCacheManager管理缓存
      *
      * @return RedisCacheManager 配置
+     * @see org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration
      */
     @Bean
-    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+    public CacheManager cacheManager(
+            CacheProperties cacheProperties,
+            RedisConnectionFactory connectionFactory,
+            CacheManagerCustomizers customizerInvoker) {
 
         RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
                 .defaultCacheConfig()
                 // 默认配置， 默认超时时间为30min
-                .entryTtl(Duration.ofSeconds(30 * 60L))
+                .entryTtl(Duration.ofSeconds(TimeUnit.MINUTES.toSeconds(30)))
                 .computePrefixWith(name -> name + ":")
                 .disableCachingNullValues();
         RedisCacheManager.RedisCacheManagerBuilder managerBuilder = RedisCacheManager
@@ -116,8 +123,23 @@ public class RedisConfiguration {
             });
             managerBuilder.withInitialCacheConfigurations(cacheConfigurations);
         }
-        return managerBuilder.build();
+        return customizerInvoker.customize(managerBuilder.build());
     }
+
+//    @Bean
+//    public CacheManagerCustomizer<RedisCacheManager> cacheManagerCustomizer() {
+//        return new CacheManagerCustomizer<RedisCacheManager>() {
+//            @Override
+//            public void customize(RedisCacheManager cacheManager) {
+//                // 设置默认 key 有效期
+//                cacheManager.setDefaultExpiration(defaultExpiration);
+//                // 设置指定队列 key 有效期
+//                if (!CollectionUtils.isEmpty(this.expires)) {
+//                    cacheManager.setExpires(this.expires);
+//                }
+//            }
+//        };
+//    }
 
 //    /**
 //     * @return

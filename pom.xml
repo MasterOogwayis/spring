@@ -36,6 +36,7 @@
         <module>jvm-demo</module>
         <module>design-pattern</module>
         <module>spring-mvc</module>
+        <module>nacos-app</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -43,10 +44,10 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.war.dependentWarExcludes>WEB-INF/web.xml</maven.war.dependentWarExcludes>
         <org.slf4j.version>1.7.25</org.slf4j.version>
         <protostuff.version>1.6.0</protostuff.version>
@@ -86,6 +87,37 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- alibaba -->
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>0.9.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>0.2.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+                <version>0.2.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-actuator</artifactId>
+                <version>0.2.1</version>
+            </dependency>
+
+            <!-- alibaba -->
+
 
             <dependency>
                 <groupId>at.twinformatics</groupId>
@@ -245,6 +277,11 @@
                 <artifactId>protostuff-runtime</artifactId>
                 <version>${protostuff.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>3.8.0</version>
+            </dependency>
             <!-- protobuff序列化开源工具-->
 
             <dependency>
@@ -307,7 +344,18 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.40</version>
+                <version>1.2.58</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>1.4.11.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>4.0.60</version>
             </dependency>
 
 
