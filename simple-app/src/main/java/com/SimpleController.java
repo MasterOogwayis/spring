@@ -1,11 +1,6 @@
 package com;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ZhangShaowei on 2019/4/26 10:46
@@ -14,13 +9,17 @@ import javax.annotation.Resource;
 @RestController
 public class SimpleController {
 
-    @Resource(name = "simpleService")
-    SimpleService simpleService;
-
 
     @GetMapping("Hello")
     public Object Hello(@RequestParam("name") String name) {
         return "Hello " + name;
+    }
+
+
+    @PostMapping("post")
+    public Object post(@RequestBody String requestBody) {
+        System.out.println(requestBody);
+        return requestBody;
     }
 
 
