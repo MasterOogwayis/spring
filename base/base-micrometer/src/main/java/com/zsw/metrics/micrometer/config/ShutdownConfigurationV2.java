@@ -6,6 +6,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,13 @@ public class ShutdownConfigurationV2 {
 //        };
         return factory -> factory.addConnectorCustomizers(gracefulShutdown());
     }
+
+//    @Bean
+//    public ServletWebServerFactory servletContainer() {
+//        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+//        tomcat.addConnectorCustomizers(gracefulShutdown());
+//        return tomcat;
+//    }
 
     @Bean
     public GracefulShutdown gracefulShutdown() {

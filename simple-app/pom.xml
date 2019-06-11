@@ -24,6 +24,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-properties-migrator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-micrometer</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
