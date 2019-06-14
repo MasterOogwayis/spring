@@ -14,7 +14,10 @@ import java.util.concurrent.TimeUnit;
 public class SimpleController {
 
 
-
+    @GetMapping("{path}")
+    public Object get(@PathVariable("path") String path) {
+        return path;
+    }
 
     @PostMapping("shutdown")
     public Object post(@RequestParam("timerout") Integer timerout) throws InterruptedException {

@@ -16,25 +16,6 @@ public class TestHttp {
 
         OkHttpRequest client = new OkHttpRequest();
 
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("appId", "EpfLvpuS");
-//        params.put("appKey", "lxert2Tf");
-        params.put("name", "张少伟");
-        params.put("idNum", "510182198907297030");
-
-        String sign = "appIdEpfLvpuSidNum510182198907297030name张少伟";
-        sign = SHA1.hmacSHA1ToBase64String(sign, "lxert2Tf");
-
-        params.put("sign", sign);
-        IdCardAuthResponse response = client.formSubmit(
-//                "https://api.253.com/open/idcard/id-card-auth",
-                "https://api.253.com/open/idcard/id-card-auth/vs",
-                params,
-                IdCardAuthResponse.class
-        );
-        System.out.println(response);
-
-        System.err.println(response.isAuthSuccess());
 
     }
 

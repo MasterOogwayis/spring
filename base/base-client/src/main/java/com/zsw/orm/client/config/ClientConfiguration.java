@@ -1,18 +1,11 @@
 package com.zsw.orm.client.config;
 
 import lombok.Setter;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2017/11/6 16:07
@@ -24,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableHystrix
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com")
+//@EnableFeignClients(basePackages = "com")
 public class ClientConfiguration {
 
     /**

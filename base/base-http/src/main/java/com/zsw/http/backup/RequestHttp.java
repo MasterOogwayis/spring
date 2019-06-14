@@ -22,5 +22,7 @@ public interface RequestHttp {
 
     <T> T post(String uri, String data, Type clazz);
 
+    <T> T formPost(String uri, Object bean, Type clazz);
+
     <T> T formSubmit(String uri, Map<String, ?> formData, Class<T> clazz);
 }

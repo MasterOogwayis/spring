@@ -1,12 +1,18 @@
 package com.zsw.http.backup.okhttp;
 
 import com.google.gson.*;
+import com.zsw.http.OkHttpUtils;
 import com.zsw.http.backup.RequestHttp;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -68,6 +74,25 @@ public class OkHttpRequest implements RequestHttp {
          * @return
          */
         public abstract R param(String name, Object value);
+
+        public R bean(Object bean) {
+            try {
+                BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
+                PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
+                for (PropertyDescriptor descriptor : descriptors) {
+                    // 需要可用的属性
+                    Method readMethod = descriptor.getReadMethod();
+                    if (readMethod == null || descriptor.getWriteMethod() == null) {
+                        continue;
+                    }
+                    Object value = readMethod.invoke(bean);
+                    param(descriptor.getName(), value);
+                }
+            } catch (IntrospectionException | ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
+            return (R) this;
+        }
 
         /**
          * 将 map 添加到参数
@@ -306,9 +331,15 @@ public class OkHttpRequest implements RequestHttp {
         return new BodyPoster(uri).json(data).callForObject(clazz);
     }
 
+
     @Override
     public String post(String uri, String body) {
         return new BodyPoster(uri).json(body).callForString();
+    }
+
+    @Override
+    public <T> T formPost(String uri, Object bean, Type clazz) {
+        return new BodyPoster(uri).bean(bean).callForObject(clazz);
     }
 
     @Override

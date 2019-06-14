@@ -1,5 +1,5 @@
 server:
-  port: 1111 #${SERVER_PORT}
+  port: 1000 #${SERVER_PORT}
 
 spring:
   application:

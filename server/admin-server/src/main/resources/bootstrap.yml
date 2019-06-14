@@ -26,8 +26,8 @@ eureka:
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:1111}/eureka/
-    eureka-server-port: 1111
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:1000}/eureka/
+    eureka-server-port: 1000
 # end::configuration-eureka[]
 
 management:
