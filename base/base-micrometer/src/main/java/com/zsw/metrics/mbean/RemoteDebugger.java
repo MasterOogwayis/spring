@@ -1,4 +1,4 @@
-package com;
+package com.zsw.metrics.mbean;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -55,7 +52,7 @@ public class RemoteDebugger implements ApplicationContextAware {
      * @return
      */
     @ManagedOperation(description = "方法调用")
-    public RemoteResponse<?> methodExecute(@RequestBody String expression) {
+    public Object methodExecute(@RequestBody String expression) {
         Checks.hasText(expression, "表达式不能为空！");
         Matcher matcher = BEAN_METHOD.matcher(expression);
         Checks.isTrue(matcher.find(), "表达式格式不正确！");
@@ -76,7 +73,7 @@ public class RemoteDebugger implements ApplicationContextAware {
 
         // 转换方法参数
         JsonArray params = getJsonArray("[" + matcher.group(3) + "]");
-        return RemoteResponse.data(executeFoundMethod(clazz, bean, mayMethods, params));
+        return executeFoundMethod(clazz, bean, mayMethods, params);
     }
 
     private Object executeFoundMethod(Class clazz, Object bean, List<Method> mayMethods, JsonArray params) {
@@ -163,9 +160,9 @@ public class RemoteDebugger implements ApplicationContextAware {
 
 
     @ExceptionHandler(RemoteCallException.class)
-    public RemoteResponse<?> exceptionHandler(RemoteCallException e) {
+    public Object exceptionHandler(RemoteCallException e) {
         e.printStackTrace();
-        return RemoteResponse.builder().data(e.getMessage()).build();
+        return Collections.singletonMap("error", e.getMessage());
     }
 
 }

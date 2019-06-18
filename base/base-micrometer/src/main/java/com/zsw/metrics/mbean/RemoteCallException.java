@@ -1,4 +1,4 @@
-package com;
+package com.zsw.metrics.mbean;
 
 /**
  * @author ZhangShaowei on 2019/6/13 17:07

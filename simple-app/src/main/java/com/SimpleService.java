@@ -20,8 +20,5 @@ public class SimpleService {
         return word;
     }
 
-    public String request(RemoteRequest remoteRequest) {
-        return remoteRequest.toString();
-    }
 
 }
