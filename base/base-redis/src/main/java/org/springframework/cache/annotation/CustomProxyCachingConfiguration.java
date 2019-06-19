@@ -2,10 +2,7 @@ package org.springframework.cache.annotation;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.config.CacheManagementConfigUtils;
-import org.springframework.cache.interceptor.BeanFactoryCacheOperationSourceAdvisor;
-import org.springframework.cache.interceptor.CacheInterceptor;
-import org.springframework.cache.interceptor.CacheOperationSource;
-import org.springframework.cache.interceptor.CustomCacheAspectInterceptor;
+import org.springframework.cache.interceptor.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
@@ -16,16 +13,8 @@ import org.springframework.context.annotation.Role;
  **/
 @Configuration
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-public class CustomProxyCachingConfiguration extends ProxyCachingConfiguration {
+public class CustomProxyCachingConfiguration extends AbstractCachingConfiguration {
 
-    @Bean
-    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    @Override
-    public CacheOperationSource cacheOperationSource() {
-        return new AnnotationCacheOperationSource();
-    }
-
-    @Override
     @Bean(name = CacheManagementConfigUtils.CACHE_ADVISOR_BEAN_NAME)
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public BeanFactoryCacheOperationSourceAdvisor cacheAdvisor() {
@@ -38,11 +27,16 @@ public class CustomProxyCachingConfiguration extends ProxyCachingConfiguration {
         return advisor;
     }
 
-    @Override
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheInterceptor cacheInterceptor() {
-        CacheInterceptor interceptor = new CustomCacheAspectInterceptor();
+    public CacheOperationSource cacheOperationSource() {
+        return new AnnotationCacheOperationSource(new CustomSpringCacheAnnotationParser());
+    }
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CustomCacheInterceptor cacheInterceptor() {
+        CustomCacheInterceptor interceptor = new CustomCacheInterceptor();
         interceptor.configure(this.errorHandler, this.keyGenerator, this.cacheResolver, this.cacheManager);
         interceptor.setCacheOperationSource(cacheOperationSource());
         return interceptor;
