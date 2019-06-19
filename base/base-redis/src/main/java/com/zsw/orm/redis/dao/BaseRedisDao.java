@@ -4,6 +4,7 @@ import com.zsw.orm.redis.dao.commons.BaseCacheDao;
 import org.springframework.data.redis.connection.RedisConnectionCommands;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -125,6 +126,11 @@ public class BaseRedisDao extends RedisDao<String, Object> implements BaseCacheD
     @Override
     public String ping() {
         return this.redisTemplate.execute(RedisConnectionCommands::ping);
+    }
+
+    @Override
+    public List<Object> multiGet(Set<String> keys) {
+        return super.valueOps.multiGet(keys);
     }
 
 }

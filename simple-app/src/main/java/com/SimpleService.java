@@ -1,8 +1,7 @@
 package com;
 
+import org.springframework.cache.annotation.CustomCacheable;
 import org.springframework.stereotype.Service;
-
-import java.time.YearMonth;
 
 /**
  * @author ZhangShaowei on 2019/6/13 17:15
@@ -10,14 +9,9 @@ import java.time.YearMonth;
 @Service
 public class SimpleService {
 
-    public String getDayOfMonth(int year, int month) {
-        return YearMonth.of(year, month).atEndOfMonth().getDayOfMonth() + "";
-    }
-
-    public String sayHello(String name) {
-        String word = "Hello " + name;
-        System.out.println(word);
-        return word;
+    @CustomCacheable(value = "names", key = "'test:' + #name")
+    public String get(String name) {
+        return name;
     }
 
 

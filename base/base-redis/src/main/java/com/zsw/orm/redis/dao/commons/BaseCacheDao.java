@@ -1,6 +1,8 @@
 package com.zsw.orm.redis.dao.commons;
 
 
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -23,5 +25,17 @@ public interface BaseCacheDao extends ValueCacheDao<String, Object> {
      * @since : v1.0
      */
     Boolean setNXExpire(String key, Object value, Long timeout, TimeUnit unit);
+
+
+    /**
+     * 批量获取
+     *
+     * @param keys
+     * @return
+     */
+    List<Object> multiGet(Set<String> keys);
+
+
+
 
 }

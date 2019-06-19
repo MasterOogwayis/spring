@@ -30,7 +30,7 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-client</artifactId>
+            <artifactId>base-redis</artifactId>
         </dependency>
     </dependencies>
 

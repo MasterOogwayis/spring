@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author ZhangShaowei on 2019/6/14 17:34
  **/
-@Condition
 @SpringBootApplication
 public class TestApp {
 

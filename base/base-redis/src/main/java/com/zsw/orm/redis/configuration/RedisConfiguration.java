@@ -3,9 +3,10 @@ package com.zsw.orm.redis.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
-import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -18,12 +19,14 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 
 import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,6 +35,7 @@ import java.util.concurrent.TimeUnit;
  * @author ZhangShaowei on 2017/5/18 17:38
  */
 @Configuration
+@EnableConfigurationProperties
 @ConfigurationProperties(prefix = "zsw.base.redis.configuration")
 @EnableCaching
 @Validated
@@ -103,9 +107,8 @@ public class RedisConfiguration {
      */
     @Bean
     public CacheManager cacheManager(
-            CacheProperties cacheProperties,
             RedisConnectionFactory connectionFactory,
-            CacheManagerCustomizers customizerInvoker) {
+            @Nullable CacheManagerCustomizers customizerInvoker) {
 
         RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
                 .defaultCacheConfig()
@@ -123,8 +126,23 @@ public class RedisConfiguration {
             });
             managerBuilder.withInitialCacheConfigurations(cacheConfigurations);
         }
+        if (Objects.isNull(customizerInvoker)) {
+            return managerBuilder.build();
+        }
         return customizerInvoker.customize(managerBuilder.build());
     }
+
+//    @Bean
+//    public CacheManagerCustomizer<RedisCacheManager> cacheManagerCustomizer() {
+//        return cacheManager -> {
+//            // 设置默认 key 有效期
+//            cacheManager.setDefaultExpiration(defaultExpiration);
+//            // 设置指定队列 key 有效期
+//            if (!CollectionUtils.isEmpty(this.expires)) {
+//                cacheManager.setExpires(this.expires);
+//            }
+//        };
+//    }
 
 //    @Bean
 //    public CacheManagerCustomizer<RedisCacheManager> cacheManagerCustomizer() {
