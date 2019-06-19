@@ -89,7 +89,7 @@ spring:
       thread-factory:
         # 此属性允许您设置将用于各种内部计划任务的java.util.concurrent.ScheduledExecutorService实例
       scheduled-executor:
-#    type: com.zaxxer.hikari.HikariDataSource
+    type: com.zaxxer.hikari.HikariDataSource
   #JPA Configuration:
   jpa:
     properties:
@@ -98,9 +98,10 @@ spring:
     database: MYSQL
     show-sql: true
     generate-ddl: true
-    hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      # 下面这种事 默认字段 下横线组合，默认为驼峰写法
+#    hibernate:
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 #        strategy: org.hibernate.cfg.ImprovedNamingStrategy
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQLDialect
