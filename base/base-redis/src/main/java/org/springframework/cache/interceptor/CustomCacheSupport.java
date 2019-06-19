@@ -402,7 +402,7 @@ public abstract class CustomCacheSupport extends AbstractCacheInvoker
         // Collect puts from any @Cacheable miss, if no cached item is found
         List<CachePutRequest> cachePutRequests = new LinkedList<>();
         if (cacheHit == null) {
-            collectPutRequests(contexts.get(CacheableOperation.class),
+            collectPutRequests(contexts.get(CustomCacheableOperation.class),
                     CacheOperationExpressionEvaluator.NO_RESULT, cachePutRequests);
         }
 
@@ -824,7 +824,7 @@ public abstract class CustomCacheSupport extends AbstractCacheInvoker
                         } else {
                             RedisCache redisCache = (RedisCache) cache;
                             try {
-                                redisCache.put(key, result);
+//                                redisCache.put(key, result);
                                 Object cacheValue = result;
                                 if (Objects.isNull(cacheValue)) {
                                     cacheValue = redisCache.isAllowNullValues() ? NullValue.INSTANCE : null;

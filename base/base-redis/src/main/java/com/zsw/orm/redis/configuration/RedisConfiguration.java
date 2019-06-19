@@ -9,11 +9,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CustomCachingConfigurationSelector;
+import org.springframework.cache.annotation.CustomProxyCachingConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.annotation.ProxyCachingConfiguration;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -34,11 +34,16 @@ import java.util.concurrent.TimeUnit;
 /**
  * 启用SpringCache 使用RedisCacheManager做缓存控制器   RedisCacheConfiguration
  *
+ * 自定义控制时间的注解需要 开启同名bean 覆盖 spring.main.allow-bean-definition-overriding: true
+ * 不然你得改全家桶代码
+ *
  * @author ZhangShaowei on 2017/5/18 17:38
  */
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "zsw.base.redis.configuration")
+@ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = ProxyCachingConfiguration.class))
+@Import(CustomProxyCachingConfiguration.class)
 @EnableCaching
 @Validated
 public class RedisConfiguration {

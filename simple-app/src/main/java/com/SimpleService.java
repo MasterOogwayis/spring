@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class SimpleService {
 
-    @CustomCacheable(value = "names", key = "'test:' + #name", expire = 30, timeUnit = TimeUnit.SECONDS)
+    @CustomCacheable(value = "names", key = "'test:' + #name", expire = 15, timeUnit = TimeUnit.MINUTES)
     public String get(String name) {
         return name;
     }
