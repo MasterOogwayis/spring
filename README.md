@@ -1,4 +1,4 @@
-# spring
+# spring boot
 demo for Spring
 
 ## 1.x 迁移 2.x
