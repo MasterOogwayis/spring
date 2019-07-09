@@ -1,12 +1,15 @@
 package com.demo;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.springframework.web.servlet.HandlerMapping;
 
-import java.time.LocalDateTime;
-import java.util.Vector;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author ZhangShaowei on 2019/2/27 14:15
@@ -15,52 +18,41 @@ import java.util.Vector;
 public class StaticTests {
 
 
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+
+    private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+
+
     @SneakyThrows
     public static void main(String[] args) {
+        String crt = "/data/XSHb2c.e.0200.crt";
 
-        System.out.println(LocalDateTime.now().withSecond(0));
+        byte[] bytes = readCert(crt);
+        byte[] bytes1 = readCert1(crt);
+        System.out.println(bytes);
+        System.out.println(bytes1);
+
     }
 
-    public static int[] twoSum(int[] nums, int target) {
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = 0; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    return new int[]{nums[i], nums[j]};
-                }
+
+    public static byte[] readCert(String filePath) throws Exception {
+        return Files.readAllBytes(Paths.get(filePath));
+    }
+
+    public static byte[] readCert1(String filePath) throws Exception {
+        if (filePath != null && !"".equals(filePath)) {
+            try {
+                FileInputStream fs = new FileInputStream(filePath);
+                byte[] bsc = new byte[fs.available()];
+                fs.read(bsc);
+                fs.close();
+                return bsc;
+            } catch (IOException var3) {
+                throw var3;
             }
-        }
-        throw new IllegalArgumentException("Not Found!");
-    }
-
-
-    @Test
-    public void test3() {
-        int i = 0;
-        long j = 1L;
-        char c = 'a';
-        double d = 2D;
-        System.out.println(i + j + c + d);
-    }
-
-
-    static class A {
-        public A() {
-            System.out.println("A init ...");
-        }
-
-    }
-
-    static class B extends A {
-        public B() {
-            System.out.println("B init ...");
+        } else {
+            return null;
         }
     }
-
-    static class C extends B {
-        public C() {
-            System.out.println("C init ...");
-        }
-    }
-
 
 }

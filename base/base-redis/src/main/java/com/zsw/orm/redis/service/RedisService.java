@@ -19,7 +19,7 @@ public class RedisService {
     /**
      *
      */
-    private static final Long ACCESS_TIME_UNIT = 60L * 1000L;
+    private static final Long ACCESS_TIME_UNIT = 60L;
 
     /**
      * orm cache
@@ -43,7 +43,7 @@ public class RedisService {
      * @since : v1.0
      */
     public Boolean accessFrequency(final String... args) {
-        Boolean access = true;
+        boolean access = true;
         String key = RedisKeyUtils.getKey(args);
         //现在访问的时间戳
         Long now = System.currentTimeMillis();
@@ -59,7 +59,7 @@ public class RedisService {
             this.cache.rightPush(key, now);
         }
         //每次访问都刷新该队列的生存时间
-        this.cache.expire(key, ACCESS_TIME_UNIT, TimeUnit.MILLISECONDS);
+        this.cache.expire(key, ACCESS_TIME_UNIT, TimeUnit.SECONDS);
         return access;
     }
 

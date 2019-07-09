@@ -13,12 +13,15 @@
     <!-- 按照每天生成日志文件 所有 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- ch.qos.logback.core.rolling.FixedWindowRollingPolicy 回滚日志 每天都会被清理 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!--<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <FileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!--<FileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM}/%d{dd}/${appName}.all.log</FileNamePattern>-->
             <!--日志文件保留天数-->
-             <MaxHistory>30</MaxHistory>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!-- 使用原始格式化 -->
@@ -26,9 +29,9 @@
             <pattern>${FILE_LOG_PATTERN}</pattern>
         </encoder>
         <!--日志文件最大的大小-->
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <MaxFileSize>500MB</MaxFileSize>
-        </triggeringPolicy>
+        <!--<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>10MB</MaxFileSize>
+        </triggeringPolicy>-->
     </appender>
 
     <!-- 出错日志 appender  -->
@@ -133,7 +136,7 @@
     </logger>-->
 
     <!-- additivity 不需要重复打印 -->
-    <logger name="com.api" additivity="false" level="DEBUG">
+    <logger name="com" additivity="false" level="DEBUG">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <!--<appender-ref ref="ERROR"/>-->

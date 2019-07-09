@@ -1,7 +1,7 @@
 package com.zsw.http;
 
 /**
- * Created by ecoolper on 2017/4/22.
+ * Created by zsw on 2017/4/22.
  */
 public interface RequestHttp<H, P> {
 

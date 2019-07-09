@@ -1,41 +1,8 @@
 server:
-  port: 80
+  port: 8085
 
 spring:
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: root
-    hikari:
-      # 自动提交从池中返回的连接
-      auto-commit: true
-      # 等待来自池的连接的最大毫秒数,如果小于250毫秒，则被重置回30秒
-      connection-timeout: 30000
-      # 连接允许在池中闲置的最长时间,
-      # 如果idleTimeout+1秒>maxLifetime 且 maxLifetime>0，则会被重置为0（代表永远不会退出）；
-      # 如果idleTimeout!=0且小于10秒，则会被重置为10秒
-      idle-timeout: 10
-      # 池中连接最长生命周期,如果不等于0且小于30秒则会被重置回30分钟
-      max-lifetime: 30000
-      # 如果您的驱动程序支持JDBC4，我们强烈建议您不要设置此属性
-      connection-test-query: select 1 from dual
-      # 池中维护的最小空闲连接数,minIdle<0或者minIdle>maxPoolSize,则被重置为maxPoolSize
-      minimum-idle: 10
-      # 是否注册JMX管理Bean（MBeans）
-      register-mbeans: false
-      # 该属性为支持模式概念的数据库设置默认模式
-      schema: MYSQL
-    #JPA Configuration:
-  jpa:
-    properties:
-      hibernate:
-        enable_lazy_load_no_trans: true
-    database: MYSQL
-    show-sql: true
-    generate-ddl: true
-    database-platform: org.hibernate.dialect.MySQLDialect
-    open-in-view: true
-  output:
-    ansi:
-      enabled: detect
+  application:
+    name: simple-app
+logging:
+  config: classpath:logback-spring.xml

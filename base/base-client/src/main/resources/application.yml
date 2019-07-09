@@ -38,7 +38,6 @@ feign:
 #  MaxAutoRetriesNextServer: 2 # 切换次数
 #  MaxAutoRetries: 1 # 重试次数
 
-
 #hystrix:
 #  command:
 #    HystrixCommandKey:
@@ -158,3 +157,20 @@ feign:
 #    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
 #    # 不能和 prefer-ip-address 同时打开 ,这是注册中心客户端访问地址，若在docker里面需要给外部访问则需要设置 ip-address
 #    ip-address: ${IP_ADDRESS}
+hystrix:
+  threadpool:
+    default:
+      # 此属性设置核心线程池大小。 这是可以同时执行的Hystrix命令的最大数量。
+      coreSize: 10
+      # 此属性设置BlockingQueue实现的最大队列大小。
+      maxQueueSize: -1
+      # 此属性设置队列大小拒绝阈值
+      queueSizeRejectionThreshold: 5
+      # 保持活动时间，以分钟为单位
+      keepAliveTimeMinutes: 1
+      metrics:
+        rollingStats:
+          # 此属性设置统计滚动窗口的持续时间（以毫秒为单位）。 这是为线程池保留多长时间
+          timeInMilliseconds: 10000
+          # 滚动统计窗口划分的桶数
+          numBuckets: 10

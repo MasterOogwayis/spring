@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
+ * AuthorizationServerSecurityConfiguration
+ *
  * @author ZhangShaowei on 2017/12/26 9:35
  */
 
