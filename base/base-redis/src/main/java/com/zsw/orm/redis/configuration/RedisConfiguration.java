@@ -4,7 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
@@ -36,6 +41,9 @@ import java.util.concurrent.TimeUnit;
  *
  * @author ZhangShaowei on 2017/5/18 17:38
  */
+@ConditionalOnClass(RedisConnectionFactory.class)
+@AutoConfigureAfter(RedisAutoConfiguration.class)
+@ConditionalOnBean(RedisConnectionFactory.class)
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties(prefix = "zsw.base.redis.configuration")
@@ -102,7 +110,7 @@ public class RedisConfiguration {
     }
 
     /**
-     * 使用SpringCacheManager管理缓存
+     * 使用SpringCacheManager管理缓存   FIXME
      *
      * @return RedisCacheManager 配置
      * @see org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration
@@ -133,6 +141,7 @@ public class RedisConfiguration {
         }
         return customizerInvoker.customize(managerBuilder.build());
     }
+
 
 //    @Bean
 //    public CacheManagerCustomizer<RedisCacheManager> cacheManagerCustomizer() {
