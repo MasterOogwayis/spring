@@ -29,103 +29,108 @@
             <!-- 使用原始格式化 -->
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
             <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
     </appender>
 
     <!-- 出错日志 appender  -->
-    <!--<appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
-            &lt;!&ndash; log.dir 在maven profile里配置 &ndash;&gt;
-            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.error.log</fileNamePattern>
-            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
-            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.error.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
-    &lt;!&ndash; 警告日志 appender  &ndash;&gt;
+    <!-- 警告日志 appender  -->
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.warn.log</fileNamePattern>
-            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
-            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.warn.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
             <level>WARN</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
-    &lt;!&ndash; info日志 appender  &ndash;&gt;
+    <!-- info日志 appender  -->
     <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
-            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.debug.log</fileNamePattern>
-            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
-            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.debug.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
-        &lt;!&ndash;日志文件最大的大小&ndash;&gt;
+        <!--日志文件最大的大小-->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
             <level>DEBUG</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
 
-    &lt;!&ndash; info日志 appender  &ndash;&gt;
+    <!-- info日志 appender  -->
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
-            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.info.log</fileNamePattern>
-            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
-            &lt;!&ndash;<maxHistory>60</maxHistory>&ndash;&gt;
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.info.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
         </encoder>
-        &lt;!&ndash;日志文件最大的大小&ndash;&gt;
+        <!--日志文件最大的大小-->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>500MB</MaxFileSize>
         </triggeringPolicy>
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">&lt;!&ndash; 只打印错误日志 &ndash;&gt;
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-    </appender>-->
+    </appender>
 
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
-        <!--<appender-ref ref="ERROR"/>-->
-        <!--<appender-ref ref="WARN"/>-->
-        <!--<appender-ref ref="DEBUG"/>-->
-        <!--<appender-ref ref="INFO"/>-->
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="WARN"/>
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="INFO"/>
     </root>
 
     <!-- 熔断器日志 -->
@@ -134,13 +139,13 @@
     </logger>-->
 
     <!-- additivity 不需要重复打印 -->
-    <logger name="com" additivity="false" level="DEBUG">
+    <logger name="com" additivity="false" level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
-        <!--<appender-ref ref="ERROR"/>-->
-        <!--<appender-ref ref="WARN"/>-->
-        <!--<appender-ref ref="DEBUG"/>-->
-        <!--<appender-ref ref="INFO"/>-->
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="WARN"/>
+        <appender-ref ref="DEBUG"/>
+        <appender-ref ref="INFO"/>
     </logger>
     <!-- jmx 动态日志 -->
     <jmxConfigurator/>

@@ -6,7 +6,7 @@ import com.zsw.conf.base.saleorder.SaleOrderBaseClient;
 import com.zsw.conf.base.saleorder.SaleOrderDto;
 import com.zsw.persistence.user.bean.SaleOrder;
 import com.zsw.service.saleorder.SaleOrderService;
-import org.springframework.beans.BeanUtils;
+import com.zsw.orm.utils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
