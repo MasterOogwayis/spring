@@ -53,6 +53,11 @@ public class HttpClientRequest extends HttpClient implements RequestHttp {
     }
 
     @Override
+    public <T> T formPost(String uri, Object bean, Type clazz) {
+        return null;
+    }
+
+    @Override
     public <T> T formSubmit(String uri, Map<String, ?> formData, Class<T> clazz) {
         return null;
     }

@@ -3,8 +3,8 @@ package com.zsw.encoder;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
-import org.springframework.cloud.netflix.feign.support.SpringEncoder;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Type;

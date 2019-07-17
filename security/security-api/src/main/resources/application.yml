@@ -10,5 +10,8 @@
 #    prefix:
 #security:
 #  ignored: /assets/**,/commons/**
+spring:
+  mvc:
+    static-path-pattern: /static/**
 
 

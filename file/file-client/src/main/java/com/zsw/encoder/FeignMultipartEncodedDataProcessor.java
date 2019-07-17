@@ -5,7 +5,7 @@ import feign.Util;
 import feign.codec.EncodeException;
 import feign.form.spring.SpringMultipartEncodedDataProcessor;
 import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;

@@ -2,6 +2,7 @@ package com.zsw.orm.utils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 /**
@@ -329,6 +330,16 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
                 time / 1000L,
                 0,
                 ZoneOffset.ofHours(8)));
+    }
+
+    public static Date format(String dateStr, String pattern) {
+        LocalDateTime parse = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(pattern));
+        return Date.from(parse.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static void main(String[] args) {
+        Date format = format("11:11:11", "HH:mm:ss");
+        System.out.println(format);
     }
 
 

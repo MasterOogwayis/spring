@@ -9,7 +9,7 @@ import java.util.List;
  * @author zsw on 2017/6/13 14:44
  */
 //@Component
-public class FileUploadClinetHystrix implements com.zsw.conf.FileUploadClinet {
+public class FileUploadClinetHystrix implements com.zsw.client.FileUploadClinet {
     @Override
     public List<String> bacthUpload(MultipartFile[] files, String path) {
         return Arrays.asList("失败");

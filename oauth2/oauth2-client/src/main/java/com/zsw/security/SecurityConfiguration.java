@@ -13,25 +13,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author ZhangShaowei on 2018/5/17 15:29
  **/
 @Configuration
-@EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+public class SecurityConfiguration { //} extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password("admin").authorities("ADMIN");
-//        auth.eraseCredentials(false);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .anyRequest().authenticated()
-                .and().formLogin()
-                .and().httpBasic()
-                .and()
-                .csrf().disable();
-    }
+//    @Override
+//    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication().withUser("admin").password("admin").authorities("ADMIN");
+////        auth.eraseCredentials(false);
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers(HttpMethod.OPTIONS).permitAll()
+//                .anyRequest().authenticated()
+//                .and().formLogin()
+//                .and().httpBasic()
+//                .and()
+//                .csrf().disable();
+//    }
 
 }

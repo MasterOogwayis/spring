@@ -600,10 +600,27 @@
         </dependencies>
     </dependencyManagement>
 
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.login>4474c640c876b611cab34c52bfdabca9c35aee83</sonar.login>
+                <sonar.host.url>http://192.168.1.13:9500/sonar</sonar.host.url>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>

@@ -1,0 +1,1 @@
+mvn clean -DskipTests org.jacoco:jacoco-maven-plugin:prepare-agent package -U -Dmaven.test.failure.ignore=true sonar:sonar

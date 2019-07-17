@@ -1,8 +1,8 @@
 package com.zsw.conf.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SpringBootWebSecurityConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.util.CollectionUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author ZhangShaowei on 2017/9/21 14:43
@@ -24,14 +26,22 @@ import org.springframework.util.CollectionUtils;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private static List<String> DEFAULT_IGNORED = Arrays.asList("/css/**", "/js/**",
+            "/images/**", "/webjars/**", "/**/favicon.ico");
+
     /**
-     *  注意若配置了 security.ignored 系统自带静态资源忽略将失效
-     * @see SpringBootWebSecurityConfiguration#DEFAULT_IGNORED
-     *  spring boot 1.5.x 以上 开启了 @EnableWebSecurity 实际上 security.ignored 是被忽略了的
-     *  所以在此处手动加入
+     * 1.x 已经过滤了静态资源
+     * 2.x 则没有
+     * <p>
+     * 注意若配置了 security.ignored 系统自带静态资源忽略将失效
+     *
+     * @see SpringBootWebSecurityConfiguration
+     * spring boot 1.5.x 以上 开启了 @EnableWebSecurity 实际上 security.ignored 是被忽略了的
+     * 所以在此处手动加入
      */
     @Autowired
-    private SecurityProperties security;
+//    private SecurityProperties security;
+    private WebMvcProperties properties;
 
     /**
      *
@@ -53,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * 密码加密
      */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -106,9 +116,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/static/**", "/verify/code");
         // spring boot 1.5.x 以上 开启了 @EnableWebSecurity 实际上 security.ignored 是被忽略了的
         // 所以在此处手动加入
-        if (!CollectionUtils.isEmpty(this.security.getIgnored())) {
-            web.ignoring().antMatchers(this.security.getIgnored().toArray(new String[]{}));
-        }
+        web.ignoring().antMatchers(DEFAULT_IGNORED.toArray(new String[]{}));
+
     }
 
 }
