@@ -36,7 +36,7 @@ public class MessageAddressService extends JacksonSerializer {
         address.setAddress(key);
         address.setMessage(super.toJson(message));
         address.setCreateTimestamp(new Date());
-        this.messageAddressRepository.saveOrUpdate(address);
+        this.messageAddressRepository.save(address);
     }
 
     /**
@@ -70,7 +70,7 @@ public class MessageAddressService extends JacksonSerializer {
      * @return
      */
     public void saveOrUpdate(final MessageAddress messageAddress) {
-        this.messageAddressRepository.saveOrUpdate(messageAddress);
+        this.messageAddressRepository.save(messageAddress);
     }
 
 }

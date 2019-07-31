@@ -2,6 +2,8 @@ package com.web;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -10,7 +12,8 @@ import java.io.Serializable;
  *
  * @author ZhangShaowei on 2019/1/30 15:50
  **/
-@Data
+@Getter
+@Setter
 @Builder
 public class IdParam<T extends Serializable> extends BaseParam {
 

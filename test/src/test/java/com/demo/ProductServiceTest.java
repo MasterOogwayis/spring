@@ -25,41 +25,6 @@ public class ProductServiceTest {
         return new Object[2][0]; // repeat count which you want
     }
 
-
-/**
-//     *
-//     */
-//    @Autowired
-//    private WebApplicationContext context;
-//
-//    /**
-//     *
-//     */
-//    private MockMvc mvc;
-//
-//    @Before
-//    public void before() throws Exception {
-//        mvc = MockMvcBuilders.webAppContextSetup(context).build();
-//    }
-
-//    @Test
-////    @WithMockUser
-////    @WithUserDetails("superadmin")
-//    public void testOriginList() throws Exception {
-////        MvcResult result =
-//        mvc.perform(MockMvcRequestBuilders
-//                .post("/productLine/originList/{version}", "version")
-//                .contentType(MediaType.APPLICATION_JSON)
-////                .param("name", "value") form params
-////                .content("data")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-//                .andExpect(jsonPath("$.code").value(200));
-////                .andReturn();
-////        logger.info(result.getResponse().getContentAsString());
-//    }
-
     @Before
     public void before() throws Exception { 
     } 

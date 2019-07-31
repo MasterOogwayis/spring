@@ -5,6 +5,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityManager;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 /**
  * BaseRepository
@@ -33,12 +35,23 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
      */
     EntityManager getNewEntityManager();
 
-    /**
-     * saveOrUpdate
-     *
-     * @param t T
-     * @return t
-     */
-    T saveOrUpdate(T t);
+
+    List<T> find(String hqlStr);
+
+    List<T> find(String hqlStr, int maxResults);
+
+    List<T> find(String hqlStr, int firstResult, int maxResults);
+
+    List<T> findByParam(String hqlStr, Object... values);
+
+    List<T> findByParam(String hqlStr, int maxResults, Object... values);
+
+    List<T> findByParam(String hqlStr, int firstResult, int maxResults, Object... values);
+
+    List<T> findByNamedParam(String hqlStr, Map<String, Object> namedParams);
+
+    List<T> findByNamedParam(String hqlStr, int maxResults, Map<String, Object> namedParams);
+
+    List<T> findByNamedParam(String hqlStr, int firstResult, int maxResults, Map<String, Object> namedParams);
 
 }

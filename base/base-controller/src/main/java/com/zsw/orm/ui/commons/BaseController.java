@@ -7,6 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 
 /**
  * @author ZhangShaowei on 2017/5/9 10:32
@@ -36,5 +40,19 @@ public class BaseController {
         ex.printStackTrace();
         return ex.getMessage();
     }
+
+
+
+//    protected Principal getUserInfo() {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication();
+//        if (principal instanceof OAuth2Authentication) {
+//            OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) principal;
+//            UserInfo userInfo = new UserInfo();
+//            userInfo.setUsername(oAuth2Authentication.getName());
+//            Collection<GrantedAuthority> collection = oAuth2Authentication.getAuthorities();
+//            userInfo.setRoles(collection.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+//            return userInfo;
+//        }
+//    }
 
 }

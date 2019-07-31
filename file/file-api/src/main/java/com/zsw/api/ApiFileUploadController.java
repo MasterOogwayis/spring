@@ -11,6 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -217,7 +218,7 @@ public class ApiFileUploadController {
         /**
          * 设置最大上传文件的大小，默认是1MB
          */
-        mcf.setMaxFileSize("50MB");
+        mcf.setMaxFileSize(DataSize.ofMegabytes(50));
         return mcf.createMultipartConfig();
     }
 

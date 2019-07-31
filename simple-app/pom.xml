@@ -21,25 +21,9 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-properties-migrator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.zsw</groupId>
-            <artifactId>base-logging</artifactId>
+            <artifactId>base-persistence</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.zsw</groupId>-->
-            <!--<artifactId>base-redis</artifactId>-->
-        <!--</dependency>-->
     </dependencies>
 
 

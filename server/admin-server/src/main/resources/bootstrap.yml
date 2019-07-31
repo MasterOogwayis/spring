@@ -22,7 +22,7 @@ eureka:
     metadata-map:
       # needed to trigger info and endpoint update after restart
       startup: ${random.int}
-#    prefer-ip-address: true
+  #    prefer-ip-address: true
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:

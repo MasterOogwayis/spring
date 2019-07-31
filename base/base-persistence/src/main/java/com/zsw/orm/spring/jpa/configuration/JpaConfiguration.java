@@ -1,5 +1,6 @@
 package com.zsw.orm.spring.jpa.configuration;
 
+import com.zsw.orm.repository.jpa.BaseJpaRepositoryImpl;
 import com.zsw.orm.repository.jpa.CustomRepositoryFactoryBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author ZhangShaowei on 2017/9/12 15:57
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "com.*", repositoryFactoryBeanClass = CustomRepositoryFactoryBean.class)
+//@EnableJpaRepositories(basePackages = "com", repositoryFactoryBeanClass = CustomRepositoryFactoryBean.class)
+@EnableJpaRepositories(basePackages = "com", repositoryBaseClass = BaseJpaRepositoryImpl.class)
 @EnableTransactionManagement
 @EntityScan(basePackages = "com")
 public class JpaConfiguration {

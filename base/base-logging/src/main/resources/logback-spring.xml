@@ -13,7 +13,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <!-- 按照每天生成日志文件 所有 -->
-    <appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="fileout" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <append>true</append>
         <!-- ch.qos.logback.core.rolling.FixedWindowRollingPolicy 回滚日志 每天都会被清理 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -36,7 +36,7 @@
     </appender>
 
     <!-- error  -->
-    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.error.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
@@ -55,7 +55,7 @@
     </appender>
 
     <!-- warn  -->
-    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.warn.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
@@ -74,7 +74,7 @@
     </appender>
 
     <!-- info  -->
-    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.debug.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
@@ -93,7 +93,7 @@
     </appender>
 
     <!-- info日志 appender  -->
-    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.info.%i.log</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
@@ -114,11 +114,11 @@
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-        <appender-ref ref="ERROR"/>
-        <appender-ref ref="WARN"/>
-        <appender-ref ref="DEBUG"/>
-        <appender-ref ref="INFO"/>
+        <appender-ref ref="fileout"/>
+        <appender-ref ref="error"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="info"/>
     </root>
 
     <!-- 熔断器日志 -->

@@ -20,7 +20,6 @@ public class CglibProxy implements MethodInterceptor {
         return (T) enhancer.create();
     }
 
-
     @Override
     public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
         System.out.println("cglib proxy start ...");

@@ -115,10 +115,10 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
      */
     private PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortName, String sortType) {
         if (StringUtils.isEmpty(sortName)) {
-            return new PageRequest(pageNumber - 1, pagzSize);
+            return PageRequest.of(pageNumber - 1, pagzSize);
         }
-        Sort sort = new Sort(Sort.Direction.fromString(sortType), sortName);
-        return new PageRequest(pageNumber - 1, pagzSize, sort);
+        Sort sort = Sort.by(Sort.Direction.fromString(sortType), sortName);
+        return PageRequest.of(pageNumber - 1, pagzSize, sort);
     }
 
     /**
