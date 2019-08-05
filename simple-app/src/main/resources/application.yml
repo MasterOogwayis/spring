@@ -9,7 +9,7 @@ spring:
     #    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     validationQuery: SELECT 1 FROM DUAL
     type: com.zaxxer.hikari.HikariDataSource
   #JPA Configuration:

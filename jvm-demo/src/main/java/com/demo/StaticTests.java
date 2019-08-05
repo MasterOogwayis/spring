@@ -4,11 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2019/2/27 14:15
@@ -25,20 +30,16 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        String dir = "G:\\workplace\\platform-soa-config-files\\new";
-//        Files.getFileStore(Paths.get(path)).
-        Files.list(Paths.get(dir)).forEach(path -> {
-            String s = path.getFileName().toString();
-            if (s.endsWith("-dev.yml")) {
-                s = s.replace("-dev.yml", "-new.yml");
-                System.out.println(s);
+        String path = "G:\\workplace\\platform-soa-config-files\\future";
 
-                path.toFile().renameTo(Paths.get(dir, s).toFile());
-
+        Stream.of(Paths.get(path).toFile().list()).forEach(name -> {
+            if (name.endsWith("-test.yml")) {
+                String newName = name.replace("-test.yml", "-future.yml");
+                Paths.get(path, name).toFile().renameTo(Paths.get(path, newName).toFile());
             }
-
-
         });
+
+
 
     }
 

@@ -1,84 +1,44 @@
 package com.zsw.orm.config;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * Spring的线程池
- * implements AsyncConfigurer
- *
+ * @author ZhangShaowei on 2019-8-2 15:35:56
  * @author ZhangShaowei on 2017/7/3 10:56
+ * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
+ * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
+ * @deprecated Spring Boot 2.x 以后提供自动装配 线程池 / 调度, 无需求自行配置
+ * <p>
+ * AbortPolicy         -- 当任务添加到线程池中被拒绝时，对拒绝任务抛弃处理，并且抛出异常。它将抛出 RejectedExecutionException 异常。
+ * CallerRunsPolicy    -- 当任务添加到线程池中被拒绝时，会在线程池当前正在运行的Thread线程池中处理被拒绝的任务。(使用调用线程执行)
+ * DiscardOldestPolicy -- 当任务添加到线程池中被拒绝时，线程池会抛弃队列里面等待最久的一个线程，然后将被拒绝的任务添加到等待队列中。
+ * DiscardPolicy       -- 当任务添加到线程池中被拒绝时，对拒绝任务直接无声抛弃，没有异常信息。
  */
-@ConfigurationProperties(
-        prefix = "com.zsw.application.thread-pool"
-)
-@Getter
-@Setter
 @Configuration
 @EnableAsync
+@EnableScheduling
 public class ThreadPoolConfiguration {
 
     /**
-     * 核心线程数
-     */
-    private Integer corePoolSize = 4;
-
-    /**
-     * 最大线程数:CPU核心数-N  1.计算密集型：N + 1   2.IO密集型：2N+1
-     */
-    private Integer maxPoolSize = Runtime.getRuntime().availableProcessors() * 2 +1;
-
-    /**
-     * 线程池维护线程所允许的空闲时间
-     */
-    private Integer keepAliveSeconds = 60;
-
-    /**
-     * 队列最大长度 >=mainExecutor.maxSize
-     */
-    private Integer queueCapacity = 500;
-
-    /**
-     * ExecutorService ??
+     * 使用以下修改默认配置，或通过配置方式修改
      *
      * @return
      */
     @Bean
-    public Executor getAsyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(corePoolSize);
-        executor.setMaxPoolSize(maxPoolSize);
-        executor.setQueueCapacity(queueCapacity);
-        executor.setKeepAliveSeconds(keepAliveSeconds);
-        executor.setThreadNamePrefix("ThreadPool-Executor-");
-
-        // rejection-policy：当pool已经达到max size的时候，如何处理新任务
-        // CALLER_RUNS：不在新线程中执行任务，而是由调用者所在的线程来执行
-        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
-        executor.initialize();
-        return executor;
+    public TaskExecutorCustomizer taskExecutorCustomizer() {
+        return new TaskExecutorCustomizer() {
+            @Override
+            public void customize(ThreadPoolTaskExecutor taskExecutor) {
+                taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+            }
+        };
     }
-
-
-    /**
-     * @return
-     */
-//    @Bean
-//    public AsyncTaskExecutor taskExecutor() {
-//        return (ThreadPoolTaskExecutor) threadPoolTaskExecutor();
-//    }
-
-//    @Override
-//    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-//        return MyAsyncUncaughtExceptionHandler();
-//    }
 
 }

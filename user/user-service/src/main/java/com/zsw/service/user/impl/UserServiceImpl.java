@@ -33,6 +33,7 @@ public class UserServiceImpl extends BaseDataServiceImpl<User, Long> implements 
      * @return user
      */
 //    @Cacheable(value = "list", key = "'user:' + #name", condition = "#name != null")
+    @Override
     public User getByUsername(final String username) {
         return this.userRepository.getByUsername(username);
     }

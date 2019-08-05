@@ -2,10 +2,10 @@ package com.zsw.orm.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -65,4 +65,28 @@ public class JacksonSerializer {
         }
         return null;
     }
+
+
+    @SneakyThrows
+    public void test() {
+        Dto dto = new Dto();
+        dto.setName("123");
+        System.out.println(this.mapper.writeValueAsString(dto));
+    }
+
+    public static void main(String[] args) {
+        JacksonSerializer serializable = new JacksonSerializer();
+        serializable.test();
+    }
+
+    @Getter
+    @Setter
+    class Dto {
+        private String name;
+        private String nName;
+        private String getnName(){
+            return this.name;
+        }
+    }
+
 }

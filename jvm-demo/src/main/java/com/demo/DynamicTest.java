@@ -1,6 +1,5 @@
 package com.demo;
 
-import org.junit.Test;
 
 /**
  * @author ZhangShaowei on 2019/3/15 10:13
@@ -8,7 +7,7 @@ import org.junit.Test;
 public class DynamicTest {
 
 
-    @Test
+//    @Test
     public void test() {
         System.out.println("Hello World");
     }

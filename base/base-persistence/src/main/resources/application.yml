@@ -43,13 +43,15 @@ spring:
       # 连接允许在池中闲置的最长时间,
       # 如果idleTimeout+1秒>maxLifetime 且 maxLifetime>0，则会被重置为0（代表永远不会退出）；
       # 如果idleTimeout!=0且小于10秒，则会被重置为10秒
-      idle-timeout: 10
+      idle-timeout: 600000
       # 池中连接最长生命周期,如果不等于0且小于30秒则会被重置回30分钟
       max-lifetime: 30000
       # 如果您的驱动程序支持JDBC4，我们强烈建议您不要设置此属性
       connection-test-query: select 1 from dual
       # 池中维护的最小空闲连接数,minIdle<0或者minIdle>maxPoolSize,则被重置为maxPoolSize
       minimum-idle: 10
+      # 最大
+      maximum-pool-size: 50
       # 该属性允许您指定一个 Codahale / Dropwizard MetricRegistry 的实例，供池使用以记录各种指标
       metric-registry:
       # 该属性允许您指定池使用的Codahale / Dropwizard HealthCheckRegistry的实例来报告当前健康信息
@@ -89,6 +91,7 @@ spring:
       thread-factory:
         # 此属性允许您设置将用于各种内部计划任务的java.util.concurrent.ScheduledExecutorService实例
       scheduled-executor:
+
     type: com.zaxxer.hikari.HikariDataSource
   #JPA Configuration:
   jpa:
@@ -103,6 +106,9 @@ spring:
 #      naming:
 #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 #        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: true

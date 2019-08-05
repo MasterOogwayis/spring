@@ -23,6 +23,8 @@ public interface BaseRepository<T, ID extends Serializable> extends JpaRepositor
      */
     EntityManager getEntityManager();
 
+    T get(ID id);
+
     /**
      * 将对象从 t 会话中拆离
      * @param t T

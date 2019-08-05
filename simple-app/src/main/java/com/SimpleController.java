@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author ZhangShaowei on 2019/4/26 10:46
@@ -20,16 +21,11 @@ public class SimpleController {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @GetMapping("get")
-    public Object test(@RequestParam("id") Long id) {
-        return this.customerRepository.getOne(id);
-    }
-
-
-    @GetMapping("find")
-    public Object find() {
-        List<Customer> customers = this.customerRepository.find("from  Customer");
-        return customers;
+    @GetMapping("count")
+    public Object count(@RequestParam("age") Integer age) {
+        Customer zsw = this.customerRepository.getByName("zsw");
+        System.out.println(zsw);
+        return this.customerRepository.countByAge(age);
     }
 
 

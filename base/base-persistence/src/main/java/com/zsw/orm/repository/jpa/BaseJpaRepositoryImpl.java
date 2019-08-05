@@ -57,6 +57,11 @@ public class BaseJpaRepositoryImpl<T, ID extends Serializable>
         return this.entityManager;
     }
 
+    @Override
+    public T get(ID id) {
+        return this.findById(id).orElse(null);
+    }
+
     /**
      * @param t T
      */

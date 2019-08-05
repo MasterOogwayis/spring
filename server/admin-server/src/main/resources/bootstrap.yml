@@ -11,24 +11,32 @@ spring:
   profiles:
     active:
       - secure
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: bcpt-config-server
+      profile: new
+      failFast: true
+      # 多文件无法使用默认文件名了
+      name: monitor,instances,oauth2-api,oauth2-controller
 
 
-# tag::configuration-eureka[]
 eureka:
+  server:
+    hostname: 192.168.1.12
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 17101
+    registryFetchIntervalSeconds: 5
   instance:
-    leaseRenewalIntervalInSeconds: 10
-    # default
     health-check-url-path: /actuator/health
     metadata-map:
-      # needed to trigger info and endpoint update after restart
       startup: ${random.int}
-  #    prefer-ip-address: true
-  client:
-    registryFetchIntervalSeconds: 5
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:1000}/eureka/
-    eureka-server-port: 1000
-# end::configuration-eureka[]
+    #    hostname: localhost
+    prefer-ip-address: true
+#    ip-address: localhost
 
 management:
   endpoints:

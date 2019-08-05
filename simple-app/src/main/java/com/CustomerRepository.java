@@ -9,9 +9,8 @@ import org.springframework.stereotype.Repository;
  * @author ZhangShaowei on 2019/7/29 15:39
  **/
 @Repository
-public interface CustomerRepository extends BaseRepository<Customer, Long> {
+public interface CustomerRepository extends BaseRepository<Customer, Long>, CustomerRepositoryCustom {
 
-    @Query("from Customer where name = :name")
-    Customer getByName(@Param("name") String name);
+    Customer getByName(String name);
 
 }

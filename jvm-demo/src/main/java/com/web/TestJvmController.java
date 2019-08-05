@@ -1,9 +1,6 @@
 package com.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * -Xms64m -Xmx64m -Xmn32m -XX:+PrintGCDetails -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=C:\Users\ZhangShaowei\Desktop\dump
@@ -12,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ZhangShaowei on 2019/2/25 9:40
  **/
 @Slf4j
-@RequestMapping("test")
-@RestController
+//@RequestMapping("test")
+//@RestController
 public class TestJvmController {
 
-    @GetMapping
+    //    @GetMapping
     public Object test() {
         ProductDto productDto = new ProductDto();
         DetailDto detailDto = new DetailDto();
