@@ -32,6 +32,7 @@ eureka:
     registryFetchIntervalSeconds: 5
   instance:
     health-check-url-path: /actuator/health
+    leaseRenewalIntervalInSeconds: 10
     metadata-map:
       startup: ${random.int}
     #    hostname: localhost
