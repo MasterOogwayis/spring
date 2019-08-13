@@ -38,6 +38,7 @@
         <module>base-test</module>
         <module>base-nacos-client</module>
         <module>base-sentinel</module>
+        <module>base-mapstruct</module>
     </modules>
 
 
