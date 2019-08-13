@@ -1,5 +1,8 @@
 package com.zsw.api;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +17,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.MultipartConfigElement;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
@@ -88,50 +93,13 @@ public class ApiFileUploadController {
             Files.createDirectories(Paths.get(path));
             Files.copy(
                     file.getInputStream(),
-                    Paths.get(path, file.getOriginalFilename()),
+                    Paths.get(path, builder.toString()),
                     StandardCopyOption.REPLACE_EXISTING
             );
 //            file.transferTo(new File(path, builder.toString()));
             return builder.toString();
         }
         return null;
-    }
-
-    /**
-     * 单文件上传
-     *
-     * @param file MultipartFile
-     * @param path path
-     * @return String
-     */
-    @PostMapping(value = "single/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String singleUpload(
-            @RequestPart("file") final MultipartFile file, final @RequestParam("path") String path) {
-        if (file != null && !file.isEmpty()) {
-//            try (
-//                    BufferedOutputStream out = new BufferedOutputStream(
-//                            new FileOutputStream(new File(PATH + file.getOriginalFilename())));
-//            ) {
-//                out.write(file.getBytes());
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                return e.getMessage();
-//            }
-            try {
-                Files.createDirectories(Paths.get(path));
-//                Files.copy(
-//                        file.getInputStream(),
-//                        Paths.get(path + file.getOriginalFilename()),
-//                        StandardCopyOption.REPLACE_EXISTING);
-                file.transferTo(new File(path, file.getOriginalFilename()));
-            } catch (Exception e) {
-//                e.printStackTrace();
-                return e.getMessage();
-            }
-            return "success:" + file.getOriginalFilename();
-        }
-        return "file not found!";
-
     }
 
 
@@ -143,7 +111,7 @@ public class ApiFileUploadController {
      * @return InputStreamResource
      * @throws IOException e
      */
-    @PostMapping(value = "download")
+    @PostMapping("download")
     public ResponseEntity<byte[]> download(
             @RequestParam("path") final String path,
             @RequestParam("filename") final String filename) throws IOException {
@@ -173,6 +141,28 @@ public class ApiFileUploadController {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .body(IOUtils.toByteArray(in));
         }
+    }
+
+
+    @PostMapping("down")
+    public MultipartFile[] down(@RequestParam("path") String path, @RequestParam("filename") String filename) throws IOException {
+        String contentType = "application/octet-stream";
+        File file = Paths.get(path, filename).toFile();
+        DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
+        FileItem item = fileItemFactory.createItem(filename, contentType, false, filename);
+        FileItem fileItem = new DiskFileItem(
+                filename,
+                "application/octet-stream",
+                false,
+                filename,
+                (int) file.length(),
+                file);
+
+        fileItem.getOutputStream();
+
+        MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+
+        return new MultipartFile[]{multipartFile};
     }
 
 

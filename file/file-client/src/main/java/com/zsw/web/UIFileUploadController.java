@@ -1,6 +1,8 @@
 package com.zsw.web;
 
+import com.zsw.client.FileDownloadClinet;
 import com.zsw.client.FileUploadClinet;
+import feign.Response;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -31,13 +33,16 @@ public class UIFileUploadController {
     @Autowired
     private FileUploadClinet fileUploadClinet;
 
+    @Autowired
+    private FileDownloadClinet fileDownloadClinet;
+
     /**
      * @param files 文件
      * @return
      */
     @PostMapping("batch/upload")
     public List<String> bacthUpload(@RequestParam("file") final MultipartFile[] files) {
-        List<String> result = this.fileUploadClinet.bacthUpload(files, PATH);
+        List<String> result = this.fileUploadClinet.upload(files, PATH);
 //        for (MultipartFile file : files) {
 //            result.add(this.fileUploadClinet.singleUpload(file, PATH));
 //        }
@@ -80,15 +85,6 @@ public class UIFileUploadController {
 //
 //    }
 
-    /**
-     * @param multipartFile
-     * @return
-     */
-    @PostMapping("single/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile multipartFile) {
-        return this.fileUploadClinet.singleUpload(multipartFile, PATH);
-    }
-
 
     /**
      * @param path     文件路径
@@ -113,7 +109,28 @@ public class UIFileUploadController {
                 .ok()
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(new InputStreamResource(this.fileUploadClinet.download(path, filename).body().asInputStream()));
+                .body(new InputStreamResource(this.fileDownloadClinet.download(path, filename).body().asInputStream()));
+    }
+
+    @PostMapping("down")
+    public ResponseEntity<InputStreamResource> down(
+            @RequestParam("path") final String path,
+            @RequestParam("filename") final String filename) throws IOException {
+//        return this.fileUploadClinet.download(path, filename);
+//        Response response = this.fileUploadClinet.download(path, filename);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
+        headers.add(
+                HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", filename));
+        headers.add(HttpHeaders.PRAGMA, "no-cache");
+        headers.add(HttpHeaders.EXPIRES, "0");
+//        headers.putAll((Map<? extends String, ? extends List<String>>) response.headers());
+        MultipartFile[] multipartFiles = this.fileDownloadClinet.down(path, filename);
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(new InputStreamResource(multipartFiles[0].getInputStream()));
     }
 
     /**

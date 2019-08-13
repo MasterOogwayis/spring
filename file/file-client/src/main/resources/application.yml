@@ -2,37 +2,35 @@ server:
   port: 9201
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: file-conf
-  http:
+  servlet:
     multipart:
 #      enabled: true
       max-file-size: 10MB
       max-request-size: 50MB
+  http:
     encoding:
       charset: UTF-8
 
 
 
+
 eureka:
+  server:
+    hostname: 192.168.1.12
   client:
     serviceUrl:
-      defaultZone:  http://${eureka.instance.hostname}:${eureka.conf.eureka-server-port}/eureka/
-    eureka-server-port: 1111
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 17101
   instance:
-    hostname: localhost
+    prefer-ip-address: true
+#    hostname: 192.168.1.12
 
-hystrix:
-  command:
-    default:
-      execution:
-#        timeout:
-#          enabled: false #禁用熔断器超时时间
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000 #熔断器超时时间。解决第一次调用失败问题。
 
 zsw:
-  base:
-    serverName:
+  client:
+    servername:
       file: file-api

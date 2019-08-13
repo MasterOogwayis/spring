@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,7 +41,10 @@ public class StaticTests {
 //            }
 //        });
 
-        Stream.of("1").collect(Collectors.toList());
+        while (true) {
+            System.out.println(1);
+            TimeUnit.SECONDS.sleep(1);
+        }
 
 
 

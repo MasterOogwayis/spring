@@ -3,10 +3,10 @@ package com.zsw.client;
  * @author ZhangShaowei on 2017/6/13 14:43
  */
 
+import com.zsw.config.FileConfiguration;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author ZhangShaowei on 2017/6/13 14:43
  **/
-@FeignClient(value = "${zsw.orm.serverName.file}")
+@FeignClient(value = "${zsw.client.servername.file}", configuration = FileConfiguration.MultipartSupportConfig.class)
 public interface FileUploadClinet {
 
 
@@ -27,34 +27,7 @@ public interface FileUploadClinet {
      * @param path  path
      * @return names
      */
-    @RequestMapping(
-            value = "file/batch/upload",
-            method = RequestMethod.POST,
-            produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    List<String> bacthUpload(@RequestPart("file") MultipartFile[] files, @RequestParam("path") String path);
-
-    /**
-     * @param file file
-     * @param path path
-     * @return name
-     */
-    @RequestMapping(
-            value = "file/single/upload",
-            method = RequestMethod.POST,
-            produces = {MediaType.APPLICATION_JSON_UTF8_VALUE}, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    String singleUpload(@RequestPart("file") MultipartFile file, @RequestParam("path") String path);
-
-
-    /**
-     * byte[]  it may cause OutOfMemoryError,
-     *
-     * @param path     path
-     * @param filename filename
-     * @return InputStreamResource
-     */
-    @RequestMapping(value = "file/download", method = RequestMethod.POST)
-    feign.Response download(
-            @RequestParam("path") String path,
-            @RequestParam("filename") String filename);
+    @PostMapping(value = "file/batch/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    List<String> upload(@RequestPart MultipartFile[] files, @RequestParam("path") String path);
 
 }
