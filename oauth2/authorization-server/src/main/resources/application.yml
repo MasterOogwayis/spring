@@ -122,8 +122,6 @@ spring:
     timeout: 0
 
 
-#logging:
-#  level: debug
 logging:
   level:
     org:

@@ -1,9 +1,8 @@
 package com;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -17,12 +16,12 @@ public class SimpleController {
 //    @Autowired
 //    private CustomerRepository customerRepository;
 
-    @GetMapping("count")
-    public Object count(@RequestParam("age") Integer age) {
+    @PostMapping("parse")
+    public SimpleDto count(SimpleDto simpleDto) {
 //        Customer zsw = this.customerRepository.getByName("zsw");
 //        System.out.println(zsw);
 //        return this.customerRepository.countByAge(age);
-        return null;
+        return simpleDto;
     }
 
 

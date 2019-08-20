@@ -175,10 +175,6 @@
 #    prefer-ip-address: true
 #    ip-address: localhost
 #
-##logging:
-##  level: debug
-##
-##debug: true
 #
 #management:
 #  security:
