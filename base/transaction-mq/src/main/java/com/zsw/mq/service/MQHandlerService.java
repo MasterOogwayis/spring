@@ -128,7 +128,6 @@ public abstract class MQHandlerService {
 //                        .sendMessageAsync(message, address, key);
 //                sendMessageAsync(message, key);
             }
-
             @Override
             public void afterCompletion(int status) {
                 if (STATUS_COMMITTED == status) {

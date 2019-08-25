@@ -1,0 +1,23 @@
+server:
+  port: 80
+
+spring:
+  rabbitmq:
+    host: 192.168.137.120
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /
+
+com:
+  zsw:
+    rabbitmq:
+      exchange:
+        direct-exchange: ZSW_DIRECT
+        fanout-exchange: ZSW_FANOUT
+        topic-exchange: ZSW_TOPIC
+      queue:
+        first: ZSW_1
+        second: ZSW_2
+        third: ZSW_3
+        fourth: ZSW_4
