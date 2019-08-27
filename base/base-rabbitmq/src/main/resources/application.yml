@@ -3,6 +3,9 @@ server:
 
 spring:
   rabbitmq:
+    listener:
+      simple:
+        prefetch: 2
     host: 192.168.137.120
     port: 5672
     username: admin

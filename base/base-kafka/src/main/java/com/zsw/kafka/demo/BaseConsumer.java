@@ -6,10 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -25,6 +27,7 @@ public class BaseConsumer implements Runnable {
     private KafkaConsumer<Integer, String> consumer;
 
     public BaseConsumer(String topic) {
+
         this.topic = topic;
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.137.110:9092,192.168.137.111:9092,192.168.137.112:9092");
@@ -38,6 +41,10 @@ public class BaseConsumer implements Runnable {
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         this.consumer = new KafkaConsumer<>(properties);
         this.consumer.subscribe(Collections.singleton(this.topic));
+
+        // 消费指定分区的消息，其他分区就无法消费
+//        TopicPartition topicPartition=new TopicPartition(topic,0);
+//        this.consumer.assign(Collections.singletonList(topicPartition));
     }
 
     @Override

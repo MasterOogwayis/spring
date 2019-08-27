@@ -64,6 +64,7 @@
 <!--        <spring-cloud.version>Greenwich.SR2</spring-cloud.version>-->
         <alibaba.sentinel.version>1.6.3</alibaba.sentinel.version>
         <kafka.version>2.3.0</kafka.version>
+        <spring.kafka.version>2.2.8.RELEASE</spring.kafka.version>
     </properties>
 
 
@@ -635,6 +636,21 @@
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-streams</artifactId>
                 <version>${kafka.version}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.kafka/spring-kafka -->
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring.kafka.version}</version>
+            </dependency>
+
+
+            <!-- Jackson -->
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.13</version>
             </dependency>
 
         </dependencies>

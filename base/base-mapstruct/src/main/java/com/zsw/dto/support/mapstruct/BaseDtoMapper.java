@@ -1,15 +1,9 @@
 package com.zsw.dto.support.mapstruct;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mappings;
-
-import java.util.List;
-
 /**
- * @author Administrator on 2019/8/10 20:33
- *
  * @param <E> Entity
  * @param <D> Dto
+ * @author Administrator on 2019/8/10 20:33
  */
 //@Mapper(componentModel = "spring")
 public interface BaseDtoMapper<E, D> {

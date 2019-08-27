@@ -1,5 +1,6 @@
 package com.zsw.kafka.demo;
 
+import com.zsw.kafka.support.CustomPartitioner;
 import com.zsw.kafka.utils.ExecutorUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class BaseProducer implements Runnable {
         properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.PARTITIONER_CLASS_CONFIG, CustomPartitioner.class.getName());
         this.producer = new KafkaProducer<>(properties);
     }
 

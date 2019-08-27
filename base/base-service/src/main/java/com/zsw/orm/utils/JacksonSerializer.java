@@ -3,9 +3,13 @@ package com.zsw.orm.utils;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.util.EnumValues;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import org.springframework.boot.jackson.JsonComponentModule;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -31,6 +35,11 @@ public class JacksonSerializer {
         mapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true); //允许转义字符
         mapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true); //允许单引号
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+
+//        SimpleModule simpleModule = new SimpleModule();
+//        simpleModule.addSerializer(new EnumSerializer());
+//
+//        mapper.registerModule(simpleModule);
     }
 
     /**
@@ -68,25 +77,10 @@ public class JacksonSerializer {
 
 
     @SneakyThrows
-    public void test() {
-        Dto dto = new Dto();
-        dto.setName("123");
-        System.out.println(this.mapper.writeValueAsString(dto));
-    }
-
     public static void main(String[] args) {
         JacksonSerializer serializable = new JacksonSerializer();
-        serializable.test();
-    }
-
-    @Getter
-    @Setter
-    class Dto {
-        private String name;
-        private String nName;
-        private String getnName(){
-            return this.name;
-        }
+        String s = serializable.getMapper().writeValueAsString(TypeE.HUMAN);
+        System.out.println(s);
     }
 
 }
