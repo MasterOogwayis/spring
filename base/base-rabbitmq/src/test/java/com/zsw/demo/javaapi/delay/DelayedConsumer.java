@@ -21,10 +21,10 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Slf4j
 public class DelayedConsumer {
 
-    protected static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    protected static final String DELAYED_EXCHANGE_NAME = "DELAYED_EXCHANGE";
-    protected static final String DELAYED_QUEUE_NAME = "DELAYED_QUEUE";
+    public static final String DELAYED_EXCHANGE_NAME = "DELAYED_EXCHANGE";
+    public static final String DELAYED_QUEUE_NAME = "DELAYED_QUEUE";
 
 
     @SneakyThrows

@@ -67,7 +67,16 @@ public class StaticTests {
 //        });
 
 
-        System.out.println(Duration.ofMillis(100));
+        SortedSet<Integer> set = new TreeSet<>();
+        for (int i = 0; i < 100; i++) {
+            set.add(i);
+        }
+
+        SortedSet<Integer> headSet = set.headSet(23);
+        System.out.println(headSet);
+
+        headSet.clear();
+        System.err.println(set);
 
 
     }

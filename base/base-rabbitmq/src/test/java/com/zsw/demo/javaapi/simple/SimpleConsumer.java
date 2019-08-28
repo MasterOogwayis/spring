@@ -16,8 +16,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @Slf4j
 public class SimpleConsumer {
 
-    protected static final String EXCHANGE_NAME = "SIMPLE_EXCHANGE";
-    protected static final String QUEUE_NAME = "SIMPLE_QUEUE";
+    public static final String EXCHANGE_NAME = "SIMPLE_EXCHANGE";
+    public static final String QUEUE_NAME = "SIMPLE_QUEUE";
 
 
     @SneakyThrows

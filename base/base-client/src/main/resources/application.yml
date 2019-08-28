@@ -37,6 +37,7 @@ feign:
 #  OkToRetryOnAllOperations: true # 重试
 #  MaxAutoRetriesNextServer: 2 # 切换次数
 #  MaxAutoRetries: 1 # 重试次数
+# 注意要添加 spring-retry 依赖上面的重试才会生效
 
 #hystrix:
 #  command:

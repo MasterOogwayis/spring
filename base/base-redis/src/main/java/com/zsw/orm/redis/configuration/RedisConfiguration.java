@@ -3,63 +3,53 @@ package com.zsw.orm.redis.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Required;
+import org.apache.commons.collections.MapUtils;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.*;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.lang.Nullable;
-import org.springframework.util.CollectionUtils;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.Duration;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 启用SpringCache 使用RedisCacheManager做缓存控制器   RedisCacheConfiguration
- *
+ * <p>
  * 自定义控制时间的注解需要 开启同名bean 覆盖 spring.main.allow-bean-definition-overriding: true
  * 不然你得改全家桶代码
  *
  * @author ZhangShaowei on 2017/5/18 17:38
  */
+@EnableCaching
+@Configuration
 @ConditionalOnClass(RedisConnectionFactory.class)
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @ConditionalOnBean(RedisConnectionFactory.class)
-@Configuration
-@EnableConfigurationProperties
-@ConfigurationProperties(prefix = "zsw.base.redis.configuration")
-@EnableCustomCaching
-@Validated
+//@EnableCustomCaching
 public class RedisConfiguration {
-
-    /**
-     * CacheName - ttl(seconds)
-     */
-    private Map<String, Long> expires;
 
     /**
      * 默认保存时间 30分钟
      */
-    private Long defaultExpiration = 60 * 30L;
+    private static Long DEFAULT_EXPIRATION = TimeUnit.MINUTES.toSeconds(30);
 
 
     /**
@@ -118,65 +108,50 @@ public class RedisConfiguration {
     @Bean
     public CacheManager cacheManager(
             RedisConnectionFactory connectionFactory,
-            @Nullable CacheManagerCustomizers customizerInvoker) {
+            ObjectProvider<CacheManagerCustomizers> customizersObjectProvider,
+            ObjectProvider<CacheStrategy> strategyObjectProvider) {
 
+//        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(om);
+
+        // 配置序列化策略
         RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration
                 .defaultCacheConfig()
-                // 默认配置， 默认超时时间为30min
-                .entryTtl(Duration.ofSeconds(TimeUnit.MINUTES.toSeconds(30)))
+                // key 默认就是 stringSerializer
+//                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(stringRedisSerializer))
+                // jackson 序列化 values
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
+                .entryTtl(Duration.ofSeconds(DEFAULT_EXPIRATION))
                 .computePrefixWith(name -> name + ":")
                 .disableCachingNullValues();
+
         RedisCacheManager.RedisCacheManagerBuilder managerBuilder = RedisCacheManager
                 .builder(RedisCacheWriter.lockingRedisCacheWriter(connectionFactory))
                 .cacheDefaults(defaultCacheConfig);
-        if (!CollectionUtils.isEmpty(this.expires)) {
-            Map<String, RedisCacheConfiguration> cacheConfigurations = new LinkedHashMap<>();
-            expires.forEach((key, value) -> {
-                cacheConfigurations.put(key, defaultCacheConfig.entryTtl(Duration.ofSeconds(value)));
-            });
-            managerBuilder.withInitialCacheConfigurations(cacheConfigurations);
-        }
-        if (Objects.isNull(customizerInvoker)) {
-            return managerBuilder.build();
-        }
-        return customizerInvoker.customize(managerBuilder.build());
+        // 自定义 key 的时间
+        managerBuilder = strategyObjectProvider.stream()
+                .map(CacheStrategy::expires)
+                .filter(MapUtils::isNotEmpty)
+                .map(Map::entrySet)
+                .flatMap(Set::stream)
+                .collect(
+                        Collectors.collectingAndThen(
+                                Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        entity -> defaultCacheConfig.entryTtl(Duration.ofSeconds(entity.getValue())),
+                                        (k1, k2) -> k1
+                                ),
+                                // 最终都会执行到这一步 return this
+                                managerBuilder::withInitialCacheConfigurations
+                        )
+                );
+        CacheManager cacheManager = managerBuilder.build();
+        customizersObjectProvider.ifAvailable(customizerInvoker -> customizerInvoker.customize(cacheManager));
+        return cacheManager;
     }
-
-
-//    @Bean
-//    public CacheManagerCustomizer<RedisCacheManager> cacheManagerCustomizer() {
-//        return cacheManager -> {
-//            // 设置默认 key 有效期
-//            cacheManager.setDefaultExpiration(defaultExpiration);
-//            // 设置指定队列 key 有效期
-//            if (!CollectionUtils.isEmpty(this.expires)) {
-//                cacheManager.setExpires(this.expires);
-//            }
-//        };
-//    }
-
-//    @Bean
-//    public CacheManagerCustomizer<RedisCacheManager> cacheManagerCustomizer() {
-//        return new CacheManagerCustomizer<RedisCacheManager>() {
-//            @Override
-//            public void customize(RedisCacheManager cacheManager) {
-//                // 设置默认 key 有效期
-//                cacheManager.setDefaultExpiration(defaultExpiration);
-//                // 设置指定队列 key 有效期
-//                if (!CollectionUtils.isEmpty(this.expires)) {
-//                    cacheManager.setExpires(this.expires);
-//                }
-//            }
-//        };
-//    }
-
-//    /**
-//     * @return
-//     */
-//    @Bean
-//    public Cache cache(CacheManager cacheManager) {
-//        return cacheManager.getCache("app_default");
-//    }
 
     /**
      * 缺省key
@@ -193,35 +168,5 @@ public class RedisConfiguration {
             }
             return sb.toString();
         };
-    }
-
-
-    /**
-     * @param expires expires
-     */
-    public void setExpires(final Map<String, Long> expires) {
-        this.expires = expires;
-    }
-
-
-    /**
-     * @param defaultExpiration defaultExpiration
-     */
-    public void setDefaultExpiration(final Long defaultExpiration) {
-        this.defaultExpiration = defaultExpiration;
-    }
-
-    /**
-     *
-     */
-    public Map<String, Long> getExpires() {
-        return expires;
-    }
-
-    /**
-     *
-     */
-    public Long getDefaultExpiration() {
-        return defaultExpiration;
     }
 }
