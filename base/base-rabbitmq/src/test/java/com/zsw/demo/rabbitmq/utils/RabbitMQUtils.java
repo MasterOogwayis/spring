@@ -1,4 +1,4 @@
-package com.zsw.demo.utils;
+package com.zsw.demo.rabbitmq.utils;
 
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.SneakyThrows;

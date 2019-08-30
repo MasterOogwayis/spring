@@ -1,7 +1,7 @@
-package com.zsw.demo.javaapi.delay;
+package com.zsw.demo.rabbitmq.javaapi.delay;
 
 import com.rabbitmq.client.*;
-import com.zsw.demo.utils.RabbitMQUtils;
+import com.zsw.demo.rabbitmq.utils.RabbitMQUtils;
 import com.zsw.rabbit.config.RabbitType;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

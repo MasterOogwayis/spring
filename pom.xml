@@ -352,7 +352,7 @@
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
-                <version>1.4.10</version>
+                <version>1.4.11.1</version>
             </dependency>
             <dependency>
                 <groupId>dom4j</groupId>
@@ -367,11 +367,6 @@
                 <version>1.2.58</version>
             </dependency>
 
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>1.4.11.1</version>
-            </dependency>
             <dependency>
                 <groupId>com.caucho</groupId>
                 <artifactId>hessian</artifactId>
@@ -430,6 +425,13 @@
                 <version>5.1.2</version>
             </dependency>
 
+            <!-- 其他工具包 -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.4.5</version>
+            </dependency>
+
             <!--query dsl -->
             <dependency>
                 <groupId>com.querydsl</groupId>
@@ -478,6 +480,7 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.8</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- jsqlparser -->
@@ -566,18 +569,7 @@
                 <version>4.0.36.Final</version>
             </dependency>
 
-            <!-- 其他工具包 -->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>3.4.5</version>
-            </dependency>
 
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>5.1.2</version>
-            </dependency>
 
             <dependency>
                 <groupId>cglib</groupId>
@@ -659,6 +651,12 @@
                 <groupId>org.codehaus.jackson</groupId>
                 <artifactId>jackson-mapper-asl</artifactId>
                 <version>1.9.13</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>4.5.2</version>
             </dependency>
 
         </dependencies>

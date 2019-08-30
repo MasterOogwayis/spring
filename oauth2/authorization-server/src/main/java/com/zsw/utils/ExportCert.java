@@ -1,11 +1,11 @@
 package com.zsw.utils;
 
-import sun.misc.BASE64Encoder;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.security.*;
 import java.security.cert.Certificate;
+import java.util.Base64;
 
 /**
  * ExportCert
@@ -15,7 +15,7 @@ import java.security.cert.Certificate;
 public class ExportCert {
 
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         String keyStoreType = "jks";
         String keystoreFile = "/data/keystore/oauth2.jks";
         String password = "111111"; //keystore的解析密码
@@ -42,8 +42,7 @@ public class ExportCert {
     //导出证书 base64格式
     public static void exportCert(KeyStore keyStore, String alias, String exportFile) throws Exception {
         Certificate certificate = keyStore.getCertificate(alias);
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encoded = encoder.encode(certificate.getEncoded());
+        String encoded = Base64.getEncoder().encodeToString(certificate.getEncoded());
         FileWriter fw = new FileWriter(exportFile);
         fw.write("------Begin Certificate----- \r\n ");//非必须
         fw.write(encoded);
@@ -52,15 +51,15 @@ public class ExportCert {
     }
 
     //得到KeyPair
-    public static KeyPair getKeyPair(KeyStore keyStore, String alias, char[] password){
-        try{
+    public static KeyPair getKeyPair(KeyStore keyStore, String alias, char[] password) {
+        try {
             Key key = keyStore.getKey(alias, password);
-            if (key instanceof PrivateKey){
+            if (key instanceof PrivateKey) {
                 Certificate certificate = keyStore.getCertificate(alias);
                 PublicKey publicKey = certificate.getPublicKey();
                 return new KeyPair(publicKey, (PrivateKey) key);
             }
-        }catch (UnrecoverableKeyException | NoSuchAlgorithmException | KeyStoreException e){
+        } catch (UnrecoverableKeyException | NoSuchAlgorithmException | KeyStoreException e) {
             e.printStackTrace();
         }
         return null;
@@ -68,8 +67,7 @@ public class ExportCert {
 
     //导出私钥
     public static void exportPrivateKey(PrivateKey privateKey, String exportFile) throws Exception {
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encoded = encoder.encode(privateKey.getEncoded());
+        String encoded = Base64.getEncoder().encodeToString(privateKey.getEncoded());
         FileWriter fileWriter = new FileWriter(exportFile);
         fileWriter.write("-----BEGIN PRIVATE KEY-----\r\n");//非必须
         fileWriter.write(encoded);
@@ -79,8 +77,7 @@ public class ExportCert {
 
     //导出公钥
     public static void exportPublicKey(PublicKey publicKey, String exportFile) throws Exception {
-        BASE64Encoder encoder = new BASE64Encoder();
-        String encoded = encoder.encode(publicKey.getEncoded());
+        String encoded = Base64.getEncoder().encodeToString(publicKey.getEncoded());
         FileWriter fileWriter = new FileWriter(exportFile);
         fileWriter.write("-----BEGIN PUBLIC KEY-----\r\n");//非必须
         fileWriter.write(encoded);

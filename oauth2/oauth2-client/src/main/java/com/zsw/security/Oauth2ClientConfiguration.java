@@ -105,6 +105,8 @@ public class Oauth2ClientConfiguration {
 
 
     /**
+     * FIXME
+     *
      * {@link this#userInfoRestTemplateCustomizer(LoadBalancerInterceptor)}
      *
      * @return OAuth2ProtectedResourceDetails
@@ -122,10 +124,6 @@ public class Oauth2ClientConfiguration {
 //        return resource;
 //    }
 
-//    @Bean
-//    public OAuth2ClientContext oAuth2ClientContext() {
-//        return new DefaultOAuth2ClientContext();
-//    }
 
 
 }

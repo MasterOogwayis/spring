@@ -2,24 +2,18 @@ package com.zsw.conf.oauth2;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -30,29 +24,14 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author ZhangShaowei on 2017/12/26 15:04
  */
-@EnableAuthorizationServer
 @Configuration
-@ConfigurationProperties(prefix = "com.zsw.oauth2")
+@EnableConfigurationProperties(Oauth2ConfigProperties.class)
+@EnableAuthorizationServer
 public class AuthorizationConfiguration extends AuthorizationServerConfigurerAdapter {
-
-    /**
-     *
-     */
-    private String keyStoreFile;
-    /**
-     *
-     */
-    private String keyStorePwd;
-    /**
-     *
-     */
-    private String keyPair;
 
     /**
      *
@@ -72,6 +51,9 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
      */
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private Oauth2ConfigProperties properties;
 
 
     /**
@@ -157,17 +139,19 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
      * 生成秘钥公钥
      * 秘钥由认证服务器保留
      * 公钥分配给资源服务器
-     *
+     * <p>
      * https://stackoverflow.com/questions/32867898/generate-private-and-public-key-file-using-keytool
      * token converter
      *
      * @return
      */
     @Bean
-    public JwtAccessTokenConverter  accessTokenConverter() {
+    public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-        KeyPair keyPair = new KeyStoreKeyFactory(new FileSystemResource(this.keyStoreFile), this.keyStorePwd.toCharArray())
-                .getKeyPair(this.keyPair);
+        KeyPair keyPair = new KeyStoreKeyFactory(
+                new FileSystemResource(this.properties.getKeyStoreFile()),
+                this.properties.getKeyStorePwd().toCharArray()
+        ).getKeyPair(this.properties.getKeyPair());
 //                new JwtAccessTokenConverter() {
 //            /***
 //             * 重写增强token方法,用于自定义一些token返回的信息
@@ -193,35 +177,4 @@ public class AuthorizationConfiguration extends AuthorizationServerConfigurerAda
     }
 
 
-
-
-    /**  */
-    public void setKeyStoreFile(String keyStoreFile) {
-        this.keyStoreFile = keyStoreFile;
-    }
-
-    /**  */
-    public void setKeyStorePwd(String keyStorePwd) {
-        this.keyStorePwd = keyStorePwd;
-    }
-
-    /**  */
-    public void setKeyPair(String keyPair) {
-        this.keyPair = keyPair;
-    }
-
-    /**  */
-    public String getKeyStoreFile() {
-        return keyStoreFile;
-    }
-
-    /**  */
-    public String getKeyStorePwd() {
-        return keyStorePwd;
-    }
-
-    /**  */
-    public String getKeyPair() {
-        return keyPair;
-    }
 }

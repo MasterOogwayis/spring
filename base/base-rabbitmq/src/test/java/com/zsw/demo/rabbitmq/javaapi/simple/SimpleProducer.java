@@ -1,16 +1,15 @@
-package com.zsw.demo.javaapi.simple;
+package com.zsw.demo.rabbitmq.javaapi.simple;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.zsw.demo.utils.RabbitMQUtils;
+import com.zsw.demo.rabbitmq.utils.RabbitMQUtils;
 import lombok.SneakyThrows;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-import static com.zsw.demo.javaapi.simple.SimpleConsumer.EXCHANGE_NAME;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -29,7 +28,7 @@ public class SimpleProducer {
 
         String message;
         while (!Objects.equals(message = reader.readLine(), "exit")) {
-            channel.basicPublish(EXCHANGE_NAME, "zsw.test", null, message.getBytes(UTF_8));
+            channel.basicPublish(SimpleConsumer.EXCHANGE_NAME, "zsw.test", null, message.getBytes(UTF_8));
         }
 
         channel.close();
