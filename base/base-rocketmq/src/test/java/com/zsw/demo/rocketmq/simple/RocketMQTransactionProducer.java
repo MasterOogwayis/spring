@@ -14,20 +14,22 @@ import java.io.InputStreamReader;
 import static com.zsw.demo.rocketmq.RocketMQProperties.*;
 
 /**
+ * 发送事务消息
+ *
  * @author ZhangShaowei on 2019/8/30 13:23
  **/
 @Slf4j
-public class RocketMQProducer {
+public class RocketMQTransactionProducer {
 
 
     @SneakyThrows
     public static void main(String[] args) {
-        simple();
+        send();
     }
 
 
 
-    public static void simple() throws Exception {
+    public static void send() throws Exception {
         DefaultMQProducer producer = new DefaultMQProducer(SIMPLE_GROUP);
         producer.setNamesrvAddr(NAME_SERVER_ADDR);
         producer.setInstanceName("Producer");
@@ -45,10 +47,6 @@ public class RocketMQProducer {
                     continue;
                 }
                 Message message = new Message(TOPIC, "tagA", line.getBytes(UTF8));
-                // 同步
-//                SendResult sendResult = producer.send(message);
-//                log.info("result: {}", sendResult);
-                // 异步
                 producer.send(message, new SendCallback() {
                     @Override
                     public void onSuccess(SendResult sendResult) {
@@ -61,15 +59,6 @@ public class RocketMQProducer {
                         log.error(e.getMessage());
                     }
                 });
-                // 单向，只管发送不管结果
-//                producer.sendOneway(message);
-                // 自定义消息发送规则
-//                SendResult sendResult = producer.send(message, new MessageQueueSelector() {
-//                    @Override
-//                    public MessageQueue select(List<MessageQueue> list, Message message, Object o) {
-//                        return list.get(0);
-//                    }
-//                }, "key");
             }
         } finally {
             producer.shutdown();
