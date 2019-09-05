@@ -41,6 +41,7 @@
         <module>base-mapstruct</module>
         <module>base-kafka</module>
         <module>base-rocketmq</module>
+        <module>base-remoting</module>
     </modules>
 
 

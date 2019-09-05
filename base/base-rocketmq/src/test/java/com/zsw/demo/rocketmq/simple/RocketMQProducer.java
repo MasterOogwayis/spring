@@ -10,6 +10,8 @@ import org.apache.rocketmq.common.message.Message;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Objects;
+import java.util.UUID;
 
 import static com.zsw.demo.rocketmq.RocketMQProperties.*;
 
@@ -44,7 +46,11 @@ public class RocketMQProducer {
                 if (!StringUtils.isNotEmpty(line)) {
                     continue;
                 }
-                Message message = new Message(TOPIC, "tagA", line.getBytes(UTF8));
+                int hash = Objects.hash(line);
+                boolean b = hash % 2 == 0;
+                String tag = "tag" + b;
+                log.info("tag: {}", tag);
+                Message message = new Message(TOPIC, tag, UUID.randomUUID().toString(), line.getBytes(UTF8));
                 // 同步
 //                SendResult sendResult = producer.send(message);
 //                log.info("result: {}", sendResult);

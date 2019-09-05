@@ -4,13 +4,16 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPullConsumer;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
+import org.apache.rocketmq.client.consumer.MessageSelector;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.message.MessageQueue;
 
 import java.util.List;
+import java.util.Set;
 
 import static com.zsw.demo.rocketmq.RocketMQProperties.*;
 
@@ -36,7 +39,8 @@ public class RocketMQConsumer {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(SIMPLE_GROUP);
         consumer.setNamesrvAddr(NAME_SERVER_ADDR);
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
-        consumer.subscribe(TOPIC, "*");
+//        consumer.subscribe(TOPIC, MessageSelector.bySql("a between 1 and 3"));
+        consumer.subscribe(TOPIC, "tagtrue");
         consumer.setInstanceName("Consumer");
 
         consumer.registerMessageListener(new MessageListenerConcurrently() {
@@ -50,7 +54,7 @@ public class RocketMQConsumer {
             }
         });
         consumer.start();
-        consumer.fetchSubscribeMessageQueues(TOPIC);
+//        Set<MessageQueue> messageQueues = consumer.fetchSubscribeMessageQueues(TOPIC);
 //        }
     }
 
