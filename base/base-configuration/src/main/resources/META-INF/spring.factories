@@ -1,0 +1,3 @@
+com.demo.factories.DoSomething=\
+com.demo.factories.Work,\
+com.demo.factories.DoNothing
