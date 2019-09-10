@@ -1,0 +1,7 @@
+rocketmq:
+  name-server: 192.168.137.130:9876
+  producer:
+    group: simple_group
+    sendMessageTimeout: 300000
+  consumer:
+    topic: JAVA_API_TOPIC

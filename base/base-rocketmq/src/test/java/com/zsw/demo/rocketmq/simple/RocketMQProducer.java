@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.zsw.demo.rocketmq.RocketMQProperties.*;
+import static com.zsw.demo.rocketmq.simple.RocketProperties.*;
 
 /**
  * @author ZhangShaowei on 2019/8/30 13:23

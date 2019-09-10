@@ -1,11 +1,11 @@
-package com.zsw.demo.rocketmq;
+package com.zsw.demo.rocketmq.simple;
 
 import java.nio.charset.Charset;
 
 /**
  * @author ZhangShaowei on 2019/8/30 13:37
  **/
-public class RocketMQProperties {
+class RocketProperties {
 
     public static final String NAME_SERVER_ADDR = "192.168.137.130:9876";
 

@@ -11,7 +11,7 @@ import org.apache.rocketmq.common.message.Message;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import static com.zsw.demo.rocketmq.RocketMQProperties.*;
+import static com.zsw.demo.rocketmq.simple.RocketProperties.*;
 
 /**
  * 发送事务消息
