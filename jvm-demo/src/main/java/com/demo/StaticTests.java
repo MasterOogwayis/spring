@@ -2,24 +2,14 @@ package com.demo;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.SneakyThrows;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Duration;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.function.BiConsumer;
 
 /**
  * @author ZhangShaowei on 2019/2/27 14:15
@@ -35,6 +25,8 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
+
+//        Executor executor = Runnable::run;
 
 //        String path = "G:\\workplace\\platform-soa-config-files\\future";
 //
@@ -67,15 +59,29 @@ public class StaticTests {
 //        });
 
 
-        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        System.out.println("admin:" + passwordEncoder.encode("admin"));
+//        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//        System.out.println("admin:" + passwordEncoder.encode("admin"));
 
+
+        BiConsumer<Dto, String> b =Dto::setName;
+
+        Dto dto = new Dto();
+
+        b.accept(dto, "zsw");
+
+        System.out.println(dto);
 
     }
 
-    private static byte[] get() {
-        return null;
+
+    @Setter
+    @ToString
+    static class Dto {
+
+        private String name;
+
     }
+
 
 
 }
