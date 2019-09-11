@@ -1,9 +1,9 @@
-package com.zsw;
+package com.anze.mq;
 
+import com.anze.mq.spring.annotation.MessageModel;
+import com.anze.mq.spring.annotation.RocketMQMessageListener;
+import com.anze.mq.spring.core.RocketMQListener;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.spring.annotation.MessageModel;
-import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
-import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @RocketMQMessageListener(
-        topic = "BCPT_SC_TEST",
-        consumerGroup = "GID_BCPT_SC_TEST",
+        topic = "BCPT_CRM_TEST",
+        consumerGroup = "GID_BCPT_CRM_TEST",
         messageModel = MessageModel.CLUSTERING,
         accessKey = "LTAIxhbAKjb2ziY2",
         secretKey = "Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW"

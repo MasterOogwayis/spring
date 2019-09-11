@@ -1,22 +1,17 @@
-package com;
+package com.anze;
 
-import com.aliyun.openservices.ons.api.*;
 import com.aliyun.openservices.ons.api.bean.Subscription;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 
 /**
  * @author ZhangShaowei on 2019/9/10 12:51
  **/
 @Slf4j
-@ComponentScan
 public class StaticTests {
 
 
@@ -63,7 +58,7 @@ public class StaticTests {
         Producer producer = ONSFactory.createProducer(properties);
         producer.start();
         System.out.println("producer started ...");
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
             String line;
             while (true) {
                 line = reader.readLine();
@@ -72,7 +67,7 @@ public class StaticTests {
                 }
                 try {
                     SendResult send = producer.send(
-                            new com.aliyun.openservices.ons.api.Message("BCPT_SC_TEST", "*", "asd".getBytes()));
+                            new Message("BCPT_SC_TEST", "*", "asd".getBytes()));
                     System.out.println(send.getMessageId());
                 } catch (Exception e) {
                     e.printStackTrace();

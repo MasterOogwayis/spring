@@ -42,10 +42,15 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+        </dependency>
+
+        <!--<dependency>
             <groupId>com.aliyun.openservices</groupId>
             <artifactId>ons-client</artifactId>
             <version>1.8.3.Final</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
 </project>

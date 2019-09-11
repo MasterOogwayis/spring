@@ -1,8 +1,8 @@
 package com;
 
 import com.aliyun.openservices.ons.api.SendResult;
+import com.anze.mq.spring.core.RocketMQTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
