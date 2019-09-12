@@ -25,6 +25,7 @@ import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.adaptor.AliProducerAdaptor;
 import com.zsw.mq.spring.config.RocketMQConfigUtils;
 import com.zsw.mq.spring.core.RocketMQTemplate;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ import static com.zsw.mq.spring.config.RocketMQConfigUtils.PREFIX;
 @EnableConfigurationProperties(RocketMQProperties.class)
 @ConditionalOnClass(MQAdmin.class)
 @ConditionalOnProperty(prefix = "rocketmq", value = "name-server", matchIfMissing = true)
-@Import({MessageSerializerConfiguration.class, AliyunListenerContainerConfiguration.class})
+@Import({AliyunListenerContainerConfiguration.class})
 @AutoConfigureAfter(JacksonAutoConfiguration.class)
 public class AliyunRocketMQConfiguration {
     private static final Logger log = LoggerFactory.getLogger(AliyunRocketMQConfiguration.class);
@@ -114,21 +115,5 @@ public class AliyunRocketMQConfiguration {
         rocketMQTemplate.setObjectMapper(rocketMQMessageObjectMapper);
         return rocketMQTemplate;
     }
-
-//    @Bean
-//    @ConditionalOnBean(name = RocketMQConfigUtils.ROCKETMQ_TEMPLATE_DEFAULT_GLOBAL_NAME)
-//    @ConditionalOnMissingBean(TransactionHandlerRegistry.class)
-//    public TransactionHandlerRegistry transactionHandlerRegistry(@Qualifier(RocketMQConfigUtils.ROCKETMQ_TEMPLATE_DEFAULT_GLOBAL_NAME)
-//                                                                             RocketMQTemplate template) {
-//        return new TransactionHandlerRegistry(template);
-//    }
-
-//    @Bean(name = RocketMQConfigUtils.ROCKETMQ_TRANSACTION_ANNOTATION_PROCESSOR_BEAN_NAME)
-//    @ConditionalOnBean(TransactionHandlerRegistry.class)
-//    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-//    public static RocketMQTransactionAnnotationProcessor transactionAnnotationProcessor(
-//        TransactionHandlerRegistry transactionHandlerRegistry) {
-//        return new RocketMQTransactionAnnotationProcessor(transactionHandlerRegistry);
-//    }
 
 }

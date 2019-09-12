@@ -24,6 +24,7 @@ import com.zsw.mq.spring.annotation.ExtRocketMQTemplateConfiguration;
 import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.adaptor.AliProducerAdaptor;
 import com.zsw.mq.spring.core.RocketMQTemplate;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopProxyUtils;

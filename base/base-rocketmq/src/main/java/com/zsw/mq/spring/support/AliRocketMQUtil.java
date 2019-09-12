@@ -20,7 +20,7 @@ import com.aliyun.openservices.ons.api.Message;
 import com.aliyun.openservices.shade.com.alibaba.rocketmq.common.message.MessageConst;
 import com.zsw.mq.spring.api.SendResult;
 import com.zsw.mq.spring.api.impl.ali.AliSendResult;
-import com.zsw.mq.spring.autoconfigure.MessageSerializer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;

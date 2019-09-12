@@ -182,9 +182,9 @@ public class RocketMQTemplate extends AbstractMessageSendingTemplate<String> imp
 
     @Override
     public void destroy() {
-//        if (Objects.nonNull(producer)) {
-//            producer.stop();
-//        }
+        if (Objects.nonNull(producer) && this.producer.isRunning()) {
+            this.producer.stop();
+        }
     }
 
 

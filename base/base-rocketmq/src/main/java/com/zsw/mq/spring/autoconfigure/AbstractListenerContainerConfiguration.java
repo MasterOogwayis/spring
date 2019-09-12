@@ -21,8 +21,8 @@ import com.zsw.mq.spring.annotation.ConsumeMode;
 import com.zsw.mq.spring.annotation.MessageModel;
 import com.zsw.mq.spring.annotation.RocketMQMessageListener;
 import com.zsw.mq.spring.core.RocketMQListener;
-import com.zsw.mq.spring.support.AbstractMQListenerContainer;
-import com.zsw.mq.spring.support.AliRocketMQListenerContainer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
+import com.zsw.mq.spring.support.bean.AbstractMQListenerContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopProxyUtils;
@@ -38,7 +38,6 @@ import org.springframework.core.env.StandardEnvironment;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 import static com.zsw.mq.spring.config.RocketMQConfigUtils.PREFIX;

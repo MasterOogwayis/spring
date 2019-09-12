@@ -16,8 +16,7 @@
  */
 package com.zsw.mq.spring.support;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zsw.mq.spring.autoconfigure.MessageSerializer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.core.RocketMQLocalTransactionListener;
 import com.zsw.mq.spring.core.RocketMQLocalTransactionState;
 import org.apache.rocketmq.acl.common.AclClientRPCHook;
@@ -38,7 +37,6 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Objects;
 

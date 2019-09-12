@@ -17,8 +17,9 @@
 
 package com.zsw.mq.spring.autoconfigure;
 
-import com.zsw.mq.spring.support.AbstractMQListenerContainer;
-import com.zsw.mq.spring.support.DefaultRocketMQListenerContainer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
+import com.zsw.mq.spring.support.bean.AbstractMQListenerContainer;
+import com.zsw.mq.spring.support.bean.DefaultRocketMQListenerContainer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.StandardEnvironment;

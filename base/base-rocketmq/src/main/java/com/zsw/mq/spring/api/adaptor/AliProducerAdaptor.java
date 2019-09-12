@@ -6,7 +6,7 @@ import com.zsw.mq.spring.api.AsyncCallback;
 import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.SendResult;
 import com.zsw.mq.spring.api.impl.ali.AliSendResult;
-import com.zsw.mq.spring.autoconfigure.MessageSerializer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.support.AliRocketMQUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -3,7 +3,7 @@ package com.zsw.mq.spring.api.adaptor;
 import com.zsw.mq.spring.api.AsyncCallback;
 import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.SendResult;
-import com.zsw.mq.spring.autoconfigure.MessageSerializer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.support.RocketMQUtil;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;

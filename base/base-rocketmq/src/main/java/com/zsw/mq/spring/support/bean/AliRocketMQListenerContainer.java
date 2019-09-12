@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.zsw.mq.spring.support;
+package com.zsw.mq.spring.support.bean;
 
 import com.aliyun.openservices.ons.api.*;
 import com.aliyun.openservices.ons.api.bean.ConsumerBean;
@@ -23,7 +23,6 @@ import com.aliyun.openservices.ons.api.bean.Subscription;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;

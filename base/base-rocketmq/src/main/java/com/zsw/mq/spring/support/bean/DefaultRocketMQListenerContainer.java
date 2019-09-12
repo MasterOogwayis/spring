@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package com.zsw.mq.spring.support;
+package com.zsw.mq.spring.support.bean;
 
+import com.zsw.mq.spring.support.RocketMQUtil;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.apache.rocketmq.client.AccessChannel;

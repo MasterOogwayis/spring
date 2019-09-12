@@ -17,9 +17,9 @@
 
 package com.zsw.mq.spring.autoconfigure;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.adaptor.ProducerAdaptor;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import org.apache.rocketmq.acl.common.AclClientRPCHook;
 import org.apache.rocketmq.acl.common.SessionCredentials;
 import org.apache.rocketmq.client.AccessChannel;

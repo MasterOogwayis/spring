@@ -15,15 +15,16 @@
  * limitations under the License.
  */
 
-package com.zsw.mq.spring.support;
+package com.zsw.mq.spring.support.bean;
 
 import com.zsw.mq.spring.annotation.ConsumeMode;
 import com.zsw.mq.spring.annotation.MessageModel;
 import com.zsw.mq.spring.annotation.RocketMQMessageListener;
 import com.zsw.mq.spring.annotation.SelectorType;
-import com.zsw.mq.spring.autoconfigure.MessageSerializer;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.autoconfigure.RocketMQProperties;
 import com.zsw.mq.spring.core.RocketMQListener;
+import com.zsw.mq.spring.support.RocketMQListenerContainer;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopProxyUtils;

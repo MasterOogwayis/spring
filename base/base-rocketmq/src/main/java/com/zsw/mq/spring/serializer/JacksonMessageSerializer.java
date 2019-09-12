@@ -1,4 +1,4 @@
-package com.zsw.mq.spring.autoconfigure;
+package com.zsw.mq.spring.serializer;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
