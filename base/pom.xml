@@ -42,7 +42,6 @@
         <module>base-kafka</module>
         <module>base-rocketmq</module>
         <module>base-remoting</module>
-        <module>ali-ons-client</module>
     </modules>
 
 

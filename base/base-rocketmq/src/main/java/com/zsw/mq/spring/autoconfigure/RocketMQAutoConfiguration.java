@@ -33,7 +33,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.util.Assert;
@@ -43,8 +42,6 @@ import javax.annotation.PostConstruct;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 
-import static com.zsw.mq.spring.autoconfigure.RocketMQProperties.PROFILE_ALIYUN;
-import static com.zsw.mq.spring.autoconfigure.RocketMQProperties.PROFILE_DEFAULT;
 import static com.zsw.mq.spring.config.RocketMQConfigUtils.PREFIX;
 
 /**
@@ -62,15 +59,8 @@ public class RocketMQAutoConfiguration {
 
     @PostConstruct
     public void checkProperties() {
-        String profile = environment.getProperty("spring.profiles.active");
-        String type;
-        if (PROFILE_ALIYUN.equalsIgnoreCase(profile)) {
-            type = "aliyun mq";
-        } else {
-            type = "default rocketmq";
-        }
         String nameServer = environment.getProperty("rocketmq.name-server", String.class);
-        log.debug("rocketmq type: {}, rocketmq.nameServer = {}", type, nameServer);
+        log.debug("rocketmq.nameServer = {}", nameServer);
         if (nameServer == null) {
             log.warn("The necessary spring property 'rocketmq.name-server' is not defined, all rockertmq beans creation are skipped!");
         }
@@ -109,14 +99,13 @@ public class RocketMQAutoConfiguration {
         return mapper;
     }
 
-    @Profile(PROFILE_DEFAULT)
+//    @Profile(PROFILE_DEFAULT)
     @ConditionalOnClass(org.apache.rocketmq.client.MQAdmin.class)
     @ConditionalOnProperty(prefix = "rocketmq", value = {"name-server", "producer.group"})
     @Import({DefaultListenerContainerConfiguration.class})
     public class DefaultConfiguration {
 
         @Bean(initMethod = "start", destroyMethod = "stop")
-        @ConditionalOnMissingBean(Producer.class)
         public Producer defaultMQProducer(
                 RocketMQProperties rocketMQProperties, MessageSerializer serializer) {
             RocketMQProperties.Producer producerConfig = rocketMQProperties.getProducer();
@@ -155,7 +144,7 @@ public class RocketMQAutoConfiguration {
         }
     }
 
-    @Profile(PROFILE_ALIYUN)
+//    @Profile(PROFILE_ALIYUN)
     @ConditionalOnClass(MQAdmin.class)
     @ConditionalOnProperty(prefix = "rocketmq", value = {"name-server", "producer.group"})
     @Import({AliyunListenerContainerConfiguration.class})
@@ -166,7 +155,6 @@ public class RocketMQAutoConfiguration {
 
 
         @Bean(initMethod = "start", destroyMethod = "stop")
-        @ConditionalOnMissingBean(Producer.class)
         public Producer defaultMQProducer(RocketMQProperties rocketMQProperties) {
             RocketMQProperties.Producer producerConfig = rocketMQProperties.getProducer();
             String nameServer = rocketMQProperties.getNameServer();

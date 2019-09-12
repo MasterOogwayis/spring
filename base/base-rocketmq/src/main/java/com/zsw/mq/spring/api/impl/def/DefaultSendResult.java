@@ -4,10 +4,12 @@ import com.zsw.mq.spring.api.SendResult;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author ZhangShaowei on 2019/9/11 16:24
  **/
+@ToString
 @Setter
 @Getter(onMethod = @_({@Override}))
 @Builder

@@ -1,36 +1,26 @@
-server:
-  port: 8080
-
 spring:
+  #  profiles:
+  #    active: aliyun
   application:
-    name: simple-app
-  datasource:
-    url: jdbc:mysql://localhost:3306/sb?useUnicode=true&characterEncoding=utf-8
-    #    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: root
-    driverClassName: com.mysql.cj.jdbc.Driver
-    validationQuery: SELECT 1 FROM DUAL
-    type: com.zaxxer.hikari.HikariDataSource
-  #JPA Configuration:
-  jpa:
-    properties:
-      hibernate:
-        enable_lazy_load_no_trans: true
-    database: MYSQL
-    show-sql: true
-    generate-ddl: true
-      # 下面这种事 默认字段 下横线组合，默认为驼峰写法
-      #    hibernate:
-      #      naming:
-      #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      #        strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    database-platform: org.hibernate.dialect.MySQLDialect
-    open-in-view: true
-    hibernate:
-      ddl-auto: update
-  output:
-    ansi:
-      enabled: detect
+    name: rocketmq
 
 
+rocketmq:
+#  name-server: http://onsaddr.mq-internet-access.mq-internet.aliyuncs.com:80
+#  producer:
+#    group: GID_BCPT_CRM_TEST
+#    sendMessageTimeout: 300000
+#    access-key: LTAIxhbAKjb2ziY2
+#    secret-key: Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW
+#  consumer:
+#    access-key: LTAIxhbAKjb2ziY2
+#    secret-key: Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW
+  name-server: 192.168.1.12:9876
+  producer:
+    group: GID_BCPT_CRM_TEST
+    sendMessageTimeout: 300000
+    access-key:
+    secret-key:
+  consumer:
+    access-key:
+    secret-key:

@@ -1,12 +1,12 @@
 package com;
 
-import com.aliyun.openservices.ons.api.SendResult;
+import com.anze.mq.spring.api.SendResult;
+import com.anze.mq.spring.core.RocketMQTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.messaging.support.GenericMessage;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.StringUtils;
 
 import java.io.BufferedReader;
@@ -33,7 +33,8 @@ public class RocketMQApp {
                     continue;
                 }
                 try {
-                    SendResult sendResult = rocketMQTemplate.syncSend("BCPT_SC_TEST", new GenericMessage<>(line));
+                    SendResult sendResult = rocketMQTemplate.syncSend(
+                            "BCPT_CRM_TEST", MessageBuilder.withPayload(line).build());
                     System.out.println(sendResult);
                     System.err.println(sendResult.getMessageId());
                 } catch (Exception e) {

@@ -22,12 +22,15 @@ import org.springframework.stereotype.Component;
 import java.lang.annotation.*;
 
 /**
+ * 暂不支持
+ *
  * @author some one
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Component
+@Deprecated
 public @interface ExtRocketMQTemplateConfiguration {
     /**
      * The component name of the Producer configuration.

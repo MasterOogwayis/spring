@@ -54,18 +54,21 @@
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
             <version>${rocketmq-client.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-acl</artifactId>
             <version>${rocketmq-client.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.aliyun.openservices</groupId>
             <artifactId>ons-client</artifactId>
             <version>${ons-client.version}</version>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
