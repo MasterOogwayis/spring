@@ -1,22 +1,33 @@
-#rocketmq:
-#  name-server: 192.168.137.130:9876
-#  producer:
-#    group: simple_group
-#    sendMessageTimeout: 300000
-#  consumer:
-#    topic: JAVA_API_TOPIC
+spring:
+#  profiles:
+#    active: aliyun
+  application:
+    name: rocketmq
 
+
+--- # aliyun mq
+spring:
+  profiles: aliyun
 rocketmq:
-  name-server: "http://onsaddr.mq-internet-access.mq-internet.aliyuncs.com:80"
+  name-server: http://onsaddr.mq-internet-access.mq-internet.aliyuncs.com:80
   producer:
-    group: GID_BCPT_SC_TEST
+    group: GID_BCPT_CRM_TEST
     sendMessageTimeout: 300000
     access-key: LTAIxhbAKjb2ziY2
     secret-key: Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW
   consumer:
     access-key: LTAIxhbAKjb2ziY2
     secret-key: Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW
-
+--- # local rocketmq
 spring:
-  profiles:
-    active: aliyun
+  profiles: default
+rocketmq:
+  name-server: 192.168.1.12:9876
+  producer:
+    group: GID_BCPT_CRM_TEST
+    sendMessageTimeout: 300000
+    access-key:
+    secret-key:
+  consumer:
+    access-key:
+    secret-key:

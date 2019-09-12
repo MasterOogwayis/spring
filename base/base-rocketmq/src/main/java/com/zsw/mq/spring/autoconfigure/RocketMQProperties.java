@@ -26,6 +26,10 @@ import java.util.Map;
 @ConfigurationProperties(prefix = RocketMQProperties.ROCKET_MQ_NAMESPACE)
 public class RocketMQProperties {
 
+    public static final String PROFILE_ALIYUN = "aliyun";
+
+    public static final String PROFILE_DEFAULT = "default";
+
     public static final String ROCKET_MQ_NAMESPACE = "rocketmq";
 
     /**

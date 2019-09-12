@@ -23,8 +23,7 @@ import com.zsw.mq.spring.annotation.RocketMQMessageListener;
 import com.zsw.mq.spring.core.RocketMQListener;
 import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.support.bean.AbstractMQListenerContainer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.SmartInitializingSingleton;
@@ -42,8 +41,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static com.zsw.mq.spring.config.RocketMQConfigUtils.PREFIX;
 
+@Slf4j
 public abstract class AbstractListenerContainerConfiguration implements ApplicationContextAware, SmartInitializingSingleton {
-    private final static Logger log = LoggerFactory.getLogger(AbstractListenerContainerConfiguration.class);
 
     private ConfigurableApplicationContext applicationContext;
 
