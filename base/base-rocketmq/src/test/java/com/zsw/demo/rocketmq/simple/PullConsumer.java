@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.zsw.demo.rocketmq.RocketMQProperties.*;
+import static com.zsw.demo.rocketmq.simple.RocketProperties.NAME_SERVER_ADDR;
+import static com.zsw.demo.rocketmq.simple.RocketProperties.SIMPLE_GROUP;
+import static com.zsw.mq.spring.support.RocketMQHeaders.TOPIC;
 
 /**
  * @author Administrator on 2019/9/3 20:21

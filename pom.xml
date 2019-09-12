@@ -653,11 +653,7 @@
                 <version>1.9.13</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.rocketmq</groupId>
-                <artifactId>rocketmq-client</artifactId>
-                <version>4.5.2</version>
-            </dependency>
+
 
 
         </dependencies>
