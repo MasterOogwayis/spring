@@ -79,7 +79,7 @@ public @interface RocketMQMessageListener {
     /**
      * Max consumer thread number.
      */
-    int consumeThreadMax() default 64;
+    int consumeThreadMax() default 20;
 
     /**
      * Max consumer timeout, default 30s.

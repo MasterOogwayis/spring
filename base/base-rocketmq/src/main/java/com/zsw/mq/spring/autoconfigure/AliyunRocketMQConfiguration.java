@@ -50,9 +50,9 @@ import static com.zsw.mq.spring.config.RocketMQConfigUtils.PREFIX;
 @Profile("aliyun")
 @Configuration
 @EnableConfigurationProperties(RocketMQProperties.class)
-@ConditionalOnClass({MQAdmin.class, ObjectMapper.class})
+@ConditionalOnClass(MQAdmin.class)
 @ConditionalOnProperty(prefix = "rocketmq", value = "name-server", matchIfMissing = true)
-@Import({MessageSerializerConfiguration.class, ListenerContainerConfiguration.class})
+@Import({MessageSerializerConfiguration.class, AliyunListenerContainerConfiguration.class})
 @AutoConfigureAfter(JacksonAutoConfiguration.class)
 public class AliyunRocketMQConfiguration {
     private static final Logger log = LoggerFactory.getLogger(AliyunRocketMQConfiguration.class);

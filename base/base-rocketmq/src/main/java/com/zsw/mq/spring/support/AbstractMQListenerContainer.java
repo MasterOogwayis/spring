@@ -21,8 +21,8 @@ import com.zsw.mq.spring.annotation.ConsumeMode;
 import com.zsw.mq.spring.annotation.MessageModel;
 import com.zsw.mq.spring.annotation.RocketMQMessageListener;
 import com.zsw.mq.spring.annotation.SelectorType;
-import com.zsw.mq.spring.api.Consumer;
 import com.zsw.mq.spring.autoconfigure.MessageSerializer;
+import com.zsw.mq.spring.autoconfigure.RocketMQProperties;
 import com.zsw.mq.spring.core.RocketMQListener;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -31,56 +31,58 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.core.env.Environment;
-import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Properties;
 
 @SuppressWarnings("WeakerAccess")
 @Slf4j
 @Setter
-public class AbstractMQListenerContainer implements InitializingBean,
+public abstract class AbstractMQListenerContainer implements InitializingBean,
         RocketMQListenerContainer, SmartLifecycle, EnvironmentAware {
 
     /**
      * The name of the DefaultRocketMQListenerContainer instance
      */
-    private String name;
+    protected String name;
 
-    private Environment environment;
+    protected String nameServer;
 
-    private String nameServer;
+    protected String consumerGroup;
 
-    private String consumerGroup;
+    protected String topic;
 
-    private String topic;
+    protected String accessKey;
 
-    private String accessKey;
+    protected String secretKey;
 
-    private String secretKey;
+    protected Environment environment;
 
-    private MessageSerializer serializer;
+    protected RocketMQProperties properties;
 
-    private RocketMQListener rocketMQListener;
+    protected MessageSerializer serializer;
 
-    private RocketMQMessageListener annotation;
+    protected RocketMQListener rocketMQListener;
 
-    private Consumer consumer;
+    protected RocketMQMessageListener annotation;
 
-    private Class messageType;
+    protected Class messageType;
 
-    // The following properties came from @RocketMQMessageListener.
-    private ConsumeMode consumeMode;
-    private SelectorType selectorType;
-    private String selectorExpression;
-    private MessageModel messageModel;
-    private long consumeTimeout;
-    private String tags;
+    /**
+     * The following properties came from @RocketMQMessageListener.
+     */
+    protected ConsumeMode consumeMode;
+    protected SelectorType selectorType;
+    protected String selectorExpression;
+    protected MessageModel messageModel;
+    protected long consumeTimeout;
+    protected String tags;
+    protected int consumeThreadMax = 64;
+
+
+    protected volatile boolean running = false;
 
 
     @Override
@@ -88,13 +90,6 @@ public class AbstractMQListenerContainer implements InitializingBean,
         this.rocketMQListener = rocketMQListener;
     }
 
-    @Override
-    public void destroy() {
-        if (Objects.nonNull(consumer)) {
-            consumer.stop();
-        }
-        log.info("container destroyed, {}", this.toString());
-    }
 
     @Override
     public boolean isAutoStartup() {
@@ -105,30 +100,6 @@ public class AbstractMQListenerContainer implements InitializingBean,
     public void stop(Runnable callback) {
         stop();
         callback.run();
-    }
-
-    @Override
-    public void start() {
-        if (this.isRunning()) {
-            log.warn("container already running. {}", this.toString());
-            return;
-        }
-        consumer.start();
-        log.info("running container: {}", this.toString());
-    }
-
-    @Override
-    public void stop() {
-        if (this.isRunning()) {
-            if (Objects.nonNull(consumer)) {
-                consumer.stop();
-            }
-        }
-    }
-
-    @Override
-    public boolean isRunning() {
-        return this.consumer.isRunning();
     }
 
 
@@ -142,23 +113,13 @@ public class AbstractMQListenerContainer implements InitializingBean,
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        resolveNeededProperties();
-        validate();
-        initRocketMQPushConsumer();
+        initConsumer();
         this.messageType = getMessageType();
         log.debug("RocketMQ messageType: {}", messageType.getName());
     }
 
-    private void validate() {
-        Assert.notNull(rocketMQListener, "Property 'rocketMQListener' is required");
-        Assert.notNull(consumerGroup, "Property 'consumerGroup' is required");
-        Assert.notNull(nameServer, "Property 'nameServer' is required");
-        Assert.notNull(topic, "Property 'topic' is required");
-        Assert.notNull(accessKey, "Property 'accessKey' is required");
-        Assert.notNull(secretKey, "Property 'secretKey' is required");
-    }
 
-    private void resolveNeededProperties() {
+    protected void resolveNeededProperties() {
         //        this.rocketMQMessageListener = annotation;
         this.consumeMode = annotation.consumeMode();
         this.consumeThreadMax = annotation.consumeThreadMax();
@@ -167,7 +128,6 @@ public class AbstractMQListenerContainer implements InitializingBean,
         this.tags = annotation.tags();
         this.selectorType = annotation.selectorType();
         this.consumeTimeout = annotation.consumeTimeout();
-        this.consumeThreadMax = annotation.consumeThreadMax();
 
         this.nameServer = environment.resolvePlaceholders(this.annotation.nameServer());
         this.nameServer = StringUtils.isEmpty(this.nameServer) ? this.properties.getNameServer() : this.nameServer;
@@ -178,52 +138,8 @@ public class AbstractMQListenerContainer implements InitializingBean,
         this.consumerGroup = this.environment.resolvePlaceholders(this.annotation.consumerGroup());
     }
 
-    @Override
-    public String toString() {
-        return "DefaultRocketMQListenerContainer{" +
-                "consumerGroup='" + consumerGroup + '\'' +
-                ", nameServer='" + nameServer + '\'' +
-                ", topic='" + topic + '\'' +
-                ", consumeMode=" + consumeMode +
-                ", selectorType=" + selectorType +
-                ", selectorExpression='" + selectorExpression + '\'' +
-                ", messageModel=" + messageModel +
-                '}';
-    }
 
-    public class DefaultMessageListener implements MessageListener {
-
-        @Override
-        public Action consume(Message message, ConsumeContext context) {
-            log.debug("received msg: {}", message);
-            try {
-                long now = System.currentTimeMillis();
-                //noinspection unchecked
-                rocketMQListener.onMessage(doConvertMessage(message));
-                long costTime = System.currentTimeMillis() - now;
-                log.info("consume {} cost: {} ms", message.getMsgID(), costTime);
-            } catch (Exception e) {
-                log.warn("consume message failed. message:{}", message, e);
-                return Action.ReconsumeLater;
-            }
-            return Action.CommitMessage;
-        }
-    }
-
-
-    @SuppressWarnings("unchecked")
-    private Object doConvertMessage(Message message) {
-        if (Objects.equals(messageType, Message.class)) {
-            return message;
-        } else {
-            // If msgType not string, use objectMapper change it.
-            try {
-                return this.serializer.deserialize(message.getBody(), messageType);
-            } catch (Exception e) {
-                throw new RuntimeException("cannot serialize message to " + messageType, e);
-            }
-        }
-    }
+    protected abstract void initConsumer();
 
     private Class getMessageType() {
         Class<?> targetClass = AopProxyUtils.ultimateTargetClass(rocketMQListener);
@@ -252,39 +168,6 @@ public class AbstractMQListenerContainer implements InitializingBean,
         } else {
             return Object.class;
         }
-    }
-
-
-    private void initRocketMQPushConsumer() throws MQClientException {
-
-        ConsumerBean consumerBean = new ConsumerBean();
-        //配置文件
-        Properties properties = new Properties();
-        properties.setProperty(PropertyKeyConst.AccessKey, accessKey);
-        properties.setProperty(PropertyKeyConst.SecretKey, secretKey);
-        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, nameServer);
-
-        properties.setProperty(PropertyKeyConst.GROUP_ID, this.consumerGroup);
-        properties.setProperty(PropertyKeyConst.InstanceName, this.name);
-        // 模式
-        properties.setProperty(PropertyKeyConst.MessageModel, this.messageModel.getModeCN());
-        //将消费者线程数 大小相同
-        properties.setProperty(PropertyKeyConst.ConsumeThreadNums, String.valueOf(this.consumeThreadMax));
-        properties.setProperty(PropertyKeyConst.ConsumeTimeout, String.valueOf(this.consumeTimeout));
-        consumerBean.setProperties(properties);
-        //订阅关系
-        Map<Subscription, MessageListener> subscriptionTable = new HashMap<>();
-        Subscription subscription = new Subscription();
-        subscription.setTopic(topic);
-        subscription.setExpression(selectorExpression);
-        subscriptionTable.put(subscription, new DefaultMessageListener());
-        //订阅多个topic如上面设置
-
-        consumerBean.setSubscriptionTable(subscriptionTable);
-
-
-        consumer = consumerBean;
-
     }
 
 

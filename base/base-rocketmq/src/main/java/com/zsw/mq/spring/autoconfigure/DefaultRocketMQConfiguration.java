@@ -47,9 +47,9 @@ import javax.annotation.PostConstruct;
 @Profile("default")
 @Configuration
 @EnableConfigurationProperties(RocketMQProperties.class)
-@ConditionalOnClass({MQAdmin.class, ObjectMapper.class})
+@ConditionalOnClass(MQAdmin.class)
 @ConditionalOnProperty(prefix = "rocketmq", value = "name-server", matchIfMissing = true)
-@Import({ListenerContainerConfiguration.class, ExtProducerResetConfiguration.class})
+@Import({DefaultListenerContainerConfiguration.class}) // , ExtProducerResetConfiguration.class
 @AutoConfigureAfter(JacksonAutoConfiguration.class)
 public class DefaultRocketMQConfiguration {
     private static final Logger log = LoggerFactory.getLogger(DefaultRocketMQConfiguration.class);
