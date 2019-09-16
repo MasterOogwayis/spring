@@ -10,56 +10,56 @@ public interface Producer extends Lifecycle {
 
     /**
      * @param topic
-     * @param expression
+     * @param tags
      * @param data
      */
-    void sendOneway(String topic, String expression, Object data);
+    void sendOneway(String topic, String tags, Object data);
 
     /**
      * @param topic
-     * @param expression
+     * @param tags
      * @param data
      * @return
      */
-    SendResult sendSync(String topic, String expression, Object data);
+    SendResult sendSync(String topic, String tags, Object data);
 
     /**
      * 异步发送
      *
      * @param topic
-     * @param expression
+     * @param tags
      * @param data
      * @return
      */
-    void sendAsync(String topic, String expression, Object data, AsyncCallback callback);
+    void sendAsync(String topic, String tags, Object data, AsyncCallback callback);
 
     /**
      * @param topic
-     * @param expression
+     * @param tags
      * @param keys
      * @param data
      */
-    void sendOneway(String topic, String expression, String keys, Object data);
+    void sendOneway(String topic, String tags, String keys, Object data);
 
     /**
      * @param topic
-     * @param expression
+     * @param tags
      * @param keys
      * @param data
      * @return
      */
-    SendResult sendSync(String topic, String expression, String keys, Object data);
+    SendResult sendSync(String topic, String tags, String keys, Object data);
 
     /**
      * 异步发送
      *
      * @param topic
-     * @param expression
+     * @param tags
      * @param keys
      * @param data
      * @param callback
      */
-    void sendAsync(String topic, String expression, String keys, Object data, AsyncCallback callback);
+    void sendAsync(String topic, String tags, String keys, Object data, AsyncCallback callback);
 
 
     /**

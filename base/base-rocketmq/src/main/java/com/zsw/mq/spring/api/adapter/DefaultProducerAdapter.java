@@ -37,38 +37,38 @@ public class DefaultProducerAdapter implements Producer {
 
     @Override
     @SneakyThrows
-    public void sendOneway(String topic, String expression, Object data) {
-        this.producer.sendOneway(this.create(topic, expression, "", data));
+    public void sendOneway(String topic, String tags, Object data) {
+        this.producer.sendOneway(this.create(topic, tags, "", data));
     }
 
     @Override
     @SneakyThrows
-    public SendResult sendSync(String topic, String expression, Object data) {
-        return this.converter.convert(this.producer.send(this.create(topic, expression, "", data)));
+    public SendResult sendSync(String topic, String tags, Object data) {
+        return this.converter.convert(this.producer.send(this.create(topic, tags, "", data)));
     }
 
     @Override
     @SneakyThrows
-    public void sendAsync(String topic, String expression, Object data, AsyncCallback callback) {
-        this.producer.send(this.create(topic, expression, "", data), new DefaultSendCallback(callback));
+    public void sendAsync(String topic, String tags, Object data, AsyncCallback callback) {
+        this.producer.send(this.create(topic, tags, "", data), new DefaultSendCallback(callback));
     }
 
     @Override
     @SneakyThrows
-    public void sendOneway(String topic, String expression, String keys, Object data) {
-        this.producer.sendOneway(this.create(topic, expression, keys, data));
+    public void sendOneway(String topic, String tags, String keys, Object data) {
+        this.producer.sendOneway(this.create(topic, tags, keys, data));
     }
 
     @Override
     @SneakyThrows
-    public SendResult sendSync(String topic, String expression, String keys, Object data) {
-        return this.converter.convert(this.producer.send(this.create(topic, expression, keys, data)));
+    public SendResult sendSync(String topic, String tags, String keys, Object data) {
+        return this.converter.convert(this.producer.send(this.create(topic, tags, keys, data)));
     }
 
     @Override
     @SneakyThrows
-    public void sendAsync(String topic, String expression, String keys, Object data, AsyncCallback callback) {
-        this.producer.send(this.create(topic, expression, keys, data), new DefaultSendCallback(callback));
+    public void sendAsync(String topic, String tags, String keys, Object data, AsyncCallback callback) {
+        this.producer.send(this.create(topic, tags, keys, data), new DefaultSendCallback(callback));
     }
 
     @Override
@@ -111,8 +111,8 @@ public class DefaultProducerAdapter implements Producer {
 
 
     private org.apache.rocketmq.common.message.Message create(
-            String topic, String expression, @Nullable String keys, Object data) {
-        return new org.apache.rocketmq.common.message.Message(topic, expression, keys, this.serializer.serialize(data));
+            String topic, String tags, @Nullable String keys, Object data) {
+        return new org.apache.rocketmq.common.message.Message(topic, tags, keys, this.serializer.serialize(data));
     }
 
 
