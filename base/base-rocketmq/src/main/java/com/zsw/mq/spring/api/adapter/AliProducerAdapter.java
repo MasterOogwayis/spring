@@ -49,7 +49,7 @@ public class AliProducerAdapter implements Producer {
 
     @Override
     public void sendAsync(String topic, String tags, String keys, Object data, AsyncCallback callback) {
-        this.producer.sendOneway(AliRocketMQUtil.convert(topic, tags, keys, data, serializer));
+        this.producer.sendAsync(AliRocketMQUtil.convert(topic, tags, keys, data, serializer), new AliCallBack(callback));
     }
 
     @Override
