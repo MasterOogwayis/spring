@@ -44,15 +44,12 @@ public class AliRocketMQListenerContainer extends AbstractMQListenerContainer {
 
     private ConsumerBean consumer;
 
+    @Override
     protected void validate() {
-        Assert.notNull(rocketMQListener, "Property 'rocketMQListener' is required");
-        Assert.notNull(consumerGroup, "Property 'consumerGroup' is required");
-        Assert.notNull(nameServer, "Property 'nameServer' is required");
-        Assert.notNull(topic, "Property 'topic' is required");
+        super.validate();
         Assert.notNull(accessKey, "Property 'accessKey' is required");
         Assert.notNull(secretKey, "Property 'secretKey' is required");
     }
-
 
 
     @Override
@@ -149,20 +146,5 @@ public class AliRocketMQListenerContainer extends AbstractMQListenerContainer {
             }
         }
     }
-
-
-    @Override
-    public String toString() {
-        return "AliRocketMQListenerContainer{" +
-                "consumerGroup='" + consumerGroup + '\'' +
-                ", nameServer='" + nameServer + '\'' +
-                ", topic='" + topic + '\'' +
-                ", consumeMode=" + consumeMode +
-                ", selectorType=" + selectorType +
-                ", selectorExpression='" + selectorExpression + '\'' +
-                ", messageModel=" + messageModel +
-                '}';
-    }
-
 
 }

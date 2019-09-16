@@ -225,26 +225,4 @@ public class DefaultRocketMQListenerContainer extends AbstractMQListenerContaine
         }
     }
 
-    protected void validate() {
-        Assert.notNull(rocketMQListener, "Property 'rocketMQListener' is required");
-        Assert.notNull(consumerGroup, "Property 'consumerGroup' is required");
-        Assert.notNull(nameServer, "Property 'nameServer' is required");
-        Assert.notNull(topic, "Property 'topic' is required");
-    }
-
-
-    @Override
-    public String toString() {
-        return "DefaultRocketMQListenerContainer{" +
-                "consumerGroup='" + consumerGroup + '\'' +
-                ", nameServer='" + nameServer + '\'' +
-                ", topic='" + topic + '\'' +
-                ", consumeMode=" + consumeMode +
-                ", selectorType=" + selectorType +
-                ", selectorExpression='" + selectorExpression + '\'' +
-                ", messageModel=" + messageModel +
-                '}';
-    }
-
-
 }

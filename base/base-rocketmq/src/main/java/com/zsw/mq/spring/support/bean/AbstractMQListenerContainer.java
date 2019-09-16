@@ -21,9 +21,9 @@ import com.zsw.mq.spring.annotation.ConsumeMode;
 import com.zsw.mq.spring.annotation.MessageModel;
 import com.zsw.mq.spring.annotation.RocketMQMessageListener;
 import com.zsw.mq.spring.annotation.SelectorType;
-import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.autoconfigure.RocketMQProperties;
 import com.zsw.mq.spring.core.RocketMQListener;
+import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.support.RocketMQListenerContainer;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +32,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.core.env.Environment;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.lang.reflect.ParameterizedType;
@@ -142,6 +143,13 @@ public abstract class AbstractMQListenerContainer implements InitializingBean,
         this.consumerGroup = this.environment.resolvePlaceholders(this.annotation.consumerGroup());
     }
 
+    protected void validate() {
+        Assert.notNull(rocketMQListener, "Property 'rocketMQListener' is required");
+        Assert.notNull(consumerGroup, "Property 'consumerGroup' is required");
+        Assert.notNull(nameServer, "Property 'nameServer' is required");
+        Assert.notNull(topic, "Property 'topic' is required");
+    }
+
 
     protected abstract void initConsumer();
 
@@ -174,5 +182,18 @@ public abstract class AbstractMQListenerContainer implements InitializingBean,
         }
     }
 
+
+    @Override
+    public String toString() {
+        return "AliRocketMQListenerContainer{" +
+                "consumerGroup='" + consumerGroup + '\'' +
+                ", nameServer='" + nameServer + '\'' +
+                ", topic='" + topic + '\'' +
+                ", consumeMode=" + consumeMode +
+                ", selectorType=" + selectorType +
+                ", selectorExpression='" + selectorExpression + '\'' +
+                ", messageModel=" + messageModel +
+                '}';
+    }
 
 }
