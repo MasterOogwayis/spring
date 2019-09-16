@@ -24,17 +24,32 @@ public class AliProducerAdapter implements Producer {
 
     @Override
     public void sendOneway(String topic, String expression, Object data) {
-        this.producer.sendOneway(AliRocketMQUtil.convert(topic, expression, data, serializer));
+        this.producer.sendOneway(AliRocketMQUtil.convert(topic, expression, "", data, serializer));
     }
 
     @Override
     public SendResult sendSync(String topic, String expression, Object data) {
-        return AliRocketMQUtil.tranResult(this.producer.send(AliRocketMQUtil.convert(topic, expression, data, serializer)));
+        return AliRocketMQUtil.tranResult(this.producer.send(AliRocketMQUtil.convert(topic, expression, "", data, serializer)));
     }
 
     @Override
     public void sendAsync(String topic, String expression, Object data, AsyncCallback callback) {
-        this.producer.sendAsync(AliRocketMQUtil.convert(topic, expression, data, serializer), new AliCallBack(callback));
+        this.producer.sendAsync(AliRocketMQUtil.convert(topic, expression, "", data, serializer), new AliCallBack(callback));
+    }
+
+    @Override
+    public void sendOneway(String topic, String expression, String keys, Object data) {
+        this.producer.sendOneway(AliRocketMQUtil.convert(topic, expression, keys, data, serializer));
+    }
+
+    @Override
+    public SendResult sendSync(String topic, String expression, String keys, Object data) {
+        return AliRocketMQUtil.tranResult(this.producer.send(AliRocketMQUtil.convert(topic, expression, keys, data, serializer)));
+    }
+
+    @Override
+    public void sendAsync(String topic, String expression, String keys, Object data, AsyncCallback callback) {
+        this.producer.sendOneway(AliRocketMQUtil.convert(topic, expression, keys, data, serializer));
     }
 
     @Override

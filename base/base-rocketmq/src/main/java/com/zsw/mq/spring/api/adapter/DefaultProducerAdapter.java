@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
+import org.springframework.lang.Nullable;
 import org.springframework.messaging.Message;
 
 import java.util.Objects;
@@ -19,7 +20,7 @@ import java.util.Objects;
  * @author ZhangShaowei on 2019/9/12 11:22
  **/
 @Slf4j
-public class ProducerAdapter implements Producer {
+public class DefaultProducerAdapter implements Producer {
 
     private volatile Boolean running = false;
 
@@ -29,7 +30,7 @@ public class ProducerAdapter implements Producer {
 
     private final ResultConverter converter = new ResultConverter();
 
-    public ProducerAdapter(DefaultMQProducer producer, MessageSerializer serializer) {
+    public DefaultProducerAdapter(DefaultMQProducer producer, MessageSerializer serializer) {
         this.producer = producer;
         this.serializer = serializer;
     }
@@ -37,19 +38,37 @@ public class ProducerAdapter implements Producer {
     @Override
     @SneakyThrows
     public void sendOneway(String topic, String expression, Object data) {
-        this.producer.sendOneway(this.create(topic, expression, data));
+        this.producer.sendOneway(this.create(topic, expression, "", data));
     }
 
     @Override
     @SneakyThrows
     public SendResult sendSync(String topic, String expression, Object data) {
-        return this.converter.convert(this.producer.send(this.create(topic, expression, data)));
+        return this.converter.convert(this.producer.send(this.create(topic, expression, "", data)));
     }
 
     @Override
     @SneakyThrows
     public void sendAsync(String topic, String expression, Object data, AsyncCallback callback) {
-        this.producer.send(this.create(topic, expression, data), new DefaultSendCallback(callback));
+        this.producer.send(this.create(topic, expression, "", data), new DefaultSendCallback(callback));
+    }
+
+    @Override
+    @SneakyThrows
+    public void sendOneway(String topic, String expression, String keys, Object data) {
+        this.producer.sendOneway(this.create(topic, expression, keys, data));
+    }
+
+    @Override
+    @SneakyThrows
+    public SendResult sendSync(String topic, String expression, String keys, Object data) {
+        return this.converter.convert(this.producer.send(this.create(topic, expression, keys, data)));
+    }
+
+    @Override
+    @SneakyThrows
+    public void sendAsync(String topic, String expression, String keys, Object data, AsyncCallback callback) {
+        this.producer.send(this.create(topic, expression, keys, data), new DefaultSendCallback(callback));
     }
 
     @Override
@@ -91,8 +110,9 @@ public class ProducerAdapter implements Producer {
     }
 
 
-    private org.apache.rocketmq.common.message.Message create(String topic, String expression, Object data) {
-        return new org.apache.rocketmq.common.message.Message(topic, expression, this.serializer.serialize(data));
+    private org.apache.rocketmq.common.message.Message create(
+            String topic, String expression, @Nullable String keys, Object data) {
+        return new org.apache.rocketmq.common.message.Message(topic, expression, keys, this.serializer.serialize(data));
     }
 
 
@@ -103,7 +123,7 @@ public class ProducerAdapter implements Producer {
 
         @Override
         public void onSuccess(org.apache.rocketmq.client.producer.SendResult sendResult) {
-            callback.success(ProducerAdapter.this.converter.convert(sendResult));
+            callback.success(DefaultProducerAdapter.this.converter.convert(sendResult));
         }
 
         @Override

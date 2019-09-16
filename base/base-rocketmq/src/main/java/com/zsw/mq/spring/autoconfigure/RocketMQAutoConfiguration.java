@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.adapter.AliProducerAdapter;
-import com.zsw.mq.spring.api.adapter.ProducerAdapter;
+import com.zsw.mq.spring.api.adapter.DefaultProducerAdapter;
 import com.zsw.mq.spring.config.RocketMQConfigUtils;
 import com.zsw.mq.spring.core.RocketMQTemplate;
 import com.zsw.mq.spring.serializer.JacksonMessageSerializer;
@@ -140,7 +140,7 @@ public class RocketMQAutoConfiguration {
             producer.setCompressMsgBodyOverHowmuch(producerConfig.getCompressMessageBodyThreshold());
             producer.setRetryAnotherBrokerWhenNotStoreOK(producerConfig.isRetryNextServer());
 
-            return new ProducerAdapter(producer, serializer);
+            return new DefaultProducerAdapter(producer, serializer);
         }
     }
 

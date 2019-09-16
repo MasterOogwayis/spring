@@ -95,11 +95,18 @@ public class AliRocketMQUtil {
 
 
     public static com.aliyun.openservices.ons.api.Message convert(
-            String topic, String expression, Object data, MessageSerializer convertor) {
+            String topic,
+            String expression,
+            String key,
+            Object data,
+            MessageSerializer convertor) {
         com.aliyun.openservices.ons.api.Message message = new com.aliyun.openservices.ons.api.Message();
         message.setTopic(topic);
         message.setTag(expression);
         message.setBody(convertor.serialize(data));
+        if (StringUtils.hasText(key)) {
+            message.setKey(key);
+        }
         return message;
     }
 

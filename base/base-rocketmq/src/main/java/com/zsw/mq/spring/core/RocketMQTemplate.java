@@ -125,6 +125,18 @@ public class RocketMQTemplate extends AbstractMessageSendingTemplate<String> imp
         this.producer.sendAsync(topic, tags, data, callback);
     }
 
+    public void sendOneway(String topic, String tags, String keys, Object data) {
+        this.producer.sendOneway(topic, tags, keys, data);
+    }
+
+    public SendResult sendSync(String topic, String tags, String keys, Object data) {
+        return this.producer.sendSync(topic, tags, keys, data);
+    }
+
+    public void sendAsync(String topic, String tags, String keys, Object data, AsyncCallback callback) {
+        this.producer.sendAsync(topic, tags, keys, data, callback);
+    }
+
     /**
      * Same to {@link #asyncSend(String, Message, AsyncCallback)}.
      *
