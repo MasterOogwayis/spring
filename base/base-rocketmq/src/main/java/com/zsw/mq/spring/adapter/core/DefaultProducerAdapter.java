@@ -96,7 +96,7 @@ public class DefaultProducerAdapter implements Producer {
         return new org.apache.rocketmq.common.message.Message(topic, tags, keys, this.serializer.serialize(data));
     }
 
-    public org.apache.rocketmq.common.message.Message convertToRocketMessage(
+    private org.apache.rocketmq.common.message.Message convertToRocketMessage(
             String destination, org.springframework.messaging.Message<?> message, MessageSerializer serializer) {
         Object payloadObj = message.getPayload();
         byte[] payloads = serializer.serialize(payloadObj);

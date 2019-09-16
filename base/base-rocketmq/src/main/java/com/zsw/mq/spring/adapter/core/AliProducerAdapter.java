@@ -116,14 +116,7 @@ public class AliProducerAdapter implements Producer {
             String tags,
             String key,
             Object data) {
-        com.aliyun.openservices.ons.api.Message message = new com.aliyun.openservices.ons.api.Message();
-        message.setTopic(topic);
-        message.setTag(tags);
-        message.setBody(this.serializer.serialize(data));
-        if (StringUtils.hasText(key)) {
-            message.setKey(key);
-        }
-        return message;
+        return new com.aliyun.openservices.ons.api.Message(topic, tags, key, this.serializer.serialize(data));
     }
 
     /**
