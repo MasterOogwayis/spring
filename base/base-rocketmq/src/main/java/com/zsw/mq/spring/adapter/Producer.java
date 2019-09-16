@@ -1,4 +1,4 @@
-package com.zsw.mq.spring.api;
+package com.zsw.mq.spring.adapter;
 
 import org.springframework.context.Lifecycle;
 import org.springframework.messaging.Message;

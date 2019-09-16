@@ -19,9 +19,9 @@ package com.zsw.mq.spring.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zsw.mq.spring.api.AsyncCallback;
-import com.zsw.mq.spring.api.Producer;
-import com.zsw.mq.spring.api.SendResult;
+import com.zsw.mq.spring.adapter.AsyncCallback;
+import com.zsw.mq.spring.adapter.Producer;
+import com.zsw.mq.spring.adapter.SendResult;
 import lombok.Getter;
 import lombok.Setter;
 import org.slf4j.Logger;

@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  * 描述：基础操作实现类redis key-value cache
  * <p>
  * 包含主要数据类型操作  key-value list hash
- * 非常用数据结构暂无 扩充请参考spring-data-redis api
+ * 非常用数据结构暂无 扩充请参考spring-data-redis core
  *
  * @author zhangshaowei
  * @version v1.0

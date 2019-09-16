@@ -1,7 +1,7 @@
 
 spring:
   application:
-    name: api-gateway
+    name: core-gateway
 
 
 eureka:

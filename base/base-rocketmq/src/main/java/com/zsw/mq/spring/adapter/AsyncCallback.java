@@ -1,4 +1,4 @@
-package com.zsw.mq.spring.api;
+package com.zsw.mq.spring.adapter;
 
 /**
  * @author ZhangShaowei on 2019/9/11 16:31

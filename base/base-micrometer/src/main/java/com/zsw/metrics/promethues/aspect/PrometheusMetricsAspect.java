@@ -9,9 +9,9 @@ package com.zsw.metrics.promethues.aspect;
 //@Component
 public class PrometheusMetricsAspect {
 
-//    private static final Counter requestTotal = Counter.build().name("couter_all").labelNames("api").help("total request couter of api").register();
-//    private static final Counter requestError = Counter.build().name("couter_error").labelNames("api").help("response Error couter of api").register();
-//    private static final Histogram histogram = Histogram.build().name("histogram_consuming").labelNames("api").help("response consuming of api").register();
+//    private static final Counter requestTotal = Counter.build().name("couter_all").labelNames("core").help("total request couter of core").register();
+//    private static final Counter requestError = Counter.build().name("couter_error").labelNames("core").help("response Error couter of core").register();
+//    private static final Histogram histogram = Histogram.build().name("histogram_consuming").labelNames("core").help("response consuming of core").register();
 //
 //    @Pointcut("@annotation(PrometheusMetrics)")
 //    public void pointcut() {

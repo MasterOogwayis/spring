@@ -19,7 +19,7 @@ spring:
       profile: new
       failFast: true
       # 多文件无法使用默认文件名了
-      name: monitor,instances,oauth2-api,oauth2-controller
+      name: monitor,instances,oauth2-core,oauth2-controller
 
 
 eureka:

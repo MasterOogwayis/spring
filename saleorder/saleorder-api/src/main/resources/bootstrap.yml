@@ -10,7 +10,7 @@
 #      label: master
 #      profile: dev
 #      failFast: true
-#      name: api*,
+#      name: core*,
 
 #eureka:
 #  client:

@@ -70,11 +70,11 @@ mybatis:
     log-prefix: ${spring.application.name} # default 未设置
     # 指定 MyBatis 所用日志的具体实现，未指定时将自动查找
     # SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING
-#    log-impl:  # 未设置
+#    log-core:  # 未设置
     # 指定 Mybatis 创建具有延迟加载能力的对象所用到的代理工具 CGLIB | JAVASSIST
 #    proxy-factory: JAVASSIST # default JAVASSIST （MyBatis 3.3 以上）
     # 指定 VFS 的实现 自定义 VFS 的实现的类全限定名，以逗号分隔
-#    vfs-impl: org.mybatis.spring.boot.autoconfigure.SpringBootVFS # default 未设置
+#    vfs-core: org.mybatis.spring.boot.autoconfigure.SpringBootVFS # default 未设置
     # 允许使用方法签名中的名称作为语句参数名称。
     # 为了使用该特性，你的项目必须采用 Java 8 编译，并且加上 -parameters 选项。（新增于 3.4.1）
 #    use-actual-param-name: true

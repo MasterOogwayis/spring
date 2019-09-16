@@ -31,9 +31,9 @@ services:
 
 
   api-server:
-    container_name: api-server
+    container_name: core-server
     build: ./server/api-server
-    image: zsw/api-server
+    image: zsw/core-server
     restart: always
     networks:
       - backend
@@ -61,10 +61,10 @@ services:
 #      - eureka
 #      - redis
 #
-#  api-server2:
-#    container_name: api-server2
-#    build: ./server/api-server
-##    image: zsw/api-server
+#  core-server2:
+#    container_name: core-server2
+#    build: ./server/core-server
+##    image: zsw/core-server
 #    restart: always
 #    ports:
 #      - 3333:3335

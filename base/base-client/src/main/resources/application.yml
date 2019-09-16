@@ -31,7 +31,7 @@ feign:
 #    # 服务启动则初始化客户端
 #    enabled: true
 #    # 需要初始化的 client
-#    clients: saleorder-api
+#    clients: saleorder-core
 #  ConnectTimeout: 500
 #  ReadTimeOut: 5000
 #  OkToRetryOnAllOperations: true # 重试

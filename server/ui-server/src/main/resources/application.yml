@@ -20,7 +20,7 @@ eureka:
 com:
   zsw:
     servername:
-      saleorder: api-server
+      saleorder: core-server
 
 feign:
   httpclient:

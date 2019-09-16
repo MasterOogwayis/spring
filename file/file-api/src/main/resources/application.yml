@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: file-api
+    name: file-core
 
 eureka:
   server:

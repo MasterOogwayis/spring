@@ -1,7 +1,7 @@
 package com.zsw.mq;
 
-import com.zsw.mq.spring.api.AsyncCallback;
-import com.zsw.mq.spring.api.SendResult;
+import com.zsw.mq.spring.adapter.AsyncCallback;
+import com.zsw.mq.spring.adapter.SendResult;
 import com.zsw.mq.spring.core.RocketMQTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com;
 
-import com.zsw.mq.spring.api.SendResult;
+import com.zsw.mq.spring.adapter.SendResult;
 import com.zsw.mq.spring.core.RocketMQTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

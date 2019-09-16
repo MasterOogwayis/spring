@@ -24,7 +24,7 @@
 #    serialization:
 #      failOnEmptyBeans: false
 #  application:
-#    name: api-server
+#    name: core-server
 ##  zipkin:
 ##    orm-url: http://localhost:8080
 ##  sleuth:

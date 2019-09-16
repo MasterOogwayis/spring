@@ -20,7 +20,7 @@ public class NacosTests {
     public static void main(String[] args) {
         String serverAddress = "localhost";
         String dataId = "SpringCloud";
-        String group = "api-server";
+        String group = "core-server";
 
         Properties properties = new Properties();
         properties.setProperty(PropertyKeyConst.SERVER_ADDR, serverAddress);

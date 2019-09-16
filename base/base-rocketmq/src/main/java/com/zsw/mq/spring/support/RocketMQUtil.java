@@ -125,55 +125,55 @@ public class RocketMQUtil {
         return messageBuilder.build();
     }
 
-    public static org.apache.rocketmq.common.message.Message convertToRocketMessage(
-            String destination, org.springframework.messaging.Message<?> message, MessageSerializer serializer) {
-        Object payloadObj = message.getPayload();
-        byte[] payloads = serializer.serialize(payloadObj);
-
-        String[] tempArr = destination.split(":", 2);
-        String topic = tempArr[0];
-        String tags = "";
-        if (tempArr.length > 1) {
-            tags = tempArr[1];
-        }
-
-        org.apache.rocketmq.common.message.Message rocketMsg = new org.apache.rocketmq.common.message.Message(topic, tags, payloads);
-
-        MessageHeaders headers = message.getHeaders();
-        if (!CollectionUtils.isEmpty(headers)) {
-            Object keys = headers.get(RocketMQHeaders.KEYS);
-            // if headers has 'KEYS', set rocketMQ message key
-            if (!StringUtils.isEmpty(keys)) {
-                rocketMsg.setKeys(keys.toString());
-            }
-
-            Object flagObj = headers.getOrDefault("FLAG", "0");
-            int flag = 0;
-            try {
-                flag = Integer.parseInt(flagObj.toString());
-            } catch (NumberFormatException e) {
-                // Ignore it
-                log.info("flag must be integer, flagObj:{}", flagObj);
-            }
-            rocketMsg.setFlag(flag);
-
-            Object waitStoreMsgOkObj = headers.getOrDefault("WAIT_STORE_MSG_OK", "true");
-            boolean waitStoreMsgOK = Boolean.TRUE.equals(waitStoreMsgOkObj);
-            rocketMsg.setWaitStoreMsgOK(waitStoreMsgOK);
-
-            headers.entrySet().stream()
-                    .filter(entry -> !Objects.equals(entry.getKey(), "FLAG")
-                            && !Objects.equals(entry.getKey(), "WAIT_STORE_MSG_OK")) // exclude "FLAG", "WAIT_STORE_MSG_OK"
-                    .forEach(entry -> {
-                        if (!MessageConst.STRING_HASH_SET.contains(entry.getKey())) {
-                            rocketMsg.putUserProperty(entry.getKey(), String.valueOf(entry.getValue()));
-                        }
-                    });
-
-        }
-
-        return rocketMsg;
-    }
+//    public static org.apache.rocketmq.common.message.Message convertToRocketMessage(
+//            String destination, org.springframework.messaging.Message<?> message, MessageSerializer serializer) {
+//        Object payloadObj = message.getPayload();
+//        byte[] payloads = serializer.serialize(payloadObj);
+//
+//        String[] tempArr = destination.split(":", 2);
+//        String topic = tempArr[0];
+//        String tags = "";
+//        if (tempArr.length > 1) {
+//            tags = tempArr[1];
+//        }
+//
+//        org.apache.rocketmq.common.message.Message rocketMsg = new org.apache.rocketmq.common.message.Message(topic, tags, payloads);
+//
+//        MessageHeaders headers = message.getHeaders();
+//        if (!CollectionUtils.isEmpty(headers)) {
+//            Object keys = headers.get(RocketMQHeaders.KEYS);
+//            // if headers has 'KEYS', set rocketMQ message key
+//            if (!StringUtils.isEmpty(keys)) {
+//                rocketMsg.setKeys(keys.toString());
+//            }
+//
+//            Object flagObj = headers.getOrDefault("FLAG", "0");
+//            int flag = 0;
+//            try {
+//                flag = Integer.parseInt(flagObj.toString());
+//            } catch (NumberFormatException e) {
+//                // Ignore it
+//                log.info("flag must be integer, flagObj:{}", flagObj);
+//            }
+//            rocketMsg.setFlag(flag);
+//
+//            Object waitStoreMsgOkObj = headers.getOrDefault("WAIT_STORE_MSG_OK", "true");
+//            boolean waitStoreMsgOK = Boolean.TRUE.equals(waitStoreMsgOkObj);
+//            rocketMsg.setWaitStoreMsgOK(waitStoreMsgOK);
+//
+//            headers.entrySet().stream()
+//                    .filter(entry -> !Objects.equals(entry.getKey(), "FLAG")
+//                            && !Objects.equals(entry.getKey(), "WAIT_STORE_MSG_OK")) // exclude "FLAG", "WAIT_STORE_MSG_OK"
+//                    .forEach(entry -> {
+//                        if (!MessageConst.STRING_HASH_SET.contains(entry.getKey())) {
+//                            rocketMsg.putUserProperty(entry.getKey(), String.valueOf(entry.getValue()));
+//                        }
+//                    });
+//
+//        }
+//
+//        return rocketMsg;
+//    }
 
     public static RPCHook getRPCHookByAkSk(Environment env, String accessKeyOrExpr, String secretKeyOrExpr) {
         String ak, sk;

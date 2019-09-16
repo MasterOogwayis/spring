@@ -41,7 +41,7 @@
     </modules>
 
     <!-- 打包依赖的包 -->
-    <!-- mvn clean package -T 1C -pl base/base-api -am  -DskipTests -->
+    <!-- mvn clean package -T 1C -pl base/base-core -am  -DskipTests -->
 
     <properties>
         <java.version>1.8</java.version>

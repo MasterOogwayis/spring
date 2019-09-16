@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author ZhangShaowei on 2019/9/6 10:06
  **/
 @Slf4j
-//@Service
 //@RocketMQMessageListener(
 //        topic = "BCPT_CRM_TEST",
 //        consumerGroup = "GID_BCPT_CRM_TEST",

@@ -48,7 +48,7 @@ services:
       # 检查间隔 默认 30s
       interval: 30s
       # 检查次数， 超时 全部失败则为 unhealthy 默认 3
-      # 若容器启动比较耗时，则适当增加检测次数，比如rc-api 启动时间大于100s，默认配置最终结果为unhealthy，导致无法继续编排后续容器
+      # 若容器启动比较耗时，则适当增加检测次数，比如rc-core 启动时间大于100s，默认配置最终结果为unhealthy，导致无法继续编排后续容器
       retries: 6
       # 检查脚本超时时间 默认30s
       timeout: 30s
@@ -172,8 +172,8 @@ services:
 
 
   bcpt-security-api:
-    container_name: bcpt-security-api-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-security-api:${TAG:-latest}
+    container_name: bcpt-security-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-security-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
     - /data/bcpt/:/data/bcpt/
@@ -228,8 +228,8 @@ services:
 
 
   bcpt-smc-api:
-    container_name: bcpt-smc-api-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-smc-api:${TAG:-latest}
+    container_name: bcpt-smc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-smc-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
     - /data/bcpt/:/data/bcpt/
@@ -284,8 +284,8 @@ services:
 
 
   bcpt-pmc-api:
-    container_name: bcpt-pmc-api-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pmc-api:${TAG:-latest}
+    container_name: bcpt-pmc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pmc-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
     - /data/bcpt/:/data/bcpt/
@@ -339,8 +339,8 @@ services:
 
 
   bcpt-pc-api:
-    container_name: bcpt-pc-api-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pc-api:${TAG:-latest}
+    container_name: bcpt-pc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pc-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
     - /data/bcpt/:/data/bcpt/
@@ -393,9 +393,9 @@ services:
       retries: 6
 
 
-#  bcpt-tc-api:
-#    container_name: bcpt-tc-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-tc-api:${TAG:-latest}
+#  bcpt-tc-core:
+#    container_name: bcpt-tc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-tc-core:${TAG:-latest}
 #    #    mem_limit: 768MB
 #    volumes:
 #    - /data/bcpt/:/data/bcpt/
@@ -439,7 +439,7 @@ services:
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-tc-api:
+#      bcpt-tc-core:
 #        condition: service_healthy
 #    external_links:
 #    - bcpt-register-server-${START_ENV:-dev}
@@ -448,9 +448,9 @@ services:
 #      retries: 6
 
 
-#  bcpt-ic-api:
-#    container_name: bcpt-ic-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-ic-api:${TAG:-latest}
+#  bcpt-ic-core:
+#    container_name: bcpt-ic-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-ic-core:${TAG:-latest}
 #    #    mem_limit: 256MB
 #    volumes:
 #    - /data/bcpt/:/data/bcpt/
@@ -495,7 +495,7 @@ services:
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-ic-api:
+#      bcpt-ic-core:
 #        condition: service_healthy
 #    external_links:
 #      - bcpt-register-server-${START_ENV:-dev}
@@ -504,9 +504,9 @@ services:
 #      retries: 6
 #
 #
-#  bcpt-oc-api:
-#    container_name: bcpt-oc-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-oc-api:${TAG:-latest}
+#  bcpt-oc-core:
+#    container_name: bcpt-oc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-oc-core:${TAG:-latest}
 #    #    mem_limit: 512MB
 #    volumes:
 #    - /data/bcpt/:/data/bcpt/
@@ -550,7 +550,7 @@ services:
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-oc-api:
+#      bcpt-oc-core:
 #        condition: service_healthy
 #    external_links:
 #      - bcpt-register-server-${START_ENV:-dev}
@@ -588,8 +588,8 @@ services:
 
 
   bcpt-mc-api:
-    container_name: bcpt-mc-api-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-mc-api:${TAG:-latest}
+    container_name: bcpt-mc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-mc-core:${TAG:-latest}
     #    mem_limit: 768MB
     volumes:
     - /data/bcpt/:/data/bcpt/
@@ -643,9 +643,9 @@ services:
       retries: 6
 
 
-#  bcpt-qmc-api:
-#    container_name: bcpt-qmc-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-qmc-api:${TAG:-latest}
+#  bcpt-qmc-core:
+#    container_name: bcpt-qmc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-qmc-core:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
 #      - /data/bcpt/:/data/bcpt/
@@ -689,7 +689,7 @@ services:
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-qmc-api:
+#      bcpt-qmc-core:
 #        condition: service_healthy
 #    external_links:
 #      - bcpt-register-server-${START_ENV:-dev}
@@ -698,9 +698,9 @@ services:
 #      retries: 6
 #
 #
-#  bcpt-rc-api:
-#    container_name: bcpt-rc-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-rc-api:${TAG:-latest}
+#  bcpt-rc-core:
+#    container_name: bcpt-rc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-rc-core:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
 #      - /data/bcpt/:/data/bcpt/
@@ -744,7 +744,7 @@ services:
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-rc-api:
+#      bcpt-rc-core:
 #        condition: service_healthy
 #    external_links:
 #      - bcpt-register-server-${START_ENV:-dev}
@@ -753,9 +753,9 @@ services:
 #      retries: 6
 #
 #
-#  bcpt-sc-api:
-#    container_name: bcpt-sc-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-sc-api:${TAG:-latest}
+#  bcpt-sc-core:
+#    container_name: bcpt-sc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-sc-core:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
 #      - /data/bcpt/:/data/bcpt/
@@ -799,7 +799,7 @@ services:
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-sc-api:
+#      bcpt-sc-core:
 #        condition: service_healthy
 #    external_links:
 #      - bcpt-register-server-${START_ENV:-dev}
@@ -834,9 +834,9 @@ services:
 #      - bcpt-register-server-${START_ENV:-dev}
 
 # 代码还未同步
-#  bcpt-fc-api:
-#    container_name: bcpt-fc-api-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-fc-api:${TAG:-latest}
+#  bcpt-fc-core:
+#    container_name: bcpt-fc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-fc-core:${TAG:-latest}
 #    mem_limit: 256MB
 #    volumes:
 #      - /data/bcpt/:/data/bcpt/
@@ -867,14 +867,14 @@ services:
 #bcpt-gateway-server,
 #bcpt-ic-gateway-server,
 #bcpt-open-gateway-server,
-#bcpt-ic-api,bcpt-open-ic-controller,
-#bcpt-oc-api,
-#bcpt-pc-api,bcpt-pc-controller,
-#bcpt-pmc-api,bcpt-pmc-controller,
-#bcpt-qmc-api,bcpt-qmc-controller,
-#bcpt-rc-api,bcpt-rc-controller,
-#bcpt-sc-api,bcpt-sc-controller,
-#bcpt-security-api,bcpt-security-controller,
-#bcpt-smc-api,bcpt-smc-controller,
-#bcpt-tc-api,bcpt-tc-controller,
-#bcpt-mc-api,bcpt-mc-controller
+#bcpt-ic-core,bcpt-open-ic-controller,
+#bcpt-oc-core,
+#bcpt-pc-core,bcpt-pc-controller,
+#bcpt-pmc-core,bcpt-pmc-controller,
+#bcpt-qmc-core,bcpt-qmc-controller,
+#bcpt-rc-core,bcpt-rc-controller,
+#bcpt-sc-core,bcpt-sc-controller,
+#bcpt-security-core,bcpt-security-controller,
+#bcpt-smc-core,bcpt-smc-controller,
+#bcpt-tc-core,bcpt-tc-controller,
+#bcpt-mc-core,bcpt-mc-controller

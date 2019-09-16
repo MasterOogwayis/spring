@@ -220,7 +220,7 @@ public class DefaultRocketMQListenerContainer extends AbstractMQListenerContaine
             try {
                 return serializer.deserialize(messageExt.getBody(), messageType);
             } catch (Exception e) {
-                throw new RuntimeException("cannot convert message to " + messageType, e);
+                throw new RuntimeException("cannot create message to " + messageType, e);
             }
         }
     }

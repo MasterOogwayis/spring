@@ -74,7 +74,7 @@ CREATE TABLE `oauth_client_details` (
 -- Records of oauth_client_details
 -- ----------------------------
 INSERT INTO `oauth_client_details` VALUES ('2a1b448f53f7b4ee1bc5', '2a1b448f53f7b4ee1bc5', '9ac0814f8f098395033d99031620c13d6279bad8', 'scope', 'authorization_code,refresh_token,client_credentials,code,password', '', 'role_client, role_trusted_client', '30000', '30000', null, 'false');
-INSERT INTO `oauth_client_details` VALUES ('api', 'api', 'secret', 'server-scope', 'client_credentials,password', '', 'role_client, role_trusted_client', null, null, null, 'false');
+INSERT INTO `oauth_client_details` VALUES ('core', 'core', 'secret', 'server-scope', 'client_credentials,password', '', 'role_client, role_trusted_client', null, null, null, 'false');
 INSERT INTO `oauth_client_details` VALUES ('client-server', 'client-server', 'client-server', 'scope,read,write', 'authorization_code,refresh_token,client_credentials,code,password', '', 'role_client, role_trusted_client', '30000', '30000', null, 'false');
 INSERT INTO `oauth_client_details` VALUES ('test', 'test', 'test', 'scope,read,write,select', 'authorization_code,refresh_token,client_credentials,code,password', '', 'role_client, role_trusted_client,client', '30000', '30000', null, 'false');
 

@@ -23,7 +23,7 @@ eureka:
 com:
   zsw:
     server:
-      saleorder: saleorder-api
+      saleorder: saleorder-core
       oauth2: oauth2-server
 
 feign:

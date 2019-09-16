@@ -1,6 +1,6 @@
-package com.zsw.mq.spring.api.adapter;
+package com.zsw.mq.spring.adapter.core;
 
-import com.zsw.mq.spring.api.SendResult;
+import com.zsw.mq.spring.adapter.SendResult;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

@@ -73,7 +73,7 @@ public class AdminWebSecurityConfig {
 //    public void configure(HttpSecurity http) throws Exception {
 //        http
 //                .authorizeRequests()
-//                .antMatchers("/login.html", "/**/*.css", "/img/**", "/third-party/**", "/api/**").permitAll()
+//                .antMatchers("/login.html", "/**/*.css", "/img/**", "/third-party/**", "/core/**").permitAll()
 //                .anyRequest().authenticated()
 //                .and()
 //                .formLogin().loginPage("/login.html").loginProcessingUrl("/login").permitAll()

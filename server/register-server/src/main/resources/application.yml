@@ -70,7 +70,7 @@ eureka:
     # 这是 eureka 集群同步数据 为true时，可以启动，但报异常：Cannot execute request on any known server
     fetchRegistry: false
     # 表示 conf 间隔多久去拉取服务注册信息 默认 30s
-    # 对于 api-gateway，如果要迅速获取服务注册状态 可以适当缩小该值
+    # 对于 core-gateway，如果要迅速获取服务注册状态 可以适当缩小该值
 #    registry-fetch-interval-seconds: 30
 #    allow-redirects: false
 #    availability-zones:

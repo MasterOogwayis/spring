@@ -33,4 +33,4 @@ eureka:
 zsw:
   client:
     servername:
-      file: file-api
+      file: file-core
