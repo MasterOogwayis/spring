@@ -18,11 +18,15 @@
 package com.zsw.mq.spring.autoconfigure;
 
 import com.aliyun.openservices.shade.com.alibaba.rocketmq.common.MixAll;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
 @ConfigurationProperties(prefix = RocketMQProperties.ROCKET_MQ_NAMESPACE)
 public class RocketMQProperties {
 
@@ -54,30 +58,9 @@ public class RocketMQProperties {
      */
     private Consumer consumer = new Consumer();
 
-    public String getNameServer() {
-        return nameServer;
-    }
 
-    public void setNameServer(String nameServer) {
-        this.nameServer = nameServer;
-    }
-
-    public String getAccessChannel() {
-        return accessChannel;
-    }
-
-    public void setAccessChannel(String accessChannel) {
-        this.accessChannel = accessChannel;
-    }
-
-    public RocketMQProperties.Producer getProducer() {
-        return producer;
-    }
-
-    public void setProducer(RocketMQProperties.Producer producer) {
-        this.producer = producer;
-    }
-
+    @Getter
+    @Setter
     public static class Producer {
 
         /**
@@ -99,14 +82,12 @@ public class RocketMQProperties {
          * Maximum number of retry to perform internally before claiming sending failure in synchronous mode.
          * This may potentially cause message duplication which is up to application developers to resolve.
          */
-        @Deprecated
         private int retryTimesWhenSendFailed = 2;
 
         /**
          * <p> Maximum number of retry to perform internally before claiming sending failure in asynchronous mode. </p>
          * This may potentially cause message duplication which is up to application developers to resolve.
          */
-        @Deprecated
         private int retryTimesWhenSendAsyncFailed = 2;
 
         /**
@@ -137,107 +118,42 @@ public class RocketMQProperties {
         /**
          * The name value of message trace topic.If you don't config,you can use the default trace topic name.
          */
-        @Deprecated
         private String customizedTraceTopic = MixAll.DEFAULT_TRACE_REGION_ID;
 
-        public String getGroup() {
-            return group;
-        }
-
-        public void setGroup(String group) {
-            this.group = group;
-        }
-
-        public int getSendMessageTimeout() {
-            return sendMessageTimeout;
-        }
-
-        public void setSendMessageTimeout(int sendMessageTimeout) {
-            this.sendMessageTimeout = sendMessageTimeout;
-        }
-
-        public int getCompressMessageBodyThreshold() {
-            return compressMessageBodyThreshold;
-        }
-
-        public void setCompressMessageBodyThreshold(int compressMessageBodyThreshold) {
-            this.compressMessageBodyThreshold = compressMessageBodyThreshold;
-        }
-
-        public int getRetryTimesWhenSendFailed() {
-            return retryTimesWhenSendFailed;
-        }
-
-        public void setRetryTimesWhenSendFailed(int retryTimesWhenSendFailed) {
-            this.retryTimesWhenSendFailed = retryTimesWhenSendFailed;
-        }
-
-        public int getRetryTimesWhenSendAsyncFailed() {
-            return retryTimesWhenSendAsyncFailed;
-        }
-
-        public void setRetryTimesWhenSendAsyncFailed(int retryTimesWhenSendAsyncFailed) {
-            this.retryTimesWhenSendAsyncFailed = retryTimesWhenSendAsyncFailed;
-        }
-
-        public boolean isRetryNextServer() {
-            return retryNextServer;
-        }
-
-        public void setRetryNextServer(boolean retryNextServer) {
-            this.retryNextServer = retryNextServer;
-        }
-
-        public int getMaxMessageSize() {
-            return maxMessageSize;
-        }
-
-        public void setMaxMessageSize(int maxMessageSize) {
-            this.maxMessageSize = maxMessageSize;
-        }
-
-        public String getAccessKey() {
-            return accessKey;
-        }
-
-        public void setAccessKey(String accessKey) {
-            this.accessKey = accessKey;
-        }
-
-        public String getSecretKey() {
-            return secretKey;
-        }
-
-        public void setSecretKey(String secretKey) {
-            this.secretKey = secretKey;
-        }
-
-        public boolean isEnableMsgTrace() {
-            return enableMsgTrace;
-        }
-
-        public void setEnableMsgTrace(boolean enableMsgTrace) {
-            this.enableMsgTrace = enableMsgTrace;
-        }
-
-        public String getCustomizedTraceTopic() {
-            return customizedTraceTopic;
-        }
-
-        public void setCustomizedTraceTopic(String customizedTraceTopic) {
-            this.customizedTraceTopic = customizedTraceTopic;
-        }
     }
 
-    public Consumer getConsumer() {
-        return consumer;
-    }
+    /**
+     * 这里面的配置用于兜底，若注解没有配置属性也不至于报错
+     */
+    @Getter
+    @Setter
+    public static class Consumer {
 
-    public void setConsumer(Consumer consumer) {
-        this.consumer = consumer;
-    }
+        /**
+         * default
+         */
+        private String group;
 
-    public static final class Consumer {
+        /**
+         * default
+         */
+        private String topic;
+
+        /**
+         * tags || expression
+         */
+        private String expression = "*";
+
+        /**
+         * The property of "access-key".
+         */
+        private String accessKey;
+
+        /**
+         * The property of "secret-key".
+         */
+        private String secretKey;
+
         /**
          * listener configuration container
          * the pattern is like this:

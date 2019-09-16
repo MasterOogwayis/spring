@@ -1,4 +1,4 @@
-package com.zsw.mq.spring.api.adaptor;
+package com.zsw.mq.spring.api.adapter;
 
 import com.zsw.mq.spring.api.AsyncCallback;
 import com.zsw.mq.spring.api.Producer;
@@ -19,7 +19,7 @@ import java.util.Objects;
  * @author ZhangShaowei on 2019/9/12 11:22
  **/
 @Slf4j
-public class ProducerAdaptor implements Producer {
+public class ProducerAdapter implements Producer {
 
     private volatile Boolean running = false;
 
@@ -29,7 +29,7 @@ public class ProducerAdaptor implements Producer {
 
     private final ResultConverter converter = new ResultConverter();
 
-    public ProducerAdaptor(DefaultMQProducer producer, MessageSerializer serializer) {
+    public ProducerAdapter(DefaultMQProducer producer, MessageSerializer serializer) {
         this.producer = producer;
         this.serializer = serializer;
     }
@@ -103,7 +103,7 @@ public class ProducerAdaptor implements Producer {
 
         @Override
         public void onSuccess(org.apache.rocketmq.client.producer.SendResult sendResult) {
-            callback.success(ProducerAdaptor.this.converter.convert(sendResult));
+            callback.success(ProducerAdapter.this.converter.convert(sendResult));
         }
 
         @Override

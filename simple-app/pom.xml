@@ -20,12 +20,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.anze.base.microservice</groupId>
-            <artifactId>anze-base-messaging-mq</artifactId>
-            <version>3.0.8.1</version>
-        </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
             <version>4.5.2</version>
@@ -34,6 +29,11 @@
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-acl</artifactId>
             <version>4.5.2</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.aliyun.openservices</groupId>
+            <artifactId>ons-client</artifactId>
+            <version>1.8.3.Final</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

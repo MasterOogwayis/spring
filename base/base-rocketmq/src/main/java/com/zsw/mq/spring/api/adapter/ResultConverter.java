@@ -1,7 +1,6 @@
-package com.zsw.mq.spring.api.adaptor;
+package com.zsw.mq.spring.api.adapter;
 
 import com.zsw.mq.spring.api.SendResult;
-import com.zsw.mq.spring.api.impl.def.DefaultSendResult;
 import org.springframework.core.convert.converter.Converter;
 
 /**

@@ -22,7 +22,7 @@ import com.aliyun.openservices.ons.api.bean.ProducerBean;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zsw.mq.spring.annotation.ExtRocketMQTemplateConfiguration;
 import com.zsw.mq.spring.api.Producer;
-import com.zsw.mq.spring.api.adaptor.AliProducerAdaptor;
+import com.zsw.mq.spring.api.adapter.AliProducerAdapter;
 import com.zsw.mq.spring.core.RocketMQTemplate;
 import com.zsw.mq.spring.serializer.MessageSerializer;
 import org.slf4j.Logger;
@@ -138,7 +138,7 @@ public class ExtProducerResetConfiguration implements ApplicationContextAware, S
         producerBean.setProperties(properties);
 
 
-        return new AliProducerAdaptor(producerBean, serializer);
+        return new AliProducerAdapter(producerBean, serializer);
     }
 
     private void validate(ExtRocketMQTemplateConfiguration annotation, GenericApplicationContext genericApplicationContext) {

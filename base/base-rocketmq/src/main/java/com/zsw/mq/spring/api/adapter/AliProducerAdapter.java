@@ -1,11 +1,10 @@
-package com.zsw.mq.spring.api.adaptor;
+package com.zsw.mq.spring.api.adapter;
 
 import com.aliyun.openservices.ons.api.OnExceptionContext;
 import com.aliyun.openservices.ons.api.SendCallback;
 import com.zsw.mq.spring.api.AsyncCallback;
 import com.zsw.mq.spring.api.Producer;
 import com.zsw.mq.spring.api.SendResult;
-import com.zsw.mq.spring.api.impl.ali.AliSendResult;
 import com.zsw.mq.spring.serializer.MessageSerializer;
 import com.zsw.mq.spring.support.AliRocketMQUtil;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import org.springframework.messaging.Message;
  **/
 @Slf4j
 @AllArgsConstructor
-public class AliProducerAdaptor implements Producer {
+public class AliProducerAdapter implements Producer {
 
     private com.aliyun.openservices.ons.api.bean.ProducerBean producer;
 

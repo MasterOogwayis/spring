@@ -1,4 +1,4 @@
-package com.zsw.mq.spring.api.impl.def;
+package com.zsw.mq.spring.api.adapter;
 
 import com.zsw.mq.spring.api.SendResult;
 import lombok.Builder;

@@ -126,6 +126,8 @@ public abstract class AbstractMQListenerContainer implements InitializingBean,
         this.consumeThreadMax = annotation.consumeThreadMax();
         this.messageModel = annotation.messageModel();
         this.selectorExpression = annotation.selectorExpression();
+        this.selectorExpression = StringUtils.isEmpty(this.selectorExpression)
+                ? this.properties.getConsumer().getExpression() : this.selectorExpression;
         this.tags = annotation.tags();
         this.selectorType = annotation.selectorType();
         this.consumeTimeout = annotation.consumeTimeout();
@@ -134,6 +136,7 @@ public abstract class AbstractMQListenerContainer implements InitializingBean,
         this.nameServer = StringUtils.isEmpty(this.nameServer) ? this.properties.getNameServer() : this.nameServer;
 
         this.topic = this.environment.resolvePlaceholders(this.annotation.topic());
+
         this.accessKey = this.environment.resolvePlaceholders(this.annotation.accessKey());
         this.secretKey = this.environment.resolvePlaceholders(this.annotation.secretKey());
         this.consumerGroup = this.environment.resolvePlaceholders(this.annotation.consumerGroup());
