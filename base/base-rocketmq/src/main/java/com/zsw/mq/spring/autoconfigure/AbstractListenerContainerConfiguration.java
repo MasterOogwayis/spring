@@ -76,6 +76,12 @@ public abstract class AbstractListenerContainerConfiguration implements Applicat
         beans.forEach(this::registerContainer);
     }
 
+    /**
+     * FIXME aliyum rocketmq 可以实现相同 groupName 的 consumer 订阅不同的 tpoic
+     *
+     * @param beanName
+     * @param bean
+     */
     protected void registerContainer(String beanName, Object bean) {
         Class<?> clazz = AopProxyUtils.ultimateTargetClass(bean);
 

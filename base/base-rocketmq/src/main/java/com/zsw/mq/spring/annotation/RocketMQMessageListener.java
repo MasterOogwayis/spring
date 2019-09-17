@@ -79,6 +79,9 @@ public @interface RocketMQMessageListener {
     MessageModel messageModel() default MessageModel.CLUSTERING;
 
     /**
+     * 注意：consumer 个数是由 group + (topic + tags) 确定的
+     * 每个 consumer 都会维护一个线程池，所以要控制消费者线程数，不要太多
+     *
      * Max consumer thread number.
      */
     int consumeThreadMax() default 20;

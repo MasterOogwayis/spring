@@ -167,16 +167,12 @@ public class DefaultRocketMQListenerContainer extends AbstractMQListenerContaine
 
     public class DefaultMessageListenerConcurrently implements MessageListenerConcurrently {
 
-        @SuppressWarnings("unchecked")
         @Override
         public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs, ConsumeConcurrentlyContext context) {
             for (MessageExt messageExt : msgs) {
                 log.debug("received msg: {}", messageExt);
                 try {
-                    long now = System.currentTimeMillis();
-                    rocketMQListener.onMessage(doConvertMessage(messageExt));
-                    long costTime = System.currentTimeMillis() - now;
-                    log.debug("consume {} cost: {} ms", messageExt.getMsgId(), costTime);
+                    onMessage(messageExt);
                 } catch (Exception e) {
                     log.warn("consume message failed. messageExt:{}", messageExt, e);
                     context.setDelayLevelWhenNextConsume(delayLevelWhenNextConsume);
@@ -190,16 +186,12 @@ public class DefaultRocketMQListenerContainer extends AbstractMQListenerContaine
 
     public class DefaultMessageListenerOrderly implements MessageListenerOrderly {
 
-        @SuppressWarnings("unchecked")
         @Override
         public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
             for (MessageExt messageExt : msgs) {
                 log.debug("received msg: {}", messageExt);
                 try {
-                    long now = System.currentTimeMillis();
-                    rocketMQListener.onMessage(doConvertMessage(messageExt));
-                    long costTime = System.currentTimeMillis() - now;
-                    log.info("consume {} cost: {} ms", messageExt.getMsgId(), costTime);
+                    onMessage(messageExt);
                 } catch (Exception e) {
                     log.warn("consume message failed. messageExt:{}", messageExt, e);
                     context.setSuspendCurrentQueueTimeMillis(suspendCurrentQueueTimeMillis);
@@ -211,6 +203,16 @@ public class DefaultRocketMQListenerContainer extends AbstractMQListenerContaine
         }
     }
 
+    /**
+     * @param message 消费
+     */
+    private void onMessage(MessageExt message) {
+        long now = System.currentTimeMillis();
+        //noinspection unchecked
+        rocketMQListener.onMessage(doConvertMessage(message));
+        long costTime = System.currentTimeMillis() - now;
+        log.info("consume {} cost: {} ms", message.getMsgId(), costTime);
+    }
 
     @SuppressWarnings("unchecked")
     private Object doConvertMessage(MessageExt messageExt) {

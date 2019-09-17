@@ -8,11 +8,11 @@ import lombok.extern.slf4j.Slf4j;
  **/
 @Slf4j
 //@RocketMQMessageListener(
-//        topic = "BCPT_CRM_TEST",
-//        consumerGroup = "GID_BCPT_CRM_TEST",
+//        topic = "topic",
+//        consumerGroup = "group",
 //        messageModel = MessageModel.CLUSTERING,
-//        accessKey = "LTAIxhbAKjb2ziY2",
-//        secretKey = "Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW"
+//        accessKey = "XXX",
+//        secretKey = "XXX"
 //)
 public class DemoConsumerService implements RocketMQListener<String> {
     @Override
