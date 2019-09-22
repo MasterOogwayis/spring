@@ -42,6 +42,11 @@
         <module>base-kafka</module>
         <module>base-rocketmq</module>
         <module>base-remoting</module>
+        <module>base-consul</module>
+        <module>base-zookeeper</module>
+        <module>base-nacos</module>
+        <module>base-cloud-alibaba</module>
+        <module>base-hystrix</module>
     </modules>
 
 
