@@ -1,6 +1,5 @@
 package com.zsw.pattern.proxy.istatic;
 
-import com.zsw.pattern.proxy.target.DoSomething;
 import lombok.AllArgsConstructor;
 
 /**
@@ -13,13 +12,13 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class StaticProxy {
 
-    private DoSomething doSomething;
-
-    public String doSometing(){
-        System.out.println("static proxy begin ...");
-        String doSomething = this.doSomething.doSomething();
-        System.out.println("static proxy end ...");
-        return doSomething;
-    }
+//    private DoSomething doSomething;
+//
+//    public String doSometing(){
+//        System.out.println("static proxy begin ...");
+//        String doSomething = this.doSomething.doSomething();
+//        System.out.println("static proxy end ...");
+//        return doSomething;
+//    }
 
 }

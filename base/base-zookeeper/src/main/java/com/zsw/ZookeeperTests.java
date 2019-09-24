@@ -10,7 +10,7 @@ public class ZookeeperTests {
     public static void main(String[] args) {
 
         ZookeeperServerList list = new ZookeeperServerList(null);
-        ZookeeperServerListUpdater z = new ZookeeperServerListUpdater();
+//        ZookeeperServerListUpdater z = new ZookeeperServerListUpdater();
 
     }
 

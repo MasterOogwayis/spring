@@ -484,14 +484,14 @@ public abstract class CustomCacheSupport extends AbstractCacheInvoker
         for (Cache cache : context.getCaches()) {
             if (operation.isCacheWide()) {
                 logInvalidating(context, operation, null);
-                doClear(cache, operation.isBeforeInvocation());
+                doClear(cache);
             }
             else {
                 if (key == null) {
                     key = generateKey(context, result);
                 }
                 logInvalidating(context, operation, key);
-                doEvict(cache, key, operation.isBeforeInvocation());
+                doEvict(cache, key);
             }
         }
     }
