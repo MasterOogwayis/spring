@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: service-provider
+  kafka:
+    bootstrap-servers: 192.168.137.110:9092
+#    consumer:
+#      value-deserializer: com.zsw.stream.kafka.ObjectDeserializer
+#      group-id: zsw-group
+#    producer:
+#      value-serializer: com.zsw.stream.kafka.ObjectSerializer
+  cloud:
+    stream:
+      bindings:
+        output:
+          group: zsw-group
+
+
+eureka:
+  server:
+    hostname: localhost
+    port: 8080
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.server.port}/eureka/
+  instance:
+    prefer-ip-address: true
