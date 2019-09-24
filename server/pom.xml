@@ -23,6 +23,7 @@
         <module>consul-server</module>
         <module>nacos-server</module>
         <module>admin-server</module>
+        <module>client-server</module>
     </modules>
 
 </project>

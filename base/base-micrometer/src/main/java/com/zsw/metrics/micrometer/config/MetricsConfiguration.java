@@ -62,8 +62,8 @@ public class MetricsConfiguration {
      * @param properties
      * @return
      */
-    @Bean
-    @ConditionalOnMissingBean
+//    @Bean
+//    @ConditionalOnMissingBean
     public DiskSpaceHealthMetrics diskSpaceHealthMetrics(
             MeterRegistry meterRegistry, DiskSpaceHealthIndicatorProperties properties) {
         return new DiskSpaceHealthMetrics(meterRegistry, properties);

@@ -38,6 +38,7 @@
         <module>design-pattern</module>
         <module>spring-mvc</module>
         <module>nacos-app</module>
+        <module>stream</module>
     </modules>
 
     <!-- 打包依赖的包 -->

@@ -31,6 +31,12 @@
             <groupId>at.twinformatics</groupId>
             <artifactId>eureka-consul-adapter</artifactId>
         </dependency>
+        <!-- 兼容更高版本的 jdk -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.2</version>
+        </dependency>
     </dependencies>
 
 

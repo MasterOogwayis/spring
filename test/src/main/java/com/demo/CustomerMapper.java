@@ -1,6 +1,5 @@
 package com.demo;
 
-import lombok.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;

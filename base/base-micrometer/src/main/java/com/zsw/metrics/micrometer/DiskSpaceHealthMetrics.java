@@ -17,6 +17,7 @@ import java.util.function.Supplier;
  *
  * @author ZhangShaowei on 2018/4/10 17:15
  **/
+@Deprecated
 public class DiskSpaceHealthMetrics {
 
     private Map<String, Supplier<Long>> functions;

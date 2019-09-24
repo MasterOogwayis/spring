@@ -2,14 +2,13 @@ package com.demo;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.SneakyThrows;
-import lombok.ToString;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 /**
  * @author ZhangShaowei on 2019/2/27 14:15
@@ -62,24 +61,46 @@ public class StaticTests {
 //        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //        System.out.println("admin:" + passwordEncoder.encode("admin"));
 
+//        List<Dto> list = new ArrayList<>(100);
+//        Random random = new Random();
+//        for (int i = 0; i < 100; i++) {
+//            list.add(new Dto(random.nextInt(100)));
+//        }
+//
+//        List<Dto> collect = list.stream()
+//                .distinct()
+//                .sorted(Comparator.comparing(Dto::getNum)).collect(Collectors.toList());
+//        collect.forEach(System.out::println);
 
-        BiConsumer<Dto, String> b =Dto::setName;
-
-        Dto dto = new Dto();
-
-        b.accept(dto, "zsw");
-
-        System.out.println(dto);
+        System.out.println();
 
     }
 
 
     @Setter
+    @Getter
     @ToString
+    @AllArgsConstructor
     static class Dto {
 
-        private String name;
+        private Integer num;
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Dto dto = (Dto) o;
+            return Objects.equals(num, dto.num);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(num);
+        }
     }
 
 
