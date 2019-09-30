@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.Charset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -72,7 +73,8 @@ public class StaticTests {
 //                .sorted(Comparator.comparing(Dto::getNum)).collect(Collectors.toList());
 //        collect.forEach(System.out::println);
 
-        System.out.println();
+
+        System.out.println(Base64.getEncoder().encodeToString("user:password".getBytes(Charset.forName("utf-8"))));
 
     }
 
