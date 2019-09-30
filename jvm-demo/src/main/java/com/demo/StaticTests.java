@@ -1,10 +1,12 @@
 package com.demo;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.ReflectPermission;
 import java.nio.charset.Charset;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -22,6 +24,7 @@ public class StaticTests {
 
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
+    private static ThreadLocal<Map<Long, List<String>>> MENU_CACHE = new TransmittableThreadLocal<>();
 
     @SneakyThrows
     public static void main(String[] args) {
@@ -75,6 +78,9 @@ public class StaticTests {
 
 
         System.out.println(Base64.getEncoder().encodeToString("user:password".getBytes(Charset.forName("utf-8"))));
+
+        ReflectPermission reflectPermission = new ReflectPermission("suppressAccessChecks");
+
 
     }
 

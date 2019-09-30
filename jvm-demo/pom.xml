@@ -34,6 +34,12 @@
             <artifactId>spring-security-core</artifactId>
             <version>4.2.6.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
+
     </dependencies>
 
 
