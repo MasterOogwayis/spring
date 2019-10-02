@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: resource-server
+security:
+  oauth2:
+    sso:
+      login-path: /login
+#    github
+#    client:
+#      client-id: 2a1b448f53f7b4ee1bc5
+#      client-secret: 9ac0814f8f098395033d99031620c13d6279bad8
+#      accessTokenUri: https://github.com/login/oauth/access_token
+#      userAuthorizationUri: https://github.com/login/oauth/authorize
+#    resource:
+#      userInfoUri: https://api.github.com/user
+#      preferTokenInfo: false
+#    Spring Authorization Server
+    client:
+      client-id: sso_client
+      client-secret: secret
+      access-token-uri: http://www.zsw.com/oauth/token
+      user-authorization-uri: http://www.zsw.com/oauth/authorize
+#      scope: scope
+#      grant-type: authorization_code
+    resource:
+      user-info-uri: http://www.zsw.com/user
+      prefer-token-info: false

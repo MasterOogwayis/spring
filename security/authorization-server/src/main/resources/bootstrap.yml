@@ -1,0 +1,10 @@
+server:
+  port: 80
+spring:
+  application:
+    name: authorization-server
+  redis:
+    host: 127.0.0.1
+    ## Redis服务器连接端口
+    port: 6379
+debug: true

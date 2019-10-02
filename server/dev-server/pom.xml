@@ -43,10 +43,6 @@
             <artifactId>base-micrometer</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.zsw</groupId>
-            <artifactId>security-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>

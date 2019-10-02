@@ -1,4 +1,0 @@
-hystrx:
-  threadpool:
-    default:
-      coreSize: 10

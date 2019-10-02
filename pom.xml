@@ -21,22 +21,22 @@
     <!-- 官方导航 https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide -->
 
     <modules>
-        <module>file</module>
-        <module>server</module>
+        <!--<module>file</module>
         <module>base</module>
-        <module>security</module>
         <module>product</module>
         <module>saleorder</module>
         <module>oauth2</module>
         <module>user</module>
         <module>timedtask</module>
-        <module>test</module>
         <module>encryption</module>
         <module>jvm-demo</module>
         <module>design-pattern</module>
         <module>spring-mvc</module>
         <module>nacos-app</module>
-        <module>stream</module>
+        <module>stream</module>-->
+        <module>test</module>
+        <module>server</module>
+        <module>security</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -237,11 +237,6 @@
             <dependency>
                 <groupId>com.zsw</groupId>
                 <artifactId>verification-code</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>security-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
