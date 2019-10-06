@@ -9,10 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class TestApplication {
 
-//    @Autowired
-//    @Qualifier
-//    private Map<String, String> maps = Collections.emptyMap();
-
     public static void main(String[] args) {
 //        new SpringApplicationBuilder().main(TestApplication.class)
 //                .web(WebApplicationType.NONE)
@@ -21,29 +17,6 @@ public class TestApplication {
         SpringApplication.run(TestApplication.class, args);
     }
 
-//    @Bean
-//    public ApplicationRunner applicationRunner() {
-//        return args -> {
-//            System.out.println(maps);
-//        };
-//    }
-//
-//    @Bean
-//    @Qualifier
-//    public String a() {
-//        return "String-a";
-//    }
-//
-//    @Bean
-//    public String b() {
-//        return "String-b";
-//    }
-//
-//    @Bean
-//    @Qualifier
-//    public String c() {
-//        return "String-c";
-//    }
 
 
 }
