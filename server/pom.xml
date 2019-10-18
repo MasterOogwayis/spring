@@ -24,6 +24,7 @@
         <module>nacos-server</module>
         <module>admin-server</module>
         <module>client-server</module>
+        <module>gateway-server</module>
     </modules>
 
 </project>

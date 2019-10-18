@@ -1,4 +1,4 @@
-package com.demo;
+package com.zsw.demo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +14,10 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product implements Serializable {
+public class ProductDTO implements Serializable {
     private static final long serialVersionUID = 6233251060660221414L;
 
     private Long id;
-
 
     private String name;
 

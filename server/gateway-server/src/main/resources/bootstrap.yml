@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: test-gateway-server
+  cloud:
+    gateway:
+      routes:
+      - id: bcpt-fc-api
+        uri: lb://bcpt-fc-api
+        predicates:
+          - Path=/fc/**
+        filters:
+          - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.client.eureka-server-host}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 7101
+    eureka-server-host: 192.168.1.12
+  instance:
+    prefer-ip-address: true
+#debug: true

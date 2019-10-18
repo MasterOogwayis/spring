@@ -13,7 +13,7 @@
 
     <properties>
         <rocketmq-client.version>4.5.2</rocketmq-client.version>
-        <ons-client.version>1.8.3.Final</ons-client.version>
+        <ons-client.version>1.8.4.Final</ons-client.version>
     </properties>
 
     <dependencies>
