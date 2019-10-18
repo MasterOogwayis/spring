@@ -241,11 +241,6 @@
             </dependency>
             <dependency>
                 <groupId>com.zsw</groupId>
-                <artifactId>security-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
                 <artifactId>config-client</artifactId>
                 <version>${project.version}</version>
             </dependency>
