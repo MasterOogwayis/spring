@@ -3,7 +3,7 @@
 * spring boot 2.0           - jdk 9
 * spring boot 2.0.1.RELEASE - jdk 10
 * spring boot 2.1.0.M2      - jdk 11
-* spring boot 2.2           - jdk 12
+* spring boot 2.2           - jdk 13
 
 ## 1.x 迁移 2.x
 [官方迁移文档](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide)
