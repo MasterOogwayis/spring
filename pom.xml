@@ -30,13 +30,13 @@
         <module>timedtask</module>
         <module>encryption</module>
         <module>jvm-demo</module>
-        <module>design-pattern</module>
         <module>spring-mvc</module>
         <module>nacos-app</module>
         <module>stream</module>-->
         <module>test</module>
         <module>server</module>
         <module>security</module>
+        <module>quartz</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -497,13 +497,6 @@
                 <version>1.4</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>2.3.0</version>
-            </dependency>
-
             <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
             <!-- 使用 okhttp 替换 feignclient默认的httpclient -->
             <!--<dependency>
@@ -650,7 +643,6 @@
                 <version>${spring.kafka.version}</version>
             </dependency>
 
-
             <!-- Jackson -->
             <dependency>
                 <groupId>org.codehaus.jackson</groupId>
@@ -658,6 +650,19 @@
                 <version>1.9.13</version>
             </dependency>
 
+            <!-- quartz -->
+            <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.3.2</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz-jobs -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz-jobs</artifactId>
+                <version>2.3.2</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

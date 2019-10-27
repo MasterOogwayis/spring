@@ -113,7 +113,7 @@ public class MyBatisTests {
         SqlSessionFactory sessionFactory = sessionFactoryBean.getObject();
         // openSession 的时候 Executor 会根据插件 被代理，例如 PageInterceptor 被 Plugin 代理
         @Cleanup SqlSession session = sessionFactory.openSession();
-//        Customer o = session.selectOne("com.zsw.persistence.dao.CustomerMapper.get", 1L);
+//        Customer o = session.selectOne("com.zsw.persistence.mapper.CustomerMapper.get", 1L);
 
         // Mapper 接口都会使用 MapperProxy 代理实现
         CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
