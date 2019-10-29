@@ -1,3 +1,7 @@
+# Spring Boot 2.2.0.RELEASE 已发布 #
+## 准备升级到 2.2.0.RELEASE & Spring Cloud Hoxton RC1 ##
+### 2019-10-28 10:07:16 ###
+
 # spring boot & spring cloud
 
 * spring boot 2.0           - jdk 9
