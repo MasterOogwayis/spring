@@ -37,6 +37,8 @@
         <module>server</module>
         <module>security</module>
         <module>quartz</module>
+        <module>echo-server</module>
+        <module>spring-apps</module>
     </modules>
 
     <!-- 打包依赖的包 -->
