@@ -37,6 +37,7 @@
         <module>server</module>
         <module>security</module>
         <module>quartz</module>
+        <module>hello-world</module>
     </modules>
 
     <!-- 打包依赖的包 -->

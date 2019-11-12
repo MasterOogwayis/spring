@@ -1,12 +1,11 @@
-package com.zsw.metrics.micrometer.config;
+package com.zsw.demo.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.connector.Connector;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 public class ShutdownConfigurationV2 {
 
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> webServerFactoryCustomizer(GracefulShutdown) {
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> webServerFactoryCustomizer() {
 //        return container -> {
 //            if (container instanceof TomcatEmbeddedServletContainerFactory) {
 //                ((TomcatEmbeddedServletContainerFactory) container).addConnectorCustomizers(gracefulShutdown());
@@ -44,6 +43,13 @@ public class ShutdownConfigurationV2 {
 //
 //        };
         return factory -> factory.addConnectorCustomizers(gracefulShutdown());
+    }
+
+    @Bean
+    public ConfigurableServletWebServerFactory webServerFactory(GracefulShutdown gracefulShutdown) {
+        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+        factory.addConnectorCustomizers(gracefulShutdown);
+        return factory;
     }
 
 //    @Bean
@@ -86,7 +92,6 @@ public class ShutdownConfigurationV2 {
             Executor executor = this.connector.getProtocolHandler().getExecutor();
             if (executor instanceof ThreadPoolExecutor) {
                 ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) executor;
-                log.info("ThreadPoolExecutor: {}, shutdown begin ...", threadPoolExecutor);
                 try {
                     threadPoolExecutor.shutdown();
                     boolean waiting = false;

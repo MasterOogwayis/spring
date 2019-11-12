@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +33,21 @@ public class StaticTests {
 //        list.add(new Dto(3L, 2));
 //        list.add(new Dto(3L, 2));
 
-        System.out.println(String.join(":", "a", "b", "c", "d"));
+//        System.out.println(String.join(":", "a", "b", "c", "d"));
+//
+//
+//        ObjectMapper om = new ObjectMapper();
+//        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+//
+//        Dto d = new Dto();
 
 
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-
-        Dto d = new Dto();
+        RestTemplate restTemplate = new RestTemplate();
+        for (int i = 0; i < 100000; i++) {
+            ResponseEntity<String> forEntity = restTemplate.getForEntity("http://39.100.39.63:5000", String.class);
+            System.out.println(forEntity);
+        }
 
     }
 
