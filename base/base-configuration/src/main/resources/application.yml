@@ -94,7 +94,7 @@ feign:
 #      # ------      \u76D1\u63A7\u914D\u7F6E    ------
 #      # WebStatFilter\u914D\u7F6E\uFF0C\u8BF4\u660E\u8BF7\u53C2\u8003Druid Wiki\uFF0C\u914D\u7F6E_\u914D\u7F6EWebStatFilter
 ##JPA Configuration:
-#  jpa:
+#  impl:
 #    database: MYSQL
 #    show-sql: true
 #    generate-ddl: true

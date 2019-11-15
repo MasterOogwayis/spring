@@ -1,0 +1,29 @@
+server:
+  port: 80
+# 数据库访问配置
+# 主数据源，默认的
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.1.12:3306/test_icbc_pay?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      #      max-lifetime: 30000
+      idle-timeout: 600000
+      connection-timeout: 30000
+      register-mbeans: true
+  #JPA Configuration:
+  jpa:
+    database: MYSQL
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQLDialect
+
