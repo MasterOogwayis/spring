@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.net.DatagramPacket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,7 +31,8 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        System.out.println(UUID.randomUUID().toString().length());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.parse("2019-11-21 00:00:00"));
 
 
     }

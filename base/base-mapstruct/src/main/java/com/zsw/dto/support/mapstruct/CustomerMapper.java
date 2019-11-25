@@ -7,6 +7,7 @@ import org.mapstruct.factory.Mappers;
 
 /**
  * @author ZhangShaowei on 2019/10/11 10:44
+ * 也可作为 spring bean 注入 @Mapper(componentModel = "spring")
  **/
 @Mapper
 public interface CustomerMapper extends BaseMapper<Customer, CustomerDto> {

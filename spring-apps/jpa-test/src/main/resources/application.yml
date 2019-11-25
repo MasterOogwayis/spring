@@ -26,4 +26,6 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: validate
     database-platform: org.hibernate.dialect.MySQLDialect
-
+#logging:
+#  level:
+#    root: debug

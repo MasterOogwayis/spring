@@ -14,6 +14,7 @@
     <modules>
         <module>docker-springboot</module>
         <module>jpa-test</module>
+        <module>security-app</module>
     </modules>
 
 
