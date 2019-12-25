@@ -1,19 +1,38 @@
-package com.zsw.orm.utils;
+package com;
 
-import java.time.*;
+import org.springframework.util.StringUtils;
+
+import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * jdk8 的date处理  都是线程安全的处理方式 效率比SimpleDateFormat高
  * <p>
- * 如果是JDK8的应用，可以使用Instant代替Date，LocalDateTime代替Calendar，DateTimeFormatter代替Simpledateformatter
+ * 如果是JDK8的应用，可以使用Instant代替Date，LocalDateTime代替Calendar，DateTimeFormatter 代替 SimpleDateFormatter
  * 官方给出的解释：simple beautiful strong immutable thread-safe。
  *
- * @author ZhangShaowei on 2018/1/15 14:10
+ * @author ZhangShaowei on 2019/11/15 14:10
  */
-public class DateUtils extends org.apache.commons.lang.time.DateUtils {
+public class DateTimeUtils {
+
+    private static final Map<String, DateTimeFormatter> FORMATTERS = new ConcurrentHashMap<>();
 
     /**
      * Number of seconds in a standard minute.
@@ -33,25 +52,21 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
      * <p>
      * DateTimeFormatter.ofPattern(BaseConstant.DATE_FORMAT)
      */
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ISO_LOCAL_DATE;
+    private static final DateTimeFormatter DATE_FORMAT = getFormatter("yyyy-MM-dd");
     /**
      * yyyy年MM月dd日
      */
-    private static final DateTimeFormatter DATE_FORMAT_ZH = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
+    private static final DateTimeFormatter DATE_FORMAT_ZH = getFormatter("yyyy年MM月dd日");
     /**
      *
      */
-    private static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    /**
-     * HH:mm:ss
-     */
-    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private static final DateTimeFormatter TIMESTAMP_FORMAT = getFormatter("yyyy-MM-dd HH:mm:ss");
 
 
     /**
      * yyyyMMddHHmmss
      */
-    private static final DateTimeFormatter TIME_LABEL_FORMAT = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+    private static final DateTimeFormatter TIME_LABEL_FORMAT = getFormatter("yyyyMMddHHmmss");
 
     /**
      * 'yyyy-MM-dd HH:mm:ss'
@@ -71,17 +86,6 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
         return localDateTime.format(TIMESTAMP_FORMAT);
     }
 
-
-    /**
-     * to default today's format 'HH:mm:ss'
-     *
-     * @param date Date
-     * @return String
-     */
-    public static String timeFormat(final Date date) {
-        return zonedDateTime(date).toLocalDate().format(TIME_FORMAT);
-    }
-
     /**
      * to default format yyyy-MM-dd
      *
@@ -98,6 +102,24 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
      */
     public static String dateFormat(final LocalDate localDate) {
         return localDate.format(DATE_FORMAT);
+    }
+
+    public static String dateFormat(final Object object) {
+        if (object instanceof Date) {
+            return dateFormat((Date) object);
+        } else if (object instanceof Number) {
+            return dateFormat(new Date(((Number) object).longValue()));
+        }
+        throw new IllegalArgumentException("Cannot format given Object as a Date");
+    }
+
+    public static String dateTimeFormat(final Object object) {
+        if (object instanceof Date) {
+            return dateTimeFormat((Date) object);
+        } else if (object instanceof Number) {
+            return dateTimeFormat(new Date(((Number) object).longValue()));
+        }
+        throw new IllegalArgumentException("Cannot format given Object as a Date");
     }
 
 
@@ -214,7 +236,7 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
      * @return LocalDate
      */
     public static LocalDate localDate(final String date) {
-        return LocalDate.parse(date, DATE_FORMAT);
+        return LocalDate.parse(date);
     }
 
 
@@ -229,13 +251,13 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     }
 
     /**
-     * HH:mm:ss
+     * HH:mm or HH:mm:ss
      *
      * @param time String
      * @return
      */
     public static LocalTime localTime(final String time) {
-        return LocalTime.parse(time, TIME_FORMAT);
+        return LocalTime.parse(time);
     }
 
     /**
@@ -249,14 +271,52 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     }
 
     /**
-     * 忽略当前日期的时间部分返回 每天的最早时间
+     * 今天 00:00:00
      *
-     * @param date Date
      * @return
      */
-    public static Date startOfDay(final Date date) {
-        return Date.from(zonedDateTime(date).toLocalDate().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    public static Date startOfToday() {
+        return startOfDay(new Date());
     }
+
+    public static Date startOfDay(Date date) {
+        return startOfDay(date, 0);
+    }
+
+    /**
+     * @param date   Date
+     * @param offset offset
+     * @return yyyy-MM-dd 00:00:00
+     */
+    public static Date startOfDay(Date date, int offset) {
+        return Date.from(
+                zonedDateTime(date)
+                        .toLocalDate()
+                        .plusDays(offset)
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()
+        );
+    }
+
+    /**
+     * @param date Date
+     * @return yyyy-MM-dd 23:59:59.9999999
+     */
+    public static Date endOfDay(Date date) {
+        return endOfDay(date, 0);
+    }
+
+    public static Date endOfDay(Date date, int offset) {
+        return Date.from(
+                zonedDateTime(date)
+                        .toLocalDate()
+                        .plusDays(offset)
+                        .atTime(LocalTime.MAX)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant()
+        );
+    }
+
 
     /**
      * 计算到现在的时差
@@ -267,6 +327,15 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
     public static String dateTimeString(final Date date) {
         return dateTimeString(zonedDateTime(date).toLocalDateTime());
     }
+
+    public static Date plusDays(final Date date, int day) {
+        return Date.from(zonedDateTime(date).plusDays(day).toInstant());
+    }
+
+    public static Date minusDays(final Date date, int day) {
+        return Date.from(zonedDateTime(date).minusDays(day).toInstant());
+    }
+
 
     /**
      * 计算到现在的时差
@@ -326,21 +395,122 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
      * @return
      */
     public static String dateTimeFormat(Long time) {
-        return dateTimeFormat(LocalDateTime.ofEpochSecond(
-                time / 1000L,
-                0,
-                ZoneOffset.ofHours(8)));
+        return dateTimeFormat(new Date(time));
     }
 
-    public static Date format(String dateStr, String pattern) {
-        LocalDateTime parse = LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(pattern));
-        return Date.from(parse.atZone(ZoneId.systemDefault()).toInstant());
+    public static String dateFormat(Long time) {
+        return dateFormat(new Date(time));
     }
 
-    public static void main(String[] args) {
-        Date format = format("11:11:11", "HH:mm:ss");
-        System.out.println(format);
+    public static DateTimeFormatter getFormatter(String pattern) {
+        return Optional.ofNullable(pattern)
+                .filter(StringUtils::hasText)
+                .map(p -> FORMATTERS.computeIfAbsent(pattern, format -> DateTimeFormatter.ofPattern(format).withZone(ZoneId.systemDefault())))
+                .orElse(DATE_FORMAT);
     }
 
+    public static String format(Date date, String pattern) {
+        return zonedDateTime(date).format(getFormatter(pattern));
+    }
+
+    public static Date parse(String dateTime, String pattern) {
+        return Date.from(toInstant(dateTime, pattern));
+    }
+
+    public static Instant toInstant(String dateTime, String pattern) {
+        TemporalAccessor temporalAccessor = getFormatter(pattern).parse(dateTime);
+        if (temporalAccessor.isSupported(ChronoField.NANO_OF_DAY)) {
+            return Instant.from(temporalAccessor);
+        }
+        return LocalDate.from(temporalAccessor).atStartOfDay(ZoneId.systemDefault()).toInstant();
+    }
+
+    public static long millisecondsFromTomorrow() {
+        return LocalDate.now().plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+                - System.currentTimeMillis();
+    }
+
+    /**
+     * 设定日期的时间
+     *
+     * @param date Date
+     * @param time support 'HH:mm:ss' or 'HH:mm'
+     * @return
+     */
+    public static Date setTime(Date date, String time) {
+        return Date.from(
+                zonedDateTime(date).toLocalDate().atTime(localTime(time)).atZone(ZoneId.systemDefault()).toInstant()
+        );
+    }
+
+    /**
+     * 获取 time
+     *
+     * @param date        Date
+     * @param withSeconds 是否带秒
+     * @return HH:mm:ss or HH:mm
+     */
+    public static String getTime(Date date, boolean withSeconds) {
+        LocalTime localTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        if (withSeconds) {
+            return localTime.toString();
+        }
+        return localTime.withSecond(0).toString();
+    }
+
+    /**
+     * HH:mm:ss & HH:mm格式的时间加减分钟数
+     *
+     * @param time
+     * @param minutes
+     * @return
+     */
+    public static String plusMinutes(String time, int minutes) {
+        return LocalTime.parse(time).plusMinutes(minutes).toString();
+    }
+
+
+    private static final String[] WEEK_OF_DAYS = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+
+    /**
+     * @param date
+     * @return
+     */
+    public static String dayOfWeek(Date date) {
+        int day = Optional.ofNullable(date)
+                .map(Date::toInstant)
+                .map(instant -> instant.atZone(ZoneId.systemDefault()))
+                .map(ZonedDateTime::getDayOfWeek)
+                .map(DayOfWeek::getValue)
+                .orElseGet(() -> ZonedDateTime.now(ZoneId.systemDefault()).getDayOfWeek().getValue());
+        return WEEK_OF_DAYS[day - 1];
+    }
+
+
+    /**
+     * @param begin HH:mm:ss or HH:mm
+     * @param end   HH:mm:ss or HH:mm
+     * @return HH:mm - HH:mm
+     */
+    public static String spliceWithoutSeconds(String begin, String end) {
+        //开始时间和结束时间相同的情况只显示一个时间
+        if (begin.equals(end)) {
+            return LocalTime.parse(begin).withSecond(0).toString();
+        } else {
+            return LocalTime.parse(begin).withSecond(0).toString() + "-" + LocalTime.parse(end).withSecond(0).toString();
+        }
+    }
+
+
+    public static List<Date> between(Date begin, Date end) {
+        Instant instantBegin = begin.toInstant();
+        Instant instantEnd = end.toInstant();
+        List<Date> list = new ArrayList<>();
+        list.add(begin);
+        while (instantEnd.isAfter(instantBegin)) {
+            list.add(Date.from(instantBegin = instantBegin.plus(1, ChronoUnit.DAYS)));
+        }
+        return list;
+    }
 
 }

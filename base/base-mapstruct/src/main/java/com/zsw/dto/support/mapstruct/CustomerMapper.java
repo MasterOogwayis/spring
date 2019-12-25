@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
  * 也可作为 spring bean 注入 @Mapper(componentModel = "spring")
  **/
 @Mapper
-public interface CustomerMapper extends BaseMapper<Customer, CustomerDto> {
+public interface CustomerMapper extends StandardMapper<Customer, CustomerDto> {
 
     CustomerMapper INSTANCE = Mappers.getMapper(CustomerMapper.class);
 

@@ -5,11 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -40,9 +36,6 @@ import java.util.stream.Collectors;
  */
 @EnableCaching
 @Configuration
-@ConditionalOnClass(RedisConnectionFactory.class)
-@AutoConfigureAfter(RedisAutoConfiguration.class)
-@ConditionalOnBean(RedisConnectionFactory.class)
 //@EnableCustomCaching
 public class RedisConfiguration {
 

@@ -11,7 +11,7 @@ import java.util.List;
  * @author zsw on 2019/8/10 20:33
  */
 //@Mapper(componentModel = "spring")
-public interface BaseMapper<E, D> {
+public interface StandardMapper<E, D> {
 
 
     @Mappings({})
