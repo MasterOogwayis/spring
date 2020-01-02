@@ -1,7 +1,9 @@
 package com.zsw.dto.support.mapstruct;
 
+import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
@@ -15,24 +17,25 @@ public interface StandardMapper<E, D> {
 
 
     @Mappings({})
-    E map(D d);
+    D map(E source);
 
     @Mappings({})
-    List<E> map(List<D> list);
+    List<D> map(List<E> sources);
 
     @Mappings({})
-    D to(E e);
+    E from(D source);
 
     @Mappings({})
-    List<D> to(List<E> list);
+    List<E> from(List<D> sources);
 
     /**
      * 基本也就只有更新 entity 的情况
      *
-     * @param d pojo
-     * @param e entity
+     * @param source pojo
+     * @param target target会被更新，忽略 null
      * @return entity
      */
-    E update(D d, @MappingTarget E e);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    E update(@MappingTarget E target, D source);
 
 }

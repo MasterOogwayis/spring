@@ -21,12 +21,12 @@ public class MapstructTests {
 //                .product(Product.builder().id(2L).name("水货").build())
                 .build();
 
-        CustomerDto customerDto = mapper.to(customer);
+        CustomerDto customerDto = mapper.map(customer);
         System.out.println(customerDto);
 
         customerDto.setName("Shaowei zhang");
 
-        mapper.update(customerDto, customer);
+        mapper.update(customer, customerDto);
         System.out.println(customer);
 
     }

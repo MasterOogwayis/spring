@@ -1,39 +1,17 @@
 package com;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.SneakyThrows;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.YearMonth;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2019/10/9 10:03
@@ -42,28 +20,41 @@ import java.util.concurrent.TimeUnit;
 public class StaticTests {
 
     private static final Gson GSON = new GsonBuilder().create();
+    public static final String DATE_FORMAT = "yyyyMMdd";
+
+    private static final CustomerDtoMapper MAPPER = CustomerDtoMapper.INSTANCE;
 
 
-    @SneakyThrows
-    public static void main(String[] args) {
 
-        System.out.println(new Dto("a"));
-        System.err.println(Dto.builder().build());
+    @Test
+    public void test() {
+        List<String> list = new ArrayList<>();
+
+        list.addAll(Collections.emptyList());
+    }
+
+
+    @Test
+    public void testMapping() {
+        Dto source = Dto.builder().amount(12D)
+                .price(34D)
+                .age(18D)
+                .date1(new Date())
+                .date2(new Date())
+                .amount(10D)
+                .build();
+        CustomerDto from = MAPPER.from(source, 20D);
+        System.out.println(from);
 
     }
 
 
+    public static String fenToYuanHalfUp(Number price) {
+        BigDecimal number =  BigDecimal.valueOf(price.doubleValue())
+                        .divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_HALF_UP);
 
-    @ToString
-    @Getter
-    @Setter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static class Dto {
-
-        @Builder.Default
-        private String name = "name";
+        String s = number.toPlainString();
+        return number.toString();
     }
 
 }

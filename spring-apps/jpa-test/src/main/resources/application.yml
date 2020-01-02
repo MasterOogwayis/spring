@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.1.12:3306/test_icbc_pay?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://192.168.1.12:3306/temp?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver

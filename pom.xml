@@ -164,6 +164,11 @@
             </dependency>
             <dependency>
                 <groupId>com.zsw</groupId>
+                <artifactId>base-mapstruct</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
                 <artifactId>resource-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
