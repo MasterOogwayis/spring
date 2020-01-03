@@ -1,57 +1,62 @@
 package com;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.mapper.Customer;
+import com.mapper.CustomerDto;
+import com.mapper.CustomerMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author ZhangShaowei on 2019/10/9 10:03
  **/
 @Slf4j
+@RunWith(Parameterized.class)
 public class StaticTests {
 
-    private static final Gson GSON = new GsonBuilder().create();
-    public static final String DATE_FORMAT = "yyyyMMdd";
-
-    private static final CustomerDtoMapper MAPPER = CustomerDtoMapper.INSTANCE;
-
-
-
-    @Test
-    public void test() {
-        List<String> list = new ArrayList<>();
-
-        list.addAll(Collections.emptyList());
+    @Parameterized.Parameters
+    public static Object[][] data() {
+        return new Object[10][0]; // repeat count which you want
     }
 
+    private static final CustomerMapper MAPPER = CustomerMapper.INSTANCE;
 
     @Test
-    public void testMapping() {
-        Dto source = Dto.builder().amount(12D)
-                .price(34D)
-                .age(18D)
-                .date1(new Date())
-                .date2(new Date())
-                .amount(10D)
-                .build();
-        CustomerDto from = MAPPER.from(source, 20D);
-        System.out.println(from);
+    public void testCopy() {
+
+        int times = 1000;
+
+        Customer customer = Customer.builder().id(1L).name("Mr Zhang").age(18).address("Somewhere in space").build();
+
+        CustomerDto customerDto = new CustomerDto();
+        long timer = System.nanoTime();
+        for (int i = 0; i < times; i++) {
+            BeanUtils.copyProperties(customer, customerDto);
+        }
+        log.debug("BeanUtils.copyProperties cust {}ns", System.nanoTime() - timer);
+        timer = System.nanoTime();
+
+        for (int i = 0; i < times; i++) {
+            FastCopy.copyProperties(customerDto, customer);
+        }
+        log.debug("javassist.copyProperties cust {}ns", System.nanoTime() - timer);
+        timer = System.nanoTime();
+
+        for (int i = 0; i < times; i++) {
+            MAPPER.copyProperties(customerDto, customer);
+        }
+        log.debug("MAPPER.copyProperties cust {}ns", System.nanoTime() - timer);
 
     }
 
 
     public static String fenToYuanHalfUp(Number price) {
-        BigDecimal number =  BigDecimal.valueOf(price.doubleValue())
-                        .divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal number = BigDecimal.valueOf(price.doubleValue())
+                .divide(BigDecimal.valueOf(100), 2, BigDecimal.ROUND_HALF_UP);
 
         String s = number.toPlainString();
         return number.toString();

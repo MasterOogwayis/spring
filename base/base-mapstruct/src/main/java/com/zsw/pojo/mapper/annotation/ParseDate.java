@@ -1,4 +1,4 @@
-package com;
+package com.zsw.pojo.mapper.annotation;
 
 import org.mapstruct.Qualifier;
 
@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 @Qualifier
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface DateFormat {
+public @interface ParseDate {
 }

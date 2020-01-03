@@ -1,5 +1,9 @@
 package com;
 
+import com.zsw.pojo.mapper.annotation.DateFormat;
+import com.zsw.pojo.mapper.annotation.DateTimeFormat;
+import com.zsw.pojo.mapper.annotation.FenToYuanHalfUp;
+
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -28,12 +32,6 @@ public class MapperUtils {
     public static String fenToYuanHalfUp(Number number) {
         return BigDecimal.valueOf(number.doubleValue())
                 .divide(DIVISOR, 2, BigDecimal.ROUND_HALF_UP).toString();
-    }
-
-
-    @FenToYuan
-    public static String fenToYuan(Number number) {
-        return number.toString();
     }
 
 
