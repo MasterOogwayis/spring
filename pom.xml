@@ -493,7 +493,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.8</version>
+                <version>1.18.12</version>
             </dependency>
 
             <!-- jsqlparser -->
@@ -676,30 +676,14 @@
                 <version>2.3.2</version>
             </dependency>
 
+
         </dependencies>
     </dependencyManagement>
 
-    <profiles>
-        <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <sonar.login>4474c640c876b611cab34c52bfdabca9c35aee83</sonar.login>
-                <sonar.host.url>http://192.168.1.13:9500/sonar</sonar.host.url>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.6.0.1398</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -725,9 +709,30 @@
                         <overwrite>true</overwrite>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.login>4474c640c876b611cab34c52bfdabca9c35aee83</sonar.login>
+                <sonar.host.url>http://192.168.1.13:9500/sonar</sonar.host.url>
+                <!-- <sonar.projectKey>${project.name}</sonar.projectKey> -->
+                <sonar.projectName>${project.name}</sonar.projectName>
+                <sonar.projectVersion>${project.version}-20200113PM</sonar.projectVersion>
+            </properties>
+        </profile>
+    </profiles>
 
     <reporting>
         <plugins>

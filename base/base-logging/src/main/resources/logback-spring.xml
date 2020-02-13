@@ -129,46 +129,49 @@
     <!-- additivity 不需要重复打印 -->
     <logger name="org.springframework" additivity="false" level="ERROR">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="fileout"/>
-        <appender-ref ref="info"/>
-        <appender-ref ref="debug"/>
-        <appender-ref ref="warn"/>
-        <appender-ref ref="error"/>
+<!--        <appender-ref ref="fileout"/>-->
+<!--        <appender-ref ref="info"/>-->
+<!--        <appender-ref ref="debug"/>-->
+<!--        <appender-ref ref="warn"/>-->
+<!--        <appender-ref ref="error"/>-->
     </logger>
 
     <logger name="com.mchange" additivity="false" level="ERROR">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="fileout"/>
-        <appender-ref ref="info"/>
-        <appender-ref ref="debug"/>
-        <appender-ref ref="warn"/>
-        <appender-ref ref="error"/>
+<!--        <appender-ref ref="fileout"/>-->
+<!--        <appender-ref ref="info"/>-->
+<!--        <appender-ref ref="debug"/>-->
+<!--        <appender-ref ref="warn"/>-->
+<!--        <appender-ref ref="error"/>-->
     </logger>
 
     <logger name="org.hibernate" additivity="false" level="ERROR">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="fileout"/>
-        <appender-ref ref="info"/>
-        <appender-ref ref="debug"/>
-        <appender-ref ref="warn"/>
-        <appender-ref ref="error"/>
+<!--        <appender-ref ref="fileout"/>-->
+<!--        <appender-ref ref="info"/>-->
+<!--        <appender-ref ref="debug"/>-->
+<!--        <appender-ref ref="warn"/>-->
+<!--        <appender-ref ref="error"/>-->
     </logger>
 
     <logger name="org.apache.commons" additivity="false" level="ERROR">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="fileout"/>
-        <appender-ref ref="info"/>
-        <appender-ref ref="debug"/>
-        <appender-ref ref="warn"/>
-        <appender-ref ref="error"/>
+<!--        <appender-ref ref="fileout"/>-->
+<!--        <appender-ref ref="info"/>-->
+<!--        <appender-ref ref="debug"/>-->
+<!--        <appender-ref ref="warn"/>-->
+<!--        <appender-ref ref="error"/>-->
     </logger>
     <logger name="org.apache.http" additivity="false" level="ERROR">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="fileout"/>
-        <appender-ref ref="info"/>
-        <appender-ref ref="debug"/>
-        <appender-ref ref="warn"/>
-        <appender-ref ref="error"/>
+<!--        <appender-ref ref="fileout"/>-->
+<!--        <appender-ref ref="info"/>-->
+<!--        <appender-ref ref="debug"/>-->
+<!--        <appender-ref ref="warn"/>-->
+<!--        <appender-ref ref="error"/>-->
+    </logger>
+    <logger name="com.zsw" additivity="false" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
     </logger>
     <!-- jmx 动态日志 -->
     <jmxConfigurator/>

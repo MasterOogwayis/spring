@@ -21,8 +21,17 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-redis</artifactId>
         </dependency>
     </dependencies>
 

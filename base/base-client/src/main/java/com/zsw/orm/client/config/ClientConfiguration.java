@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author ZhangShaowei on 2017/11/6 16:07
  * <p>
- * {@link org.springframework.cloud.netflix.feign.ribbon.FeignRibbonClientAutoConfiguration}
+ * {@link org.springframework.cloud.openfeign.ribbon.FeignRibbonClientAutoConfiguration}
  */
 @Setter
 //@ConfigurationProperties(prefix = "feign.httpclient")
