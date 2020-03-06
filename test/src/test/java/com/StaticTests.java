@@ -6,10 +6,13 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -32,9 +35,22 @@ public class StaticTests {
     @Test
     public void test() {
 
-        System.out.println(System.currentTimeMillis());
+        List<Integer> list = new ArrayList<>();
 
-        System.err.println(ZonedDateTime.now(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
+        }
+
+        int size = 30;
+        List<String> l = new ArrayList<>();
+
+
+        for (int i = 0; i < list.size() / size + 1; i++) {
+            String collect = list.stream().skip(i * size).limit(size).map(Object::toString).collect(Collectors.joining(","));
+            l.add(collect);
+        }
+        System.out.println(l);
+
 
     }
 

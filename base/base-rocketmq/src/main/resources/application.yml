@@ -7,25 +7,25 @@ spring:
 
 --- # aliyun mq
 spring:
-  profiles: aliyun
+  profiles:
 rocketmq:
-  name-server: http://onsaddr.mq-internet-access.mq-internet.aliyuncs.com:80
+  name-server:
   producer:
-    group: GID_BCPT_CRM_TEST
+    group:
     sendMessageTimeout: 300000
-    access-key: LTAIxhbAKjb2ziY2
-    secret-key: Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW
+    access-key:
+    secret-key:
   consumer:
-    access-key: LTAIxhbAKjb2ziY2
-    secret-key: Ybotwl4bPGWAF3PwN3EbnpfPYS6AqW
+    access-key:
+    secret-key:
 --- # local rocketmq
 spring:
   profiles: default
 rocketmq:
-  name-server: 192.168.1.12:9876
+  name-server:
   producer:
-    group: GID_BCPT_CRM_TEST
-    sendMessageTimeout: 300000
+    group:
+    sendMessageTimeout:
     access-key:
     secret-key:
   consumer:
