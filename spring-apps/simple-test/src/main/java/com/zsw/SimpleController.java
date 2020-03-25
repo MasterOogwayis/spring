@@ -1,6 +1,8 @@
 package com.zsw;
 
-import lombok.Data;
+import com.zsw.metrics.service.HealthService;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class SimpleController {
 
 
-    @GetMapping("get")
-    public Object test(Dto dto, @RequestParam("address") String add) {
-        return dto;
-    }
+    @Autowired
+    private HealthService healthService;
 
-    @Data
-    class Dto {
-        private String name;
-        private Integer age;
+    @SneakyThrows
+    @GetMapping
+    public Object get(@RequestParam Integer number) {
+        this.healthService.setNum(number);
+        return "success";
     }
 
 }

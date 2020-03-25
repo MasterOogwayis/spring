@@ -1,11 +1,9 @@
 package com.zsw.metrics.micrometer.config;
 
 import com.zsw.metrics.micrometer.CustomerMetricsHealthBean;
-import com.zsw.metrics.micrometer.DiskSpaceHealthMetrics;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.system.DiskSpaceHealthIndicatorProperties;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -53,20 +51,6 @@ public class MetricsConfiguration {
     public CustomerMetricsHealthBean customerMetricsHealthBean(
             MeterRegistry meterRegistry, ObjectProvider<Map<String, HealthIndicator>> healthIndicators) {
         return new CustomerMetricsHealthBean(meterRegistry, healthIndicators);
-    }
-
-    /**
-     * 磁盘指标
-     *
-     * @param meterRegistry
-     * @param properties
-     * @return
-     */
-//    @Bean
-//    @ConditionalOnMissingBean
-    public DiskSpaceHealthMetrics diskSpaceHealthMetrics(
-            MeterRegistry meterRegistry, DiskSpaceHealthIndicatorProperties properties) {
-        return new DiskSpaceHealthMetrics(meterRegistry, properties);
     }
 
 }

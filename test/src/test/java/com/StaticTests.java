@@ -1,21 +1,13 @@
 package com;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.service.FirstService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.springframework.util.Assert;
+import sun.reflect.misc.MethodUtil;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,29 +24,21 @@ public class StaticTests {
 //    }
 
 
-    @Test
-    public void test() {
-
-        List<Integer> list = new ArrayList<>();
-
-        for (int i = 0; i < 100; i++) {
-            list.add(i);
-        }
-
-        int size = 30;
-        List<String> l = new ArrayList<>();
-
-
-        for (int i = 0; i < list.size() / size + 1; i++) {
-            String collect = list.stream().skip(i * size).limit(size).map(Object::toString).collect(Collectors.joining(","));
-            l.add(collect);
-        }
-        System.out.println(l);
-
-
+    @SneakyThrows
+    public static void main(String[] args) {
+        List<Method> declaredMethods = ReflectionUtils.getMethods(FirstService.class);
+        System.out.println(declaredMethods);
     }
 
 
+    private static List<Method> getMethods(Class clazz, String methodName) {
+        Method[] declaredMethods = clazz.getMethods();
+        List<Method> mayMethods = Stream.of(declaredMethods)
+                .filter(m -> methodName.equals(m.getName()))
+                .collect(Collectors.toList());
+        Assert.notEmpty(mayMethods, "未找到方法：" + methodName);
+        return mayMethods;
+    }
 
 
 }
