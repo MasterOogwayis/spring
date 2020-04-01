@@ -26,8 +26,9 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
-        List<Method> declaredMethods = ReflectionUtils.getMethods(FirstService.class);
-        System.out.println(declaredMethods);
+        System.out.println(-1L ^ (-1L << 5L));
+        System.out.println(~(-1L << 5L));
+        System.out.println(1L << 5L);
     }
 
 
