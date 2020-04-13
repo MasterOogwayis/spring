@@ -1,46 +1,45 @@
 package com;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import com.service.FirstService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.Assert;
+import sun.reflect.misc.MethodUtil;
 
-import java.net.DatagramPacket;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Optional;
-import java.util.UUID;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author ZhangShaowei on 2019/10/9 10:03
  **/
 @Slf4j
+//@RunWith(Parameterized.class)
 public class StaticTests {
 
-    public static final Gson GSON = new GsonBuilder().serializeNulls().create();
+//    @Parameterized.Parameters
+//    public static Object[][] data() {
+//        return new Object[10][0]; // repeat count which you want
+//    }
 
 
     @SneakyThrows
     public static void main(String[] args) {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sdf.parse("2019-11-21 00:00:00"));
-
-
+        System.out.println(-1L ^ (-1L << 5L));
+        System.out.println(~(-1L << 5L));
+        System.out.println(1L << 5L);
     }
 
-    @AllArgsConstructor
-    static class Dto {
-        private Long id;
-        private String name;
+
+    private static List<Method> getMethods(Class clazz, String methodName) {
+        Method[] declaredMethods = clazz.getMethods();
+        List<Method> mayMethods = Stream.of(declaredMethods)
+                .filter(m -> methodName.equals(m.getName()))
+                .collect(Collectors.toList());
+        Assert.notEmpty(mayMethods, "未找到方法：" + methodName);
+        return mayMethods;
     }
+
 
 }

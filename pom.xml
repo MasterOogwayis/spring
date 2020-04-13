@@ -13,7 +13,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <!--        <version>2.2.0.M5</version>-->
-        <version>2.1.9.RELEASE</version>
+        <version>2.1.11.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,8 +22,8 @@
 
     <modules>
         <module>base</module>
-        <!--<module>file</module>
-        <module>product</module>
+        <module>file</module>
+        <!--<module>product</module>
         <module>saleorder</module>
         <module>oauth2</module>
         <module>user</module>
@@ -62,7 +62,7 @@
         <eureka-consul-adapter.version>1.3.0</eureka-consul-adapter.version>
         <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
         <!--        <spring-cloud.version>Hoxton.M1</spring-cloud.version>-->
-        <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
+        <spring-cloud.version>Greenwich.SR4</spring-cloud.version>
         <alibaba.sentinel.version>1.6.3</alibaba.sentinel.version>
         <kafka.version>2.3.0</kafka.version>
         <spring.kafka.version>2.2.8.RELEASE</spring.kafka.version>
@@ -160,6 +160,11 @@
             <dependency>
                 <groupId>com.zsw</groupId>
                 <artifactId>base-logging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zsw</groupId>
+                <artifactId>base-mapstruct</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -488,7 +493,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.8</version>
+                <version>1.18.12</version>
             </dependency>
 
             <!-- jsqlparser -->
@@ -584,6 +589,11 @@
                 <artifactId>mapstruct-jdk8</artifactId>
                 <version>${org.mapstruct.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${org.mapstruct.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.mapstruct</groupId>
@@ -666,30 +676,14 @@
                 <version>2.3.2</version>
             </dependency>
 
+
         </dependencies>
     </dependencyManagement>
 
-    <profiles>
-        <profile>
-            <id>sonar</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <sonar.login>4474c640c876b611cab34c52bfdabca9c35aee83</sonar.login>
-                <sonar.host.url>http://192.168.1.13:9500/sonar</sonar.host.url>
-            </properties>
-        </profile>
-    </profiles>
 
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.6.0.1398</version>
-                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -715,9 +709,30 @@
                         <overwrite>true</overwrite>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.6.0.1398</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.login>4474c640c876b611cab34c52bfdabca9c35aee83</sonar.login>
+                <sonar.host.url>http://192.168.1.13:9500/sonar</sonar.host.url>
+                <!-- <sonar.projectKey>${project.name}</sonar.projectKey> -->
+                <sonar.projectName>${project.name}</sonar.projectName>
+                <sonar.projectVersion>${project.version}-20200113PM</sonar.projectVersion>
+            </properties>
+        </profile>
+    </profiles>
 
     <reporting>
         <plugins>

@@ -22,6 +22,7 @@ public class TimeoutAnnotationHandlerInterceptor implements HandlerInterceptor {
     private ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 1. 拦截处理方法（Spring Web MVC 内建 HandlerInterceptor）
         // 2. 得到被拦截的方法对象（handler 对象在 Spring Web MVC 注解编程中永远是 HandlerMethod）

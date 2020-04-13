@@ -134,7 +134,7 @@ public class RemoteDebugger implements ApplicationContextAware {
         }
     }
 
-    private List<Method> getMethods(Class clazz, String methodName) {
+    private List<Method> getMethods(Class<?> clazz, String methodName) {
         List<Method> mayMethods = Stream.of(clazz.getDeclaredMethods())
                 .filter(m -> methodName.equals(m.getName()))
                 .collect(Collectors.toList());
