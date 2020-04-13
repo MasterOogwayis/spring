@@ -1,60 +1,46 @@
 package com;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.net.DatagramPacket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author ZhangShaowei on 2019/10/9 10:03
  **/
+@Slf4j
 public class StaticTests {
 
+    public static final Gson GSON = new GsonBuilder().serializeNulls().create();
+
+
+    @SneakyThrows
     public static void main(String[] args) {
-//        List<Dto> list = new ArrayList<>();
-//        list.add(new Dto(1L, 2));
-//        list.add(new Dto(1L, 1));
-//        list.add(new Dto(1L, 4));
-//        list.add(new Dto(1L, 3));
-//        list.add(new Dto(2L, 2));
-//        list.add(new Dto(2L, 2));
-//        list.add(new Dto(2L, 2));
-//        list.add(new Dto(2L, 2));
-//        list.add(new Dto(3L, 2));
-//        list.add(new Dto(3L, 2));
-//        list.add(new Dto(3L, 2));
-//        list.add(new Dto(3L, 2));
 
-//        System.out.println(String.join(":", "a", "b", "c", "d"));
-//
-//
-//        ObjectMapper om = new ObjectMapper();
-//        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-//
-//        Dto d = new Dto();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.parse("2019-11-21 00:00:00"));
 
-
-        RestTemplate restTemplate = new RestTemplate();
-        for (int i = 0; i < 100000; i++) {
-            ResponseEntity<String> forEntity = restTemplate.getForEntity("http://39.100.39.63:5000", String.class);
-            System.out.println(forEntity);
-        }
 
     }
 
-    @Getter
-    @Setter
+    @AllArgsConstructor
     static class Dto {
-        private boolean isParent;
+        private Long id;
+        private String name;
     }
 
 }

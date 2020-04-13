@@ -36,7 +36,7 @@ import java.util.concurrent.TimeUnit;
 public class ShutdownConfigurationV2 {
 
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> webServerFactoryCustomizer(GracefulShutdown) {
+    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> webServerFactoryCustomizer() {
 //        return container -> {
 //            if (container instanceof TomcatEmbeddedServletContainerFactory) {
 //                ((TomcatEmbeddedServletContainerFactory) container).addConnectorCustomizers(gracefulShutdown());

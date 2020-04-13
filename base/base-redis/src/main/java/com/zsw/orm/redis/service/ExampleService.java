@@ -1,5 +1,6 @@
 package com.zsw.orm.redis.service;
 
+import com.zsw.orm.redis.configuration.CacheConstsCustom;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -55,6 +56,10 @@ public class ExampleService {
         return new Ex();
     }
 
+    @Cacheable(value = CacheConstsCustom.UserKeys.KEY_USER_ROLES, key = "#userId", condition = "#userId != null")
+    public Object getRoles(Long userId) {
+        return "roles";
+    }
 
     private class Ex {
 

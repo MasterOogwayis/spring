@@ -4,6 +4,7 @@ management:
       exposure:
         include: "*"
     # 开启 micrometer 以 prometheus 输出，然后脱敏
+  endpoint:
     prometheus:
       enabled: true
       sensitive: false

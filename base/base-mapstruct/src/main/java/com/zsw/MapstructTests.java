@@ -13,16 +13,21 @@ public class MapstructTests {
 
     public static void main(String[] args) {
 
-        CustomerMapper customerMapper = CustomerMapper.INSTANCE;
+        CustomerMapper mapper = CustomerMapper.INSTANCE;
 
         Customer customer = Customer.builder()
                 .id(1L).name("zsw")
-                .product(Product.builder().id(2L).name("产品").build())
+//                .product(Product.builder().id(1L).name("产品").build())
+//                .product(Product.builder().id(2L).name("水货").build())
                 .build();
 
-        CustomerDto customerDto = customerMapper.entityToDto(customer);
+        CustomerDto customerDto = mapper.to(customer);
         System.out.println(customerDto);
 
+        customerDto.setName("Shaowei zhang");
+
+        mapper.update(customerDto, customer);
+        System.out.println(customer);
 
     }
 

@@ -9,7 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * BaseRepository
+ * 基础功能直接继承这个接口就行，不需要写实现类 @Repository XXRepository extends BaseRepository
+ * 若需要自定义功能比如使用 sql ,步骤如下：
+ * 1. 创建接口 XXRepositoryCustom extends BaseCustomRepository
+ * 2. 然后实现类 XXRepositoryCustomImpl implement XXRepositoryCustom，注意实现类必须为 interface + Impl 命名方式
+ * 3. 最终 @Repository XXRepository extends BaseRepository, XXRepositoryCustom
+ * 4. 使用 @Autowired XXRepository xxRepository 即可
+ * <p>
+ * 注：能使用 hql 语句的几乎都能使用注解实现，多使用 Optional 返回值的方法，大多直接返回类型都有可能抛出异常
  *
  * @author ZhangShaowei on 2017/9/8 14:48
  * @param <T> class
@@ -19,41 +26,15 @@ import java.util.Map;
 public interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
 
     /**
-     * @return EntityManager
+     * 请使用 Optional 返回的实现
+     *
+     * @param id ID
+     * @return
      */
-    EntityManager getEntityManager();
-
     T get(ID id);
 
-    /**
-     * 将对象从 t 会话中拆离
-     * @param t T
-     */
-    void evict(T t);
+    void delete(ID id);
 
-    /**
-     * 获得一个新的 EntityManager
-     * @return EntityManager
-     */
-    EntityManager getNewEntityManager();
-
-
-    List<T> find(String hqlStr);
-
-    List<T> find(String hqlStr, int maxResults);
-
-    List<T> find(String hqlStr, int firstResult, int maxResults);
-
-    List<T> findByParam(String hqlStr, Object... values);
-
-    List<T> findByParam(String hqlStr, int maxResults, Object... values);
-
-    List<T> findByParam(String hqlStr, int firstResult, int maxResults, Object... values);
-
-    List<T> findByNamedParam(String hqlStr, Map<String, Object> namedParams);
-
-    List<T> findByNamedParam(String hqlStr, int maxResults, Map<String, Object> namedParams);
-
-    List<T> findByNamedParam(String hqlStr, int firstResult, int maxResults, Map<String, Object> namedParams);
+    void saveOrUpdate(T t);
 
 }

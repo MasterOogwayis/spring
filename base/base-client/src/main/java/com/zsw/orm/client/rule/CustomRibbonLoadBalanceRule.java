@@ -26,22 +26,22 @@ public class CustomRibbonLoadBalanceRule implements IRule {
 
     @Override
     public Server choose(Object key) {
-//        List<Server> allServers = balancer.getAllServers();
-//        try {
-//            if (Objects.isNull(localIpAddress)) {
-//                localIpAddress = InetUtils.getFirstNonLoopbackHostInfo().getIpAddress();
-//            }
-//        } catch (Exception e) {
-//            log.info("未找到本机ip：", e);
-//            e.printStackTrace();
-//        }
-//
-//        for (Server server : allServers) {
-//            if (server.getHost().equalsIgnoreCase(localIpAddress)) {
-//                log.info("本次Feign调用地址：host - [{}] Server - [{}]", server.getHost(), server.toString());
-//                return server;
-//            }
-//        }
+        List<Server> allServers = balancer.getAllServers();
+        try {
+            if (Objects.isNull(localIpAddress)) {
+                localIpAddress = InetUtils.getFirstNonLoopbackHostInfo().getIpAddress();
+            }
+        } catch (Exception e) {
+            log.info("未找到本机ip：", e);
+            e.printStackTrace();
+        }
+
+        for (Server server : allServers) {
+            if (server.getHost().equalsIgnoreCase(localIpAddress)) {
+                log.info("本次Feign调用地址：host - [{}] Server - [{}]", server.getHost(), server.toString());
+                return server;
+            }
+        }
         return null;
     }
 

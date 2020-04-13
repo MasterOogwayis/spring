@@ -21,7 +21,7 @@ public class MessageAddress implements Serializable {
      *
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false, length = 19)
     private Long id;
 
