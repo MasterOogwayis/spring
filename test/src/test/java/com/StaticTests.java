@@ -1,10 +1,8 @@
 package com;
 
-import com.service.FirstService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
-import sun.reflect.misc.MethodUtil;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -23,12 +21,14 @@ public class StaticTests {
 //        return new Object[10][0]; // repeat count which you want
 //    }
 
+    private static final String name = "zsw";
+
+    private Integer age = 1;
+
 
     @SneakyThrows
     public static void main(String[] args) {
-        System.out.println(-1L ^ (-1L << 5L));
-        System.out.println(~(-1L << 5L));
-        System.out.println(1L << 5L);
+        System.out.println(~(-1 << 16));
     }
 
 

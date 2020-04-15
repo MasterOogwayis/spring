@@ -20,6 +20,7 @@ eureka:
       defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
     eureka-server-port: 8080
     disable-delta: true
+    register-with-eureka: true
   instance:
     prefer-ip-address: true
 

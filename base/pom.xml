@@ -48,6 +48,7 @@
         <module>base-cloud-alibaba</module>
         <module>base-hystrix</module>
         <module>base-io</module>
+        <module>base-javaassit</module>
     </modules>
 
 

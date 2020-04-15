@@ -2,12 +2,9 @@ package com.zsw.commons;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * id = 1 + 41 + 10 + 12 = 64位二进制 -> long
- *
+ * <p>
  * 1 bit：不用，为啥呢？因为二进制里第一个 bit 为如果是 1，那么都是负数，但是我们生成的 id 都是正数，所以第一个 bit 统一都是 0。
  * 41 bit：表示的是时间戳，单位是毫秒。41 bit 可以表示的数字多达 2^41 - 1，也就是可以标识 2^41 - 1 个毫秒值，换算成年就是表示69年的时间。
  * 10 bit：记录工作机器 id，代表的是这个服务最多可以部署在 2^10台机器上哪，也就是1024台机器。但是 10 bit 里 5 个 bit 代表机房 id，5 个 bit 代表机器 id。意思就是最多代表 2^5个机房（32个机房），每个机房里可以代表 2^5 个机器（32台机器）。
@@ -99,7 +96,6 @@ public class SnowflakeIdWorker implements IdWorker {
     }
 
 
-
     private long tilNextMillis(long lastTimestamp) {
         long timestamp = timeGen();
         while (timestamp <= lastTimestamp) {
@@ -116,7 +112,6 @@ public class SnowflakeIdWorker implements IdWorker {
     public static void main(String[] args) {
         IdWorker idWorker = new SnowflakeIdWorker(1L, 1L, 1L);
         System.out.println(idWorker.nextId());
-
 
 
     }
