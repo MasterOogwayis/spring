@@ -1,0 +1,135 @@
+
+
+pipeline {
+    agent any
+    tools {
+        maven 'maven'
+        jdk 'jdk8'
+    }
+
+    options {
+        // 不允许同时执行流水线, 防止同时访问共享资源等
+        disableConcurrentBuilds()
+        // 显示具体的构建流程时间戳
+        timestamps()
+    }
+
+    parameters {
+        choice(
+                name: 'server',
+                choices: [
+                        'bcpt-register-server',
+                        'bcpt-config-server',
+                        'bcpt-gateway-server',
+                        'bcpt-ic-gateway-server',
+                        'bcpt-oauth2-server',
+                        'bcpt-admin-server'
+                ],
+                description: '可选服务'
+        )
+        string(
+                name: 'dir',
+                description: 'jar 包存放路径'
+        )
+        text(
+                name: 'shells',
+                description: '执行脚本，多个 "," 分隔'
+        )
+//        string(name: "dockerTag", defaultValue: 'latest', description: "tag")
+//        string(name: "dockerRepository", defaultValue: '192.168.1.12:5000', description: "repositories")
+//        string(name: "credentialsId", defaultValue: '12-docker-repository', description: "credentialsId")
+    }
+
+    stages {
+        stage('package') {
+            input {
+                message "Should we continue?"
+                ok "Yes, we should."
+                submitter "admin,anthony"
+                parameters {
+                    string(name: 'pa', description: 'Who should I say hello to?')
+                }
+            }
+            steps {
+                echo "${pa}"
+                sh "mvn clean package -pl ${params.server} -am -DskipTests -P nexus"
+//                archiveArtifacts artifacts: '**/target/*.jar', followSymlinks: false, onlyIfSuccessful: true
+            }
+        }
+
+        stage('Copy jars to paths') {
+            steps {
+                script {
+                    def dir = params.dir
+                    if (dir) {
+                        def name = params.server
+                        sh "find ${name}/target -name '${name}*.jar' -exec cp {} ${dir} \\;"
+                    }
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps{
+                echo '执行脚本'
+                script {
+                    def shells = params.shells
+                    if (shells) {
+                        Map<String, String> paths = new HashMap<>()
+                        paths.put()
+
+
+                        String[] shellsToExecute = shells.split(',')
+                        withEnv(['JENKINS_NODE_COOKIE=executeShellsDontKillMe']) {
+                            for (String shell : shellsToExecute) {
+                                shell = shell.trim()
+                                sh "${shell}"
+                            }
+                        }
+                    } else {
+                        echo 'ignored ...'
+                    }
+                }
+            }
+        }
+
+        stage('build images') {
+            steps {
+                echo 'ignored ...'
+//                script {
+//                    def name = params.server
+//
+//                    sh "mvn dockerfile:build dockerfile:tag@tag-version -f ${name}"
+//                    try {
+//                        echo '清理 images'
+//                        sh 'docker rmi $(docker images | grep "none" | awk \'{print $3}\') || echo 0'
+//                    } catch (Exception e) {
+//                        echo '忽略清理报错......'
+//                    }
+//
+//                }
+            }
+        }
+
+        stage('push to repository') {
+            steps {
+                echo 'ignored ...'
+//                script {
+//                    def dockerRepository = params.dockerRepository
+//                    def credentialsId = params.credentialsId
+//                    def dockerTag = params.dockerTag
+//                    def name = params.server
+//                    docker.withRegistry("http://${dockerRepository}", "${credentialsId}") {
+//                        def imageName = "platform-server/${name}:${dockerTag}"
+//                        echo "image: ${imageName}"
+//                        docker.image(imageName).push()
+//                    }
+//                }
+            }
+        }
+
+
+    }
+
+
+}
