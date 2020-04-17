@@ -2,6 +2,12 @@
 //Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent any
+    options {
+        // 不允许同时执行流水线, 防止同时访问共享资源等
+        disableConcurrentBuilds()
+        // 显示具体的构建流程时间戳
+        timestamps()
+    }
     // 参数，可以在流水线启动前输入
     parameters {
         // tag 版本 artifactId
@@ -23,6 +29,17 @@ pipeline {
         string(name: "gatewayPort", defaultValue: "17100", description: "gateway服务端口")
         string(name: "icGatewayPort", defaultValue: "19110", description: "ic gateway服务端口")
         string(name: "openGatewayPort", defaultValue: "19111", description: "open gateway服务端口")
+        // 注意这个多选框需要 jenkins 插件 Extended Choice Parameter Plug-In
+//        extendedChoice(
+//                name: 'yourchoices',
+//                description: 'pick your choices',
+//                multiSelectDelimiter: ',',
+//                quoteValue: false,
+//                saveJSONParameterToFile: false,
+//                type: 'PT_CHECKBOX',
+//                value: '1,2,3,4,5',
+//                visibleItemCount: 5
+//        )
     }
     //环境变量，初始确定后一般不需更改
 //    tools {
@@ -202,6 +219,19 @@ pipeline {
                 echo '更换新包...'
             }
         }
+
+        stage('backup') {
+            steps{
+                // 防止 jenkins 杀进程
+//                withEnv(['JENKINS_NODE_COOKIE=Execute Shells do not kill me']) {
+//                    for (String shell : shellsToExecute) {
+//                        shell = shell.trim()
+//                        sh "${shell}"
+//                    }
+//                }
+            }
+        }
+
     }
     // 需要设置操作用户的邮件地址
 //    post {
