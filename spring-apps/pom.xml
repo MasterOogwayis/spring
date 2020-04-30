@@ -18,6 +18,7 @@
         <module>simple-test</module>
         <module>externalized-configuration</module>
         <module>spring-config-client</module>
+        <module>reactive-web</module>
     </modules>
 
 

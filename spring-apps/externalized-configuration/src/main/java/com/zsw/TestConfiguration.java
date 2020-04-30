@@ -2,6 +2,7 @@ package com.zsw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * 测试各种配置方式
@@ -10,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @see com.netflix.config.DynamicConfiguration
  * @see org.apache.commons.configuration.Configuration
  * @see org.springframework.core.env.Environment
+ * @see org.springframework.cloud.config.client.ConfigServicePropertySourceLocator
  */
+@EnableDiscoveryClient
 @SpringBootApplication
 public class TestConfiguration {
 
