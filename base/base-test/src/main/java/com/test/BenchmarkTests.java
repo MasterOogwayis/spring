@@ -43,6 +43,46 @@ public class BenchmarkTests {
     public void test1() {
 
     }
+    //    public static void main(String[] args) throws RunnerException {
+//        Options options = new OptionsBuilder()
+//                .include(BenchmarkTests.class.getSimpleName())
+////                .warmupIterations(2)
+////                .measurementIterations(10)
+//                .threads(1)
+//                .measurementTime(TimeValue.seconds(1))
+//                .build();
+//        new Runner(options).run();
+//    }
+//
+//    ConfigurableApplicationContext context;
+//
+//    AuthenticationService authenticationService;
+//
+//
+//    @Setup(Level.Trial)
+//    public void init() {
+//        context = SpringApplication.run(GatewayApplication.class);
+//        authenticationService = context.getBean(AuthenticationService.class);
+//    }
+//
+//
+//    @Param({"ROLE_SUPER_ADMIN",
+//            "ROLE_ADMIN",
+//            "ROLE_PC_ADMIN",
+//            "ROLE_PC_OPER",
+//            "ROLE_TC_ADMIN",
+//            "ROLE_TC_OPER",
+//            "ROLE_SC_ADMIN",
+//            "ROLE_RC_ADMIN",
+//            "ROLE_EPC_USER",
+//            "ROLE_EPC_ADMIN",
+//            "ROLE_SUB_ADMIN"})
+//    private String mark;
+//
+//    @Benchmark
+//    public void test1() {
+//        this.authenticationService.authenticate("/smc/actuator/info", "POST", Collections.singletonList(this.mark));
+//    }
 
 
 }

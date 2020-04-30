@@ -5,6 +5,11 @@ import com.netflix.loadbalancer.ILoadBalancer;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.Server;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.commons.util.InetUtils;
+import org.springframework.cloud.commons.util.InetUtilsProperties;
+
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 自定义 负载策略，用于访问本机客户端
@@ -17,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomRibbonLoadBalanceRule implements IRule {
 
+//    private InetUtilsProperties properties;
+
     /**
      *
      */
@@ -24,12 +31,19 @@ public class CustomRibbonLoadBalanceRule implements IRule {
 
     private String localIpAddress = null;
 
+    private InetUtils inetUtils;
+
+    public CustomRibbonLoadBalanceRule(InetUtilsProperties properties) {
+//        this.properties = properties;
+        this.inetUtils = new InetUtils(properties);
+    }
+
     @Override
     public Server choose(Object key) {
         List<Server> allServers = balancer.getAllServers();
         try {
             if (Objects.isNull(localIpAddress)) {
-                localIpAddress = InetUtils.getFirstNonLoopbackHostInfo().getIpAddress();
+                localIpAddress = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
             }
         } catch (Exception e) {
             log.info("未找到本机ip：", e);

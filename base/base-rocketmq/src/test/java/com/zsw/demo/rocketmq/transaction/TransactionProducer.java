@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 /**
  * 腾讯课堂搜索【咕泡学院】
- * 官网：www.gupaoedu.com
+ * 官网：www.zsw.com
  * 风骚的Mic 老师
  * create-date: 2019/8/31-21:53
  */
