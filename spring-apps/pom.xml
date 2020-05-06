@@ -19,6 +19,7 @@
         <module>externalized-configuration</module>
         <module>spring-config-client</module>
         <module>reactive-web</module>
+        <module>static-tests</module>
     </modules>
 
 
