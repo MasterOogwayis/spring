@@ -17,4 +17,9 @@ public class TestController {
     }
 
 
+    public String get(String name) {
+        return "Hello " + name;
+    }
+
+
 }

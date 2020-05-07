@@ -1,6 +1,6 @@
 package com;
 
-import com.zsw.persistence.dao.CustomerMapper;
+import com.zsw.persistence.dao.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,11 +24,11 @@ public class BaseMyBatisApplication {
     class TestMyBatisController {
 
         @Autowired
-        CustomerMapper customerMapper;
+        ProductMapper mapper;
 
         @GetMapping
         public Object test() {
-            return customerMapper.findAll();
+            return mapper.findAll();
         }
 
     }

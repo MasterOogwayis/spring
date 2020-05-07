@@ -8,7 +8,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  **/
 @SpringBootApplication
 public class SimpleTest {
-
+    
+    /**
+     * start server
+     * 
+     * @param args args
+     */
     public static void main(String[] args) {
         SpringApplication.run(SimpleTest.class, args);
     }

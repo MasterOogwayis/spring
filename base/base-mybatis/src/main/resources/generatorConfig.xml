@@ -44,8 +44,15 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
-        <table tableName="t_blob"
+        <!--<table tableName="t_blob"
                domainObjectName="Blob"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
+        <table tableName="t_product"
+               domainObjectName="Product"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
