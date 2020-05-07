@@ -4,8 +4,11 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageInterceptor;
+import com.zaxxer.hikari.HikariDataSource;
 import com.zsw.persistence.dao.CustomerMapper;
+import com.zsw.persistence.dao.ProductMapper;
 import com.zsw.persistence.entity.Customer;
+import com.zsw.persistence.entity.Product;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.loader.cglib.CglibProxyFactory;
@@ -71,7 +74,11 @@ public class MyBatisTests {
 //        dataSource.setUrl(url);
 //        dataSource.setUsername(username);
 //        dataSource.setPassword(password);
-        DataSource dataSource = new DriverManagerDataSource(url, username, password);
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(url);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+//        DataSource dataSource = new DriverManagerDataSource(url, username, password);
         // Environment 2个关键属性 transactionFactory
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
         Environment environment = new Environment("development", transactionFactory, dataSource);
@@ -97,13 +104,14 @@ public class MyBatisTests {
         // PageHelper
         PageInterceptor pageInterceptor = new PageInterceptor();
         Properties properties = new Properties();
-//        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("helperDialect", "mysql");
         // 自动识别方言
         properties.setProperty("autoRuntimeDialect", "true");
         // pageSize=0 则查询全部
         properties.setProperty("pageSizeZero", "true");
         pageInterceptor.setProperties(properties);
-//        configuration.addInterceptor(pageInterceptor);
+        // 插件，注意 PageHelper 必须配置插件才会生效
+        configuration.addInterceptor(pageInterceptor);
 
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         Resource[] resources = new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml");
@@ -116,7 +124,8 @@ public class MyBatisTests {
 //        Customer o = session.selectOne("com.zsw.persistence.mapper.CustomerMapper.get", 1L);
 
         // Mapper 接口都会使用 MapperProxy 代理实现
-        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
+//        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
+        ProductMapper mapper = session.getMapper(ProductMapper.class);
 
         // jdk 1.7 及以下
 //        Page<Object> page = PageHelper.startPage(1, 10);
@@ -125,12 +134,14 @@ public class MyBatisTests {
 //        Page<Customer> page = PageHelper.startPage(1, 10).doSelectPage(customerMapper::findAll);
 //        PageInfo<Customer> pageInfo = new PageInfo<>(page);
 //        PageInfo<Customer> pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(customerMapper::findAll);
-        Page<Customer> page = PageHelper.startPage(1, 10);
-        PageInfo<Customer> pageInfo = new PageInfo<>(page);
-        List<Customer> list = customerMapper.findAll();
+        PageInfo<Object> objectPageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(mapper::findAll);
+//        List<Customer> list = customerMapper.findAll();
 //        List<Customer> all = pageInfo.getList();
+//        List<Product> list = mapper.findAll();
+        System.out.println(objectPageInfo);
 
-        System.out.println(list);
+
+
 //        System.out.println(all);
 //        System.err.println(pageInfo);
 

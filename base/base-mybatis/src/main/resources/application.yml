@@ -3,6 +3,11 @@ server:
 
 # http://www.mybatis.org/mybatis-3/zh/configuration.html
 #默认使用配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
 mybatis:
   # 一些默认的 alias TypeAliasRegistry
   type-aliases-package: com.zsw.persistence.entity,com.zsw.mybatis.typehandler

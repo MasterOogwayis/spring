@@ -1,3 +1,8 @@
+# 2020-5-7 #
+##  AutoConfigurationPackages ##
+
+
+
 # Spring Boot 2.2.0.RELEASE 已发布 #
 ## 准备升级到 2.2.0.RELEASE & Spring Cloud Hoxton RC1 ##
 ### 2019-10-28 10:07:16 ###
