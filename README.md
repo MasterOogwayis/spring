@@ -2,6 +2,24 @@
 ##  AutoConfigurationPackages ##
 
 
+# Spring Cloud #
+## netflix ##
+```text
+Spring Cloud 服务注册、发现、负载均衡使用 3 个线程
+
+Eureka CacheRefreshThread
+Eureka InstanceInfoReplicator
+Ribbon PollingServerListUpdater
+
+
+Dubbo 使用的监听器，几乎能立即感知到服务上下线
+
+思考 Zookeeper Watch 机制，对 cloud 服务进行优化？
+
+ps：听说最近 Spring Cloud Alibaba 对 openfeign 和 Dubbo 做了兼容，采用降级调用 openfeign
+
+```
+
 
 # Spring Boot 2.2.0.RELEASE 已发布 #
 ## 准备升级到 2.2.0.RELEASE & Spring Cloud Hoxton RC1 ##
