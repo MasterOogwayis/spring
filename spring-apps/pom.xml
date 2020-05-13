@@ -20,6 +20,8 @@
         <module>spring-config-client</module>
         <module>reactive-web</module>
         <module>static-tests</module>
+        <module>simple-api</module>
+        <module>simple-client</module>
     </modules>
 
 

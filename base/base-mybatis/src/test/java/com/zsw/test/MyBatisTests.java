@@ -1,14 +1,10 @@
 package com.zsw.test;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
-import com.zsw.persistence.dao.CustomerMapper;
-import com.zsw.persistence.dao.ProductMapper;
-import com.zsw.persistence.entity.Customer;
-import com.zsw.persistence.entity.Product;
+import com.zsw.persistence.mapper.ProductMapper;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.loader.cglib.CglibProxyFactory;
@@ -22,11 +18,8 @@ import org.junit.Test;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
 import java.util.Collections;
-import java.util.List;
 import java.util.Properties;
 
 /**

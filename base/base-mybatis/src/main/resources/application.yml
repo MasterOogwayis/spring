@@ -12,7 +12,7 @@ mybatis:
   # 一些默认的 alias TypeAliasRegistry
   type-aliases-package: com.zsw.persistence.entity,com.zsw.mybatis.typehandler
   type-handlers-package: com.zsw.mybatis.typehandler
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/**.xml
   # 看这种配置方式，应该就能推断出静态调用参数设置的方式
   configuration:
     # 全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存
@@ -48,9 +48,9 @@ mybatis:
     # 允许在嵌套语句中使用分页（RowBounds）。如果允许使用则设置为 false
     safe-row-bounds-enabled: false # default false
     # 允许在嵌套语句中使用分页（ResultHandler）。如果允许使用则设置为 false
-    safe-result-handler-enabled: true # default true
+    safe-result-handler-enabled: true
     # 是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射
-    map-underscore-to-camel-case: false # default false
+    map-underscore-to-camel-case: true # default true
     # MyBatis 利用本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询
     # 默认值为 SESSION，这种情况下会缓存一个会话中执行的所有查询。
     # 若设置值为 STATEMENT，本地会话仅用在语句执行上，
@@ -86,6 +86,10 @@ mybatis:
     # 指定一个提供 Configuration 实例的类。 这个被返回的 Configuration 实例用来加载被反序列化对象的延迟加载属性值。
     # 这个类必须包含一个签名为static Configuration getConfiguration() 的方法。（新增于 3.2.3） 类型别名或者全类名
 #    configuration-factory:  # default 未设置
+mybatis-plus:
+  mapper-locations: ${mybatis.mapper-locations}
+  type-aliases-package: ${mybatis.type-aliases-package}
+  type-handlers-package: ${mybatis.type-handlers-package}
 spring:
   application:
     name: base-mybatis
@@ -97,6 +101,8 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+
 logging:
   level:
     com.zsw.persistence.dao: DEBUG

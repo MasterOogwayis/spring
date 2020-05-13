@@ -1,4 +1,4 @@
-package com.zsw.persistence.dao;
+package com.zsw.persistence.mapper;
 
 import com.zsw.persistence.entity.Product;
 import org.apache.ibatis.annotations.Mapper;

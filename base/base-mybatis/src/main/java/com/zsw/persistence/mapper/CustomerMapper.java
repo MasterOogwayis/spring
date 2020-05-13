@@ -1,10 +1,9 @@
-package com.zsw.persistence.dao;
+package com.zsw.persistence.mapper;
 
 import com.zsw.persistence.entity.Customer;
 import com.zsw.persistence.entity.CustomerExample;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Mapper

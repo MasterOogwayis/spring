@@ -1,0 +1,29 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: simple-client
+server:
+  port: 8082
+eureka:
+  server:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 8080
+  instance:
+#    prefer-ip-address: true
+    hostname: 127.0.0.1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    # 开启 micrometer 以 prometheus 输出，然后脱敏
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+    prometheus:
+      enabled: true

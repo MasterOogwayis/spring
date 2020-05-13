@@ -8,8 +8,12 @@ import lombok.Data;
  */
 public class StaticTests {
 
+    private static boolean isAlive;
+
+
     public static void main(String[] args) {
 
+        System.out.println(isAlive);
 
     }
 

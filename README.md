@@ -54,6 +54,9 @@ spring-cloud-starter-eureka-client → spring-cloud-starter-netflix-eureka-clien
 spring-cloud-starter-feign -> spring-cloud-starter-openfeign
 
 同一个应用2个客户端会报错 spring.main.allow-bean-definition-overriding: true
+PS: 最近的版本若不配置并不会出错
+
+
 ### hystrix: 
 
 spring-cloud-starter-hystrix -> spring-cloud-starter-netflix-hystrix
@@ -69,30 +72,36 @@ spring-cloud-starter-hystrix -> spring-cloud-starter-netflix-hystrix
 GenerationType.AUTO -> GenerationType.IDENTITY
 
 ## 5. register - eureka
-    spring-cloud-starter-eureka 变更 server client 模式
-    spring-cloud-starter-netflix-eureka-client
-    spring-cloud-starter-netflix-eureka-server
+```text
+spring-cloud-starter-eureka 变更 server client 模式
+spring-cloud-starter-netflix-eureka-client
+spring-cloud-starter-netflix-eureka-server
+```
+
 
 ## 6. gateway
-    spring-cloud-starter--zuul
-     变更
-    spring-cloud-starter-netflix-zuul
+```text
+spring-cloud-starter--zuul
+ 变更
+spring-cloud-starter-netflix-zuul
+```
 
 ## 7 config server
 
 ## 8. security & oauth2 server
 
-<pre>
+```text
+
 1. 2.X 不管使用哪种 PasswordEncoder ，数据库若是明文也无法验证了。所以必须加密，
    不推荐 MD5 , 推荐 BCrypt ,为兼容1.x 的 MD5 使用 MessageDigestPasswordEncoder
    默认： PasswordEncoderFactories.createDelegatingPasswordEncoder()
 
 2. 2.x 以后通过 security.ignored 配置忽略权限无效，只能通过 继承 WebSecurityConfigurerAdapter 来实现。
    自定义 spring.security.ignored 忽略，详见：com.anze.base.config.SecurityProperties
-</pre>
+```
 
 ## 9. micrometer
-    看看是否需要关闭 prometheus 的权限
+### 看看是否需要关闭 prometheus 的权限
 
 ## 10. admin-eureka
 ###  由于 第三方包的更新速度跟不上主分支，所以不再这里维护版本。自行维护！
@@ -101,9 +110,11 @@ GenerationType.AUTO -> GenerationType.IDENTITY
 
 
 ## 11. 文件上传
-    spring:
-    # 以前是http
-      servlet:
-        multipart:
-          max-file-size: 10MB
-          max-request-size: 50MB
+```text
+spring:
+# 以前是http
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+```
