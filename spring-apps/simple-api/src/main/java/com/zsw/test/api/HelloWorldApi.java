@@ -26,10 +26,15 @@ public class HelloWorldApi {
 
     @GetMapping("getUserInfo")
     public Map<String, String> getUserInfo(@RequestParam("username") String username) {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>(4);
         map.put("username", username);
         map.put("address", "earth");
         return map;
+    }
+
+
+    private void test(String a, String b, String c) {
+        System.out.println(a + b + c);
     }
 
 }

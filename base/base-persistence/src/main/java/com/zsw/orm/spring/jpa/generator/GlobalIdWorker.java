@@ -1,4 +1,4 @@
-package com.zsw.commons;
+package com.zsw.orm.spring.jpa.generator;
 
 import java.io.IOException;
 import java.math.BigInteger;
