@@ -2,6 +2,10 @@ package com.zsw.test;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2020/4/30 16:43
@@ -12,8 +16,7 @@ public class StaticTests {
 
 
     public static void main(String[] args) {
-
-        System.out.println(isAlive);
+        System.out.println(TimeUnit.HOURS.toMillis(1));
 
     }
 

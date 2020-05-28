@@ -90,6 +90,8 @@ mybatis-plus:
   mapper-locations: ${mybatis.mapper-locations}
   type-aliases-package: ${mybatis.type-aliases-package}
   type-handlers-package: ${mybatis.type-handlers-package}
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 spring:
   application:
     name: base-mybatis

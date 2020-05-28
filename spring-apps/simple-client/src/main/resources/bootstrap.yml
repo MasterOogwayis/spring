@@ -15,6 +15,11 @@ eureka:
   instance:
 #    prefer-ip-address: true
     hostname: 127.0.0.1
+
+feign:
+  hystrix:
+    enabled: true
+
 management:
   endpoints:
     web:

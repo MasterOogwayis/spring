@@ -21,6 +21,11 @@ ps：听说最近 Spring Cloud Alibaba 对 openfeign 和 Dubbo 做了兼容，�
 ```
 
 
+## open feign ##
+FeignAutoConfiguration
+FeignClientsConfiguration
+FeignRibbonClientAutoConfiguration
+
 # Spring Boot 2.2.0.RELEASE 已发布 #
 ## 准备升级到 2.2.0.RELEASE & Spring Cloud Hoxton RC1 ##
 ### 2019-10-28 10:07:16 ###

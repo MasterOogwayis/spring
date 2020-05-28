@@ -3,8 +3,14 @@ package com.zsw.test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.zsw.encryption.AESUtil;
-import java.util.HashMap;
+import com.zsw.encryption.RSAUtil;
+import lombok.SneakyThrows;
+
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Map;
+
+import static com.zsw.test.StringUtils.bytesToHexString;
 
 /**
  * @author ZhangShaowei on 2018/10/15 17:50
@@ -14,6 +20,26 @@ public class TestAES {
     private static final Gson gson = new GsonBuilder().create();
 
     public static void main(String[] args) throws Exception {
+        Map<String, Object> map = RSAUtil.initKey();
+        RSAPrivateKey privateKey = RSAUtil.getPrivateKey(map);
+        RSAPublicKey publicKey = RSAUtil.getpublicKey(map);
+
+        RsaSignature signature = new RsaSignature(publicKey, privateKey);
+
+        String plainText = "asdasdasdasdasdasdasdasdasdasdasdasd";
+
+        byte[] sign = signature.sign(plainText);
+        System.out.println("sign: " + bytesToHexString(sign));
+
+        boolean verify = signature.verify(plainText, sign);
+        System.err.println(verify);
+
+
+    }
+
+
+    @SneakyThrows
+    public static void test1() {
         String token = "qlYsb8LOTuX7oBSsFcptIhO+/6qPp7WkGisFY+C1JoL3B642BDx8w+/gA6ualrvRq+nL3hTJZqcjmEcWXm6VAA==";
         String data = "{'repairPhone':'18547854787','customPhone':'12365478965','captchav':'58m7'}";
 //        System.out.println("加密密钥和解密密钥：" + key.substring(0, 32));
@@ -44,12 +70,6 @@ public class TestAES {
         OpenIdDto dto = gson.fromJson(decStr.trim(), OpenIdDto.class);
 
         System.out.println(dto.getToken());
-
-
-
-
     }
-
-
 
 }

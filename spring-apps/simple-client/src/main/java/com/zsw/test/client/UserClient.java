@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author ZhangShaowei on 2020/5/11 14:27
  */
-@FeignClient(value = "SIMPLE-API", fallback = HelloClientFallback.class)
+@FeignClient(name = "simple-api-test", url = "http://127.0.0.1:8081", fallback = UserClientFallback.class)
 public interface UserClient {
 
     @GetMapping("/simple/getUserInfo")
