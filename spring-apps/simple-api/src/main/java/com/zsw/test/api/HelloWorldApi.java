@@ -1,16 +1,13 @@
 package com.zsw.test.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author ZhangShaowei on 2020/5/11 14:18
@@ -18,33 +15,25 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("simple")
 @RestController
+@Transactional(rollbackFor = Exception.class)
 public class HelloWorldApi {
 
-    private static final Gson gson = new GsonBuilder().create();
+    @Autowired
+    private TestService testService;
 
     @GetMapping("hello")
-    public String hello(@RequestParam("name") String name, @RequestHeader("attr") String attr) {
+//    @Cacheable(value = "test", key = "#name", condition = "#result != null ")
+    public String hello(@RequestParam("name") String name, @RequestHeader(value = "attr", required = false) String attr) {
         log.info("header: attr={}", attr);
         return "Hello " + name;
     }
 
-    /**
-     * @param username
-     * @param attr
-     * @return
-     */
-    @GetMapping("getUserInfo")
-    public Map<String, String> getUserInfo(@RequestParam("username") String username, @RequestHeader("attr") String attr) {
-        log.info("header: attr={}", attr);
-        Map<String, String> map = new HashMap<>(4);
-        map.put("username", username);
-        map.put("address", "earth");
-        return map;
-    }
+//    @GetMapping("hello1")
+//    @Cacheable(value = "test", key = "#name", condition = "#result != null ")
+//    private String hello1(@RequestParam("name") String name, @RequestHeader(value = "attr", required = false) String attr) {
+//        log.info("header: attr={}", attr);
+//        return "Hello1 " + name;
+//    }
 
-
-    private void test(String a, String b, String c) {
-        System.out.println(a + b + c);
-    }
 
 }

@@ -12,6 +12,8 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.UUID;
 
 /**
  * AES算法编程实现
@@ -24,7 +26,10 @@ public class AESUtil {
     private static final String KEY_AES = "AES/ECB/PKCS5Padding";
 
     public static void main(String[] args) throws Exception {
-        String data = "{\"name\":\"zsw\"}";
+
+
+//        String data = "{\"name\":\"zsw\"}";
+        String data = "19041202000211";
         System.out.println("length: " + data.length());
         String encrypt = encrypt(data, DEFAULT_KEY);
         System.out.println(encrypt);
@@ -37,24 +42,16 @@ public class AESUtil {
         int blockSize = cipher.getBlockSize();
 
         byte[] dataBytes = data.getBytes();
-//        int plaintextLength = dataBytes.length;
-//        if (plaintextLength % blockSize != 0) {
-//            plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
-//        }
-//
-//        byte[] plaintext = new byte[plaintextLength];
-//        System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
-
         SecretKeySpec keyspec = new SecretKeySpec(aesKey.getBytes(), "AES");
 
         cipher.init(Cipher.ENCRYPT_MODE, keyspec);
         byte[] encrypted = cipher.doFinal(dataBytes);
 
-        return Base64Utils.encodeToString(encrypted);
+        return Base64Utils.encodeToUrlSafeString(encrypted);
     }
 
     public static String decrypt(String data, String aesKey) throws Exception {
-        byte[] encrypted1 = new BASE64Decoder().decodeBuffer(data);
+        byte[] encrypted1 = Base64Utils.decodeFromUrlSafeString(data);
 
         Cipher cipher = Cipher.getInstance(KEY_AES);
         SecretKeySpec keyspec = new SecretKeySpec(aesKey.getBytes(), "AES");

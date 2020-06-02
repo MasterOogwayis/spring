@@ -92,6 +92,7 @@ mybatis-plus:
   type-handlers-package: ${mybatis.type-handlers-package}
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: false
 spring:
   application:
     name: base-mybatis
