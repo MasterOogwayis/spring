@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <dependency>
@@ -32,12 +32,6 @@
         </dependency>
 
 
-        <!-- https://mvnrepository.com/artifact/net.sf.cssbox/cssbox -->
-        <dependency>
-            <groupId>net.sf.cssbox</groupId>
-            <artifactId>cssbox</artifactId>
-            <version>4.17</version>
-        </dependency>
 
     </dependencies>
 

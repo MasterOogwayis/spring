@@ -7,4 +7,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TestService {
+
+    @Log
+    public String hello(String name) {
+        String str = "Hello " + name;
+        System.out.println(str);
+        return str;
+    }
+
+
 }

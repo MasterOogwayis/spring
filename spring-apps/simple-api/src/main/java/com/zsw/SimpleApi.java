@@ -2,12 +2,12 @@ package com.zsw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @author ZhangShaowei on 2020/5/11 14:15
  */
-//@EnableDiscoveryClient
-//@EnableCaching
+@EnableAspectJAutoProxy
 @SpringBootApplication
 public class SimpleApi {
 

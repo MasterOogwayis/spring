@@ -1,39 +1,52 @@
 package com.zsw.test.api;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * @author ZhangShaowei on 2020/5/11 14:18
  */
 @Slf4j
-@RequestMapping("simple")
 @RestController
-@Transactional(rollbackFor = Exception.class)
 public class HelloWorldApi {
 
     @Autowired
     private TestService testService;
 
+    @SneakyThrows
     @GetMapping("hello")
-//    @Cacheable(value = "test", key = "#name", condition = "#result != null ")
-    public String hello(@RequestParam("name") String name, @RequestHeader(value = "attr", required = false) String attr) {
-        log.info("header: attr={}", attr);
-        return "Hello " + name;
+    public Object hello(@RequestParam("name") String name) {
+        MethodHandles.Lookup lookup = BeanUtils.instantiateClass(
+                MethodHandles.Lookup.class.getDeclaredConstructor(Class.class, int.class), TestService.class, 15);
+        MethodHandle hello = lookup.findVirtual(TestService.class, "hello", MethodType.methodType(String.class, String.class));
+        Object invoke = hello.bindTo(this.testService).invoke(name);
+
+        Method method = TestService.class.getDeclaredMethod("hello", String.class);
+        Object invoke1 = method.invoke(this.testService, name);
+        System.err.println(invoke);
+        System.out.println(invoke1);
+
+        return invoke;
     }
 
-//    @GetMapping("hello1")
-//    @Cacheable(value = "test", key = "#name", condition = "#result != null ")
-//    private String hello1(@RequestParam("name") String name, @RequestHeader(value = "attr", required = false) String attr) {
-//        log.info("header: attr={}", attr);
-//        return "Hello1 " + name;
-//    }
+
+    @PostMapping("test")
+    public Object test(@RequestBody Map<String, Object> body) {
+        return body;
+    }
 
 
 }
