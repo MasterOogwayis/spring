@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.util.StringUtils;
 
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
@@ -24,7 +25,10 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
-        System.out.println(OM.writeValueAsString(new Ci("zsw", "value")));
+        for (int i = 0; i < 1000; i++) {
+            TimeUnit.SECONDS.sleep(1);
+            System.out.println(i);
+        }
     }
 
 
