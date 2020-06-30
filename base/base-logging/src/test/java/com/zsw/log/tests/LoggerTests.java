@@ -9,8 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoggerTests {
 
+    private static final LoggerBPR P4P = new LoggerBPR();
+
     public static void main(String[] args) {
-        log.info(LoggerBPR.rule(P4P, "test", "target"));
+        log.info(LoggerBPR.rule(P4P));
     }
 
 

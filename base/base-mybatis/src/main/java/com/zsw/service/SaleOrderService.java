@@ -13,11 +13,15 @@ import java.util.List;
  * @author ZhangShaowei on 2020/5/12 11:24
  */
 @Service
+@Transactional
 public class SaleOrderService extends ServiceImpl<SaleOrderMapper, SaleOrder> implements IService<SaleOrder> {
 
-    @Transactional
     public List<SaleOrder> findAll() {
         return this.baseMapper.findAll();
+    }
+
+    public List<SaleOrder> find() {
+        return this.baseMapper.find();
     }
 
 

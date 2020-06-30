@@ -21,15 +21,20 @@ public class AllController {
     @Autowired
     private SaleOrderService saleOrderService;
 
-    @GetMapping("apple/get")
+    @GetMapping("get")
     public SaleOrder apple(@RequestParam("id") Long id) {
         return this.saleOrderService.getById(id);
     }
 
-    @GetMapping("apple/findAll")
+    @GetMapping("findAll")
     public List<SaleOrder> apple(@RequestParam("page") Integer page, @RequestParam("pageSize") Integer pageSize) {
         PageHelper.startPage(page, pageSize);
         return this.saleOrderService.findAll();
+    }
+
+    @GetMapping("find")
+    public List<SaleOrder> find() {
+        return this.saleOrderService.find();
     }
 
 }

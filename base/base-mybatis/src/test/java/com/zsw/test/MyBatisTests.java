@@ -4,7 +4,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
-import com.zsw.persistence.mapper.ProductMapper;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.loader.cglib.CglibProxyFactory;
@@ -118,7 +117,7 @@ public class MyBatisTests {
 
         // Mapper 接口都会使用 MapperProxy 代理实现
 //        CustomerMapper customerMapper = session.getMapper(CustomerMapper.class);
-        ProductMapper mapper = session.getMapper(ProductMapper.class);
+//        ProductMapper mapper = session.getMapper(ProductMapper.class);
 
         // jdk 1.7 及以下
 //        Page<Object> page = PageHelper.startPage(1, 10);
@@ -127,11 +126,11 @@ public class MyBatisTests {
 //        Page<Customer> page = PageHelper.startPage(1, 10).doSelectPage(customerMapper::findAll);
 //        PageInfo<Customer> pageInfo = new PageInfo<>(page);
 //        PageInfo<Customer> pageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(customerMapper::findAll);
-        PageInfo<Object> objectPageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(mapper::findAll);
+//        PageInfo<Object> objectPageInfo = PageHelper.startPage(1, 10).doSelectPageInfo(mapper::findAll);
 //        List<Customer> list = customerMapper.findAll();
 //        List<Customer> all = pageInfo.getList();
 //        List<Product> list = mapper.findAll();
-        System.out.println(objectPageInfo);
+//        System.out.println(objectPageInfo);
 
 
 

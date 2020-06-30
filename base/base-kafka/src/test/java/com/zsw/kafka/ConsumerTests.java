@@ -29,6 +29,7 @@ public class ConsumerTests {
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "groupId");
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(properties);
+
         consumer.subscribe(Collections.singletonList(TOPIC));
 
         while (true) {
