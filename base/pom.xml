@@ -34,15 +34,15 @@
         <module>base-mybatis</module>
         <module>base-jdbc</module>
         <module>base-orm</module>
-        <module>base-serialization</module>
+<!--        <module>base-serialization</module>-->
         <module>base-test</module>
         <module>base-nacos-client</module>
         <module>base-sentinel</module>
         <module>base-mapstruct</module>
         <module>base-kafka</module>
         <module>base-rocketmq</module>
-        <module>base-remoting</module>
-        <module>base-consul</module>
+<!--        <module>base-remoting</module>-->
+<!--        <module>base-consul</module>-->
         <module>base-zookeeper</module>
         <module>base-nacos</module>
         <module>base-cloud-alibaba</module>

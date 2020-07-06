@@ -12,14 +12,7 @@
     <artifactId>spring-apps</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>docker-springboot</module>
-        <module>jpa-test</module>
-        <module>security-app</module>
-        <module>simple-test</module>
         <module>externalized-configuration</module>
-        <module>spring-config-client</module>
-        <module>reactive-web</module>
-        <module>static-tests</module>
     </modules>
 
 

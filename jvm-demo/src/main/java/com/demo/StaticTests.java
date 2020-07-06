@@ -24,8 +24,6 @@ public class StaticTests {
 
     private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 
-    private static ThreadLocal<Map<Long, List<String>>> MENU_CACHE = new TransmittableThreadLocal<>();
-
     @SneakyThrows
     public static void main(String[] args) {
 

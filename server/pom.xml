@@ -14,16 +14,11 @@
 
     <modules>
         <module>register-server</module>
-        <module>api-server</module>
         <module>config-server</module>
-        <module>turbine-server</module>
-        <module>dev-server</module>
-        <module>ui-server</module>
-        <module>wechat-server</module>
-        <module>consul-server</module>
-        <module>nacos-server</module>
+<!--        <module>wechat-server</module>-->
+<!--        <module>consul-server</module>-->
+<!--        <module>nacos-server</module>-->
         <module>admin-server</module>
-        <module>client-server</module>
         <module>gateway-server</module>
     </modules>
 
