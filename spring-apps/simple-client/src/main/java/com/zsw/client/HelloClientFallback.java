@@ -1,4 +1,4 @@
-package com.zsw.test.client;
+package com.zsw.client;
 
 import org.springframework.stereotype.Component;
 

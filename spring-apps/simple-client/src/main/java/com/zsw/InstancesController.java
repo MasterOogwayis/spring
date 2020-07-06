@@ -1,4 +1,4 @@
-package com.zsw.test;
+package com.zsw;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

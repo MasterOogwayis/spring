@@ -1,4 +1,4 @@
-package com.zsw.test.client;
+package com.zsw.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

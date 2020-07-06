@@ -1,4 +1,4 @@
-package com.zsw.test.client;
+package com.zsw.client;
 
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
