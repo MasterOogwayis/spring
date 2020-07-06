@@ -1,11 +1,8 @@
 server:
-  port: 8080 #${SERVER_PORT}
-
+  port: 8080
 spring:
   application:
     name: Eureka
-  main:
-    allow-bean-definition-overriding: true
 
 eureka:
   dashboard:
@@ -196,5 +193,5 @@ eureka:
 
 
 # 删除实例
-# http://192.168.1.13:9101/eureka/apps/{appname}/{status}
-# http://192.168.1.13:9101/eureka/apps/bcpt-epc-api/ShaoweiZhang-PC:bcpt-epc-api:80
+# http://ip:port/eureka/apps/{appname}/{status}
+# http://ip:port/eureka/apps/bcpt-epc-api/ShaoweiZhang-PC:bcpt-epc-api:80

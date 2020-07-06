@@ -20,8 +20,8 @@
     <!-- 官方导航 https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide -->
 
     <modules>
-<!--        <module>base</module>-->
-<!--        <module>file</module>-->
+        <!--        <module>base</module>-->
+        <!--        <module>file</module>-->
         <!--<module>product</module>
         <module>saleorder</module>
         <module>oauth2</module>
@@ -33,8 +33,8 @@
         <module>nacos-app</module>
         <module>stream</module>-->
         <module>server</module>
-<!--        <module>security</module>-->
-<!--        <module>quartz</module>-->
+        <!--        <module>security</module>-->
+        <!--        <module>quartz</module>-->
         <module>spring-apps</module>
     </modules>
 
@@ -47,19 +47,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.war.dependentWarExcludes>WEB-INF/web.xml</maven.war.dependentWarExcludes>
-        <org.slf4j.version>1.7.25</org.slf4j.version>
-        <protostuff.version>1.7.2</protostuff.version>
-        <querydsl.version>4.1.4</querydsl.version>
-        <micrometer.version>1.3.10</micrometer.version>
-        <mockito.version>2.8.47</mockito.version>
-        <weixin.java.version>3.3.0</weixin.java.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
-        <eureka-consul-adapter.version>1.3.0</eureka-consul-adapter.version>
-        <org.mapstruct.version>1.3.1.Final</org.mapstruct.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-        <alibaba.sentinel.version>1.7.2</alibaba.sentinel.version>
-        <kafka.version>2.5.0</kafka.version>
     </properties>
 
 
@@ -68,19 +57,10 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <!--<version>Edgware.SR5</version>-->
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
-            <!--<dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-consul-dependencies</artifactId>
-                <version>1.3.4.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>-->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-consul-dependencies</artifactId>
@@ -107,170 +87,16 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-zookeeper-dependencies</artifactId>
-                <version>2.1.2.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-
-            <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-config-spring-boot-starter</artifactId>
-                <version>0.2.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
-                <version>0.2.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba.boot</groupId>
-                <artifactId>nacos-config-spring-boot-actuator</artifactId>
-                <version>0.2.1</version>
-            </dependency>
-
-            <!-- alibaba -->
-
-
-            <dependency>
-                <groupId>at.twinformatics</groupId>
-                <artifactId>eureka-consul-adapter</artifactId>
-                <version>${eureka-consul-adapter.version}</version>
-            </dependency>
-
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-properties-migrator</artifactId>
                 <scope>runtime</scope>
                 <version>2.1.4.RELEASE</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-logging</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-mapstruct</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-cache-lock</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>resource-server</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-controller</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-micrometer</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-service</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-persistence</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-rabbitmq</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-redis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-swagger2</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>login-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>verification-code</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>config-client</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>transaction-mq</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-commons</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-orm</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zsw</groupId>
-                <artifactId>base-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>2.8.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>javax.persistence</groupId>
-                <artifactId>persistence-api</artifactId>
-                <version>1.0</version>
-            </dependency>
+            </dependency>-->
 
 
             <!-- protobuff序列化开源工具-->
-            <dependency>
+            <!--<dependency>
                 <groupId>io.protostuff</groupId>
                 <artifactId>protostuff-core</artifactId>
                 <version>${protostuff.version}</version>
@@ -289,262 +115,21 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
                 <version>3.8.0</version>
-            </dependency>
+            </dependency>-->
             <!-- protobuff序列化开源工具-->
 
-            <dependency>
-                <groupId>io.github.openfeign.form</groupId>
-                <artifactId>feign-form</artifactId>
-                <version>3.8.0</version>
-            </dependency>
-            <dependency>
-                <groupId>io.github.openfeign.form</groupId>
-                <artifactId>feign-form-spring</artifactId>
-                <version>3.8.0</version>
-            </dependency>
+            <!--           <dependency>
+                           <groupId>commons-lang</groupId>
+                           <artifactId>commons-lang</artifactId>
+                           <version>2.6</version>
+                       </dependency>
 
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>2.6</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
-            <dependency>
-                <groupId>commons-collections</groupId>
-                <artifactId>commons-collections</artifactId>
-                <version>3.2.2</version>
-            </dependency>
-
-
-            <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-            </dependency>
-
-            <!-- xml -->
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>1.4.11.1</version>
-            </dependency>
-            <dependency>
-                <groupId>dom4j</groupId>
-                <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
-            </dependency>
-
-            <!-- fastjson -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.58</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.caucho</groupId>
-                <artifactId>hessian</artifactId>
-                <version>4.0.60</version>
-            </dependency>
-
-            <!--https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus-->
-            <dependency>
-                <groupId>io.micrometer</groupId>
-                <artifactId>micrometer-registry-prometheus</artifactId>
-                <version>${micrometer.version}</version>
-            </dependency>
-
-
-            <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>29.0-jre</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.1.3</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.mybatis.generator/mybatis-generator-core -->
-            <dependency>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator</artifactId>
-                <version>1.3.7</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-core</artifactId>
-                <version>1.3.7</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>5.1.2</version>
-            </dependency>
-
-            <!-- 其他工具包 -->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>3.4.5</version>
-            </dependency>
-
-            <dependency>
-                <groupId>javax.inject</groupId>
-                <artifactId>javax.inject</artifactId>
-                <version>1</version>
-            </dependency>
-
-            <!--Swagger2接口文档-->
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>2.10.5</version>
-            </dependency>
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>2.10.5</version>
-            </dependency>
-
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>2.7</version>
-            </dependency>
-
-            <!-- jsqlparser -->
-            <dependency>
-                <groupId>com.github.jsqlparser</groupId>
-                <artifactId>jsqlparser</artifactId>
-                <!--<version>2.0</version>-->
-                <version>1.4</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
-            <!-- 使用 okhttp 替换 feignclient默认的httpclient -->
-            <!--<dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>3.10.0</version>
-            </dependency>-->
-
-
-            <!--           FeignClient 默认使用 HttpURLConnection 每次请求都建立一个新的连接             -->
-            <!--           效率非常低。为了提高效率，可以通过连接池提高效率             -->
-            <!--           可以使用 appache httpclient  & OkHttpClient             -->
-            <!-- https://mvnrepository.com/artifact/io.github.openfeign/feign-okhttp -->
-
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>4.7.2</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-mp</artifactId>
-                <version>${weixin.java.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.binarywang</groupId>
-                <artifactId>weixin-java-pay</artifactId>
-                <version>${weixin.java.version}</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-all</artifactId>
-                <version>4.1.50.Final</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>3.3.0</version>
-            </dependency>
-
-            <!-- MapStruct -->
-            <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-jdk8 -->
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-jdk8</artifactId>
-                <version>1.3.1.Final</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${org.mapstruct.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.javassist</groupId>
-                <artifactId>javassist</artifactId>
-                <version>3.27.0-GA</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-junit-jupiter</artifactId>
-                <version>3.3.0</version>
-                <scope>test</scope>
-            </dependency>
-
-            <!-- Alibaba Sentinel -->
-            <dependency>
-                <groupId>com.alibaba.csp</groupId>
-                <artifactId>sentinel-core</artifactId>
-                <version>${alibaba.sentinel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.csp</groupId>
-                <artifactId>sentinel-transport-simple-http</artifactId>
-                <version>${alibaba.sentinel.version}</version>
-            </dependency>
-
-            <!-- 线程池传递 ThreadLocal https://mvnrepository.com/artifact/com.alibaba/transmittable-thread-local -->
-            <!--<dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>transmittable-thread-local</artifactId>
-                <version>2.11.5</version>
-            </dependency>-->
-
-            <!-- kafka -->
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-clients</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-
-            <!-- quartz -->
-            <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz</artifactId>
-                <version>2.3.2</version>
-            </dependency>
-            <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz-jobs -->
-            <dependency>
-                <groupId>org.quartz-scheduler</groupId>
-                <artifactId>quartz-jobs</artifactId>
-                <version>2.3.2</version>
-            </dependency>
-
+                       &lt;!&ndash; https://mvnrepository.com/artifact/commons-collections/commons-collections &ndash;&gt;
+                       <dependency>
+                           <groupId>commons-collections</groupId>
+                           <artifactId>commons-collections</artifactId>
+                           <version>3.2.2</version>
+                       </dependency>-->
 
         </dependencies>
     </dependencyManagement>

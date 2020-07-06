@@ -1,6 +1,4 @@
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
     name: simple-client
 server:
@@ -13,12 +11,15 @@ eureka:
       defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
     eureka-server-port: 8080
   instance:
-#    prefer-ip-address: true
-    hostname: 127.0.0.1
+    prefer-ip-address: true
+#    hostname: 127.0.0.1
 
 feign:
   hystrix:
     enabled: true
+
+services:
+  api: simple-api
 
 management:
   endpoints:

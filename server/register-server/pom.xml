@@ -14,22 +14,18 @@
 
     <properties>
         <start-class>com.RegisterApplication</start-class>
-        <docker.image.prefix>zsw</docker.image.prefix>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId><!-- 2.x -->
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>at.twinformatics</groupId>
             <artifactId>eureka-consul-adapter</artifactId>
-        </dependency>
+            <version>1.3.0</version>
+        </dependency>-->
     </dependencies>
 
 

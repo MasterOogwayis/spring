@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>externalized-configuration</module>
+        <module>simple-api</module>
+        <module>simple-client</module>
     </modules>
 
 
