@@ -1,4 +1,4 @@
-package com.zsw.commons;
+package com.zsw.orm.spring.jpa.generator;
 
 /**
  * id 生成器

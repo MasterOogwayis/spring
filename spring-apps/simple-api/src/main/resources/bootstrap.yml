@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: simple-api
+server:
+  port: 8081
+
+eureka:
+  server:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 8080
+  instance:
+    hostname: 127.0.0.1
+#    prefer-ip-address: true

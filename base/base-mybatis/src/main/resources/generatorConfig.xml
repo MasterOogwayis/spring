@@ -32,7 +32,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zsw.persistence.dao" targetProject="src">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zsw.persistence.mapper" targetProject="src">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名，不需要生成Example的时候，设置成false-->
@@ -44,8 +44,15 @@
                enableDeleteByExample="false"
                enableSelectByExample="false"
                selectByExampleQueryId="false"></table>-->
-        <table tableName="t_blob"
+        <!--<table tableName="t_blob"
                domainObjectName="Blob"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"></table>-->
+        <table tableName="t_product"
+               domainObjectName="Product"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

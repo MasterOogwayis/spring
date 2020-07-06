@@ -71,22 +71,22 @@
 
 * 项目中在 com.bcpt 包下使用自己的 启动类，例如 TcApiApp， PcApiApp等，同步修改maven 配置的 启动类mainClass
 
-  ```xml
-  <plugin>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-maven-plugin</artifactId>
-      <configuration>
-          <mainClass>com.bcpt.TcApiApp</mainClass>
-      </configuration>
-      <executions>
-          <execution>
-              <goals>
-                  <goal>repackage</goal>
-              </goals>
-          </execution>
-      </executions>
-  </plugin>
-  ```
+```xml
+<plugin>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-maven-plugin</artifactId>
+  <configuration>
+      <mainClass>com.bcpt.TcApiApp</mainClass>
+  </configuration>
+  <executions>
+      <execution>
+          <goals>
+              <goal>repackage</goal>
+          </goals>
+      </execution>
+  </executions>
+</plugin>
+```
 
 ### 1.7 结构说明
 ~~~
@@ -145,6 +145,8 @@ spring:
  * 3.同一个实例创建过多的线程池通常是无意义的
  * 4.详见：ThreadPoolConfigure
 ```yaml
+详见配置文件： ThreadPoolConfiguration
+
 spring:
   task:
     execution:

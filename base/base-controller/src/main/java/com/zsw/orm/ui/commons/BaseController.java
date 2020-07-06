@@ -55,4 +55,23 @@ public class BaseController {
 //        }
 //    }
 
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    protected ApiResult exceptionHandler(MethodArgumentNotValidException ex) {
+//        ex.printStackTrace();
+//        // 参数验证失败
+//        String message = ex.getBindingResult().getAllErrors()
+//                .stream()
+//                .map(FieldError.class::cast)
+//                .map(fieldError ->
+//                        fieldError.getField() + "=" +
+//                                fieldError.getRejectedValue() + ", error=" +
+//                                fieldError.getDefaultMessage()
+//                ).collect(Collectors.joining("。"));
+//        ApiResult<?> fail = ApiResult.create(EpcResultType.PARAMS_ERROR);
+//        fail.setMessage(message);
+//        return fail;
+//    }
+
 }
