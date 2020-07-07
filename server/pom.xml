@@ -14,12 +14,12 @@
 
     <modules>
         <module>register-server</module>
-        <module>config-server</module>
+<!--        <module>config-server</module>-->
 <!--        <module>wechat-server</module>-->
 <!--        <module>consul-server</module>-->
 <!--        <module>nacos-server</module>-->
-        <module>admin-server</module>
-        <module>gateway-server</module>
+<!--        <module>admin-server</module>-->
+<!--        <module>gateway-server</module>-->
     </modules>
 
 </project>
