@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-tests
+  datasource:
+    url: jdbc:mysql://192.168.1.12:3306/temp?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 50
+      idle-timeout: 60000
+      connection-timeout: 30000
+      register-mbeans: true
+  task:
+    execution:
+      pool:
+        core-size: 16
+        queue-capacity: 5000
+        max-size: 100
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**.xml
+  type-aliases-package: com.zsw.entity
+  type-handlers-package: com.zsw.mybatis.typehandler
+  configuration:
+    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: false

@@ -34,6 +34,7 @@ eureka:
     serviceUrl:
       defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
     eureka-server-port: 7101
+    enabled: true
   instance:
     #    hostname: localhost
     prefer-ip-address: true
