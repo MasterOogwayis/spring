@@ -15,6 +15,7 @@
         <module>externalized-configuration</module>
         <module>simple-api</module>
         <module>simple-client</module>
+        <module>api-tests</module>
     </modules>
 
 

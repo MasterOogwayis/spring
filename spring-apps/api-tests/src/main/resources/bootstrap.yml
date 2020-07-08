@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-tests
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: bcpt-config-server
+      profile: upgrade
+      failFast: true
+      # 多文件无法使用默认文件名了
+      name: instances,oauth2-api,bcpt-pc-api
+  task:
+    execution:
+      pool:
+        core-size: 8
+        queue-capacity: 5000
+        max-size: 100
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**.xml
+  type-aliases-package: com.zsw.entity
+  type-handlers-package: com.zsw.mybatis.typehandler
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    cache-enabled: false
+
+eureka:
+  server:
+    hostname: 192.168.1.12
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 7101
+  instance:
+    #    hostname: localhost
+    prefer-ip-address: true

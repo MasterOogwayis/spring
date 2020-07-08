@@ -35,7 +35,7 @@
 
 ### 1.2 项目结构问题
 
- * 包名根路径使用 com.bcpt
+ * 包名根路径使用 com.zsw
  * client 和 api 完全隔离，即 api不直接 or 间接引用client，由于sb 2.x采用了严格模式，默认不允许存在多个 client 实现，所以 api 需要和 client 完全隔离  
  * 目前看来 client 和 api 只有 pojo 能共用，但最终都会隔离
  * pojo 每个中心完全隔离，若使用 client 自然能引用到对应的 pojo，不在各种 base-commons-xx共享某个对象，对于 Cache Key 的配置不在此限制中
@@ -69,14 +69,14 @@
 
 * 弃用 ab 包含的 BaseApplication， ab 4.x 以上只关注了com.anze 下面的组件，详见ab README.md
 
-* 项目中在 com.bcpt 包下使用自己的 启动类，例如 TcApiApp， PcApiApp等，同步修改maven 配置的 启动类mainClass
+* 项目中在 com.zsw 包下使用自己的 启动类，例如 TcApiApp， PcApiApp等，同步修改maven 配置的 启动类mainClass
 
 ```xml
 <plugin>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-maven-plugin</artifactId>
   <configuration>
-      <mainClass>com.bcpt.TcApiApp</mainClass>
+      <mainClass>com.zsw.TcApiApp</mainClass>
   </configuration>
   <executions>
       <execution>
