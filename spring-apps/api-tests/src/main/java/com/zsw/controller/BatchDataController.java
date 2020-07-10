@@ -2,6 +2,7 @@ package com.zsw.controller;
 
 import com.zsw.mapper.ProductMapper;
 import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -10,16 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * @author ZhangShaowei on 2020/7/8 15:30
  */
+@Slf4j
 @RequestMapping("batch")
 @RestController
 public class BatchDataController {
 
+    /**
+     *
+     */
     @Autowired
     private ProductMapper mapper;
 
@@ -41,6 +45,7 @@ public class BatchDataController {
      */
     @GetMapping
     public Object insert() throws Exception {
+        log.info("{}", "asd");
         long timer = System.currentTimeMillis();
         int threads = Runtime.getRuntime().availableProcessors() * 2 + 1;
         CountDownLatch countDownLatch = new CountDownLatch(threads);

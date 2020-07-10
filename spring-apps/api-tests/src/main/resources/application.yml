@@ -13,12 +13,24 @@ spring:
       idle-timeout: 60000
       connection-timeout: 30000
       register-mbeans: true
-  task:
-    execution:
-      pool:
-        core-size: 16
-        queue-capacity: 5000
-        max-size: 100
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    database: MYSQL
+    show-sql: true
+    generate-ddl: true
+      # 下面这种事 默认字段 下横线组合，默认为驼峰写法
+      #    hibernate:
+      #      naming:
+      #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      #        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
 
 mybatis-plus:
   mapper-locations: classpath:mapper/**.xml
