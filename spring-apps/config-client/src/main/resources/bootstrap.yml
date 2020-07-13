@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: bcpt-config-server
+      profile: upgrade
+      failFast: true
+      name: redis
+eureka:
+  server:
+    hostname: 192.168.1.12
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 7101
+  instance:
+    prefer-ip-address: true

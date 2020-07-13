@@ -2,12 +2,14 @@ package com.zsw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * @author ZhangShaowei on 2020/5/11 14:15
+ * @author ZhangShaowei on 2020/7/13 10:04
  */
+@EnableDiscoveryClient
 @SpringBootApplication
-public class SimpleApi {
+public class ConfigClient {
 
     /**
      * start server
@@ -15,8 +17,7 @@ public class SimpleApi {
      * @param args args
      */
     public static void main(String[] args) {
-        SpringApplication.run(SimpleApi.class, args);
+        SpringApplication.run(ConfigClient.class, args);
     }
-
 
 }

@@ -16,6 +16,7 @@
         <module>simple-api</module>
         <module>simple-client</module>
         <module>api-tests</module>
+        <module>config-client</module>
     </modules>
 
 
