@@ -1,6 +1,6 @@
 package com.zsw.test;
 
-import com.zsw.persistence.entity.Product;
+import com.zsw.persistence.entity.Country;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.junit.Test;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
@@ -14,9 +14,9 @@ public class ObjectFactoryTests {
     @Test
     public void test() {
         ObjectFactory objectFactory = new DefaultObjectFactory();
-        Product product = objectFactory.create(Product.class);
+        Country country = objectFactory.create(Country.class);
 
-        System.out.println(product);
+        System.out.println(country);
     }
 
 }

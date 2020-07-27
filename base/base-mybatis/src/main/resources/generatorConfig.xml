@@ -4,8 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <!-- 数据库驱动-->
-    <!--<classPathEntry location="J:\maven\mavenLib\mysql\mysql-connector-java\8.0.15\mysql-connector-java-8.0.15.jar"/>-->
-    <classPathEntry location="G:\tools\apache-maven-repo\libRepository\mysql\mysql-connector-java\8.0.15\mysql-connector-java-8.0.15.jar"/>
+    <classPathEntry location="D:\maven\repository\mysql\mysql-connector-java\8.0.20\mysql-connector-java-8.0.20.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressDate" value="true"/>
@@ -15,7 +14,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/mybatis"
+                        connectionURL="jdbc:mysql://localhost:3306/world"
                         userId="root" password="root">
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
@@ -37,22 +36,22 @@
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名，不需要生成Example的时候，设置成false-->
         <!-- 下面的是是否生成查询辅助类 -->
-        <!--<table tableName="t_customer"
-               domainObjectName="Customer"
+        <table tableName="city"
+               domainObjectName="City"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="t_blob"
-               domainObjectName="Blob"
+               selectByExampleQueryId="false"></table>
+        <table tableName="country"
+               domainObjectName="Country"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>-->
-        <table tableName="t_product"
-               domainObjectName="Product"
+               selectByExampleQueryId="false"></table>
+        <table tableName="countrylanguage"
+               domainObjectName="CountryLanguage"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

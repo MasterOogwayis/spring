@@ -17,5 +17,10 @@ public class HelloWorldApi {
         return "Hello " + name + "!";
     }
 
+    @GetMapping("sum")
+    public Object sum(@RequestParam("a") Integer a, @RequestParam("b") Integer b) {
+        return a + b;
+    }
+
 
 }
