@@ -34,6 +34,7 @@
         <!--        <module>quartz</module>-->
         <module>spring-apps</module>
         <module>spring-cloud</module>
+        <module>skywalking-all</module>
     </modules>
 
     <!-- 打包依赖的包 -->

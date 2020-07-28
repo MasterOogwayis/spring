@@ -9,17 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-apps</artifactId>
-
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>externalized-configuration</module>
-        <module>simple-api</module>
-        <module>simple-client</module>
-        <module>api-tests</module>
-        <module>config-client</module>
-    </modules>
+    <artifactId>skywalking-all</artifactId>
 
 
 </project>
