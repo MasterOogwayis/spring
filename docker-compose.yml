@@ -14,7 +14,7 @@ services:
 
   eureka:
     container_name: eureka
-    build: ./server/register-server
+    build: spring-cloud-alibaba/register-server
     image: zsw/register-server
     restart: "no"
     mem_limit: 512MB
@@ -32,7 +32,7 @@ services:
 
   api-server:
     container_name: core-server
-    build: ./server/api-server
+    build: spring-cloud-alibaba/api-server
     image: zsw/core-server
     restart: always
     networks:
