@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author ZhangShaowei on 2020/7/9 10:39
  */
+@Slf4j
 public class StaticTests {
 
     @SneakyThrows
@@ -21,5 +22,6 @@ public class StaticTests {
     static class Dto {
         private String name;
     }
+
 
 }

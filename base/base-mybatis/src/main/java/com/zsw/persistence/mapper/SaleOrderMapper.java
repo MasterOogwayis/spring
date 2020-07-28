@@ -1,6 +1,7 @@
 package com.zsw.persistence.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zsw.persistence.ExtendBaseMapper;
 import com.zsw.persistence.entity.SaleOrder;
 import org.apache.ibatis.annotations.Mapper;
