@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-<!--        <module>consul-server</module>-->
-<!--        <module>nacos-server</module>-->
+        <module>nacos-server</module>
+        <module>cloud-alibaba-tests</module>
     </modules>
 
     <dependencyManagement>

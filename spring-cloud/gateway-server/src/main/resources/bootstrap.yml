@@ -11,6 +11,10 @@ spring:
         predicates:
           - Path=/fc/**
         filters:
+          - name: Retry
+              args:
+                retries: 3
+                status: 503
           - StripPrefix=1
       discovery:
         locator:
