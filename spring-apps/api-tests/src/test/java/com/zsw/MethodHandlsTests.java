@@ -1,4 +1,4 @@
-package com.zsw.test;
+package com.zsw;
 
 import lombok.Data;
 import lombok.SneakyThrows;
@@ -21,7 +21,7 @@ public class MethodHandlsTests {
         System.out.println(2 << 12);
         System.out.println((2 << 12) - 1);
 
-        System.err.println(((2 << 12) -1) & 8195);
+        System.err.println(((2 << 12) - 1) & 8195);
 
 
     }

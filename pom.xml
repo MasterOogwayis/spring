@@ -29,7 +29,6 @@
         <module>jvm-demo</module>
         <module>nacos-app</module>
         <module>stream</module>-->
-        <module>server</module>
         <!--        <module>security</module>-->
         <!--        <module>quartz</module>-->
         <module>spring-apps</module>
