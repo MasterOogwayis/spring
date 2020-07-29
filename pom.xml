@@ -33,7 +33,7 @@
         <!--        <module>quartz</module>-->
         <module>spring-apps</module>
         <module>spring-cloud</module>
-        <module>skywalking-all</module>
+        <module>spring-cloud-alibaba</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -75,15 +75,6 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
                 <version>${spring-boot-admin.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!-- alibaba -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>0.9.0.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
