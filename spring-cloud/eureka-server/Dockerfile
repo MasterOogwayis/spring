@@ -1,13 +1,16 @@
 # 体积小  但是如果需要使用命令则需要单独安装 如下面的curl
 FROM openjdk:8-jdk-alpine
 #FROM java:8 这个太大 有600m
-VOLUME /tmp
+MAINTAINER ShaoweiZhang2016@outlook.com
+LABEL name="eureka-server" version="1.0.1-SNAPSHOT" author="zsw"
+
+#VOLUME /tmp
+WORKDIR /tmp
+
 
 ARG JAR_FILE
 ADD ${JAR_FILE} app.jar
 
-# 使用 docker 专用的 配置文件 不和代码冲突
-ADD application_docker.yml application.yml
 
 # 安装 curl 命令，用于健康检查访问 health 接口
 #修改镜像源
@@ -23,6 +26,8 @@ ADD application_docker.yml application.yml
 #HEALTHCHECK CMD curl --fail http://localhost:1111/health
 
 ENV TZ Asia/Shanghai
+
+EXPOSE 8080
 
 #RUN bash -c 'touch /app.jar'
 #ENTRYPOINT ["java","-Djava.security.egd=file:/pro/./urandom","-jar","/app.jar"]
