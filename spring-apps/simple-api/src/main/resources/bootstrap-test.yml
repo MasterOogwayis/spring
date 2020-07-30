@@ -1,0 +1,10 @@
+eureka:
+  server:
+    hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
+    eureka-server-port: 11112
+    enabled: true
+  instance:
+    prefer-ip-address: true
