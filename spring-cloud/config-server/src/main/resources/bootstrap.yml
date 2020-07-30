@@ -2,6 +2,8 @@ server:
   port: 1112
 
 spring:
+  profiles:
+    active: default
   application:
     name: config-server
 #  rabbitmq:
@@ -23,7 +25,7 @@ spring:
         # config server 会自动更新git
         git:
           # 若使用 ssh, 默认使用本机配置的.ssh rsa
-          uri: git@121.40.236.201:easylines/platform-soa-config-files.git
+          uri: git@ip:xx/config-files.git
           default-label: master
           # 强制更新本地副本，防止副本被修改导致无法更新配置
           force-pull: true
