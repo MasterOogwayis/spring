@@ -19,6 +19,7 @@
         <module>simple-client</module>
         <module>api-tests</module>
         <module>config-client</module>
+        <module>redis-tests</module>
     </modules>
 
 
