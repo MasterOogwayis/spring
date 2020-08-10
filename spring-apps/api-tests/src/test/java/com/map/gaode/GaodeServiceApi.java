@@ -58,7 +58,7 @@ public class GaodeServiceApi {
 //        map.put("nightflag", "0");
 //        map.put("date", LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE));
 //        map.put("time", "");
-        map.put("output", "JSON");
+//        map.put("output", "JSON");
 //        map.put("callback", "");
         sign(map);
         log.debug("request params :{}", map);

@@ -1,8 +1,9 @@
-import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.TimeUnit;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 
 /**
  * @author ZhangShaowei on 2020/7/9 10:39
@@ -10,19 +11,14 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class StaticTests {
 
+
     @SneakyThrows
     public static void main(String[] args) {
-        for (int i = 0; i < 1000000; i++) {
-            System.out.println(1);
-            TimeUnit.SECONDS.sleep(5);
-        }
+
+        LocalDate with = LocalDate.of(2020, 5, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.THURSDAY));
+        System.out.println(with);
+
+
     }
-
-
-    @Data
-    static class Dto {
-        private String name;
-    }
-
 
 }
