@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.zsw</groupId>
-    <artifactId>spring</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -16,11 +10,22 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zsw</groupId>
+    <artifactId>spring</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.1-SNAPSHOT</version>
+
+
+    <!-- FIXME change it to the project's website -->
+    <url>http://www.example.com</url>
+
     <!-- 正在迁移到 2.x -->
     <!-- 官方导航 https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide -->
 
     <modules>
-                <module>base</module>
+        <module>base</module>
         <!--        <module>file</module>-->
         <!--<module>product</module>
         <module>oauth2</module>

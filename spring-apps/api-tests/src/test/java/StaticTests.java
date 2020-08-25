@@ -1,24 +1,21 @@
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
 
 /**
  * @author ZhangShaowei on 2020/7/9 10:39
  */
 @Slf4j
 public class StaticTests {
+    private static int x = 100;
 
-
-    @SneakyThrows
-    public static void main(String[] args) {
-
-        LocalDate with = LocalDate.of(2020, 5, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.THURSDAY));
-        System.out.println(with);
-
-
+    public static void main(String args[]) {
+        StaticTests hs1 = new StaticTests();
+        hs1.x++;
+        StaticTests hs2 = new StaticTests();
+        hs2.x++;
+        hs1 = new StaticTests();
+        hs1.x++;
+        StaticTests.x--;
+        System.out.println("x=" + x);
     }
 
 }
