@@ -25,6 +25,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * 如果是JDK8的应用，可以使用Instant代替Date，LocalDateTime代替Calendar，DateTimeFormatter 代替 SimpleDateFormatter
  * 官方给出的解释：simple beautiful strong immutable thread-safe。
  *
+ * LocalDate.of(2020, 5, 1).with(TemporalAdjusters.nextOrSame(DayOfWeek.THURSDAY))
+ *
  * @author ZhangShaowei on 2019/11/15 14:10
  */
 public class DateTimeUtils {

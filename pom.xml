@@ -39,6 +39,7 @@
         <module>spring-apps</module>
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
+        <module>spring-cloud-dubbo-example</module>
     </modules>
 
     <!-- 打包依赖的包 -->

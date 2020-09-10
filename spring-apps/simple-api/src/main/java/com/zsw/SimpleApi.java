@@ -47,7 +47,7 @@ public class SimpleApi {
         };
     }
 
-//    @Scheduled(cron = "0 * * * * *")
+//    @Scheduled(cron = "0/5 * * * * *")
 //    public void t() {
 //        System.out.println(System.currentTimeMillis() + "ms");
 //    }

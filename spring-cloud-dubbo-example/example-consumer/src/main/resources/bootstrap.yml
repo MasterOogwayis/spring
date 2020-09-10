@@ -1,0 +1,21 @@
+server:
+  port: 8088
+
+
+spring:
+  application:
+    name: example-consumer
+  cloud:
+    nacos:
+      config:
+        server-addr: http://127.0.0.1:8848
+        namespace: fd33a947-8d47-48ff-9525-e38bd1bd602a
+        file-extension: yaml
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
