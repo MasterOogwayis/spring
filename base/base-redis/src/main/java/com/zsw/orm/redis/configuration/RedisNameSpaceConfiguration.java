@@ -15,7 +15,6 @@ import java.util.stream.Stream;
  **/
 
 @Configuration
-//@AutoConfigureAfter(com.anze.base.redis.configuration.RedisConfiguration.class)
 public class RedisNameSpaceConfiguration {
 
 

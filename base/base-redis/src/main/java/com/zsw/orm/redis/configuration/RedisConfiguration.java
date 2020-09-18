@@ -3,7 +3,8 @@ package com.zsw.orm.redis.configuration;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.collections.MapUtils;
+import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizers;
 import org.springframework.cache.CacheManager;
@@ -80,7 +81,7 @@ public class RedisConfiguration {
         //
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
 
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(om);
 //        ProtostuffRedisSerializer serializer = new ProtostuffRedisSerializer();
@@ -96,7 +97,7 @@ public class RedisConfiguration {
      * 使用SpringCacheManager管理缓存   FIXME
      *
      * @return RedisCacheManager 配置
-     * @see org.springframework.boot.autoconfigure.cache.RedisCacheConfiguration
+     * @see RedisCacheConfiguration
      */
     @Bean
     public CacheManager cacheManager(

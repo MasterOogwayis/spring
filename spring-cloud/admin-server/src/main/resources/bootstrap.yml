@@ -15,7 +15,7 @@ spring:
     config:
       discovery:
         enabled: true
-        service-id: bcpt-config-server
+        service-id: zsw-config-server
       profile: new
       failFast: true
       # 多文件无法使用默认文件名了

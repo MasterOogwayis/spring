@@ -19,7 +19,6 @@
         <module>config-server</module>
         <module>admin-server</module>
         <module>zuul-server</module>
-        <module>spring-cloud-tests</module>
     </modules>
 
 </project>

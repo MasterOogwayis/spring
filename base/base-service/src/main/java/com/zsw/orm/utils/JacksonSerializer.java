@@ -2,14 +2,11 @@ package com.zsw.orm.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.util.EnumValues;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.SneakyThrows;
-import org.springframework.boot.jackson.JsonComponentModule;
 
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -23,7 +20,7 @@ public class JacksonSerializer {
     /**
      * jackson的json转换器
      */
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * 初始化mapper参数

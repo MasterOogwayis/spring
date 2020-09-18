@@ -13,14 +13,13 @@ version: '2.1'
 # 指定一个专用的网段，每个环境都不共享网段，实现网络阻断
 networks:
   backend:
-    name: bcpt-${START_ENV:-dev}
+    name: zsw-${START_ENV:-dev}
 
 services:
-
-  bcpt-register-server:
-    container_name: bcpt-register-server-${START_ENV:-dev}
-#    build: ./server/bcpt-register-server
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-register-server:${TAG:-latest}
+  zsw-register-server:
+    container_name: zsw-register-server-${START_ENV:-dev}
+#    build: ./server/zsw-register-server
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-register-server:${TAG:-latest}
     # version 3
 #    deploy:
 #      resources:
@@ -33,8 +32,8 @@ services:
 #    memswap_limit: 2000000000
 #    mem_reservation: 512m
     volumes:
-      - /data/bcpt:/data/bcpt
-    restart: ${BCPT_REGISTER_SERVER:-no}
+      - /data/zsw:/data/zsw
+    restart: ${ZSW_REGISTER_SERVER:-no}
     networks:
       - backend
     environment:
@@ -54,755 +53,755 @@ services:
       timeout: 30s
 
 
-  bcpt-config-server:
-    container_name: bcpt-config-server-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-config-server:${TAG:-latest}
+  zsw-config-server:
+    container_name: zsw-config-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-config-server:${TAG:-latest}
 #    mem_limit: 256MB
     volumes:
       - /root/.ssh/:/root/.ssh/
-      - /data/bcpt/:/data/bcpt/
-      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_CONFIG_SERVER:-no}
+      - /data/zsw/:/data/zsw/
+      - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_CONFIG_SERVER:-no}
     networks:
       - backend
     environment:
       SERVER_PORT: ${CONFIG_PORT:-19102}
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       TZ: "Asia/Shanghai"
     ports:
       - ${CONFIG_PORT:-19102}:${CONFIG_PORT:-19102}
     depends_on:
-      bcpt-register-server:
+      zsw-register-server:
         condition: service_healthy
     healthcheck:
       test: ['CMD', 'curl', 'http://localhost:${CONFIG_PORT:-19102}/health']
       retries: 6
       # 由于使用了 环境变量 environment  所以无法使用 links 连接
 #    links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
     external_links:
-      - bcpt-register-server-${START_ENV:-dev}
+      - zsw-register-server-${START_ENV:-dev}
 
 
-  bcpt-oauth2-server:
-    container_name: bcpt-oauth2-server-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-oauth2-server:${TAG:-latest}
+  zsw-oauth2-server:
+    container_name: zsw-oauth2-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-oauth2-server:${TAG:-latest}
 #    mem_limit: 256MB
     volumes:
-      - /data/bcpt/:/data/bcpt/
-      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_OAUTH2_SERVER:-no}
+      - /data/zsw/:/data/zsw/
+      - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_OAUTH2_SERVER:-no}
     networks:
       - backend
     ports:
       - 17103:17103
     environment:
       SERVER_PORT: 17103
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-config-server:
+      zsw-config-server:
         condition: service_healthy
     external_links:
-      - bcpt-register-server-${START_ENV:-dev}
+      - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       # 不需要 --fail 参数，由于有 oauth2 验证 这里只需要能访问有返回值
       test: ["CMD", "curl", "http://localhost:17103/health"]
       retries: 6
 
 
-  bcpt-admin-server:
-    container_name: bcpt-admin-server-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-admin-server:${TAG:-latest}
+  zsw-admin-server:
+    container_name: zsw-admin-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-admin-server:${TAG:-latest}
 #    mem_limit: 512MB
     volumes:
-      - /data/bcpt/:/data/bcpt/
-      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_ADMIN_SERVER:-no}
+      - /data/zsw/:/data/zsw/
+      - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_ADMIN_SERVER:-no}
     networks:
       - backend
     ports:
       - ${ADMIN_PORT:-19104}:${ADMIN_PORT:-19104}
     environment:
       SERVER_PORT: ${ADMIN_PORT:-19104}
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       USERNAME: admin
       PASSWORD: admin
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-oauth2-server:
+      zsw-oauth2-server:
         condition: service_healthy
     external_links:
-      - bcpt-register-server-${START_ENV:-dev}
+      - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:${ADMIN_PORT:-19104}/health"]
 
 
-  bcpt-gateway-server:
-    container_name: bcpt-gateway-server-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-gateway-server:${TAG:-latest}
+  zsw-gateway-server:
+    container_name: zsw-gateway-server-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-gateway-server:${TAG:-latest}
 #    mem_limit: 256MB
     volumes:
-      - /data/bcpt/:/data/bcpt/
-      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_GATEWAY_SERVER:-no}
+      - /zsw/zsw/:/zsw/zsw/
+      - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_GATEWAY_SERVER:-no}
     networks:
       - backend
     ports:
       - ${GATEWAY_PORT:-17100}:${GATEWAY_PORT:-17100}
     environment:
       SERVER_PORT: ${GATEWAY_PORT:-17100}
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-oauth2-server:
+      zsw-oauth2-server:
         condition: service_healthy
     external_links:
-      - bcpt-register-server-${START_ENV:-dev}
+      - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:${GATEWAY_PORT:-17100}/health"]
       retries: 6
 
 
-  bcpt-security-api:
-    container_name: bcpt-security-core-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-security-core:${TAG:-latest}
+  zsw-security-api:
+    container_name: zsw-security-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-security-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_SECURITY_API:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_SECURITY_API:-no}
     networks:
     - backend
     #    ports:
     #      - 19204:19204
     environment:
       SERVER_PORT: 19204
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-gateway-server:
+      zsw-gateway-server:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19204/health"]
       retries: 6
 
 
-  bcpt-security-controller:
-    container_name: bcpt-security-controller-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-security-controller:${TAG:-latest}
+  zsw-security-controller:
+    container_name: zsw-security-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-security-controller:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_SECURITY_CONTROLLER:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_SECURITY_CONTROLLER:-no}
     networks:
     - backend
     #    ports:
     #      - 19203:19203
     environment:
       SERVER_PORT: 19203
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-security-api:
+      zsw-security-api:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19203/health"]
       retries: 6
 
 
-  bcpt-smc-api:
-    container_name: bcpt-smc-core-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-smc-core:${TAG:-latest}
+  zsw-smc-api:
+    container_name: zsw-smc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-smc-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_SMC_API:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_SMC_API:-no}
     networks:
     - backend
     #    ports:
     #      - 19201:19201
     environment:
       SERVER_PORT: 19201
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-security-controller:
+      zsw-security-controller:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19201/health"]
       retries: 6
 
 
-  bcpt-smc-controller:
-    container_name: bcpt-smc-controller-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-smc-controller:${TAG:-latest}
+  zsw-smc-controller:
+    container_name: zsw-smc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-smc-controller:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_SMC_CONTROLLER:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${ZSW_SMC_CONTROLLER:-no}
     networks:
     - backend
     #    ports:
     #      - 19202:19202
     environment:
       SERVER_PORT: 19202
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-smc-api:
+      zsw-smc-api:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19202/health"]
       retries: 6
 
 
-  bcpt-pmc-api:
-    container_name: bcpt-pmc-core-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pmc-core:${TAG:-latest}
+  zsw-pmc-api:
+    container_name: zsw-pmc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-pmc-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_PMC_API:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${zsw_PMC_API:-no}
     networks:
     - backend
     #    ports:
     #      - 19301:19301
     environment:
       SERVER_PORT: 19301
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-smc-controller:
+      zsw-smc-controller:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19301/health"]
       retries: 6
 
-  bcpt-pmc-controller:
-    container_name: bcpt-pmc-controller-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pmc-controller:${TAG:-latest}
+  zsw-pmc-controller:
+    container_name: zsw-pmc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-pmc-controller:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_PMC_CONTROLLER:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${zsw_PMC_CONTROLLER:-no}
     networks:
     - backend
     #    ports:
     #      - 19302:19302
     environment:
       SERVER_PORT: 19302
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-pmc-api:
+      zsw-pmc-api:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19302/health"]
       retries: 6
 
 
-  bcpt-pc-api:
-    container_name: bcpt-pc-core-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pc-core:${TAG:-latest}
+  zsw-pc-api:
+    container_name: zsw-pc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-pc-core:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_PC_API:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${zsw_PC_API:-no}
     networks:
     - backend
     #    ports:
     #      - 19501:19501
     environment:
       SERVER_PORT: 19501
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-pmc-api:
+      zsw-pmc-api:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19501/health"]
       retries: 6
 
-  bcpt-pc-controller:
-    container_name: bcpt-pc-controller-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-pc-controller:${TAG:-latest}
+  zsw-pc-controller:
+    container_name: zsw-pc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-pc-controller:${TAG:-latest}
     #    mem_limit: 256MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_PC_CONTROLLER:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${zsw_PC_CONTROLLER:-no}
     networks:
     - backend
     #    ports:
     #      - 19502:19502
     environment:
       SERVER_PORT: 19502
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-pc-api:
+      zsw-pc-api:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19502/health"]
       retries: 6
 
 
-#  bcpt-tc-core:
-#    container_name: bcpt-tc-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-tc-core:${TAG:-latest}
+#  zsw-tc-core:
+#    container_name: zsw-tc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-tc-core:${TAG:-latest}
 #    #    mem_limit: 768MB
 #    volumes:
-#    - /data/bcpt/:/data/bcpt/
-#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_TC_API:-no}
+#    - /data/zsw/:/data/zsw/
+#    - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_TC_API:-no}
 #    networks:
 #    - backend
 #    #    ports:
 #    #      - 18401:18401
 #    environment:
 #      SERVER_PORT: 18401
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-pc-controller:
+#      zsw-pc-controller:
 #        condition: service_healthy
 #    external_links:
-#    - bcpt-register-server-${START_ENV:-dev}
+#    - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:18401/health"]
 #      retries: 6
 #
-#  bcpt-tc-controller:
-#    container_name: bcpt-tc-controller-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-tc-controller:${TAG:-latest}
+#  zsw-tc-controller:
+#    container_name: zsw-tc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-tc-controller:${TAG:-latest}
 #    #    mem_limit: 300MB
 #    volumes:
-#    - /data/bcpt/:/data/bcpt/
-#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_TC_CONTROLLER:-no}
+#    - /data/zsw/:/data/zsw/
+#    - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_TC_CONTROLLER:-no}
 #    networks:
 #    - backend
 #    #    ports:
 #    #      - 18402:18402
 #    environment:
 #      SERVER_PORT: 18402
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-tc-core:
+#      zsw-tc-core:
 #        condition: service_healthy
 #    external_links:
-#    - bcpt-register-server-${START_ENV:-dev}
+#    - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:18402/health"]
 #      retries: 6
 
 
-#  bcpt-ic-core:
-#    container_name: bcpt-ic-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-ic-core:${TAG:-latest}
+#  zsw-ic-core:
+#    container_name: zsw-ic-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-ic-core:${TAG:-latest}
 #    #    mem_limit: 256MB
 #    volumes:
-#    - /data/bcpt/:/data/bcpt/
-#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_IC_API:-no}
+#    - /data/zsw/:/data/zsw/
+#    - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_IC_API:-no}
 #    networks:
 #    - backend
 #    #    ports:
 #    #      - 19901:19901
 #    environment:
 #      SERVER_PORT: 19901
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-tc-controller:
+#      zsw-tc-controller:
 #        condition: service_healthy
 #    external_links:
-#    - bcpt-register-server-${START_ENV:-dev}
+#    - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:19901/health"]
 #      retries: 6
 #
 #
-#  bcpt-open-ic-controller:
-#    container_name: bcpt-open-ic-controller-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-open-ic-controller:${TAG:-latest}
+#  zsw-open-ic-controller:
+#    container_name: zsw-open-ic-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-open-ic-controller:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_OPEN_IC_CONTROLLER:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_OPEN_IC_CONTROLLER:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 8312:8312
 #    environment:
 #      SERVER_PORT: 8312
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-ic-core:
+#      zsw-ic-core:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:8312/health"]
 #      retries: 6
 #
 #
-#  bcpt-oc-core:
-#    container_name: bcpt-oc-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-oc-core:${TAG:-latest}
+#  zsw-oc-core:
+#    container_name: zsw-oc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-oc-core:${TAG:-latest}
 #    #    mem_limit: 512MB
 #    volumes:
-#    - /data/bcpt/:/data/bcpt/
-#    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_OC_API:-no}
+#    - /data/zsw/:/data/zsw/
+#    - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_OC_API:-no}
 #    networks:
 #    - backend
 #    #    ports:
 #    #      - 18702:18702
 #    environment:
 #      SERVER_PORT: 18702
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-open-ic-controller:
+#      zsw-open-ic-controller:
 #        condition: service_healthy
 #    external_links:
-#    - bcpt-register-server-${START_ENV:-dev}
+#    - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:18702/health"]
 #      retries: 6
 #
-#  bcpt-ic-gateway-server:
-#    container_name: bcpt-ic-gateway-server-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-ic-gateway-server:${TAG:-latest}
+#  zsw-ic-gateway-server:
+#    container_name: zsw-ic-gateway-server-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-ic-gateway-server:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_IC_GATEWAY_SERVER:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_IC_GATEWAY_SERVER:-no}
 #    networks:
 #      - backend
 #    ports:
 #      - ${IC_GATEWAY_PORT:-19110}:${IC_GATEWAY_PORT:-19110}
 #    environment:
 #      SERVER_PORT: ${IC_GATEWAY_PORT:-19110}
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-oc-core:
+#      zsw-oc-core:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:${IC_GATEWAY_PORT:-19110}/health"]
 #      retries: 6
 #
 #
-#  bcpt-open-gateway-server:
-#    container_name: bcpt-open-gateway-server-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-open-gateway-server:${TAG:-latest}
+#  zsw-open-gateway-server:
+#    container_name: zsw-open-gateway-server-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-open-gateway-server:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_OPEN_GATEWAY_SERVER:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_OPEN_GATEWAY_SERVER:-no}
 #    networks:
 #      - backend
 #    ports:
 #      - ${OPEN_GATEWAY_PORT:-19111}:${OPEN_GATEWAY_PORT:-19111}
 #    environment:
 #      SERVER_PORT: ${OPEN_GATEWAY_PORT:-19111}
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-ic-gateway-server:
+#      zsw-ic-gateway-server:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:${OPEN_GATEWAY_PORT:-19111}/health"]
 #      retries: 6
 
 
-  bcpt-mc-api:
-    container_name: bcpt-mc-core-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-mc-core:${TAG:-latest}
+  zsw-mc-api:
+    container_name: zsw-mc-core-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-mc-core:${TAG:-latest}
     #    mem_limit: 768MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_MC_API:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${zsw_MC_API:-no}
     networks:
     - backend
     #    ports:
     #      - 19501:19501
     environment:
       SERVER_PORT: 19501
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-#      bcpt-open-gateway-server:
-      bcpt-pc-controller:
+#      zsw-open-gateway-server:
+      zsw-pc-controller:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:19501/health"]
       retries: 6
 
-  bcpt-mc-controller:
-    container_name: bcpt-mc-controller-${START_ENV:-dev}
-    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-mc-controller:${TAG:-latest}
+  zsw-mc-controller:
+    container_name: zsw-mc-controller-${START_ENV:-dev}
+    image: ${LOCAL_REPOSITORY}/zsw/zsw-mc-controller:${TAG:-latest}
     #    mem_limit: 300MB
     volumes:
-    - /data/bcpt/:/data/bcpt/
-    - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-    restart: ${BCPT_MC_CONTROLLER:-no}
+    - /data/zsw/:/data/zsw/
+    - /home/tomcat/zsw/:/home/tomcat/zsw/
+    restart: ${zsw_MC_CONTROLLER:-no}
     networks:
     - backend
     #    ports:
     #      - 18402:18402
     environment:
       SERVER_PORT: 18402
-      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
       REGISTER_PORT: ${EUREKA_PORT:-19101}
       CONFIG_PROFILE: ${START_ENV:-dev}
       TZ: "Asia/Shanghai"
     depends_on:
-      bcpt-mc-api:
+      zsw-mc-api:
         condition: service_healthy
     external_links:
-    - bcpt-register-server-${START_ENV:-dev}
+    - zsw-register-server-${START_ENV:-dev}
     healthcheck:
       test: ["CMD", "curl", "http://localhost:18402/health"]
       retries: 6
 
 
-#  bcpt-qmc-core:
-#    container_name: bcpt-qmc-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-qmc-core:${TAG:-latest}
+#  zsw-qmc-core:
+#    container_name: zsw-qmc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-qmc-core:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_QMC_API:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_QMC_API:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 20087:20087
 #    environment:
 #      SERVER_PORT: 20087
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-mc-controller:
+#      zsw-mc-controller:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:20087/health"]
 #      retries: 6
 #
-#  bcpt-qmc-controller:
-#    container_name: bcpt-qmc-controller-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-qmc-controller:${TAG:-latest}
+#  zsw-qmc-controller:
+#    container_name: zsw-qmc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-qmc-controller:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_QMC_CONTROLLER:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_QMC_CONTROLLER:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 20086:20086
 #    environment:
 #      SERVER_PORT: 20086
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-qmc-core:
+#      zsw-qmc-core:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:20086/health"]
 #      retries: 6
 #
 #
-#  bcpt-rc-core:
-#    container_name: bcpt-rc-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-rc-core:${TAG:-latest}
+#  zsw-rc-core:
+#    container_name: zsw-rc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-rc-core:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_RC_API:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_RC_API:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 17701:17701
 #    environment:
 #      SERVER_PORT: 17701
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-qmc-controller:
+#      zsw-qmc-controller:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:17701/health"]
 #      retries: 6
 #
-#  bcpt-rc-controller:
-#    container_name: bcpt-rc-controller-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-rc-controller:${TAG:-latest}
+#  zsw-rc-controller:
+#    container_name: zsw-rc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-rc-controller:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_RC_CONTROLLER:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_RC_CONTROLLER:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 17702:17702
 #    environment:
 #      SERVER_PORT: 17702
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-rc-core:
+#      zsw-rc-core:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:17702/health"]
 #      retries: 6
 #
 #
-#  bcpt-sc-core:
-#    container_name: bcpt-sc-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-sc-core:${TAG:-latest}
+#  zsw-sc-core:
+#    container_name: zsw-sc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-sc-core:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_SC_API:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_SC_API:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 18601:18601
 #    environment:
 #      SERVER_PORT: 18601
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-rc-controller:
+#      zsw-rc-controller:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:18601/health"]
 #      retries: 6
 #
-#  bcpt-sc-controller:
-#    container_name: bcpt-sc-controller-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-sc-controller:${TAG:-latest}
+#  zsw-sc-controller:
+#    container_name: zsw-sc-controller-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-sc-controller:${TAG:-latest}
 ##    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
-#    restart: ${BCPT_SC_CONTROLLER:-no}
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
+#    restart: ${zsw_SC_CONTROLLER:-no}
 #    networks:
 #      - backend
 ##    ports:
 ##      - 18602:18602
 #    environment:
 #      SERVER_PORT: 18602
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #      TZ: "Asia/Shanghai"
 #    depends_on:
-#      bcpt-sc-core:
+#      zsw-sc-core:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:18602/health"]
 #      retries: 6
@@ -810,13 +809,13 @@ services:
 
 
 
-#  bcpt-zipkin-server:
-#    container_name: bcpt-zipkin-server-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-zipkin-server:${TAG:-latest}
+#  zsw-zipkin-server:
+#    container_name: zsw-zipkin-server-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-zipkin-server:${TAG:-latest}
 #    mem_limit: 512MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
 #    restart: 'no'
 #    networks:
 #      - backend
@@ -824,23 +823,23 @@ services:
 #      - 16888:16888
 #    environment:
 #      SERVER_PORT: 16888
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #    depends_on:
-#      bcpt-config-server:
+#      zsw-config-server:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 
 # 代码还未同步
-#  bcpt-fc-core:
-#    container_name: bcpt-fc-core-${START_ENV:-dev}
-#    image: ${LOCAL_REPOSITORY}/bcpt/bcpt-fc-core:${TAG:-latest}
+#  zsw-fc-core:
+#    container_name: zsw-fc-core-${START_ENV:-dev}
+#    image: ${LOCAL_REPOSITORY}/zsw/zsw-fc-core:${TAG:-latest}
 #    mem_limit: 256MB
 #    volumes:
-#      - /data/bcpt/:/data/bcpt/
-#      - /home/tomcat/bcpt/:/home/tomcat/bcpt/
+#      - /data/zsw/:/data/zsw/
+#      - /home/tomcat/zsw/:/home/tomcat/zsw/
 #    restart: 'no'
 #    networks:
 #      - backend
@@ -848,33 +847,33 @@ services:
 ##      - 19605:19605
 #    environment:
 #      SERVER_PORT: 19605
-#      REGISTER_SERVER: bcpt-register-server-${START_ENV:-dev}
+#      REGISTER_SERVER: zsw-register-server-${START_ENV:-dev}
 #      REGISTER_PORT: ${EUREKA_PORT:-19101}
 #      CONFIG_PROFILE: ${START_ENV:-dev}
 #    depends_on:
-#      bcpt-open-gateway-server:
+#      zsw-open-gateway-server:
 #        condition: service_healthy
 #    external_links:
-#      - bcpt-register-server-${START_ENV:-dev}
+#      - zsw-register-server-${START_ENV:-dev}
 #    healthcheck:
 #      test: ["CMD", "curl", "http://localhost:19605/health"]
 
 
-#bcpt-register-server,
-#bcpt-config-server,
-#bcpt-oauth2-server,
-#bcpt-admin-server,
-#bcpt-gateway-server,
-#bcpt-ic-gateway-server,
-#bcpt-open-gateway-server,
-#bcpt-ic-core,bcpt-open-ic-controller,
-#bcpt-oc-core,
-#bcpt-pc-core,bcpt-pc-controller,
-#bcpt-pmc-core,bcpt-pmc-controller,
-#bcpt-qmc-core,bcpt-qmc-controller,
-#bcpt-rc-core,bcpt-rc-controller,
-#bcpt-sc-core,bcpt-sc-controller,
-#bcpt-security-core,bcpt-security-controller,
-#bcpt-smc-core,bcpt-smc-controller,
-#bcpt-tc-core,bcpt-tc-controller,
-#bcpt-mc-core,bcpt-mc-controller
+#zsw-register-server,
+#zsw-config-server,
+#zsw-oauth2-server,
+#zsw-admin-server,
+#zsw-gateway-server,
+#zsw-ic-gateway-server,
+#zsw-open-gateway-server,
+#zsw-ic-core,zsw-open-ic-controller,
+#zsw-oc-core,
+#zsw-pc-core,zsw-pc-controller,
+#zsw-pmc-core,zsw-pmc-controller,
+#zsw-qmc-core,zsw-qmc-controller,
+#zsw-rc-core,zsw-rc-controller,
+#zsw-sc-core,zsw-sc-controller,
+#zsw-security-core,zsw-security-controller,
+#zsw-smc-core,zsw-smc-controller,
+#zsw-tc-core,zsw-tc-controller,
+#zsw-mc-core,zsw-mc-controller

@@ -1,0 +1,7 @@
+spring:
+  security:
+    oauth2:
+      resource-server:
+        resourceId: backend-api
+        verifierKeyFile: /home/tomcat/bcpt/tomcat_soa/base_ecs/bcptPublic.key
+        signingKey: bcptpwd

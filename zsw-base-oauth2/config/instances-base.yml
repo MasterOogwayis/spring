@@ -1,0 +1,5 @@
+anze:
+  base:
+    application:
+      servername:
+        cms: zsw-base-cms-api

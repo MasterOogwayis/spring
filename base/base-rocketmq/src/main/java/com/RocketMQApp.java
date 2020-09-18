@@ -34,7 +34,7 @@ public class RocketMQApp {
                 }
                 try {
                     SendResult sendResult = rocketMQTemplate.syncSend(
-                            "BCPT_CRM_TEST", MessageBuilder.withPayload(line).build());
+                            "ZSW_CRM_TEST", MessageBuilder.withPayload(line).build());
                     System.out.println(sendResult);
                     System.err.println(sendResult.getMessageId());
                 } catch (Exception e) {
