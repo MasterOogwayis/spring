@@ -99,10 +99,10 @@ spring-cloud-starter-netflix-zuul
 
 1. 2.X 不管使用哪种 PasswordEncoder ，数据库若是明文也无法验证了。所以必须加密，
    不推荐 MD5 , 推荐 BCrypt ,为兼容1.x 的 MD5 使用 MessageDigestPasswordEncoder
-   默认： PasswordEncoderFactories.createDelegatingPasswordEncoder()
+   默认： PasswordEncoderFactories.createDelegatingPasswordEncoder(),PasswordEncoderConfig
 
 2. 2.x 以后通过 security.ignored 配置忽略权限无效，只能通过 继承 WebSecurityConfigurerAdapter 来实现。
-   自定义 spring.security.ignored 忽略，详见：com.anze.base.config.SecurityProperties
+   自定义 spring.security.ignored 忽略，详见：com.zsw.base.config.SecurityProperties
 ```
 
 ## 9. micrometer

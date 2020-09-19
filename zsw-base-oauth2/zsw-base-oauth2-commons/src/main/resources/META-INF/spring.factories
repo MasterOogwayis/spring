@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zsw.base.oauth2.client.Oauth2RestTemplateConfiguration

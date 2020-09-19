@@ -1,5 +1,8 @@
 package com.zsw.orm.config;
 
+
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
+import org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration;
 import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +15,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * @author ZhangShaowei on 2019-8-2 15:35:56
  * @author ZhangShaowei on 2017/7/3 10:56
- * @see org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration
- * @see org.springframework.boot.autoconfigure.task.TaskSchedulingAutoConfiguration
+ * @see TaskExecutionAutoConfiguration
+ * @see TaskSchedulingAutoConfiguration
  * @deprecated Spring Boot 2.x 以后提供自动装配 线程池 / 调度, 无需求自行配置
  * <p>
  * AbortPolicy         -- 当任务添加到线程池中被拒绝时，对拒绝任务抛弃处理，并且抛出异常。它将抛出 RejectedExecutionException 异常。

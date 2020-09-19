@@ -1,6 +1,3 @@
-/*
- * Copyright (C) 2020 bcpt Inc. All rights reserved.
- */
 package com.ccb.util;
 
 import lombok.extern.slf4j.Slf4j;

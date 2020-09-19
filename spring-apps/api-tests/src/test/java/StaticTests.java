@@ -1,34 +1,27 @@
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import sun.reflect.generics.tree.Tree;
+import org.springframework.beans.BeanUtils;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ZhangShaowei on 2020/7/9 10:39
  */
 @Slf4j
 public class StaticTests {
-
+    private static int x = 100;
 
     @SneakyThrows
-    public static void main(String[] args) {
-        TreeSet<Dto> set = new TreeSet<>();
-
-        set.add(new Dto());
-
-
+    public static void main(String args[]) {
+        Dto dto = new Dto("zsw", null);
+        Dto copy = new Dto("jame", 18);
+        BeanUtils.copyProperties(dto, copy);
+        System.out.println(copy);
     }
 
 
@@ -37,11 +30,7 @@ public class StaticTests {
     @AllArgsConstructor
     static class Dto {
         private String name;
-
-        public void test() throws InterruptedException {
-            wait();
-        }
-
+        public Integer age;
     }
 
 }

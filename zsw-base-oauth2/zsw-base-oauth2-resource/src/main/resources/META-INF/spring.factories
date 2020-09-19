@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zsw.base.oauth2.config.ResourceServerAutoConfiguration,\
+com.zsw.base.oauth2.client.ResourceFeignConfiguration

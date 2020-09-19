@@ -1,0 +1,24 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+    health:
+      enabled: true
+    shutdown:
+      enabled: true
+    logfile:
+      enabled: true
+#      external-file: /data/spring/logs/${spring.application.name}
+  security:
+    enabled: false
+#    path: ${logging.path}
+# 仅在测试环境下使用 监控endpoint
+
+logging:
+  config: classpath:logging-config.xml
+  # 优先级比 management.endpoint.logfile.external-file 低
+

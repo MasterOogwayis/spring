@@ -1,0 +1,23 @@
+zuul:
+  routes:
+    backend-api:
+      sensitiveHeaders:
+      path: /cms/**
+      stripPrefix: true
+      serviceId: zsw-base-cms-api
+    authorization-server:
+      sensitiveHeaders:
+      path: /**
+      stripPrefix: true
+      serviceId: zsw-base-authorization-server
+zsw:
+  base:
+    zuul:
+      oauth2:
+        excludes:
+          - /oauth/token
+spring:
+  security:
+    oauth2:
+      resource-server:
+        validateAdditionalInformation: true

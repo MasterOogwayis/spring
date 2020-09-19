@@ -18,19 +18,6 @@
 
   
 
-* ab 依赖管理使用以下方式，不需要挨个引
-
-  ```xml
-  <!-- anze base -->
-  <dependency>
-      <groupId>com.anze.base.microservice</groupId>
-      <artifactId>anze-base-dependencies</artifactId>
-      <version>${com.anze.base.version}</version>
-      <type>pom</type>
-      <scope>import</scope>
-  </dependency>
-  ```
-
   
 
 ### 1.2 项目结构问题
@@ -67,7 +54,6 @@
 
 ### 1.6 启动类
 
-* 弃用 ab 包含的 BaseApplication， ab 4.x 以上只关注了com.anze 下面的组件，详见ab README.md
 
 * 项目中在 com.zsw 包下使用自己的 启动类，例如 TcApiApp， PcApiApp等，同步修改maven 配置的 启动类mainClass
 
@@ -87,30 +73,6 @@
   </executions>
 </plugin>
 ```
-
-### 1.7 结构说明
-~~~
-platform-soa
-  - base
-     - bcpt-baidu-support 存放于百度地图相关api和工具，若不使用不需要引
-     - bcpt-base-cache    需要使用缓存就引入，存放缓存配置
-     - bcpt-base-commons  所有业务相关全部移除，只存放静态类、常量、枚举、各种utils
-     - base-base-http     http工具全部放这里
-     - bcpt-base-logging  旧包，日志相关配置
-     - bcpt-mapstruct     对象转换
-     - bcpt-base-pojo     数据模型，目前还存放一些无法拆除的 dto
-     - base-base-wechat   与微信相关的放到这里，以后会区分公众号和小程序
-     - base-mq-commons    mq
-  - oc
-     - bcpt-oc-pojo       存放所有使用到的对象模型，只要是自己业务的切在client里面使用到的理论上都放到这里
-     - bcpt-oc-client     接口，如果在这里面自己加入了缓存，请使用 spring注解模式，若使用到了常量可以引入bcpt-base-commons。不要再这里面处理业务
-     - bcpt-oc-persistence
-     - bcpt-oc-service 
-     - bcpt-oc-api        已经和client完全隔离，不需要去实现client
-     - bcpt-oc-controller
-  ....
-~~~
-
 
 
 ## 2. Redis ##
@@ -166,7 +128,7 @@ spring:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.1.12:3306/bcpt_soa_fc_test1?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.1.12:3306/zsw_soa_fc_test1?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -196,7 +158,7 @@ spring:
   会导致懒加载失败，递归加载所有数据
 
 ### 4.3 持久层 Repository 实现
-详见 com.anze.base.persistence.repository.BaseRepository
+详见 com.zsw.base.persistence.repository.BaseRepository
 
 ### 4.4 jdbc
 jdbc 5.x  -> 8.x
@@ -233,10 +195,10 @@ spring:
 
 * 2.x 无论使用哪种 PasswordEncoder ，数据库若是明文也无法验证了。所以必须加密，不推荐 MD5 , 推荐 BCrypt ,为兼容1.x 的 MD5 使用 MessageDigestPasswordEncoder
   默认： PasswordEncoderFactories.createDelegatingPasswordEncoder()
-  详见： com.anze.base.oauth2.config.WebSecurityConfig
+  详见： com.zsw.base.oauth2.config.WebSecurityConfig
 
 * 2.x 以后通过 security.ignored 配置忽略权限无效，只能通过 继承 WebSecurityConfigurerAdapter 来实现。
-  使用自定义 spring.security.ignored 忽略，详见：com.anze.base.config.SecurityProperties
+  使用自定义 spring.security.ignored 忽略，详见：com.zsw.base.config.SecurityProperties
 
 
 
@@ -253,7 +215,7 @@ spring:
 * 1.对所有 api 使用的配置都需要修改，数据库连接池。见 4
 * 2.所有启动配置需要增加属性
 * 3.选择改动 - 线程池配置 or 参考 ThreadPoolConfigure
-2. bcpt-xx-api-xx.yml
+2. zsw-xx-api-xx.yml
 
 ```yaml
 spring:

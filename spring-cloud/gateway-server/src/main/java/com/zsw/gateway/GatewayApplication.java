@@ -19,7 +19,7 @@ public class GatewayApplication {
 //    @Bean
 //    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 //        return builder.routes()
-//                .route(r -> r.path("/fc/**").uri("lb://bcpt-fc-api"))
+//                .route(r -> r.path("/fc/**").uri("lb://zsw-fc-api"))
 //                .build();
 //
 //    }

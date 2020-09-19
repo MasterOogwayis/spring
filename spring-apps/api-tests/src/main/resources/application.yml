@@ -1,41 +1,14 @@
 server:
   port: 8080
 spring:
+  redis:
+    host: 192.168.1.12
+    port: 6379
+    database: 0
+    password: Anf34l_Fs
+    lettuce:
+      pool:
+        max-idle: 2
+        max-active: 8
   application:
     name: api-tests
-  datasource:
-    url: jdbc:mysql://192.168.1.12:3306/temp?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
-    hikari:
-      minimum-idle: 5
-      maximum-pool-size: 50
-      idle-timeout: 60000
-      connection-timeout: 30000
-      register-mbeans: true
-  jpa:
-    properties:
-      hibernate:
-        enable_lazy_load_no_trans: true
-    database: MYSQL
-    show-sql: true
-    generate-ddl: true
-      # 下面这种事 默认字段 下横线组合，默认为驼峰写法
-      #    hibernate:
-      #      naming:
-      #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      #        strategy: org.hibernate.cfg.ImprovedNamingStrategy
-    hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: true
-
-mybatis-plus:
-  mapper-locations: classpath:mapper/**.xml
-  type-aliases-package: com.zsw.entity
-  type-handlers-package: com.zsw.mybatis.typehandler
-  configuration:
-    #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    cache-enabled: false

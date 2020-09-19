@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.1.12:3306/base_security_authorization_server?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 50
+#      max-lifetime: 30000
+      idle-timeout: 600000
+      connection-timeout: 30000
+      register-mbeans: true
+  jpa:
+    database: MYSQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQLDialect
+  security:
+    oauth2:
+      authentication-server:
+        jwt:
+          key-pair: bcpt
+          key-store-pwd: bcptpwd
+          key-store: /home/tomcat/bcpt/tomcat_soa/base_ecs/bcpt.jks

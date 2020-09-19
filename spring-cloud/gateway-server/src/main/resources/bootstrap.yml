@@ -6,8 +6,8 @@ spring:
   cloud:
     gateway:
       routes:
-      - id: bcpt-fc-api
-        uri: lb://bcpt-fc-api
+      - id: zsw-fc-api
+        uri: lb://zsw-fc-api
         predicates:
           - Path=/fc/**
         filters:

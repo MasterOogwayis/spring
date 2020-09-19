@@ -19,7 +19,7 @@ services:
     restart: "no"
     mem_limit: 512MB
     volumes:
-      - /data/bcpt:/data/bcpt
+      - /data/zsw:/data/zsw
     networks:
       - backend
     ports:

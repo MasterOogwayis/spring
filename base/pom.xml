@@ -14,9 +14,9 @@
     <modules>
         <module>base-mybatis</module>
         <module>base-redis</module>
-        <module>base-zookeeper</module>
-        <!--<module>base-client</module>
         <module>base-service</module>
+        <module>base-commons</module>
+        <!--<module>base-client</module>
         <module>base-controller</module>
         <module>base-api</module>
         <module>base-persistence</module>
@@ -32,7 +32,6 @@
         <module>config-client</module>
         <module>transaction-mq</module>
         <module>base-http</module>
-        <module>base-commons</module>
         <module>base-jdbc</module>
         <module>base-orm</module>
         <module>base-serialization</module>
@@ -44,6 +43,7 @@
         <module>base-rocketmq</module>
         <module>base-remoting</module>
         <module>base-consul</module>
+        <module>base-zookeeper</module>
         <module>base-nacos</module>
         <module>base-cloud-alibaba</module>
         <module>base-hystrix</module>

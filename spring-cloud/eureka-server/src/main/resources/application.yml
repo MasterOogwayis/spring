@@ -194,4 +194,4 @@ eureka:
 
 # 删除实例
 # http://ip:port/eureka/apps/{appname}/{status}
-# http://ip:port/eureka/apps/bcpt-epc-api/ShaoweiZhang-PC:bcpt-epc-api:80
+# http://ip:port/eureka/apps/zsw-epc-api/ShaoweiZhang-PC:zsw-epc-api:80
