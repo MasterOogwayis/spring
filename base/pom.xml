@@ -14,6 +14,7 @@
     <modules>
         <module>base-mybatis</module>
         <module>base-redis</module>
+        <module>base-zookeeper</module>
         <!--<module>base-client</module>
         <module>base-service</module>
         <module>base-controller</module>
@@ -43,7 +44,6 @@
         <module>base-rocketmq</module>
         <module>base-remoting</module>
         <module>base-consul</module>
-        <module>base-zookeeper</module>
         <module>base-nacos</module>
         <module>base-cloud-alibaba</module>
         <module>base-hystrix</module>
