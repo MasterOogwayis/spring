@@ -35,7 +35,7 @@ public class CachingResourceUserDetailsServiceImpl implements ClientUserDetailsS
     }
 
     @Override
-    public boolean supports(String clientId, String username) {
+    public boolean support(String clientId, String username) {
         return true;
     }
 

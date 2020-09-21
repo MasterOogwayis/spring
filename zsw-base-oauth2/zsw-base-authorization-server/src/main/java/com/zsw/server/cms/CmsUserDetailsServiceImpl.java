@@ -50,7 +50,7 @@ public class CmsUserDetailsServiceImpl extends AbstractClientUserDetailsService 
     }
 
     @Override
-    public boolean supports(String clientId, String username) {
+    public boolean support(String clientId, String username) {
         return CLIENT_ID.equals(clientId);
     }
 }

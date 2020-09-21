@@ -26,6 +26,15 @@ public interface ClientUserDetailsService extends UserDetailsService {
     UserDetails loadUserByUsername(String username, String clientId) throws UsernameNotFoundException;
 
     /**
+     * 支持的客户端
+     *
+     * @param clientId clientId
+     * @param username username
+     * @return boolean
+     */
+    boolean support(String clientId, String username);
+
+    /**
      * 缓存用户信息
      *
      * @param username username
@@ -60,13 +69,5 @@ public interface ClientUserDetailsService extends UserDetailsService {
     }
 
 
-    /**
-     * 支持的客户端
-     *
-     * @param clientId clientId
-     * @param username username
-     * @return boolean
-     */
-    boolean supports(String clientId, String username);
 
 }
