@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author ZhangShaowei on 2020/9/18 11:31
  */
-public class SentinelStaticTests {
+public class SentinelBlockTests {
 
 
     public static void main(String[] args) {

@@ -2,7 +2,6 @@ package com.zsw.base.oauth2.user;
 
 import com.zsw.base.oauth2.ClientUserDetailsService;
 import com.zsw.base.oauth2.support.ClientUserDetails;
-import com.sun.xml.internal.ws.addressing.model.ActionNotSupportedException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,6 +40,6 @@ public class CachingResourceUserDetailsServiceImpl implements ClientUserDetailsS
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        throw new ActionNotSupportedException("Not supported!");
+        throw new IllegalCallerException("Not supported!");
     }
 }

@@ -1,11 +1,15 @@
 package com.zsw.orm.redis.serializer;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * redis序列化辅助类.单纯的泛型无法定义通用schema，原因是无法通过泛型T得到Class<T>
  *
  * @author ZhangShaowei on 2017/9/13 11:11
  */
-
+@Getter
+@Setter
 public class ObjectWrapper {
     /**
      *
@@ -27,17 +31,4 @@ public class ObjectWrapper {
         super();
     }
 
-    /**
-     * @return
-     */
-    public Object getObject() {
-        return object;
-    }
-
-    /**
-     * @param object
-     */
-    public void setObject(Object object) {
-        this.object = object;
-    }
 }
