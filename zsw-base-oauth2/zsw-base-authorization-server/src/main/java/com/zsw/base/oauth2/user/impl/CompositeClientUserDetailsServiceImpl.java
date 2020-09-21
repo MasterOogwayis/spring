@@ -19,8 +19,8 @@ public class CompositeClientUserDetailsServiceImpl extends AbstractClientUserDet
 
     @Override
     public UserDetails loadUserByUsername(String username, String clientId) {
-        return services.stream()
-                .filter(service -> service.supports(clientId, username))
+        return this.services.stream()
+                .filter(service -> service.support(clientId, username))
                 .findFirst()
                 .map(service -> service.loadUserByUsername(username, clientId))
                 .orElseThrow(() -> new UsernameNotFoundException("user not found."));
@@ -33,7 +33,7 @@ public class CompositeClientUserDetailsServiceImpl extends AbstractClientUserDet
      */
     @Override
     @Deprecated
-    public boolean supports(String clientId, String username) {
+    public boolean support(String clientId, String username) {
         return false;
     }
 
