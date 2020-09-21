@@ -16,7 +16,9 @@
         <module>base-redis</module>
         <module>base-service</module>
         <module>base-commons</module>
-        <!--<module>base-client</module>
+        <module>base-client</module>
+        <module>base-sentinel</module>
+        <!--
         <module>base-controller</module>
         <module>base-api</module>
         <module>base-persistence</module>
@@ -37,7 +39,6 @@
         <module>base-serialization</module>
         <module>base-test</module>
         <module>base-nacos-client</module>
-        <module>base-sentinel</module>
         <module>base-mapstruct</module>
         <module>base-kafka</module>
         <module>base-rocketmq</module>
