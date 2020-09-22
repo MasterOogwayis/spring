@@ -34,6 +34,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .anyRequest().authenticated()
+                // FIXME sring cloud oauth2 已经弃用，不就将切换到 spring security 5.x
+                // https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide
+//                .and()
+//                .oauth2ResourceServer()
                 .and().csrf().disable().anonymous().disable();
         // @formatter:on
     }
