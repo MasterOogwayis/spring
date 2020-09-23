@@ -31,6 +31,8 @@ public class SentinelApiTests {
 //        System.setProperty("project.name", "SentinelTests");
 //        initFlowRules();
         SpringApplication.run(SentinelApiTests.class, args);
+        String substring = "string111".substring(0, 5);
+        System.out.println(substring);
     }
 
 
