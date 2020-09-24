@@ -30,7 +30,7 @@ public class CustomerApi {
 
     @GetMapping("search")
     public Object search(@RequestParam("name") String name) {
-
+        return this.customerService.search(name);
     }
 
 }

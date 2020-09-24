@@ -16,21 +16,11 @@ import java.util.List;
 public class StaticTests {
     private static int x = 100;
 
-    @SneakyThrows
-    public static void main(String args[]) {
-        Dto dto = new Dto("zsw", null);
-        Dto copy = new Dto("jame", 18);
-        BeanUtils.copyProperties(dto, copy);
-        System.out.println(copy);
-    }
+    public static void main(String[] args) {
 
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    static class Dto {
-        private String name;
-        public Integer age;
+
     }
+
 
 }

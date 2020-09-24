@@ -1,9 +1,11 @@
 package com.zsw.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
@@ -31,6 +33,12 @@ public class ProducerTests {
         ProducerRecord<String, String> message = new ProducerRecord<>(TOPIC, "Hello, this is Mr Zhang speaking.");
 
         producer.send(message);
+        producer.send(message, new Callback() {
+            @Override
+            public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+
+            }
+        });
 
         producer.close();
 
