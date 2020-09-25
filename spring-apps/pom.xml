@@ -20,6 +20,7 @@
         <module>api-tests</module>
         <module>config-client</module>
         <module>redis-tests</module>
+        <module>test-jpa</module>
     </modules>
 
 
