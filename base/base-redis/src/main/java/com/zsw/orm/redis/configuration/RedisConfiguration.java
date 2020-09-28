@@ -47,7 +47,11 @@ public class RedisConfiguration {
 
 
     /**
-     * @return
+     * 这里注意不要被 IDE 给骗了，下面不带泛型会给警告!
+     * 请无视泛型警告,不然其他地方你没办法注入 RedisTemplate<XX, XX>
+     *
+     * @param connectionFactory RedisConnectionFactory
+     * @return RedisTemplate
      */
     @Bean
     @SuppressWarnings("unchecked")
@@ -108,7 +112,7 @@ public class RedisConfiguration {
 //        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(om);
 
         // 配置序列化策略
