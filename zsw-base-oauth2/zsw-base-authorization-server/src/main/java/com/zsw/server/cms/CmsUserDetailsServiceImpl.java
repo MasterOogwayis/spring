@@ -3,7 +3,7 @@ package com.zsw.server.cms;
 import com.zsw.base.oauth2.user.AbstractClientUserDetailsService;
 import com.zsw.base.oauth2.user.ClientUser;
 import com.zsw.pojo.ApiResponse;
-import com.zsw.pojo.user.UserDto;
+import com.zsw.user.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

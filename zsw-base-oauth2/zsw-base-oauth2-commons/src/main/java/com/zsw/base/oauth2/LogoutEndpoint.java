@@ -1,7 +1,7 @@
 package com.zsw.base.oauth2;
 
 import com.zsw.pojo.ApiResponse;
-import com.zsw.pojo.user.SessionUserService;
+import com.zsw.user.SessionUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

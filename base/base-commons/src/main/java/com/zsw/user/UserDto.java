@@ -1,4 +1,4 @@
-package com.zsw.pojo.user;
+package com.zsw.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

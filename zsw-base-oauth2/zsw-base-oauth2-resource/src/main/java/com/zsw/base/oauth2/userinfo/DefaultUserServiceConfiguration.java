@@ -3,7 +3,7 @@ package com.zsw.base.oauth2.userinfo;
 import com.zsw.base.oauth2.ClientUserDetailsService;
 import com.zsw.base.oauth2.LogoutEndpoint;
 import com.zsw.base.oauth2.userinfo.impl.ResourceSessionUserServiceImpl;
-import com.zsw.pojo.user.SessionUserService;
+import com.zsw.user.SessionUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

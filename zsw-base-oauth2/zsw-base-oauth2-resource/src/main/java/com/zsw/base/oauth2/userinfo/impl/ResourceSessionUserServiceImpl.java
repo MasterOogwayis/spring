@@ -1,8 +1,8 @@
 package com.zsw.base.oauth2.userinfo.impl;
 
 import com.zsw.base.oauth2.support.ClientUserDetails;
-import com.zsw.pojo.user.SessionUserService;
-import com.zsw.pojo.user.UserInfo;
+import com.zsw.user.SessionUserService;
+import com.zsw.user.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
+ * oauth2 impl
+ *
  * @author ZhangShaowei on 2020/9/10 14:11
  */
 @Slf4j
@@ -33,7 +35,7 @@ public class ResourceSessionUserServiceImpl implements SessionUserService {
             }
             return userInfo;
         }
-        log.error("获取登录用户名失败！");
+        log.error("获取登录用户失败！");
         return null;
     }
 }

@@ -1,7 +1,7 @@
 package com.zsw.server.cms;
 
 import com.zsw.pojo.ApiResponse;
-import com.zsw.pojo.user.UserDto;
+import com.zsw.user.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -1,7 +1,7 @@
 package com.zsw.server.cms;
 
 import com.zsw.pojo.ApiResponse;
-import com.zsw.pojo.user.UserDto;
+import com.zsw.user.UserDto;
 import org.springframework.stereotype.Component;
 
 /**
