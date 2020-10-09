@@ -28,7 +28,6 @@ public class FastCopy {
      * <p>
      * 字段类型必须兼容目标字段类型，包装类型和基本类型之间不会复制。
      */
-    @SuppressWarnings("unchecked")
     public static <T> T copyProperties(Object source, T target) {
         return copyProperties(source, target, false);
     }
@@ -57,7 +56,7 @@ public class FastCopy {
                 copyClass.addInterface(copierClass);
                 CtMethod ctMethod = CtMethod.make(copyCode, copyClass);
                 copyClass.addMethod(ctMethod);
-                return (Copier) copyClass.toClass().newInstance();
+                return (Copier) copyClass.toClass().getConstructor().newInstance();
             } catch (Exception e) {
                 throw new IllegalStateException(e);
             }
@@ -103,6 +102,13 @@ public class FastCopy {
     }
 
     public interface Copier {
+        /**
+         * 属性拷贝 源 -> 目标
+         *
+         * @param source 源
+         * @param target 目标
+         * @return target
+         */
         Object copy(Object source, Object target);
     }
 
@@ -124,8 +130,12 @@ public class FastCopy {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof CopierKey)) return false;
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof CopierKey)) {
+                return false;
+            }
             CopierKey copierKey = (CopierKey) o;
             return synonym == copierKey.synonym &&
                     Objects.equals(source, copierKey.source) &&
