@@ -1,21 +1,17 @@
 package com.zsw;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.WebApplicationType;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * @author ZhangShaowei on 2020/5/11 14:15
  */
 @Slf4j
 //@EnableScheduling
-//@EnableDiscoveryClient
+@EnableDiscoveryClient
 @SpringBootApplication
 public class SimpleApi {
 
@@ -25,13 +21,11 @@ public class SimpleApi {
      * @param args args
      */
     public static void main(String[] args) {
-//        ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleApi.class, args);
-        ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder()
-                .sources(SimpleApi.class)
-                .web(WebApplicationType.NONE)
-                .run(args);
-
-        log.info("main");
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleApi.class, args);
+//        ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder()
+//                .sources(SimpleApi.class)
+//                .web(WebApplicationType.NONE)
+//                .run(args);
     }
 
     /**
@@ -39,13 +33,13 @@ public class SimpleApi {
      *
      * @return
      */
-    @Bean
-    public CommandLineRunner dontKillMe() {
-        return args -> {
-            log.info("dontKillMe");
-            Thread.currentThread().join();
-        };
-    }
+//    @Bean
+//    public CommandLineRunner dontKillMe() {
+//        return args -> {
+//            log.info("dontKillMe");
+//            Thread.currentThread().join();
+//        };
+//    }
 
 //    @Scheduled(cron = "0/5 * * * * *")
 //    public void t() {

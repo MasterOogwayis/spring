@@ -26,6 +26,12 @@
             <artifactId>eureka-consul-adapter</artifactId>
             <version>1.3.0</version>
         </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.srm/eureka-consul-adapter -->
+        <dependency>
+            <groupId>org.srm</groupId>
+            <artifactId>eureka-consul-adapter</artifactId>
+            <version>1.2.0.RELEASE</version>
+        </dependency>
     </dependencies>
 
 
@@ -49,5 +55,11 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>temp</id>
+            <url>http://nexus.saas.hand-china.com/content/repositories/srm-release/</url>
+        </repository>
+    </repositories>
 
 </project>

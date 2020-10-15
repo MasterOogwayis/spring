@@ -25,43 +25,42 @@ public class FastCopy {
 
     /**
      * 复制对象属性，字段名称必须一致。
-     * <p>
      * 字段类型必须兼容目标字段类型，包装类型和基本类型之间不会复制。
      */
-    public static <T> T copyProperties(Object source, T target) {
+    public static <S, T> T copyProperties(S source, T target) {
         return copyProperties(source, target, false);
     }
 
     /**
      * 复制字段名含义相同的属性，即忽略字段名中的大小写和下划线。
-     * <p>
      * 字段类型必须兼容目标字段类型，包装类型和基本类型之间不会复制。
      */
-    public static <T> T copySynonyms(Object source, T target) {
+    public static <S, T> T copySynonyms(S source, T target) {
         return copyProperties(source, target, true);
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> T copyProperties(Object source, T target, boolean synonym) {
+    private static <S, T> T copyProperties(S source, T target, boolean synonym) {
         if (source == null || target == null) {
             return target;
         }
-
         CopierKey copierKey = new CopierKey(source.getClass(), target.getClass(), synonym);
-        Copier copier = COPIER_MAP.computeIfAbsent(copierKey, key -> {
-            String copyCode = generateCopyCode(key);
-            try {
-                CtClass copierClass = CLASS_POOL.get(Copier.class.getName());
-                CtClass copyClass = CLASS_POOL.makeClass(key.toString());
-                copyClass.addInterface(copierClass);
-                CtMethod ctMethod = CtMethod.make(copyCode, copyClass);
-                copyClass.addMethod(ctMethod);
-                return (Copier) copyClass.toClass().getConstructor().newInstance();
-            } catch (Exception e) {
-                throw new IllegalStateException(e);
-            }
-        });
+        Copier copier = COPIER_MAP.computeIfAbsent(copierKey, FastCopy::create);
         return (T) copier.copy(source, target);
+    }
+
+    private static Copier create(CopierKey copierKey) {
+        String copyCode = generateCopyCode(copierKey);
+        try {
+            CtClass copierClass = CLASS_POOL.get(Copier.class.getName());
+            CtClass copyClass = CLASS_POOL.makeClass(copierKey.toString());
+            copyClass.addInterface(copierClass);
+            CtMethod ctMethod = CtMethod.make(copyCode, copyClass);
+            copyClass.addMethod(ctMethod);
+            return (Copier) copyClass.toClass().getConstructor().newInstance();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     private static String generateCopyCode(CopierKey copierKey) {
