@@ -43,7 +43,7 @@ public class CustomHealthService extends AbstractHealthIndicator implements Mete
 
 
     @Override
-    public void bindTo(MeterRegistry registry) {
+    public void bindTo(@NonNull MeterRegistry registry) {
         this.counter = Counter.builder("app_mq_send")
                 .tag("label", "job1")
                 .tag("appName", appName)
