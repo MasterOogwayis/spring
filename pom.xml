@@ -42,6 +42,7 @@
         <module>spring-cloud-dubbo-example</module>
         <module>zsw-base-oauth2</module>
         <module>zsw-elastic</module>
+        <module>vertx-apps</module>
     </modules>
 
     <!-- 打包依赖的包 -->
