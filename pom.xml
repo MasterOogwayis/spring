@@ -43,6 +43,7 @@
         <module>zsw-base-oauth2</module>
         <module>zsw-elastic</module>
         <module>vertx-apps</module>
+        <module>jdk-tests</module>
     </modules>
 
     <!-- 打包依赖的包 -->
