@@ -101,7 +101,7 @@ spring:
   #  profiles: dev
   datasource:
 #    url: jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-    url: jdbc:mysql://localhost:3306/world?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    url: jdbc:mysql://localhost:3306/spring?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
