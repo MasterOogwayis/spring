@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageInterceptor;
 import com.zaxxer.hikari.HikariDataSource;
+import com.zsw.BaseMyBatisApplication;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.loader.cglib.CglibProxyFactory;
@@ -14,9 +15,12 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
 import java.util.Properties;
@@ -25,18 +29,22 @@ import java.util.Properties;
  * @author ZhangShaowei on 2019/4/25 9:55
  **/
 @Slf4j
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = BaseMyBatisApplication.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = BaseMyBatisApplication.class)
 public class MyBatisTests {
 
 //    @Autowired
 //    private DataSource dataSource;
 
+    @Test
+    public void test() {
+
+    }
+
     /**
      * @throws Exception e
      */
-    @Test
-    public void test() throws Exception {
+    public void test1() throws Exception {
 
 
         // 1. 从 XML 中构建 SqlSessionFactory
