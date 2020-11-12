@@ -3,15 +3,14 @@ package com.zsw;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author ZhangShaowei on 2020/5/11 14:15
  */
 @Slf4j
-//@EnableScheduling
-@EnableDiscoveryClient
+@EnableScheduling
 @SpringBootApplication
 public class SimpleApi {
 

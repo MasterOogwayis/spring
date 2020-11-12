@@ -1,7 +1,6 @@
 package com.zsw.test.api;
 
-import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,29 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ZhangShaowei on 2020/5/11 14:18
  */
 @RestController
-@RequestMapping("test")
+@RequestMapping("hello")
 public class HelloWorldApi {
 
+    @Value("${random.int[9000,10000]}")
+    private String random;
 
-    @Autowired
-    private ObjectFactory<SimpleService> objectFactory;
-
-
-    @GetMapping("hello")
-    public String hello(@RequestParam("name") String name) {
-        return "Hello " + name + "!";
+    @GetMapping
+    public String world(@RequestParam("name") String name) {
+        return "Hello " + name + random;
     }
-
-    @GetMapping("sum")
-    public Object sum(@RequestParam("a") Integer a, @RequestParam("b") Integer b) {
-        return a + b;
-    }
-
-    @GetMapping("first")
-    public Object test() {
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        return this.objectFactory.getObject();
-    }
-
 
 }

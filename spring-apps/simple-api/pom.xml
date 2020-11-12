@@ -16,15 +16,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.anze.base.microservice</groupId>
-            <artifactId>anze-base-commons-micrometer</artifactId>
-            <version>4.1.0</version>
-        </dependency>
         <!--
         <dependency>
             <groupId>org.springframework.cloud</groupId>
