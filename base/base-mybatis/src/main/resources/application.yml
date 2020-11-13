@@ -96,6 +96,8 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
+    worker-id: 1
+    datacenter-id: 1
 spring:
   application:
     name: base-mybatis
