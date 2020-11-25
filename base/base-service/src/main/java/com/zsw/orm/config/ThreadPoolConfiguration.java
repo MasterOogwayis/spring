@@ -13,6 +13,10 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * FIXME 事实上我们常用的线程池一般时候只会扩容到核心数量，需要队列满了入队失败才会继续增加 worker 到设置的上限
+ * 如何让它在我们期望中随着任务增加进行扩容呢，看 dubbo 的方案
+ * org.apache.dubbo.common.threadpool.support.eager.EagerThreadPoolExecutor
+ *
  * @author ZhangShaowei on 2019-8-2 15:35:56
  * @author ZhangShaowei on 2017/7/3 10:56
  * @see TaskExecutionAutoConfiguration
