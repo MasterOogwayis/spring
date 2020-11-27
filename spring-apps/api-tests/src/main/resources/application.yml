@@ -12,3 +12,16 @@ spring:
         max-active: 8
   application:
     name: api-tests
+management:
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+    shutdown:
+      enabled: true
+  endpoints:
+    sensitive: false
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
