@@ -13,10 +13,8 @@ public class StaticTests {
     private static int x = 100;
 
     public static void main(String[] args) {
-
         System.out.println(NettyRuntime.availableProcessors());
         System.err.println(Runtime.getRuntime().availableProcessors());
-
     }
 
 
