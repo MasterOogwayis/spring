@@ -44,6 +44,7 @@
         <module>zsw-elastic</module>
         <module>vertx-apps</module>
         <module>jdk-tests</module>
+        <module>temp-tests</module>
     </modules>
 
     <!-- 打包依赖的包 -->

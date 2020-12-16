@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.LongAdder;
 
 /**
  * @author ZhangShaowei on 2020/7/9 10:39
@@ -13,8 +14,14 @@ public class StaticTests {
     private static int x = 100;
 
     public static void main(String[] args) {
-        System.out.println(NettyRuntime.availableProcessors());
-        System.err.println(Runtime.getRuntime().availableProcessors());
+//        System.out.println(NettyRuntime.availableProcessors());
+//        System.err.println(Runtime.getRuntime().availableProcessors());
+
+        LongAdder longAdder = new LongAdder();
+        longAdder.increment();
+        System.out.println(longAdder);
+
+
     }
 
 
