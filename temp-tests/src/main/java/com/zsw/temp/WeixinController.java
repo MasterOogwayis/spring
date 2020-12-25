@@ -11,4 +11,11 @@ import org.springframework.stereotype.Controller;
 public class WeixinController {
 
 
+    private static final String ADDRESS = "Earth";
+
+
+    public static void main(String[] args) {
+        System.out.println(ADDRESS);
+    }
+
 }
