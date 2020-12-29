@@ -106,7 +106,7 @@ public abstract class AbstractListenerContainerConfiguration implements Applicat
         }
         validate(annotation);
 
-        Class containerClazz = getContainerClazz();
+        Class<? extends AbstractMQListenerContainer> containerClazz = getContainerClazz();
         String containerBeanName = String.format("%s_%s",
                 containerClazz.getName(), counter.incrementAndGet());
 
@@ -122,6 +122,8 @@ public abstract class AbstractListenerContainerConfiguration implements Applicat
 
         GenericApplicationContext genericApplicationContext = (GenericApplicationContext) applicationContext;
         genericApplicationContext.registerBeanDefinition(containerBeanName, beanDefinition);
+        AbstractMQListenerContainer listenerContainer = genericApplicationContext.getBean(AbstractMQListenerContainer.class);
+        System.out.println(listenerContainer.isAutoStartup());
 
 
         log.info("Register the listener to container, listenerBeanName:{}, containerBeanName:{}", beanName, containerBeanName);

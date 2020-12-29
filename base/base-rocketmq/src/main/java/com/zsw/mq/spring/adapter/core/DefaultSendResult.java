@@ -11,7 +11,7 @@ import lombok.ToString;
  **/
 @ToString
 @Setter
-@Getter(onMethod = @_({@Override}))
+@Getter(onMethod_ = {@Override})
 @Builder
 public class DefaultSendResult implements SendResult {
     private static final long serialVersionUID = -5540608359798883871L;

@@ -12,13 +12,14 @@
     <artifactId>base</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>base-mybatis</module>
+        <module>base-rocketmq</module>
+<!--        <module>base-mybatis</module>
         <module>base-redis</module>
         <module>base-service</module>
         <module>base-commons</module>
         <module>base-elastic</module>
         <module>base-kafka</module>
-        <!--<module>base-client</module>
+        <module>base-client</module>
         <module>base-controller</module>
         <module>base-api</module>
         <module>base-persistence</module>
@@ -41,7 +42,6 @@
         <module>base-nacos-client</module>
         <module>base-sentinel</module>
         <module>base-mapstruct</module>
-        <module>base-rocketmq</module>
         <module>base-remoting</module>
         <module>base-consul</module>
         <module>base-zookeeper</module>
