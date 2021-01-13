@@ -1,26 +1,17 @@
 package com.zsw;
 
-import com.RocketMQApp;
-import com.zsw.mq.spring.adapter.SendResult;
-import com.zsw.mq.spring.core.RocketMQTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.util.StringUtils;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
  */
 @Slf4j
+@MapperScan("com.zsw")
 @SpringBootApplication
 public class SimpleTestsApp {
 
