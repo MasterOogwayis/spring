@@ -55,20 +55,20 @@ public class SimpleTestsApp {
 //        }
         ConfigurableApplicationContext run = new SpringApplicationBuilder()
                 .sources(SimpleTestsApp.class)
-                .web(WebApplicationType.NONE)
+                .web(WebApplicationType.SERVLET)
                 .run(args);
 //        ConfigurableApplicationContext run = SpringApplication.run(SimpleTestsApp.class, args);
-        GenericApplicationContext context = (GenericApplicationContext) run;
-        context.registerBean("helloController", HelloBean.class, HelloBean::new, bd -> {
-            bd.getPropertyValues().add("message", "This is a test");
-        });
-
-//        BeanDefinition beanDefinition = new RootBeanDefinition(Hello.class);
-//        beanDefinition.getPropertyValues().add("message", "This is a test");
-//        context.registerBeanDefinition("hello", beanDefinition);
-
-        HelloBean hello = context.getBean(HelloBean.class);
-        hello.hello("zsw");
+//        GenericApplicationContext context = (GenericApplicationContext) run;
+//        context.registerBean("helloController", HelloBean.class, HelloBean::new, bd -> {
+//            bd.getPropertyValues().add("message", "This is a test");
+//        });
+//
+////        BeanDefinition beanDefinition = new RootBeanDefinition(Hello.class);
+////        beanDefinition.getPropertyValues().add("message", "This is a test");
+////        context.registerBeanDefinition("hello", beanDefinition);
+//
+//        HelloBean hello = context.getBean(HelloBean.class);
+//        hello.hello("zsw");
     }
 
 
