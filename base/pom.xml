@@ -14,8 +14,8 @@
     <modules>
         <module>base-mybatis</module>
         <module>base-mapstruct</module>
+        <module>base-redis</module>
         <!--        <module>base-rocketmq</module>
-                <module>base-redis</module>
                 <module>base-service</module>
                 <module>base-commons</module>
                 <module>base-elastic</module>

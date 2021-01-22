@@ -1,7 +1,6 @@
 package com.zsw;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -11,7 +10,6 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @author ZhangShaowei on 2020/12/29 15:04
  */
 @Slf4j
-@MapperScan("com.zsw")
 @SpringBootApplication
 public class SimpleTestsApp {
 

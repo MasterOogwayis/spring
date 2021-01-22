@@ -19,7 +19,13 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
-//        Executor executor = mock(Executor.class);
+
+
+    }
+
+
+    public static void checkResult() {
+        //        Executor executor = mock(Executor.class);
 //        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> 0);
 //        completableFuture.thenRunAsync(mock(Runnable.class), executor)
 //                .whenComplete((s, e) -> {
@@ -32,7 +38,7 @@ public class StaticTests {
                 List<String> strings = Files.readAllLines(Paths.get("G:\\maotai\\jd_seckill.log"), charsetEntry.getValue());
                 Map<String, List<String>> resultMap = strings
                         .stream()
-                        .filter(str -> str.contains("errorMessage"))
+                        .filter(str -> str.contains("orderId"))
                         .collect(Collectors.groupingBy(str -> {
                             if (str.contains("90016")) {
                                 return "90016";
@@ -51,8 +57,6 @@ public class StaticTests {
                 log.error("编码错误：charset = {}", charsetEntry.getKey());
             }
         }
-
-
     }
 
 }
