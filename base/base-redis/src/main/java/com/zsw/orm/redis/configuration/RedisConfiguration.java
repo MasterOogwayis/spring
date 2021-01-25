@@ -43,7 +43,7 @@ public class RedisConfiguration {
     /**
      * 默认保存时间 30分钟
      */
-    private static Long DEFAULT_EXPIRATION = TimeUnit.MINUTES.toSeconds(30);
+    private static final Long DEFAULT_EXPIRATION = TimeUnit.MINUTES.toSeconds(30);
 
 
     /**

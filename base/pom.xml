@@ -12,18 +12,18 @@
     <artifactId>base</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>base-mybatis</module>
-        <module>base-mapstruct</module>
         <module>base-redis</module>
+        <module>base-commons</module>
+        <module>base-persistence</module>
         <!--        <module>base-rocketmq</module>
+        <module>base-mapstruct</module>
+        <module>base-mybatis</module>
                 <module>base-service</module>
-                <module>base-commons</module>
                 <module>base-elastic</module>
                 <module>base-kafka</module>
                 <module>base-client</module>
                 <module>base-controller</module>
                 <module>base-api</module>
-                <module>base-persistence</module>
                 <module>base-rabbitmq</module>
                 <module>base-cache-lock</module>
                 <module>base-ui</module>

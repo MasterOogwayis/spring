@@ -25,7 +25,7 @@
     <!-- 官方导航 https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide -->
 
     <modules>
-                <module>base</module>
+        <module>base</module>
         <!--        <module>file</module>-->
         <!--<module>product</module>
         <module>oauth2</module>
@@ -40,8 +40,8 @@
         <!--        <module>spring-cloud</module>-->
         <module>spring-cloud-alibaba</module>
         <!--        <module>spring-cloud-dubbo-example</module>-->
-        <!--        <module>zsw-base-oauth2</module>-->
         <!--        <module>zsw-elastic</module>-->
+        <module>zsw-base-oauth2</module>
         <!--        <module>vertx-apps</module>-->
         <module>spring-cloud-function-samples</module>
         <module>tests</module>
@@ -56,6 +56,7 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <spring-cloud.version>2020.0.1-SNAPSHOT</spring-cloud.version>
+        <spring-cloud-security.version>2020.0.1-SNAPSHOT</spring-cloud-security.version>
         <spring-cloud-function.version>3.1.0-SNAPSHOT</spring-cloud-function.version>
         <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -76,6 +77,13 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-security.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
