@@ -1,4 +1,4 @@
-package com.zsw;
+package com.zsw.orm.audit;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
