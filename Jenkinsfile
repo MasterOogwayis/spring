@@ -22,7 +22,7 @@ pipeline {
         booleanParam(name: 'startServers', defaultValue: false, description: '启动全部服务')
         booleanParam(name: 'katalon', defaultValue: false, description: 'katalon API 接口测试')
         booleanParam(name: 'repository', defaultValue: false, description: '推送测试仓库')
-        text(name: 'instances', defaultValue: '', description: '需要发布的服务,逗号分隔',)
+        text(name: 'instances', defaultValue: '', description: '需要发布的服务,逗号分隔')
         string(name: "eurekaPort", defaultValue: "19101", description: "注册服务端口")
         string(name: "configPort", defaultValue: "19102", description: "配置服务端口")
         string(name: "adminPort", defaultValue: "19104", description: "admin服务端口")

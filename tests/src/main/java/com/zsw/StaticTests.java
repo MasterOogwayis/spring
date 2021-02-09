@@ -2,6 +2,9 @@ package com.zsw;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -9,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.concurrent.locks.StampedLock;
 import java.util.stream.Collectors;
 
 /**
@@ -19,9 +23,9 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
+        StampedLock stampedLock = new StampedLock();
 
 
-        System.out.println("Hello World!");
 
     }
 

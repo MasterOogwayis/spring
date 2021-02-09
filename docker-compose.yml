@@ -4,6 +4,7 @@ version: "2.1"
 # 指定一个专用的网段
 networks:
   backend:
+    name: zsw
 
 services:
 #  redis:
@@ -77,7 +78,5 @@ services:
 #      - eureka
 ##      - redis
 
-networks:
-  backend:
 
 # 详情见 https://docs.docker.com/compose/compose-file/

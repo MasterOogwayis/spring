@@ -193,7 +193,7 @@ spring:
 
 ## 7. 鉴权 security & oauth2
 
-* 2.x 无论使用哪种 PasswordEncoder ，数据库若是明文也无法验证了。所以必须加密，不推荐 MD5 , 推荐 BCrypt ,为兼容1.x 的 MD5 使用 MessageDigestPasswordEncoder
+* 2.x 不推荐 MD5 , 推荐 BCrypt ,为兼容1.x 的 MD5 使用 MessageDigestPasswordEncoder
   默认： PasswordEncoderFactories.createDelegatingPasswordEncoder()
   详见： com.zsw.base.oauth2.config.WebSecurityConfig
 
