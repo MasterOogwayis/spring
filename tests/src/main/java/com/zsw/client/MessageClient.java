@@ -1,6 +1,7 @@
 package com.zsw.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -9,13 +10,16 @@ import java.util.Map;
 /**
  * @author ZhangShaowei on 2021/2/9 10:16
  */
-@FeignClient(name = "to-smc", url = "http://39.107.37.83:7201", fallback = MessageClientHystrix.class)
+@FeignClient(name = "bcpt-smc-api", fallback = MessageClientHystrix.class)
 public interface MessageClient {
 
-    @PostMapping("/message/app/customer/send")
-    String send(@RequestBody Map<String, Object> map);
+    @GetMapping("/actuator/prometheus1")
+    default String prometheus() {
+        return "fallback prometheus1";
+    }
+    @GetMapping("/actuator/prometheus1")
+    String prometheus1();
 
-    @PostMapping("/message/app/customer/send1")
-    String send1(@RequestBody Map<String, Object> map);
+
 
 }

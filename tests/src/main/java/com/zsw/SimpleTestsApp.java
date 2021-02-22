@@ -9,10 +9,6 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
  */
@@ -56,16 +52,12 @@ public class SimpleTestsApp {
                 .web(WebApplicationType.NONE)
                 .run(args);
         MessageClient bean = run.getBean(MessageClient.class);
-        Map<String, Object> map = new HashMap<>();
-        map.put("alias", "18380160980");
-        map.put("content", "This is a test");
-        map.put("extra", Collections.singletonMap("type", 1));
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             String send;
             if ((i & 1) == 0) {
-                send = bean.send(map);
+                send = bean.prometheus();
             } else {
-                send = bean.send1(map);
+                send = bean.prometheus1();
             }
             log.info("response: {}", send);
         }

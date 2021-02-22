@@ -10,11 +10,7 @@ import java.util.Map;
 @Component
 public class MessageClientHystrix implements MessageClient {
     @Override
-    public String send(Map<String, Object> map) {
-        return "fallback";
-    }
-    @Override
-    public String send1(Map<String, Object> map) {
-        return "fallback send1";
+    public String prometheus1() {
+        return "fallback health one";
     }
 }
