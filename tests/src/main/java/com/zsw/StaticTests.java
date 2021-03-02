@@ -1,18 +1,18 @@
 package com.zsw;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
 
+import javax.annotation.PostConstruct;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
-import java.util.concurrent.locks.StampedLock;
 import java.util.stream.Collectors;
 
 /**
@@ -21,11 +21,33 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StaticTests {
 
+    private static final ThreadLocal<String> POOL = new ThreadLocal<>();
+
     @SneakyThrows
     public static void main(String[] args) {
-        StampedLock stampedLock = new StampedLock();
 
 
+//        StampedLock stampedLock = new StampedLock();
+
+        POOL.set("Hello World!");
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("ads");
+        list.get(0);
+        list.clear();
+
+
+
+    }
+
+    @Getter
+    @Setter
+    static class Customer {
+
+        @PostConstruct
+        public void init() {
+            log.info("init ...");
+        }
 
     }
 

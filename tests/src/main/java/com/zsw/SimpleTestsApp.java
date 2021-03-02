@@ -1,20 +1,20 @@
 package com.zsw;
 
-import com.zsw.client.MessageClient;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.WebApplicationType;
+import com.zsw.api.ApiController;
+import com.zsw.pojo.Customer;
+import com.zsw.task.MessageService;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.cloud.netflix.hystrix.EnableHystrix;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
  */
-@Slf4j
-@EnableHystrix
-@EnableFeignClients
+//@Slf4j
+//@EnableHystrix
+//@EnableFeignClients
+@EnableAsync
 @SpringBootApplication
 public class SimpleTestsApp {
 
@@ -24,7 +24,14 @@ public class SimpleTestsApp {
      * @param args args
      */
     public static void main(String[] args) {
-//        ConfigurableApplicationContext applicationContext = SpringApplication.run(RocketMQApp.class, args);
+        ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
+        MessageService bean = applicationContext.getBean(MessageService.class);
+        bean.runTask();
+//        ApiController bean = applicationContext.getBean(ApiController.class);
+//        System.err.println(bean.hello("123"));
+//        System.out.println(bean.t(new Customer()));
+//        System.out.println(bean.t2(new Customer(), null));
+//        System.out.println(bean.t3(null, new Customer()));
 //        RocketMQTemplate rocketMQTemplate = applicationContext.getBean(RocketMQTemplate.class);
 //
 //        log.info("waitting for input ...");
@@ -47,20 +54,20 @@ public class SimpleTestsApp {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        ConfigurableApplicationContext run = new SpringApplicationBuilder()
-                .sources(SimpleTestsApp.class)
-                .web(WebApplicationType.NONE)
-                .run(args);
-        MessageClient bean = run.getBean(MessageClient.class);
-        for (int i = 0; i < 100; i++) {
-            String send;
-            if ((i & 1) == 0) {
-                send = bean.prometheus();
-            } else {
-                send = bean.prometheus1();
-            }
-            log.info("response: {}", send);
-        }
+//        ConfigurableApplicationContext run = new SpringApplicationBuilder()
+//                .sources(SimpleTestsApp.class)
+//                .web(WebApplicationType.NONE)
+//                .run(args);
+//        MessageClient bean = run.getBean(MessageClient.class);
+//        for (int i = 0; i < 100; i++) {
+//            String send;
+//            if ((i & 1) == 0) {
+//                send = bean.prometheus();
+//            } else {
+//                send = bean.prometheus1();
+//            }
+//            log.info("response: {}", send);
+//        }
 //        ConfigurableApplicationContext run = SpringApplication.run(SimpleTestsApp.class, args);
 //        GenericApplicationContext context = (GenericApplicationContext) run;
 //        context.registerBean("helloController", HelloBean.class, HelloBean::new, bd -> {
