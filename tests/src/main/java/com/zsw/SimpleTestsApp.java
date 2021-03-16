@@ -3,6 +3,7 @@ package com.zsw;
 import com.zsw.api.ApiController;
 import com.zsw.pojo.Customer;
 import com.zsw.task.MessageService;
+import com.zsw.task.TaskService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -27,6 +28,9 @@ public class SimpleTestsApp {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
         MessageService bean = applicationContext.getBean(MessageService.class);
         bean.runTask();
+        TaskService taskService = applicationContext.getBean(TaskService.class);
+        taskService.run();
+
 //        ApiController bean = applicationContext.getBean(ApiController.class);
 //        System.err.println(bean.hello("123"));
 //        System.out.println(bean.t(new Customer()));

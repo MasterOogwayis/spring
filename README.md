@@ -1,5 +1,11 @@
 # 记录一些简单例子和偶尔的思绪 #
 
+
+
+# 2021-3-12 #
+## 全链路蓝绿，灰度发布 ##
+<https://github.com/Nepxion/Discovery>
+
 # 2020-12-25 #
 ## 升级 Spring Cloud 版本 ##
 ### netflix 正式完蛋 ###

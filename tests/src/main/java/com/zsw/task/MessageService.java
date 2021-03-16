@@ -1,6 +1,7 @@
 package com.zsw.task;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Async;
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class MessageService {
+public class MessageService implements InitializingBean {
+
+    public MessageService() {
+        log.info("call new MessageService()");
+    }
 
     @Lazy
     @Autowired
@@ -27,4 +32,8 @@ public class MessageService {
         this.taskService.run();
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("afterPropertiesSet ...");
+    }
 }

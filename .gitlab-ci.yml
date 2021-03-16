@@ -1,0 +1,29 @@
+image: maven:latest
+variables:
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+
+stages:
+  - test
+  - deploy
+test:
+  stage: test
+  script:
+#    - echo $JAVA_HOME
+    - mvn $MAVEN_CLI_OPTS test-compile
+  tags:
+    - maven
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  script:
+    - mvn clean package -T 1C -DskipTests -P nexus
+    - sh /data/alt/navigation-api/kill.sh
+    - find alt-navigation-api/target/*.jar -maxdepth 1 -type f ! -name '*-sources.jar' -exec cp {} /data/alt/navigation-api \\;
+    - sh /data/alt/navigation-api/start.sh
+  tags:
+    - maven
+  only:
+    - master

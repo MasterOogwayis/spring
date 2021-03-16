@@ -6,10 +6,11 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
+import java.lang.reflect.Type;
+import java.net.ServerSocket;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -23,21 +24,16 @@ public class StaticTests {
 
     private static final ThreadLocal<String> POOL = new ThreadLocal<>();
 
+
     @SneakyThrows
     public static void main(String[] args) {
+        System.out.println(t(String.class));
+        System.err.println(t(Integer.class));
+    }
 
 
-//        StampedLock stampedLock = new StampedLock();
-
-        POOL.set("Hello World!");
-
-        ArrayList<String> list = new ArrayList<>();
-        list.add("ads");
-        list.get(0);
-        list.clear();
-
-
-
+    public static boolean t(Type type) {
+        return String.class.equals(type);
     }
 
     @Getter

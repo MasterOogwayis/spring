@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: test-gateway-server
+    name: spring-cloud-gateway-server
   cloud:
     gateway:
       routes:
@@ -12,9 +12,19 @@ spring:
           - Path=/fc/**
         filters:
           - name: Retry
-              args:
-                retries: 3
-                status: 503
+            args:
+              retries: 3
+              status: 503
+          - StripPrefix=1
+      - id: bcpt-ic-api
+        uri: lb://bcpt-ic-api
+        predicates:
+          - Path=/ic/**
+        filters:
+          - name: Retry
+            args:
+              retries: 3
+              status: 503
           - StripPrefix=1
       discovery:
         locator:
@@ -24,9 +34,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone:  http://${eureka.client.eureka-server-host}:${eureka.client.eureka-server-port}/eureka/
-    eureka-server-port: 7101
-    eureka-server-host: 192.168.1.12
+      defaultZone:  http://192.168.1.12:7101/eureka/
   instance:
     prefer-ip-address: true
 #debug: true

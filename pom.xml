@@ -3,13 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.8.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.zsw</groupId>
@@ -37,7 +30,7 @@
         <!--        <module>security</module>-->
         <!--        <module>quartz</module>-->
         <!--        <module>spring-apps</module>-->
-        <!--        <module>spring-cloud</module>-->
+        <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
         <!--        <module>spring-cloud-dubbo-example</module>-->
         <!--        <module>zsw-elastic</module>-->
@@ -46,6 +39,7 @@
         <module>spring-cloud-function-samples</module>
         <module>tests</module>
         <module>spring-fun</module>
+        <module>spring-cloud-alibaba/api-server</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -55,10 +49,11 @@
         <java.version>14</java.version>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
-        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+        <spring-boot.version>2.3.9.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
         <spring-cloud-security.version>2020.0.1-SNAPSHOT</spring-cloud-security.version>
         <spring-cloud-function.version>3.1.0-SNAPSHOT</spring-cloud-function.version>
-        <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
+        <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <mybatis.plus.version>3.3.2</mybatis.plus.version>
@@ -73,6 +68,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
