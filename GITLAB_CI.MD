@@ -71,3 +71,21 @@ deploy:
 
 ## 3. 脚本 ##
 在runner环境中和直接执行有些许区别，比如 使用 ps -ef|grep xxx|grep -v grep 等命令，最好要定位准确点，不要用模糊匹配
+
+
+## 各种触发规则 ##
+比如通过 commit message 关键字触发
+* 1.例如下面，只在 master 分支且提交信息包含 "runfullpipeline" 关键字才会执行 job
+* 2.详情见：<https://gitlab.com/gitlab-org/gitlab-foss/-/issues/39215>
+```text
+job:
+  only:
+    refs:
+      - master  
+        message:
+          - /\[runfullpipeline\]/
+
+```
+
+具体 docs:
+<https://docs.gitlab.com/13.7/ee/ci/yaml/>
