@@ -66,5 +66,8 @@ deploy:
     - maven
   only:
     - master
-
 ```
+
+
+## 3. 脚本 ##
+在runner环境中和直接执行有些许区别，比如 使用 ps -ef|grep xxx|grep -v grep 等命令，最好要定位准确点，不要用模糊匹配
