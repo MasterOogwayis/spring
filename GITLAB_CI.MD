@@ -78,6 +78,8 @@ dev:
         - master
       variables:
         - $CI_COMMIT_TITLE =~ /^winsoe_wineventlog.*/
+  tags:
+    - cloud-test-1
 
 ```
 
