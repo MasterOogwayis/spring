@@ -45,6 +45,7 @@ variables:
 stages:
   - test
   - deploy
+  - dev
 test:
   stage: test
   script:
@@ -65,7 +66,19 @@ deploy:
   tags:
     - maven
   only:
+    # 只在 master 上执行
     - master
+
+dev:
+  stage: dev
+  script:
+   - sh "提交信息匹配 deploy.* 才会执行"
+  only:
+      refs:
+        - master
+      variables:
+        - $CI_COMMIT_TITLE =~ /^winsoe_wineventlog.*/
+
 ```
 
 
