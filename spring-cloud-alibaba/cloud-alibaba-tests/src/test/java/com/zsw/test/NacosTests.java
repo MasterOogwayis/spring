@@ -1,8 +1,10 @@
 package com.zsw.test;
 
-import com.alibaba.cloud.nacos.parser.NacosDataXmlParser;
+import com.alibaba.cloud.nacos.parser.NacosDataParserHandler;
+import org.springframework.core.env.PropertySource;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,8 +32,8 @@ public class NacosTests {
                 "        </biology>\n" +
                 "    </phytology>\n" +
                 "</biology>";
-        Map<String, Object> xml = new NacosDataXmlParser().parseNacosData(data, "xml");
-        System.out.println(xml);
+        List<PropertySource<?>> propertySources = NacosDataParserHandler.getInstance().parseNacosData("dataId", data, "xml");
+        System.out.println(propertySources);
     }
 
 }
