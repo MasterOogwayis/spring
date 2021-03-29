@@ -24,19 +24,4 @@ public class ApiController {
         return this.sayHelloService.hello(name);
     }
 
-    @GetMapping("t")
-    public String t(Customer customer) {
-        return this.sayHelloService.hello("t: " + customer.getName());
-    }
-
-    @GetMapping("t2")
-    public String t2(Customer customer, @RequestBody String body) {
-        return this.sayHelloService.hello("t2: " + customer.getName());
-    }
-
-    @GetMapping("t3")
-    public String t3(@RequestBody String body, Customer customer) {
-        return this.sayHelloService.hello("t3: " + customer.getName());
-    }
-
 }

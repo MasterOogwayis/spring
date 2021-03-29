@@ -1,13 +1,8 @@
 package com.zsw;
 
-import com.zsw.api.ApiController;
-import com.zsw.pojo.Customer;
-import com.zsw.task.MessageService;
-import com.zsw.task.TaskService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
@@ -15,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 //@Slf4j
 //@EnableHystrix
 //@EnableFeignClients
-@EnableAsync
+//@EnableAsync
 @SpringBootApplication
 public class SimpleTestsApp {
 
@@ -26,11 +21,6 @@ public class SimpleTestsApp {
      */
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
-        MessageService bean = applicationContext.getBean(MessageService.class);
-        bean.runTask();
-        TaskService taskService = applicationContext.getBean(TaskService.class);
-        taskService.run();
-
 //        ApiController bean = applicationContext.getBean(ApiController.class);
 //        System.err.println(bean.hello("123"));
 //        System.out.println(bean.t(new Customer()));

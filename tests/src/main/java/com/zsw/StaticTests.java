@@ -7,13 +7,19 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
-import java.net.ServerSocket;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.concurrent.DelayQueue;
+import java.util.concurrent.Delayed;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -27,13 +33,73 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
-        System.out.println(t(String.class));
-        System.err.println(t(Integer.class));
+
+        System.out.println("yyyy-MM-dd".substring(0, 4));
+    }
+
+    public int maximumProduct(int[] nums) {
+        Arrays.sort(nums);
+        int l = nums.length - 1;
+        return nums[l] * nums[l - 1] * nums[l - 2];
+    }
+
+
+    @SneakyThrows
+    public static void testDelayQueue() {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        DelayQueue<DelayedUser> queue = new DelayQueue<>();
+        executor.execute(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    DelayedUser delayedUser = new DelayedUser(System.currentTimeMillis() + "", 1000);
+                    log.info("put delayedUser {}", delayedUser);
+                    queue.put(delayedUser);
+                    TimeUnit.MILLISECONDS.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        executor.execute(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    DelayedUser element = queue.take();
+                    log.info("take {}", element);
+                } catch (InterruptedException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
+        });
+
+        executor.awaitTermination(100, TimeUnit.SECONDS);
+        executor.shutdown();
     }
 
 
     public static boolean t(Type type) {
         return String.class.equals(type);
+    }
+
+    public static class DelayedUser implements Delayed {
+
+        private final String name;
+        private final long time;
+
+        public DelayedUser(String name, long delayTime) {
+            this.name = name;
+            this.time = System.currentTimeMillis() + delayTime;
+        }
+
+        @Override
+        public long getDelay(TimeUnit unit) {
+            return unit.convert(time - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+        }
+
+        @Override
+        public int compareTo(Delayed o) {
+            return (int) (this.time - ((DelayedUser) o).time);
+        }
     }
 
     @Getter
