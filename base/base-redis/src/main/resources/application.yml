@@ -1,20 +1,23 @@
+server:
+  port: 8080
 spring:
   main:
     allow-bean-definition-overriding: true
   cache:
     type: redis
   redis:
-    host: 127.0.0.1
+    host: 192.168.1.12
     ## Redis服务器连接端口
     port: 6379
     ## Redis服务器连接密码（默认为空）
-    password:
+    password: Anf34l_Fs
     ## 连接超时时间（毫秒）
     timeout: 0
+    database: 9
     lettuce:
       pool:
-        max-active: 8
-
+        max-active: 1
+        max-idle: 1
 ##必要，RedisCacheManager 存储索引
 ##spring.cache.cache-names=users
 ##自定义RedisCacheManger配置
