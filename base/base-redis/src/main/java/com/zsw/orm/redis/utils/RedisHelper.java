@@ -1,5 +1,6 @@
 package com.zsw.orm.redis.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.ConvertingCursor;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
@@ -19,45 +20,34 @@ import java.util.function.Consumer;
  *
  * @author ZhangShaowei on 2021/3/30 9:26
  */
+@Slf4j
 public class RedisHelper {
 
     /**
      * 扫描匹配的 key
      *
-     * @param pattern
-     * @param limit
-     * @param redisTemplate
-     * @param consumer
-     * @param <K>
-     * @param <V>
+     * @param pattern       redis key 匹配规则 ep: key:*
+     * @param limit         cursor 分片大小
+     * @param redisTemplate RedisTemplate
+     * @param consumer      如何处理遍历得到的每个key
+     * @param <K>           K
      */
-    public static <K, V> void scan(
-            String pattern, long limit, RedisTemplate<K, V> redisTemplate, Consumer<K> consumer) {
-        try (Cursor<K> cursor = scan(pattern, limit, redisTemplate)) {
+    public static <K> void scan(
+            String pattern, long limit, RedisTemplate<K, ?> redisTemplate, Consumer<K> consumer) {
+        ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
+        //noinspection unchecked
+        try (
+                Cursor<K> cursor = (Cursor<K>) redisTemplate.executeWithStickyConnection(
+                        (RedisCallback<Closeable>) redisConnection -> new ConvertingCursor<>(
+                                redisConnection.scan(options),
+                                redisTemplate.getKeySerializer()::deserialize)
+                )
+        ) {
             cursor.forEachRemaining(consumer);
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("redis scan error", e);
         }
-    }
-
-    /**
-     * Cursor 需要手动关闭，所以不对外了
-     *
-     * @param pattern
-     * @param limit
-     * @param redisTemplate
-     * @param <K>
-     * @param <V>
-     * @return
-     */
-    private static <K, V> Cursor<K> scan(String pattern, long limit, RedisTemplate<K, V> redisTemplate) {
-        ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
-        //noinspection unchecked
-        return (Cursor<K>) redisTemplate.executeWithStickyConnection(
-                (RedisCallback<Closeable>) redisConnection -> new ConvertingCursor<>(
-                        redisConnection.scan(options),
-                        redisTemplate.getKeySerializer()::deserialize)
-        );
     }
 
     public static <K> void hScan(
@@ -74,7 +64,7 @@ public class RedisHelper {
     public static <K, V> void sScan(
             K key, String pattern, long limit, RedisTemplate<K, V> redisTemplate, Consumer<V> consumer) {
         ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
-        try (Cursor<V> cursor = redisTemplate.opsForSet().scan(key, options)){
+        try (Cursor<V> cursor = redisTemplate.opsForSet().scan(key, options)) {
             cursor.forEachRemaining(consumer);
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,7 +74,7 @@ public class RedisHelper {
     public static <K, V> void zScan(
             K key, String pattern, long limit, RedisTemplate<K, V> redisTemplate, Consumer<V> consumer) {
         ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
-        try (Cursor<ZSetOperations.TypedTuple<V>> cursor = redisTemplate.opsForZSet().scan(key, options)){
+        try (Cursor<ZSetOperations.TypedTuple<V>> cursor = redisTemplate.opsForZSet().scan(key, options)) {
             cursor.forEachRemaining(tt -> consumer.accept(tt.getValue()));
         } catch (IOException e) {
             e.printStackTrace();
