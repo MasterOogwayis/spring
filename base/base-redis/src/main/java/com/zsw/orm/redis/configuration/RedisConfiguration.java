@@ -93,7 +93,9 @@ public class RedisConfiguration {
 //        ProtostuffRedisSerializer serializer = new ProtostuffRedisSerializer();
 
         redisTemplate.setValueSerializer(serializer);
-        redisTemplate.setHashKeySerializer(serializer);
+//        redisTemplate.setHashKeySerializer(serializer);
+        // 注意我们使用的 hash key 一般都是string,如果用jackson序列化就会带上多余的双引号
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
         redisTemplate.setHashValueSerializer(serializer);
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
@@ -169,4 +171,5 @@ public class RedisConfiguration {
             return sb.toString();
         };
     }
+
 }

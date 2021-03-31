@@ -9,4 +9,13 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CustomerMapper extends BaseMapper<Customer> {
+
+
+    default Customer test() {
+
+        return this.selectById(1L);
+
+    }
+
+
 }

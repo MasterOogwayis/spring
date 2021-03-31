@@ -2,17 +2,21 @@ package com.zsw.orm.redis;
 
 import com.zsw.orm.redis.utils.RedisHelper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.Cursor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.DefaultTypedTuple;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author ZhangShaowei on 2021/3/30 9:44
@@ -22,21 +26,51 @@ import java.util.Set;
 @RestController
 public class Ts {
 
-    private final RedisTemplate<String, Integer> redisTemplate;
+    @Autowired
+    private RedisTemplate<String, Integer> redisTemplate;
 
-    public Ts(RedisTemplate<String, Integer> redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    @GetMapping("flush")
+    public Object flush() {
+        return redisTemplate.execute((RedisCallback<Object>) connection -> {
+            connection.flushDb();
+            return "success";
+        });
     }
+
+    @GetMapping("init")
+    public Object init(@RequestParam("size") Integer size) {
+        String prefix = "test:";
+
+        Map<String, Integer> map = new HashMap<>(size * 2);
+        for (int i = 0; i < size; i++) {
+            map.put(prefix + "nums:" + i, i);
+        }
+
+        // kvs
+        this.redisTemplate.opsForValue().multiSet(map);
+
+        // hash
+        this.redisTemplate.opsForHash().putAll(prefix + "map", map);
+
+        // set
+        map.values().forEach(v -> this.redisTemplate.opsForSet().add(prefix + "set", v));
+
+        // zset
+        map.values().stream()
+                .map(v -> (ZSetOperations.TypedTuple<Integer>) new DefaultTypedTuple<Integer>(v, v.doubleValue()))
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toSet(),
+                        set -> this.redisTemplate.opsForZSet().add(prefix+"zset", set)
+                ));
+        return "success";
+
+    }
+
 
     @GetMapping("scan")
     public Set<String> scan(@RequestParam("pattern") String pattern, @RequestParam("limit") Long limit) {
         Set<String> set = new HashSet<>();
-        try (Cursor<String> cursor = RedisHelper.scan(pattern, limit, redisTemplate)) {
-            cursor.forEachRemaining(set::add);
-            log.error("set size = {}", set.size());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        RedisHelper.scan(pattern, limit, redisTemplate, set::add);
         return set;
     }
 
@@ -46,12 +80,7 @@ public class Ts {
             @RequestParam("pattern") String pattern,
             @RequestParam("limit") Long limit) {
         Set<Map.Entry<Object, Object>> set = new HashSet<>();
-        try (Cursor<Map.Entry<Object, Object>> cursor = RedisHelper.hScan(key, pattern, limit, redisTemplate)) {
-            cursor.forEachRemaining(set::add);
-            log.error("set size = {}", set.size());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        RedisHelper.hScan(key, pattern, limit, redisTemplate, set::add);
         return set;
     }
 
@@ -61,12 +90,7 @@ public class Ts {
             @RequestParam(value = "pattern", required = false) String pattern,
             @RequestParam("limit") Long limit) {
         Set<Integer> set = new HashSet<>();
-        try (Cursor<Integer> cursor = RedisHelper.sScan(key, pattern, limit, redisTemplate)) {
-            cursor.forEachRemaining(set::add);
-            log.error("set size = {}", set.size());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        RedisHelper.sScan(key, pattern, limit, redisTemplate, set::add);
         return set;
     }
 
