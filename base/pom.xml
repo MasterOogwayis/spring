@@ -15,9 +15,10 @@
         <module>base-redis</module>
         <module>base-commons</module>
         <module>base-persistence</module>
+        <module>base-shiro</module>
+        <module>base-mybatis</module>
         <!--        <module>base-rocketmq</module>
         <module>base-mapstruct</module>
-        <module>base-mybatis</module>
                 <module>base-service</module>
                 <module>base-elastic</module>
                 <module>base-kafka</module>

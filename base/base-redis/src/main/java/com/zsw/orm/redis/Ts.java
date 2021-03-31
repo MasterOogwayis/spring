@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -27,31 +28,45 @@ public class Ts {
         this.redisTemplate = redisTemplate;
     }
 
-    @GetMapping("size")
-    public Set<String> keys(@RequestParam("limit") Integer limit) {
-        String key = "test:kvs:nums";
-        int size = 10000;
-//        Map<String, Integer> map = new HashMap<>();
-//        for (int i = 0; i < size; i++) {
-//            map.put(key + ":" + i, i);
-//        }
-//        redisTemplate.opsForValue().multiSet(map);
-
-//        ExecutorService executor = Executors.newFixedThreadPool(2);
-//        Future<Integer> submit = executor.submit(new Callable<Integer>() {
-//            @Override
-//            public Integer call() throws Exception {
-//                return null;
-//            }
-//        });
+    @GetMapping("scan")
+    public Set<String> scan(@RequestParam("pattern") String pattern, @RequestParam("limit") Long limit) {
         Set<String> set = new HashSet<>();
-        try (Cursor<String> scan = RedisHelper.scan(redisTemplate, key + ":*", limit)) {
-            scan.forEachRemaining(set::add);
+        try (Cursor<String> cursor = RedisHelper.scan(pattern, limit, redisTemplate)) {
+            cursor.forEachRemaining(set::add);
             log.error("set size = {}", set.size());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return set;
+    }
 
+    @GetMapping("hScan")
+    public Set<Map.Entry<Object, Object>> hScan(
+            @RequestParam("key") String key,
+            @RequestParam("pattern") String pattern,
+            @RequestParam("limit") Long limit) {
+        Set<Map.Entry<Object, Object>> set = new HashSet<>();
+        try (Cursor<Map.Entry<Object, Object>> cursor = RedisHelper.hScan(key, pattern, limit, redisTemplate)) {
+            cursor.forEachRemaining(set::add);
+            log.error("set size = {}", set.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+
+    @GetMapping("sScan")
+    public Set<Integer> sScan(
+            @RequestParam("key") String key,
+            @RequestParam(value = "pattern", required = false) String pattern,
+            @RequestParam("limit") Long limit) {
+        Set<Integer> set = new HashSet<>();
+        try (Cursor<Integer> cursor = RedisHelper.sScan(key, pattern, limit, redisTemplate)) {
+            cursor.forEachRemaining(set::add);
+            log.error("set size = {}", set.size());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return set;
     }
 
