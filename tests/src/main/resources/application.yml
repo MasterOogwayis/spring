@@ -26,12 +26,8 @@ logging:
     com.netflix.hystrix: debug
 
 eureka:
-  server:
-    hostname: 192.168.1.12
   client:
     serviceUrl:
-      defaultZone:  http://${eureka.server.hostname}:${eureka.client.eureka-server-port}/eureka/
-    eureka-server-port: 7101
+      defaultZone:  http://localhost:18080/eureka/
   instance:
-    #    hostname: 192.168.1.166
     prefer-ip-address: true

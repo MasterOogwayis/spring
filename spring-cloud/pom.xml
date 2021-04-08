@@ -15,10 +15,10 @@
 
     <modules>
         <module>gateway-server</module>
-<!--        <module>eureka-server</module>-->
-<!--        <module>config-server</module>-->
-<!--        <module>admin-server</module>-->
-<!--        <module>zuul-server</module>-->
+        <module>eureka-server</module>
+        <!--        <module>config-server</module>-->
+        <!--        <module>admin-server</module>-->
+        <!--        <module>zuul-server</module>-->
     </modules>
 
 </project>

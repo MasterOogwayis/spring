@@ -2,6 +2,7 @@ package com.zsw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 //@EnableHystrix
 //@EnableFeignClients
 //@EnableAsync
+@EnableDiscoveryClient
 @SpringBootApplication
 public class SimpleTestsApp {
 

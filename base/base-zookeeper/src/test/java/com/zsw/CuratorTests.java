@@ -54,11 +54,6 @@ public class CuratorTests {
                 try {
                     lock.acquire();
                     log.debug("{} -> 抢占锁成功", Thread.currentThread().getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                try {
                     TimeUnit.SECONDS.sleep(5);
                     lock.release();
                 } catch (Exception e) {
