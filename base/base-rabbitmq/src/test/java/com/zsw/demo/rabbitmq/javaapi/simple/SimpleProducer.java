@@ -1,9 +1,9 @@
-package com.zsw.demo.rabbitmq.javaapi.simple;
+package com.zsw.lesson.rabbitmq.javaapi.simple;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.zsw.demo.rabbitmq.utils.RabbitMQUtils;
+import com.zsw.lesson.rabbitmq.utils.RabbitMQUtils;
 import lombok.SneakyThrows;
 
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package com.zsw.demo.serializer.protostuff;
+package com.zsw.lesson.serializer.protostuff;
 
 /**
  * redis序列化辅助类.单纯的泛型无法定义通用schema，原因是无法通过泛型T得到Class<T>

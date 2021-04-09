@@ -1,4 +1,4 @@
-package com.zsw.demo.rocketmq.simple;
+package com.zsw.lesson.rocketmq.simple;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 import java.util.List;
 
-import static com.zsw.demo.rocketmq.simple.RocketProperties.*;
+import static com.zsw.lesson.rocketmq.simple.RocketProperties.*;
 
 /**
  * @author ZhangShaowei on 2019/8/30 13:37

@@ -1,4 +1,4 @@
-package com.zsw.demo.serializer.jboss;
+package com.zsw.lesson.serializer.jboss;
 
 import io.netty.handler.codec.marshalling.*;
 import org.jboss.marshalling.MarshallerFactory;

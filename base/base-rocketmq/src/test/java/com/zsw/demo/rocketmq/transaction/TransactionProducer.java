@@ -1,4 +1,4 @@
-package com.zsw.demo.rocketmq.transaction;
+package com.zsw.lesson.rocketmq.transaction;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.TransactionMQProducer;

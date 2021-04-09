@@ -1,4 +1,4 @@
-package com.zsw.demo.rocketmq.simple;
+package com.zsw.lesson.rocketmq.simple;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import org.apache.rocketmq.common.message.Message;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import static com.zsw.demo.rocketmq.simple.RocketProperties.*;
+import static com.zsw.lesson.rocketmq.simple.RocketProperties.*;
 
 /**
  * 发送事务消息

@@ -1,4 +1,4 @@
-package com.zsw.demo.rocketmq.simple;
+package com.zsw.lesson.rocketmq.simple;
 
 import java.nio.charset.Charset;
 

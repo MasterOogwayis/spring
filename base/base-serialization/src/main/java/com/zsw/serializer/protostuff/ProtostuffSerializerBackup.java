@@ -1,4 +1,4 @@
-package com.zsw.demo.serializer.protostuff;
+package com.zsw.lesson.serializer.protostuff;
 
 
 import io.protostuff.LinkedBuffer;

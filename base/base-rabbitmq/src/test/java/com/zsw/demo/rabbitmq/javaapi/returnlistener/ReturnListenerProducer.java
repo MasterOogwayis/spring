@@ -1,7 +1,7 @@
-package com.zsw.demo.rabbitmq.javaapi.returnlistener;
+package com.zsw.lesson.rabbitmq.javaapi.returnlistener;
 
 import com.rabbitmq.client.*;
-import com.zsw.demo.rabbitmq.utils.RabbitMQUtils;
+import com.zsw.lesson.rabbitmq.utils.RabbitMQUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 

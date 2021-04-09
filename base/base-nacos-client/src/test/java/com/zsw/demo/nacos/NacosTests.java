@@ -1,4 +1,4 @@
-package com.zsw.demo.nacos;
+package com.zsw.lesson.nacos;
 
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;

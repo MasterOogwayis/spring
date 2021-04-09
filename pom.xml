@@ -32,7 +32,7 @@
         <!--        <module>spring-apps</module>-->
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
-        <!--        <module>spring-cloud-dubbo-example</module>-->
+        <module>spring-cloud-dubbo-example</module>
         <!--        <module>zsw-elastic</module>-->
         <module>zsw-base-oauth2</module>
         <!--        <module>vertx-apps</module>-->
@@ -40,6 +40,7 @@
         <module>tests</module>
         <module>spring-fun</module>
         <module>spring-cloud-alibaba/api-server</module>
+        <module>jvm</module>
     </modules>
 
     <!-- 打包依赖的包 -->

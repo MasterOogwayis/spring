@@ -1,4 +1,4 @@
-package com.zsw.demo.annotation;
+package com.zsw.lesson.annotation;
 
 import java.lang.annotation.*;
 

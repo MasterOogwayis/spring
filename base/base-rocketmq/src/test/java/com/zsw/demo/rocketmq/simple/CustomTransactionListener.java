@@ -1,4 +1,4 @@
-package com.zsw.demo.rocketmq.simple;
+package com.zsw.lesson.rocketmq.simple;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.LocalTransactionState;

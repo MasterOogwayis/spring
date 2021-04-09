@@ -1,4 +1,4 @@
-package com.zsw.demo.rocketmq.simple;
+package com.zsw.lesson.rocketmq.simple;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.consumer.DefaultMQPullConsumer;
@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.zsw.demo.rocketmq.simple.RocketProperties.NAME_SERVER_ADDR;
-import static com.zsw.demo.rocketmq.simple.RocketProperties.SIMPLE_GROUP;
+import static com.zsw.lesson.rocketmq.simple.RocketProperties.NAME_SERVER_ADDR;
+import static com.zsw.lesson.rocketmq.simple.RocketProperties.SIMPLE_GROUP;
 import static com.zsw.mq.spring.support.RocketMQHeaders.TOPIC;
 
 /**

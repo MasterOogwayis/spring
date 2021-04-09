@@ -1,16 +1,16 @@
-package com.zsw.demo.rabbitmq.javaapi.confirm;
+package com.zsw.lesson.rabbitmq.javaapi.confirm;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.zsw.demo.rabbitmq.utils.RabbitMQUtils;
+import com.zsw.lesson.rabbitmq.utils.RabbitMQUtils;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.Charset;
 
-import static com.zsw.demo.rabbitmq.config.RabbitMQConstant.CONFIRM_QUEUE;
+import static com.zsw.lesson.rabbitmq.config.RabbitMQConstant.CONFIRM_QUEUE;
 
 /**
  * 批量确认方式

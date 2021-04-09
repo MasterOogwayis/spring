@@ -1,4 +1,4 @@
-package com.zsw.demo.bio;
+package com.zsw.lesson.bio;
 
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;

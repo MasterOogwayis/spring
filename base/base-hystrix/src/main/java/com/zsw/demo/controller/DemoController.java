@@ -1,9 +1,9 @@
-package com.zsw.demo.controller;
+package com.zsw.lesson.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.zsw.demo.annotation.Limited;
-import com.zsw.demo.annotation.Timeout;
+import com.zsw.lesson.annotation.Limited;
+import com.zsw.lesson.annotation.Timeout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.zsw.demo.quartz.job;
+package com.zsw.lesson.quartz.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;

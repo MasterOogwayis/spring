@@ -1,7 +1,7 @@
-package com.zsw.demo.aop;
+package com.zsw.lesson.aop;
 
-import com.zsw.demo.annotation.Limited;
-import com.zsw.demo.annotation.Timeout;
+import com.zsw.lesson.annotation.Limited;
+import com.zsw.lesson.annotation.Timeout;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;

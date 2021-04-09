@@ -40,13 +40,16 @@ public class RedisHelper {
                 Cursor<K> cursor = (Cursor<K>) redisTemplate.executeWithStickyConnection(
                         (RedisCallback<Closeable>) redisConnection -> new ConvertingCursor<>(
                                 redisConnection.scan(options),
-                                redisTemplate.getKeySerializer()::deserialize)
+                                redisTemplate.getKeySerializer()::deserialize
+                        )
                 )
         ) {
+            // 资源不对外
             cursor.forEachRemaining(consumer);
         } catch (IOException e) {
             e.printStackTrace();
             log.error("redis scan error", e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -58,6 +61,7 @@ public class RedisHelper {
             cursor.forEachRemaining(consumer);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -68,6 +72,7 @@ public class RedisHelper {
             cursor.forEachRemaining(consumer);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -78,6 +83,7 @@ public class RedisHelper {
             cursor.forEachRemaining(tt -> consumer.accept(tt.getValue()));
         } catch (IOException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

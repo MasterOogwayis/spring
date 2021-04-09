@@ -1,10 +1,10 @@
-package com.zsw.demo.rabbitmq.javaapi.delay;
+package com.zsw.lesson.rabbitmq.javaapi.delay;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import com.zsw.demo.rabbitmq.utils.RabbitMQUtils;
+import com.zsw.lesson.rabbitmq.utils.RabbitMQUtils;
 import lombok.SneakyThrows;
 
 import java.time.LocalDateTime;

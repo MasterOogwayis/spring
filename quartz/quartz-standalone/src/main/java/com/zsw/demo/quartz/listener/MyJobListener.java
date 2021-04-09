@@ -1,4 +1,4 @@
-package com.zsw.demo.quartz.listener;
+package com.zsw.lesson.quartz.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;

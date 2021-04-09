@@ -1,7 +1,7 @@
-package com.zsw.demo.quartz.calendar;
+package com.zsw.lesson.quartz.calendar;
 
-import com.zsw.demo.quartz.job.MyJob1;
-import com.zsw.demo.quartz.listener.MyJobListener;
+import com.zsw.lesson.quartz.job.MyJob1;
+import com.zsw.lesson.quartz.listener.MyJobListener;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;

@@ -1,4 +1,4 @@
-package com.zsw.demo.rabbitmq.config;
+package com.zsw.lesson.rabbitmq.config;
 
 /**
  * @author ZhangShaowei on 2019/8/27 13:25
