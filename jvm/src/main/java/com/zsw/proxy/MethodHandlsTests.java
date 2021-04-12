@@ -1,8 +1,7 @@
-package com.zsw;
+package com.zsw.proxy;
 
 import lombok.Data;
 import lombok.SneakyThrows;
-import org.springframework.beans.BeanUtils;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -32,39 +31,39 @@ public class MethodHandlsTests {
         instance.work();
     }
 
-    public static void test2() throws Throwable {
-        B b = new B();
-        MethodHandles.Lookup lookup = BeanUtils.instantiateClass(
-                MethodHandles.Lookup.class.getDeclaredConstructor(Class.class, int.class), A.class, ALLOWED_MODES);
-//        MethodHandles.Lookup lookup = MethodHandles.lookup();`
-
-        MethodHandle t = lookup.findSpecial(A.class, "t", MethodType.methodType(void.class), A.class);
-
-        t.bindTo(b).invoke();
-    }
-
-
-    public static void test1() throws Throwable {
-        MethodHandles.Lookup lookup = MethodHandles.lookup();
-        MethodType methodType = MethodType.methodType(String.class);
-
-        Dto dto = new Dto();
-        dto.setName("zsw");
-        MethodHandle getName = lookup.findVirtual(Dto.class, "getName", methodType);
-        Object o = getName.bindTo(dto).invoke();
-        System.out.println(o);
-
-        MethodHandle setName = lookup.findVirtual(Dto.class, "setName", MethodType.methodType(void.class, String.class));
-        setName.bindTo(dto).invoke("Hello World");
-        System.err.println(dto);
-
-        MethodHandles.Lookup lookup1 = BeanUtils.instantiateClass(MethodHandles.Lookup.class.getDeclaredConstructor(Class.class, int.class), Dto.class, ALLOWED_MODES);
-        MethodHandle set = lookup1.findSpecial(Dto.class, "set", MethodType.methodType(void.class, String.class), Dto.class);
-        set.bindTo(dto).invoke("asdasdasd");
+//    public static void test2() throws Throwable {
+//        B b = new B();
+//        MethodHandles.Lookup lookup = BeanUtils.instantiateClass(
+//                MethodHandles.Lookup.class.getDeclaredConstructor(Class.class, int.class), A.class, ALLOWED_MODES);
+////        MethodHandles.Lookup lookup = MethodHandles.lookup();`
+//
+//        MethodHandle t = lookup.findSpecial(A.class, "t", MethodType.methodType(void.class), A.class);
+//
+//        t.bindTo(b).invoke();
+//    }
 
 
-        System.out.println(dto);
-    }
+//    public static void test1() throws Throwable {
+//        MethodHandles.Lookup lookup = MethodHandles.lookup();
+//        MethodType methodType = MethodType.methodType(String.class);
+//
+//        Dto dto = new Dto();
+//        dto.setName("zsw");
+//        MethodHandle getName = lookup.findVirtual(Dto.class, "getName", methodType);
+//        Object o = getName.bindTo(dto).invoke();
+//        System.out.println(o);
+//
+//        MethodHandle setName = lookup.findVirtual(Dto.class, "setName", MethodType.methodType(void.class, String.class));
+//        setName.bindTo(dto).invoke("Hello World");
+//        System.err.println(dto);
+//
+//        MethodHandles.Lookup lookup1 = BeanUtils.instantiateClass(MethodHandles.Lookup.class.getDeclaredConstructor(Class.class, int.class), Dto.class, ALLOWED_MODES);
+//        MethodHandle set = lookup1.findSpecial(Dto.class, "set", MethodType.methodType(void.class, String.class), Dto.class);
+//        set.bindTo(dto).invoke("asdasdasd");
+//
+//
+//        System.out.println(dto);
+//    }
 
     interface DoSomething {
         default void work() {
