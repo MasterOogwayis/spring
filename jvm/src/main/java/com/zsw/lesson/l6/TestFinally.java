@@ -6,7 +6,13 @@ package com.zsw.lesson.l6;
 public class TestFinally {
 
     public static void main(String[] args) {
-        System.err.println(test1());;
+        try {
+            System.err.println(test1());;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            System.out.println("finally ...");
+        }
     }
 
 
