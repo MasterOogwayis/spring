@@ -1,11 +1,10 @@
-package com.zsw.proxy;
+package com.zsw.demo;
 
+import com.zsw.proxy.JdkProxy;
 import lombok.Data;
 import lombok.SneakyThrows;
 
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
 
 /**
  * @author ZhangShaowei on 2020/5/26 14:14
