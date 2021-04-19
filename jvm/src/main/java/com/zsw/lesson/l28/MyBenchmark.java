@@ -1,27 +1,51 @@
-package com.test;
+package com.zsw.lesson.l28;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Level;
 import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
+import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author ZhangShaowei on 2020/4/8 14:17
+ * fork 新的虚拟机排除其他影响
+ * BenchmarkMode 指标
+ * State 测试类的状态。Benchmark-整个虚拟机状态，Thread-线程私有，Group-线程组私有
+ * Warmup 预热
+ * Measurement 正式测试，参数和 Warmup 相同
+ *
+ * @author ZhangShaowei on 2021/4/16 15:01
  */
-@BenchmarkMode(Mode.AverageTime)
-@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@Fork(5)
 @State(Scope.Thread)
-@Fork(2)
-@Warmup(iterations = 2, time = 5)
-@Measurement(iterations = 10, time = 5)
-public class BenchmarkTests {
+@BenchmarkMode(Mode.Throughput)
+@OutputTimeUnit(TimeUnit.MILLISECONDS)
+@Warmup(iterations = 2, time = 100, timeUnit = TimeUnit.MILLISECONDS, batchSize = 10)
+@Measurement(iterations = 10, time = 5, timeUnit = TimeUnit.MILLISECONDS)
+public class MyBenchmark {
+
+    public MyBenchmark() {
+        System.out.println("--------------------------------------------------------");
+        System.err.println(this);
+    }
+
+    @Setup(Level.Trial)
+    public void init() {
+        System.out.println("init ......");
+    }
+
+    @Benchmark
+    public void testMethod() {
+        new Exception();
+    }
+
 
 //    ConfigurableApplicationContext context;
 
@@ -29,15 +53,16 @@ public class BenchmarkTests {
 //    public void init() {
 //        context = SpringApplication.run(TestApplication.class);
 //    }
+//    @Setup(Level.Trial)
+//    public void init() {
+//        context = SpringApplication.run(GatewayApplication.class);
+//        authenticationService = context.getBean(AuthenticationService.class);
+//    }
 
     public void shutdown() {
 
     }
 
-    @Benchmark
-    public void test1() {
-
-    }
     //    public static void main(String[] args) throws RunnerException {
 //        Options options = new OptionsBuilder()
 //                .include(BenchmarkTests.class.getSimpleName())
@@ -54,11 +79,6 @@ public class BenchmarkTests {
 //    AuthenticationService authenticationService;
 //
 //
-//    @Setup(Level.Trial)
-//    public void init() {
-//        context = SpringApplication.run(GatewayApplication.class);
-//        authenticationService = context.getBean(AuthenticationService.class);
-//    }
 //
 //
 //    @Param({"ROLE_SUPER_ADMIN",
