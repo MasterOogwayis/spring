@@ -19,17 +19,17 @@ public class BatchExecutor<T extends Serializable> {
     /**
      *
      */
-    private Collection<T> targets;
+    private final Collection<T> targets;
 
     /**
      *
      */
-    private Consumer<T> consumer;
+    private final Consumer<T> consumer;
 
     /**
      *
      */
-    private Executor executor;
+    private final Executor executor;
 
     /**
      * 执行批量任务，所有任务执行完以后再返回

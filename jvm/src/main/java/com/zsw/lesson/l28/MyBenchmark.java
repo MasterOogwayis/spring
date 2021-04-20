@@ -10,16 +10,21 @@ import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * fork 新的虚拟机排除其他影响
+ * fork 允许开发人员指定所要 Fork 出的 Java 虚拟机的数目。新的虚拟机排除其他影响
  * BenchmarkMode 指标
- * State 测试类的状态。Benchmark-整个虚拟机状态，Thread-线程私有，Group-线程组私有
- * Warmup 预热
+ * State 允许配置测试程序的状态。
+ *       测试前对程序状态的初始化以及测试后对程序状态的恢复或者校验可分别通过@Setup和@TearDown来实现。
+ *       Benchmark-整个虚拟机状态，Thread-线程私有，Group-线程组私有
+ * Warmup 允许配置预热迭代或者测试迭代的数目，每个迭代的时间以及每个操作包含多少次对测试方法的调用。
  * Measurement 正式测试，参数和 Warmup 相同
+ * CompilerControl 及时编译，控制方法内联
  *
  * @author ZhangShaowei on 2021/4/16 15:01
  */
@@ -28,24 +33,29 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 2, time = 100, timeUnit = TimeUnit.MILLISECONDS, batchSize = 10)
-@Measurement(iterations = 10, time = 5, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 10, time = 5, timeUnit = TimeUnit.SECONDS)
 public class MyBenchmark {
-
-    public MyBenchmark() {
-        System.out.println("--------------------------------------------------------");
-        System.err.println(this);
-    }
 
     @Setup(Level.Trial)
     public void init() {
-        System.out.println("init ......");
+        System.out.println("----------------------------------------- init ......");
+    }
+
+    @TearDown
+    public void shutdown() {
+        System.err.println("----------------------------------------- shutdown ......");
     }
 
     @Benchmark
-    public void testMethod() {
-        new Exception();
+    public void testMethod(MyStateBenchmark stateBenchmark, Blackhole bh) {
+        new Exception(stateBenchmark.message);
+        bh.consume(stateBenchmark);
     }
 
+    @State(Scope.Benchmark)
+    public static class MyStateBenchmark {
+        String message = "test";
+    }
 
 //    ConfigurableApplicationContext context;
 
@@ -58,10 +68,6 @@ public class MyBenchmark {
 //        context = SpringApplication.run(GatewayApplication.class);
 //        authenticationService = context.getBean(AuthenticationService.class);
 //    }
-
-    public void shutdown() {
-
-    }
 
     //    public static void main(String[] args) throws RunnerException {
 //        Options options = new OptionsBuilder()
