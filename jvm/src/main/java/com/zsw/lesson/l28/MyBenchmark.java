@@ -29,11 +29,11 @@ import java.util.concurrent.TimeUnit;
  * @author ZhangShaowei on 2021/4/16 15:01
  */
 @Fork(5)
-@State(Scope.Thread)
+@State(Scope.Benchmark)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 2, time = 100, timeUnit = TimeUnit.MILLISECONDS, batchSize = 10)
-@Measurement(iterations = 10, time = 5, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 5, time = 1000, timeUnit = TimeUnit.MILLISECONDS, batchSize = 10)
+@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 public class MyBenchmark {
 
     @Setup(Level.Trial)
