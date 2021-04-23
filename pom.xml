@@ -41,6 +41,7 @@
         <module>spring-fun</module>
         <module>spring-cloud-alibaba/api-server</module>
         <module>jvm</module>
+        <module>thinking-in-spring</module>
     </modules>
 
     <!-- 打包依赖的包 -->
