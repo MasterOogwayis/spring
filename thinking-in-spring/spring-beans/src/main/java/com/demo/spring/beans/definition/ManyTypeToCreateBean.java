@@ -7,7 +7,10 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
+import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -16,6 +19,8 @@ import java.util.Map;
  * 2. @Bean
  * 3. BeanDefinition
  * 4. applicationContext.registerBean
+ * 5. @import
+ * 6. xml 方式这里就不举例了
  *
  * @author ZhangShaowei on 2021/4/26 16:44
  */
@@ -42,6 +47,10 @@ public class ManyTypeToCreateBean {
             log.info("defaultUser BeanDefinition = {}", bd);
         });
 
+        // 5.
+        applicationContext.register(ImportConfig.class);
+
+
         // refresh
         applicationContext.refresh();
 
@@ -50,7 +59,7 @@ public class ManyTypeToCreateBean {
             log.info("name = {}, value = {}", k, v);
         });
 
-
+        log.info("alias = {}", Arrays.toString(applicationContext.getAliases("user")));
         // close
         applicationContext.close();
     }
@@ -72,7 +81,7 @@ public class ManyTypeToCreateBean {
 
     public static class Config {
 
-        @Bean
+        @Bean({"user1", "user2", "user3", "user4"})
         public User configUser() {
             User user = new User();
             user.setId(Long.MAX_VALUE);
@@ -80,6 +89,11 @@ public class ManyTypeToCreateBean {
             user.setAddress("Mars");
             return user;
         }
+
+    }
+
+    @Import(User.class)
+    public static class ImportConfig{
 
     }
 
