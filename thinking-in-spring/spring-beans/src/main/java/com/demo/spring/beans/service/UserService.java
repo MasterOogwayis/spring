@@ -1,4 +1,4 @@
-package com.demo.spring.beans.domain;
+package com.demo.spring.beans.service;
 
 import lombok.Getter;
 import lombok.Setter;

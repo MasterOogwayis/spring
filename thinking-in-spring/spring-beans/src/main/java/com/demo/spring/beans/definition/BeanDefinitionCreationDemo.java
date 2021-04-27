@@ -1,6 +1,7 @@
 package com.demo.spring.beans.definition;
 
-import com.demo.spring.beans.domain.UserService;
+import com.demo.spring.beans.service.Customer;
+import com.demo.spring.beans.service.UserService;
 import com.demo.spring.ioc.overview.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -19,7 +20,25 @@ import java.util.concurrent.Future;
 public class BeanDefinitionCreationDemo {
 
     public static void main(String[] args) {
-        testBeanDefinition();
+        testFactoryMethod();
+//        testBeanDefinition();
+    }
+
+
+    public static void testFactoryMethod() {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition(Customer.class)
+                .setFactoryMethod("getInstance");
+        BeanDefinition beanDefinition = builder.getBeanDefinition();
+        applicationContext.registerBeanDefinition("customer", beanDefinition);
+        applicationContext.refresh();
+
+        // error
+        Customer customer = applicationContext.getBean(Customer.class);
+
+        log.info("customer = {}", customer);
+
+        applicationContext.close();
     }
 
 
