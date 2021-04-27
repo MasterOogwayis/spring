@@ -1,14 +1,12 @@
 package com.demo.spring.beans.definition;
 
+import com.demo.spring.beans.config.UserCreatorConfig;
 import com.demo.spring.beans.service.TUser;
-import com.demo.spring.ioc.overview.domain.SuperUser;
 import com.demo.spring.ioc.overview.domain.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 import java.util.Arrays;
@@ -33,7 +31,7 @@ public class ManyTypeToCreateBean {
         // 1.
         applicationContext.scan(TUser.class.getPackageName());
         // 2.
-        applicationContext.register(ManyTypeToCreateBean.Config.class);
+        applicationContext.register(UserCreatorConfig.class);
         // 3.
         useBeanDefinition(applicationContext);
         // 4.
@@ -84,19 +82,6 @@ public class ManyTypeToCreateBean {
         applicationContext.registerBeanDefinition("user", beanDefinition);
     }
 
-
-    public static class Config {
-
-        @Bean({"user1", "user2", "user3", "user4"})
-        public User configUser() {
-            User user = new User();
-            user.setId(Long.MAX_VALUE);
-            user.setName("This is a test.");
-            user.setAddress("Mars");
-            return user;
-        }
-
-    }
 
     @Import(User.class)
     public static class ImportConfig {

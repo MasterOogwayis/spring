@@ -16,7 +16,7 @@ public class Customer implements Serializable {
     private String phome;
 
 
-    public Customer getInstance() {
+    public static Customer getInstance() {
         Customer customer = new Customer();
         customer.setName("客户");
         customer.setName("110");

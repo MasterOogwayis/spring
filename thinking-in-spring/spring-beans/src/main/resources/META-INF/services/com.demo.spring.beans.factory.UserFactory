@@ -1,0 +1,2 @@
+com.demo.spring.beans.factory.DefaultUserFactory
+com.demo.spring.beans.factory.CustomUserFactory
