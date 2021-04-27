@@ -1,15 +1,16 @@
 package com.demo.spring.beans.definition;
 
 import com.demo.spring.beans.service.TUser;
+import com.demo.spring.ioc.overview.domain.SuperUser;
 import com.demo.spring.ioc.overview.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -50,11 +51,16 @@ public class ManyTypeToCreateBean {
         // 5.
         applicationContext.register(ImportConfig.class);
 
+//        AutowireCapableBeanFactory beanFactory = applicationContext.getBeanFactory();
+//        User bean = beanFactory.createBean(SuperUser.class);
+//        SuperUser superUser = beanFactory.getBean(SuperUser.class);
+
 
         // refresh
         applicationContext.refresh();
 
         Map<String, User> users = applicationContext.getBeansOfType(User.class);
+        // users.size() = 5
         users.forEach((k, v) -> {
             log.info("name = {}, value = {}", k, v);
         });
@@ -93,7 +99,7 @@ public class ManyTypeToCreateBean {
     }
 
     @Import(User.class)
-    public static class ImportConfig{
+    public static class ImportConfig {
 
     }
 
