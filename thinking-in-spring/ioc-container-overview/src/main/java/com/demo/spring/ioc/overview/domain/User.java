@@ -30,7 +30,7 @@ public class User {
 
     @PostConstruct
     public void init(){
-        System.out.println("init ...");
+        System.out.println("@PostConstruct init ...");
     }
 
 }

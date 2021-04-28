@@ -17,6 +17,11 @@
             <artifactId>spring-beans</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-commons</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
