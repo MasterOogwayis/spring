@@ -35,7 +35,6 @@ public class GenericLookupDemo {
 
         applicationContext.close();
 
-
     }
 
 

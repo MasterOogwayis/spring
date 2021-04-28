@@ -57,3 +57,5 @@ spring:
       max-file-size: 10MB
       max-request-size: 50MB
 ```
+
+AnnotationConfigUtils
