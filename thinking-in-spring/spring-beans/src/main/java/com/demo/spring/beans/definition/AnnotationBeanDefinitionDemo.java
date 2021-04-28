@@ -1,10 +1,10 @@
 package com.demo.spring.beans.definition;
 
+import com.demo.spring.beans.config.UserCreatorConfig;
 import com.demo.spring.ioc.overview.domain.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import java.util.stream.Stream;
 
@@ -16,7 +16,7 @@ public class AnnotationBeanDefinitionDemo {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-        applicationContext.register(Config.class);
+        applicationContext.register(UserCreatorConfig.class);
 
 
         log.info("BeanDefinitionCount = {}", applicationContext.getBeanDefinitionCount());
@@ -24,11 +24,8 @@ public class AnnotationBeanDefinitionDemo {
         // refresh
         applicationContext.refresh();
 
-        Stream.of(applicationContext.getBeanDefinitionNames())
-                .forEach(System.out::println);
-
-        BeanDefinition beanDefinition = applicationContext.getBeanDefinition("user");
-        log.info("user BeanDefinition = {}", beanDefinition);
+//        BeanDefinition beanDefinition = applicationContext.getBeanDefinition("user");
+//        log.info("user BeanDefinition = {}", beanDefinition);
 
         applicationContext.registerBean("defaultUser", User.class, () -> {
             User user = new User();
@@ -45,23 +42,8 @@ public class AnnotationBeanDefinitionDemo {
         log.info("user = {}", user);
 
 
-
         // close
         applicationContext.close();
-
-    }
-
-
-    public static class Config {
-
-        @Bean
-        public User user() {
-            User user = new User();
-            user.setId(Long.MAX_VALUE);
-            user.setName("This is a test.");
-            user.setAddress("Mars");
-            return user;
-        }
 
     }
 
