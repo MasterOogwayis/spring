@@ -33,6 +33,12 @@ public class GenericLookupDemo {
         });
 
 
+        handleException(() -> {
+            ObjectHolder bean = applicationContext.getBean(ObjectHolder.class);
+            System.out.println(bean);
+        });
+
+
         applicationContext.close();
 
     }
