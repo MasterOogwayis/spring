@@ -4,6 +4,7 @@ import com.demo.spring.dependency.domain.UserHandler;
 import com.demo.spring.ioc.overview.domain.SuperUser;
 import com.demo.spring.ioc.overview.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -15,15 +16,21 @@ import org.springframework.context.annotation.Bean;
 @Slf4j
 public class InjectionDemo {
 
+    @Autowired
+    private User user;
+
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(InjectionDemo.class);
 
-
         applicationContext.refresh();
 
+        InjectionDemo injectionDemo = applicationContext.getBean(InjectionDemo.class);
 
-        injectByName(applicationContext);
+        log.info("user: {}", injectionDemo.user);
+
+
+//        injectByName(applicationContext);
 //        injectByType(applicationContext);
 
 
