@@ -76,11 +76,11 @@
 
 
 ## 2. Redis ##
-* 1. 连接池 会用 lettuce 替换 jedis，详见配置分支 upgrade。(jedis -> lettuce -> Redisson))。
-* 2. 修改 key 配置方式，详见 CacheConsts 及其 子类
-* 3. 多使用 spring 的缓存注解 @Cacheable @CacheEvit @CachePut @Caching 等
-* 4. 注意这个版本的 @Cacheable 默认不会忽略 null， 需要加上属性 unless="#result == null"
-* 5. redis 连接配置
+* 1.连接池 会用 lettuce 替换 jedis，详见配置分支 upgrade。(jedis -> lettuce -> Redisson))。
+* 2.修改 key 配置方式，详见 CacheConsts 及其 子类
+* 3.多使用 spring 的缓存注解 @Cacheable @CacheEvit @CachePut @Caching 等
+* 4.注意这个版本的 @Cacheable 默认不会忽略 null， 需要加上属性 unless="#result == null"
+* 5.redis 连接配置
 
 ```yaml
 spring:

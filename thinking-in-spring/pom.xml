@@ -17,6 +17,7 @@
         <module>spring-beans</module>
         <module>dependency-lookup</module>
         <module>dependency-source</module>
+        <module>dependency-injection</module>
     </modules>
 
 
