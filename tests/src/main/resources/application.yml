@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: test
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml
 feign:
   hystrix:
     enabled: true

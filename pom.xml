@@ -42,6 +42,7 @@
         <module>spring-cloud-alibaba/api-server</module>
         <module>jvm</module>
         <module>thinking-in-spring</module>
+        <module>standalone-security-app</module>
     </modules>
 
     <!-- 打包依赖的包 -->
