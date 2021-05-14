@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
@@ -13,6 +14,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 //@EnableFeignClients
 //@EnableAsync
 //@EnableDiscoveryClient
+@CrossOrigin
 @EnableCaching
 @SpringBootApplication
 public class SimpleTestsApp {
