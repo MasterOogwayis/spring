@@ -26,7 +26,7 @@ public class HelloWorldApi {
     public String world(@RequestParam("name") String name) {
         return "Hello " + name + random;
     }
-
+.
     @GetMapping("download")
     public FileSystemResource download1() {
         return new FileSystemResource(Paths.get("/data/1.txt"));
