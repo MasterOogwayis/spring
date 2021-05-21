@@ -37,12 +37,12 @@ public class ThreadLocalScope implements Scope {
 
     @Override
     public void registerDestructionCallback(String name, Runnable callback) {
-
+        // TODO
     }
 
     @Override
     public Object resolveContextualObject(String key) {
-        return null;
+        return remove(key);
     }
 
     @Override
