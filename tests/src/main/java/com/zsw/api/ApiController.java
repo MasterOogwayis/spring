@@ -4,17 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
 /**
  * @author ZhangShaowei on 2021/1/13 13:01
  */
-@RestController
-@RequestMapping("hello")
+//@RestController
+//@RequestMapping("hello")
 public class ApiController {
 
 //    @Autowired

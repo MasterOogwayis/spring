@@ -1,10 +1,10 @@
 package com.zsw;
 
-import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 //@EnableFeignClients
 //@EnableAsync
 //@EnableDiscoveryClient
-@CrossOrigin
 @EnableCaching
 @SpringBootApplication
 public class SimpleTestsApp {
@@ -25,7 +24,11 @@ public class SimpleTestsApp {
      * @param args args
      */
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
+        new SpringApplicationBuilder(SimpleTestsApp.class)
+                .applicationStartup(new BufferingApplicationStartup(1024 * 20))
+                .web(WebApplicationType.SERVLET)
+                .run(args);
+//        ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
 //        ApiController bean = applicationContext.getBean(ApiController.class);
 //        System.err.println(bean.hello("123"));
 //        System.out.println(bean.t(new Customer()));
