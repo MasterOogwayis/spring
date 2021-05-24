@@ -1,15 +1,20 @@
 package com.zsw;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
+import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.Comparator;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
  */
-//@Slf4j
+@Slf4j
 //@EnableHystrix
 //@EnableFeignClients
 //@EnableAsync
@@ -24,10 +29,28 @@ public class SimpleTestsApp {
      * @param args args
      */
     public static void main(String[] args) {
-        new SpringApplicationBuilder(SimpleTestsApp.class)
-                .applicationStartup(new BufferingApplicationStartup(1024 * 20))
+        BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(1024 * 20);
+        ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(SimpleTestsApp.class)
+                .applicationStartup(applicationStartup)
                 .web(WebApplicationType.SERVLET)
                 .run(args);
+
+        StartupTimeline startupTimeline = applicationStartup.drainBufferedTimeline();
+        startupTimeline.getEvents()
+                .stream()
+                .sorted(Comparator.comparing(StartupTimeline.TimelineEvent::getDuration).reversed())
+                .limit(50)
+                .forEach(event -> {
+                    log.info("耗时: {}, startup name: {}",
+                            event.getDuration(), event.getStartupStep().getName());
+                    if (event.getStartupStep().getTags().iterator().hasNext()) {
+                        event.getStartupStep().getTags().forEach(t -> {
+                            log.info("key={}, value={}", t.getKey(), t.getValue());
+                        });
+                    }
+                });
+
+
 //        ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
 //        ApiController bean = applicationContext.getBean(ApiController.class);
 //        System.err.println(bean.hello("123"));
