@@ -59,3 +59,6 @@ spring:
 ```
 
 AnnotationConfigUtils
+
+
+spring-petclinic-jpa

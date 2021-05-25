@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.context.metrics.buffering.StartupTimeline;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Comparator;
@@ -19,8 +18,8 @@ import java.util.Comparator;
 //@EnableFeignClients
 //@EnableAsync
 //@EnableDiscoveryClient
-@EnableCaching
-@SpringBootApplication
+//@EnableCaching
+@SpringBootApplication(proxyBeanMethods = false)
 public class SimpleTestsApp {
 
     /**
