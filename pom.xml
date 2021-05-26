@@ -205,6 +205,13 @@
                 <version>1.6.2</version>
             </dependency>
 
+            <!-- native -->
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>spring-native</artifactId>
+                <version>0.9.3-SNAPSHOT</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -316,6 +323,11 @@
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>3.6.0.1398</version>
                 </plugin>
+                <!--<plugin>
+                    <groupId>org.graalvm.nativeimage</groupId>
+                    <artifactId>native-image-maven-plugin</artifactId>
+                    <version>21.0.0.2</version>
+                </plugin>-->
             </plugins>
         </pluginManagement>
     </build>
@@ -379,4 +391,41 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+
+   <!-- <profiles>
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.nativeimage</groupId>
+                        <artifactId>native-image-maven-plugin</artifactId>
+                        <version>21.1.0</version>
+                        <configuration>
+                            <mainClass>com.demo.GraalvmApp</mainClass>
+                            <skip>false</skip>
+                            <imageName>${project.artifactId}</imageName>
+                            <buildArgs>
+                                &#45;&#45;no-fallback
+                                &#45;&#45;allow-incomplete-classpath
+                                -H:+ReportExceptionStackTraces
+                                -J-Xmx8G
+                            </buildArgs>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>native-image</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>-->
+
 </project>
