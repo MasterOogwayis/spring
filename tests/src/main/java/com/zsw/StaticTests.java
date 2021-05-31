@@ -19,6 +19,7 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -34,8 +35,29 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        System.out.println("yyyy-MM-dd".substring(0, 4));
+        Thread thread = new Thread(() -> {
+            while (true) {
+                System.out.println(random());
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+
+        while (true) {
+            System.out.println(random());
+            TimeUnit.SECONDS.sleep(2);
+        }
     }
+
+    public static Integer random() {
+        return ThreadLocalRandom.current().nextInt();
+    }
+
 
     public int maximumProduct(int[] nums) {
         Arrays.sort(nums);
