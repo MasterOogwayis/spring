@@ -48,10 +48,13 @@ public class StaticTests {
 
         thread.start();
 
-        while (true) {
-            System.out.println(random());
-            TimeUnit.SECONDS.sleep(2);
+        long timer = System.currentTimeMillis();
+        long day = TimeUnit.DAYS.toMillis(10);
+        while (System.currentTimeMillis() - timer < day) {
+            new String("123");
         }
+        thread.interrupt();
+        System.out.println("exit ...");
     }
 
     public static Integer random() {

@@ -1,5 +1,6 @@
 package com.zsw.lesson.l28;
 
+import lombok.SneakyThrows;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -13,6 +14,10 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Warmup;
 import org.openjdk.jmh.infra.Blackhole;
+import org.openjdk.jmh.runner.Runner;
+import org.openjdk.jmh.runner.options.Options;
+import org.openjdk.jmh.runner.options.OptionsBuilder;
+import org.openjdk.jmh.runner.options.TimeValue;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,21 +25,38 @@ import java.util.concurrent.TimeUnit;
  * fork 允许开发人员指定所要 Fork 出的 Java 虚拟机的数目。新的虚拟机排除其他影响
  * BenchmarkMode 指标
  * State 允许配置测试程序的状态。
- *       测试前对程序状态的初始化以及测试后对程序状态的恢复或者校验可分别通过@Setup和@TearDown来实现。
- *       Benchmark-整个虚拟机状态，Thread-线程私有，Group-线程组私有
+ * 测试前对程序状态的初始化以及测试后对程序状态的恢复或者校验可分别通过@Setup和@TearDown来实现。
+ * Benchmark-整个虚拟机状态，Thread-线程私有，Group-线程组私有
  * Warmup 允许配置预热迭代或者测试迭代的数目，每个迭代的时间以及每个操作包含多少次对测试方法的调用。
  * Measurement 正式测试，参数和 Warmup 相同
  * CompilerControl 及时编译，控制方法内联
  *
  * @author ZhangShaowei on 2021/4/16 15:01
  */
-@Fork(5)
+@Fork(0)
+//@Fork(jvmArgs = "-Djava.lang.invoke.stringConcat=BC_SB", value = 0)
 @State(Scope.Benchmark)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 5, time = 1000, timeUnit = TimeUnit.MILLISECONDS, batchSize = 10)
+@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS, batchSize = 10)
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 public class MyBenchmark {
+
+
+    @SneakyThrows
+    public static void main(String[] args) {
+        System.out.println(123);
+//        Options opt = new OptionsBuilder()
+//                .include(MyBenchmark.class.getSimpleName())
+////                .include(MyBenchmark.class.getSimpleName()+".*testMethod")
+//                .warmupIterations(5)
+//                .warmupTime(TimeValue.seconds(2))
+//                .measurementIterations(5)
+//                .measurementTime(TimeValue.seconds(2))
+//                .forks(0)
+//                .build();
+//        new Runner(opt).run();
+    }
 
     @Setup(Level.Trial)
     public void init() {
