@@ -1,9 +1,14 @@
 package com.zsw;
 
+import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.caffeine.CaffeineCache;
+import org.springframework.cache.caffeine.CaffeineCacheManager;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
@@ -12,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -34,27 +40,14 @@ public class StaticTests {
 
     @SneakyThrows
     public static void main(String[] args) {
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
+        cacheManager.registerCustomCache("test", Caffeine.newBuilder()
+                .expireAfterWrite(1000, TimeUnit.SECONDS)
+                .build());
+        Cache cache = cacheManager.getCache("test");
+        Integer count = cache.get("name", () -> 0);
+        System.out.println(count);
 
-        Thread thread = new Thread(() -> {
-            while (true) {
-                System.out.println(random());
-                try {
-                    TimeUnit.SECONDS.sleep(5);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        thread.start();
-
-        long timer = System.currentTimeMillis();
-        long day = TimeUnit.DAYS.toMillis(10);
-        while (System.currentTimeMillis() - timer < day) {
-            new String("123");
-        }
-        thread.interrupt();
-        System.out.println("exit ...");
     }
 
     public static Integer random() {
