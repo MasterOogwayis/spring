@@ -3,6 +3,7 @@ package com.zsw.lesson.l28;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ZhangShaowei on 2021/6/1 14:27
@@ -14,7 +15,9 @@ public class HotCode {
     private static Object array;
 
     public static void main(String[] args) {
-        while (true) {
+        long timer = System.currentTimeMillis();
+        long deadline = TimeUnit.SECONDS.toMillis(10);
+        while (System.currentTimeMillis() - timer <= deadline) {
             hotMethod1();
             hotMethod2();
             hotMethod3();
