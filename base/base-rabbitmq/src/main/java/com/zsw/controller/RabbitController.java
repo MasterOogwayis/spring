@@ -1,4 +1,4 @@
-package com.zsw.controller;
+package com.zsw.business;
 
 import com.zsw.rabbit.producer.RabbitSender;
 import org.springframework.beans.factory.annotation.Autowired;

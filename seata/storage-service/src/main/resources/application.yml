@@ -1,0 +1,35 @@
+server:
+  port: 18083
+
+
+spring:
+  application:
+    name: storage-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.1.12:3306/st_db?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 50
+      #      max-lifetime: 30000
+      idle-timeout: 600000
+      connection-timeout: 30000
+      register-mbeans: true
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://192.168.1.12:7101/eureka/
+logging:
+  level:
+    io.seata: DEBUG

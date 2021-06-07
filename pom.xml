@@ -43,6 +43,10 @@
         <module>jvm</module>
         <module>thinking-in-spring</module>
         <module>standalone-security-app</module>
+        <module>seata</module>
+        <module>seata/order-service</module>
+        <module>seata/storage-service</module>
+        <module>seata/account-service</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -52,18 +56,18 @@
         <java.version>14</java.version>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
-<!--        <spring-boot.version>2.3.9.RELEASE</spring-boot.version>-->
-        <spring-boot.version>2.4.6</spring-boot.version>
-<!--        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>-->
-        <spring-cloud.version>2020.0.2</spring-cloud.version>
+        <spring-boot.version>2.3.9.RELEASE</spring-boot.version>
+<!--        <spring-boot.version>2.4.6</spring-boot.version>-->
+        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+<!--        <spring-cloud.version>2020.0.2</spring-cloud.version>-->
         <spring-cloud-security.version>2020.0.1-SNAPSHOT</spring-cloud-security.version>
         <spring-cloud-function.version>3.1.0-SNAPSHOT</spring-cloud-function.version>
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mybatis.plus.version>3.3.2</mybatis.plus.version>
+        <mybatis.plus.version>3.4.3</mybatis.plus.version>
         <mybatis.version>1.4.0</mybatis.version>
-        <pagehelper.boot.version>1.2.13</pagehelper.boot.version>
+        <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
         <elastic.version>7.9.1</elastic.version>
         <elastic-apm.version>1.8.0</elastic-apm.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
@@ -118,6 +122,17 @@
                 <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-seata</artifactId>
+                <version>2.1.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>1.4.2</version>
             </dependency>
 
             <!--<dependency>
