@@ -19,6 +19,7 @@
         <module>dependency-source</module>
         <module>dependency-injection</module>
         <module>bean-scope</module>
+        <module>other-tests</module>
     </modules>
 
 
