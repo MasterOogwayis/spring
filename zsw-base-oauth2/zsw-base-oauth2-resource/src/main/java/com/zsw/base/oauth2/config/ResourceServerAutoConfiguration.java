@@ -1,5 +1,7 @@
 package com.zsw.base.oauth2.config;
 
+import com.zsw.base.filter.ResourceAccessDecisionManager;
+import com.zsw.base.filter.ResourceFilterInvocationSecurityMetadataSource;
 import com.zsw.base.oauth2.ResourceServerProperties;
 import com.zsw.base.oauth2.SecurityProperties;
 import com.zsw.base.oauth2.support.CachingUserDetailsServiceConfiguration;
@@ -47,6 +49,12 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
 
+    @Autowired
+    private ResourceAccessDecisionManager accessDecisionManager;
+
+    @Autowired
+    private ResourceFilterInvocationSecurityMetadataSource securityMetadataSource;
+
 
     @Bean
     public TokenStore tokenStore() {
@@ -60,6 +68,15 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
                 .map(list -> list.toArray(new String[]{}))
                 .orElseGet(() -> new String[]{});
         http.authorizeRequests()
+                // 详细的角色资源权限控制
+//                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+//                    @Override
+//                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+//                        object.setAccessDecisionManager(accessDecisionManager);
+//                        object.setSecurityMetadataSource(securityMetadataSource);
+//                        return object;
+//                    }
+//                })
                 .antMatchers(ignored).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable();
