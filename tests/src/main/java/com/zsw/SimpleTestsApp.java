@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author ZhangShaowei on 2020/12/29 15:04
@@ -17,6 +18,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication(proxyBeanMethods = false)
 public class SimpleTestsApp {
 
+
     /**
      * start server
      *
@@ -24,6 +26,10 @@ public class SimpleTestsApp {
      */
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(SimpleTestsApp.class, args);
+        PasswordEncoder passwordEncoder = applicationContext.getBean(PasswordEncoder.class);
+
+
+        System.out.println(passwordEncoder);
 //        ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder()
 //                .sources(SimpleTestsApp.class)
 //                .web(WebApplicationType.SERVLET)
