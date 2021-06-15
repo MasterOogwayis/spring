@@ -1,12 +1,7 @@
 package com.zsw.base.filter;
 
-import com.anze.base.persistence.repository.MenuRepository;
-import com.anze.base.pojo.dto.role.SourceDto;
-import com.anze.base.security.listener.PermissionsChangedEvent;
-import com.anze.base.security.listener.PermissionsChangedListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -16,16 +11,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
-import javax.persistence.Tuple;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static com.anze.base.utils.MethodParser.parser;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
 /**
@@ -41,15 +33,10 @@ import static java.util.stream.Collectors.toList;
 @Transactional(readOnly = true)
 @Component
 public class ResourceFilterInvocationSecurityMetadataSource
-        implements FilterInvocationSecurityMetadataSource, InitializingBean, PermissionsChangedListener {
+        implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
     public final PathMatcher pathMatcher = new AntPathMatcher();
 
-    /**
-     *
-     */
-    @Autowired
-    private MenuRepository menuRepository;
 
     /**
      * FIXME 使用上下文缓存以便激活分布式权限管理
@@ -107,35 +94,32 @@ public class ResourceFilterInvocationSecurityMetadataSource
      */
     public synchronized void reload() {
         long timer = System.currentTimeMillis();
-        log.debug("authority reload begin ...");
-        List<Tuple> tuples = menuRepository.loadRolesAndSources();
-        // method -> url -> roles
-        Map<String, Map<String, List<String>>> refreshAble = tuples
-                .stream()
-                .map(tuple -> SourceDto.builder()
-                        .method(parser(tuple.get("method", Number.class).intValue()))
-                        .uri(tuple.get("targetUrl", String.class))
-                        .role(tuple.get("mark", String.class))
-                        .build()
-                )
-                .collect(
-                        groupingBy(
-                                SourceDto::getMethod,
-                                groupingBy(
-                                        SourceDto::getUri,
-                                        mapping(SourceDto::getRole, toList())
-                                ))
-                );
+//        log.debug("authority reload begin ...");
+//        List<Tuple> tuples = menuRepository.loadRolesAndSources();
+//        // method -> url -> roles
+//        Map<String, Map<String, List<String>>> refreshAble = tuples
+//                .stream()
+//                .map(tuple -> SourceDto.builder()
+//                        .method(parser(tuple.get("method", Number.class).intValue()))
+//                        .uri(tuple.get("targetUrl", String.class))
+//                        .role(tuple.get("mark", String.class))
+//                        .build()
+//                )
+//                .collect(
+//                        groupingBy(
+//                                SourceDto::getMethod,
+//                                groupingBy(
+//                                        SourceDto::getUri,
+//                                        mapping(SourceDto::getRole, toList())
+//                                ))
+//                );
+        HashMap<String, Map<String, List<String>>> map = new HashMap<>();
+        map.put("GET", Collections.singletonMap("/**", Collections.singletonList("SUPER_ADMIN")));
+        map.put("POST", Collections.singletonMap("/**", Collections.singletonList("SUPER_ADMIN")));
+        map.put("PUT", Collections.singletonMap("/**", Collections.singletonList("SUPER_ADMIN")));
+        map.put("DELETE", Collections.singletonMap("/**", Collections.singletonList("SUPER_ADMIN")));
         RESOURCE_PERMISSIONS.clear();
-        RESOURCE_PERMISSIONS.putAll(refreshAble);
+        RESOURCE_PERMISSIONS.putAll(map);
         log.debug("authority reload success, {}ms", System.currentTimeMillis() - timer);
-    }
-
-    /**
-     * @param event PermissionsChangedEvent
-     */
-    @Override
-    public void onApplicationEvent(PermissionsChangedEvent event) {
-        this.reload();
     }
 }
