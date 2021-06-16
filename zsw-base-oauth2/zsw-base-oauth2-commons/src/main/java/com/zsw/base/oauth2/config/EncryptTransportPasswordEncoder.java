@@ -15,7 +15,7 @@ public class EncryptTransportPasswordEncoder implements PasswordEncoder {
 
     private final PasswordEncoder target;
 
-    private final Function<CharSequence, CharSequence> decoder;
+    private final Function<CharSequence, String> decoder;
 
     @Override
     public String encode(CharSequence rawPassword) {
