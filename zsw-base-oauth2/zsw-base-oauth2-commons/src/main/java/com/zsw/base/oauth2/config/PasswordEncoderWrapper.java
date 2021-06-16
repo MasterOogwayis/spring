@@ -1,4 +1,4 @@
-package com.zsw.config;
+package com.zsw.base.oauth2.config;
 
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
