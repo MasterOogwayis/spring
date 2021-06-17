@@ -28,7 +28,7 @@
 
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-seata</artifactId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
         </dependency>
         <dependency>
             <groupId>io.seata</groupId>
@@ -41,10 +41,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
         </dependency>
 
         <dependency>

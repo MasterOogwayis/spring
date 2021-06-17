@@ -44,6 +44,7 @@
         <module>thinking-in-spring</module>
         <module>standalone-security-app</module>
         <module>seata</module>
+        <module>seata/seata-commons</module>
     </modules>
 
     <!-- 打包依赖的包 -->
