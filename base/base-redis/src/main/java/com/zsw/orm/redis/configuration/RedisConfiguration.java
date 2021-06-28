@@ -25,6 +25,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -144,7 +145,8 @@ public class RedisConfiguration {
                                 Collectors.toMap(
                                         Map.Entry::getKey,
                                         entity -> defaultCacheConfig.entryTtl(Duration.ofSeconds(entity.getValue())),
-                                        (k1, k2) -> k1
+                                        (k1, k2) -> k1,
+                                        ConcurrentHashMap::new
                                 ),
                                 // 最终都会执行到这一步 return this
                                 managerBuilder::withInitialCacheConfigurations
