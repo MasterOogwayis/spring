@@ -1,18 +1,9 @@
 package com.zsw;
 
 import com.alibaba.csp.sentinel.annotation.aspectj.SentinelResourceAspect;
-import com.alibaba.csp.sentinel.config.SentinelConfig;
-import com.alibaba.csp.sentinel.slots.block.RuleConstant;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.alibaba.csp.sentinel.transport.config.TransportConfig.CONSOLE_SERVER;
 
 /**
  * @author ZhangShaowei on 2020/9/18 11:04
@@ -53,15 +44,15 @@ public class SentinelApiTests {
         return new SentinelResourceAspect();
     }
 
-    private static void initFlowRules() {
-        List<FlowRule> rules = new ArrayList<>();
-        FlowRule rule = new FlowRule();
-        rule.setResource("hello");
-        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        // Set limit QPS to 20.
-        rule.setCount(10);
-        rules.add(rule);
-        FlowRuleManager.loadRules(rules);
-    }
+//    private static void initFlowRules() {
+//        List<FlowRule> rules = new ArrayList<>();
+//        FlowRule rule = new FlowRule();
+//        rule.setResource("hello");
+//        rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+//        // Set limit QPS to 20.
+//        rule.setCount(10);
+//        rules.add(rule);
+//        FlowRuleManager.loadRules(rules);
+//    }
 
 }
