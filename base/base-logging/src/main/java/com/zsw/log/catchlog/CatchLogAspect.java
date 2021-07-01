@@ -49,10 +49,10 @@ public class CatchLogAspect {
             log.debug("start processing: {}", joinPoint.getSignature().toShortString());
             Object[] args = joinPoint.getArgs();
             for (Object arg : args) {
-                log.debug("REQUEST : " + JacksonUtils.toJson(arg));
+                log.debug("request : " + JacksonUtils.toJson(arg));
             }
         } catch (Exception e) {
-            log.error("logReqeust error", e);
+            log.error("logRequest error", e);
         }
 
     }

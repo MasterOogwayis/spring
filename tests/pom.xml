@@ -38,14 +38,20 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-logging</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>-->
+
+        <!--<dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,7 +84,7 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
@@ -87,7 +93,7 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
 </project>

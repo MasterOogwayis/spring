@@ -1,11 +1,11 @@
 server:
   port: 8080
-spring:
-  application:
-    name: test
-feign:
-  hystrix:
-    enabled: true
+#spring:
+#  application:
+#    name: test
+#feign:
+#  hystrix:
+#    enabled: true
 #  datasource:
 #    url: jdbc:mysql://192.168.1.12:3306/bcpt_soa_smc_test1?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
 #    username: root
@@ -20,20 +20,20 @@ feign:
 #      idle-timeout: 600000
 #      connection-timeout: 30000
 #      register-mbeans: true
-logging:
-  level:
-    com.zsw.client.MessageClient: debug
-    com.netflix.hystrix: debug
+#logging:
+#  level:
+#    com.zsw.client.MessageClient: debug
+#    com.netflix.hystrix: debug
 
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone:  http://localhost:18080/eureka/
-  instance:
-    prefer-ip-address: true
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+#
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone:  http://localhost:18080/eureka/
+#  instance:
+#    prefer-ip-address: true
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

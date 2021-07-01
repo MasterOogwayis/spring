@@ -7,4 +7,6 @@ public interface ISayHelloService {
 
     String hello(String name);
 
+
+    Object order(String user);
 }
