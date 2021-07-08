@@ -45,6 +45,7 @@
         <module>standalone-security-app</module>
         <module>seata</module>
         <module>seata/seata-commons</module>
+        <module>session</module>
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -174,6 +175,12 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.11</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>2.8.1</version>
             </dependency>
 
 

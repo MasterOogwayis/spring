@@ -1,0 +1,19 @@
+server:
+  port: 18080
+
+
+spring:
+  session:
+    store-type: redis
+    timeout: 24H
+  #    redis:
+  #      namespace: spring:session
+  redis:
+    host: 192.168.1.12
+    port: 6379
+    password: Anf34l_Fs
+    database: 15
+    lettuce:
+      pool:
+        max-active: 2
+        max-idle: 1
