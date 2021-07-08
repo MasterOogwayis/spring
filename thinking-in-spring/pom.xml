@@ -21,6 +21,8 @@
         <module>bean-scope</module>
         <module>other-tests</module>
         <module>i18n</module>
+        <module>data-binding</module>
+        <module>validation</module>
     </modules>
 
 

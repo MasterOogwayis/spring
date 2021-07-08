@@ -45,7 +45,6 @@
         <module>standalone-security-app</module>
         <module>seata</module>
         <module>seata/seata-commons</module>
-        <module>thinking-in-spring/validation</module>
     </modules>
 
     <!-- 打包依赖的包 -->

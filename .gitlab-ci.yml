@@ -20,7 +20,7 @@ deploy:
   stage: deploy
   script:
     - mvn clean package -T 1C -DskipTests -P nexus
-    - sh /data/alt/navigation-api/kill.sh
+    - sh /data/alt/navigation-api/kill.shl
     - find alt-navigation-api/target/*.jar -maxdepth 1 -type f ! -name '*-sources.jar' -exec cp {} /data/alt/navigation-api \\;
     - sh /data/alt/navigation-api/start.sh
   tags:
