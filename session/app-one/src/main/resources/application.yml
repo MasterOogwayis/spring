@@ -1,7 +1,7 @@
 server:
   port: 18080
-  servlet:
-    context-path: /one
+#  servlet:
+#    context-path: /one
 
 
 spring:
@@ -15,6 +15,10 @@ spring:
     port: 6379
     password: Anf34l_Fs
     database: 15
+#    host: 106.15.43.157
+#    port: 26379
+#    password: Lanbbx24306
+#    database: 0
     lettuce:
       pool:
         max-active: 2

@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -39,9 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().cors()
                 .and().csrf().disable()
                 .anonymous().disable();
+//        ObjectMapper om = new ObjectMapper();
+//        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+//        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+//        http.setSharedObject(SecurityContextRepository.class, new CustomHttpSessionSecurityContextRepository(redisTemplate, om));
+
         // @formatter:on
     }
-
 
 
 }
