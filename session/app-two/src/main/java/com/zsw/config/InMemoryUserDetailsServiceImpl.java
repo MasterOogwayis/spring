@@ -20,7 +20,7 @@ public class InMemoryUserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return new User(
                 "admin",
-                "{bcrypt}$2a$10$5JIs4fZmWq1W0o41/Ir78uABbQIjJE2HxR9zq8nh4Gy3JABNjI3FS",
+                "{noop}111111",
                 Collections.singletonList(new SimpleGrantedAuthority("SUPER_ADMIN"))
         );
     }

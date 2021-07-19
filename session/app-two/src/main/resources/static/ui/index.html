@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#button").click(function(){
+  
+	$.ajax({
+		type: "GET",
+		url: "http://third.example.com:18081/user",
+//                data: JSON.stringify({'num': 1}),
+		dataType: 'json',
+		xhrFields: {
+			withCredentials: true //允许跨域带Cookie	
+		},
+		success: function(data) {
+			$("#content").val(data);
+		}
+	})
+
+  
+    
+  });
+});
+</script>
+</head>
+<body>
+	<input id="button" type="button" value="submit" />
+	</br>
+	<textarea id="content"></textarea>
+</body>
+</html>
