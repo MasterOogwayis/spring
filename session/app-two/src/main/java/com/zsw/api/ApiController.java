@@ -2,6 +2,7 @@ package com.zsw.api;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,6 +19,11 @@ public class ApiController {
 
     @GetMapping("user")
     public Object user() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    @PostMapping("user")
+    public Object getUser() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 

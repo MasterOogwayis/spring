@@ -1,20 +1,23 @@
 package com.zsw;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
 
 /**
+ * spring session data redis 序列化 RedisTemplate
+ *
  * @author ZhangShaowei on 2021/7/8 13:48
+ * @see RedisHttpSessionConfiguration#createRedisTemplate()
+ * @see RedisHttpSessionConfiguration#setDefaultRedisSerializer(RedisSerializer)
  */
-@EnableRedisHttpSession
+@EnableWebSecurity
+//@EnableRedisHttpSession
 @SpringBootApplication
 public class AppOne {
 

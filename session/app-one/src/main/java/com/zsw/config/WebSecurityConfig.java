@@ -1,10 +1,11 @@
 package com.zsw.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * @author ZhangShaowei on 2021/7/8 14:29
  */
-@EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -38,12 +38,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().cors()
                 .and().csrf().disable()
                 .anonymous().disable();
-//        ObjectMapper om = new ObjectMapper();
-//        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-//        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
-//        http.setSharedObject(SecurityContextRepository.class, new CustomHttpSessionSecurityContextRepository(redisTemplate, om));
-
         // @formatter:on
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 
