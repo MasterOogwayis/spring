@@ -4,7 +4,7 @@ server:
     session:
       cookie:
         # 所有1/2级域名
-        domain: example.com
+#        domain: example.com
         name: JSESSION
 spring:
   session:
@@ -25,3 +25,6 @@ spring:
       pool:
         max-active: 2
         max-idle: 1
+logging:
+  level:
+    org.springframework.security: debug

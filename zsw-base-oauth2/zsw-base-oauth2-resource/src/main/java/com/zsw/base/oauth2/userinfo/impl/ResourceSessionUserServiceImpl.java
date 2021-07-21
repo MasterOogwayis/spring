@@ -4,6 +4,7 @@ import com.zsw.base.oauth2.support.ClientUserDetails;
 import com.zsw.user.SessionUserService;
 import com.zsw.user.UserInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class ResourceSessionUserServiceImpl implements SessionUserService {
     @Override
     public UserInfo getUserInfo() {
-        Object authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof OAuth2Authentication) {
             OAuth2Authentication oAuth2Authentication = (OAuth2Authentication) authentication;
             UserInfo userInfo = new UserInfo();
