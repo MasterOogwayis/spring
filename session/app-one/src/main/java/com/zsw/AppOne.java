@@ -1,5 +1,6 @@
 package com.zsw;
 
+import com.zsw.serializer.ProtostuffRedisSerializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -39,11 +40,9 @@ public class AppOne {
     /**
      * @return
      */
-//    @Bean("springSessionDefaultRedisSerializer")
-//    public RedisSerializer redisValueSerializer() {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
-//        return new GenericJackson2JsonRedisSerializer(objectMapper);
-//    }
+    @Bean("springSessionDefaultRedisSerializer")
+    public RedisSerializer redisValueSerializer() {
+        return new ProtostuffRedisSerializer();
+    }
 
 }

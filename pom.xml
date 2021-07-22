@@ -73,6 +73,7 @@
         <org.projectlombok.version>1.18.20</org.projectlombok.version>
         <spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
         <seata.version>1.4.2</seata.version>
+        <protostuff.version>1.7.4</protostuff.version>
     </properties>
 
 
@@ -149,7 +150,7 @@
 
 
             <!-- protobuff序列化开源工具-->
-            <!--<dependency>
+            <dependency>
                 <groupId>io.protostuff</groupId>
                 <artifactId>protostuff-core</artifactId>
                 <version>${protostuff.version}</version>
@@ -168,7 +169,7 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
                 <version>3.8.0</version>
-            </dependency>-->
+            </dependency>
             <!-- protobuff序列化开源工具-->
 
             <dependency>
