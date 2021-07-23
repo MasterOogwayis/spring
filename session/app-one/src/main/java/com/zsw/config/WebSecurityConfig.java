@@ -54,7 +54,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new Http403ForbiddenEntryPoint(), new AntPathRequestMatcher("/**"))
-                .and().cors();
+                .and().cors()
+                .and().httpBasic();
         // @formatter:on
     }
 
