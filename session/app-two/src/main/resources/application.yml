@@ -1,8 +1,8 @@
 server:
   port: 18081
-  servlet:
-    session:
-      cookie:
+#  servlet:
+#    session:
+#      cookie:
         # 所有1/2级域名
 #        domain: example.com
 spring:
