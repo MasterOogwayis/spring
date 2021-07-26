@@ -1,10 +1,10 @@
 server:
   port: 18080
-#  servlet:
-#    session:
-#      cookie:
-        # 所有1/2级域名
-#        domain: example.com
+  servlet:
+    session:
+      cookie:
+#         所有1/2级域名
+        domain: bbxpc.com
 #        name: JSESSION
 spring:
   session:
@@ -13,14 +13,10 @@ spring:
     redis:
       namespace: spring:session:bbxbackend
   redis:
-    host: 192.168.1.12
-    port: 6379
-    password: Anf34l_Fs
-    database: 15
-    #    host: 106.15.43.157
-    #    port: 26379
-    #    password: Lanbbx24306
-    #    database: 0
+    host: 106.15.43.157
+    port: 26379
+    password: Lanbbx24306
+    database: 0
     lettuce:
       pool:
         max-active: 2

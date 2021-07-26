@@ -3,12 +3,14 @@ package com.zsw;
 import com.zsw.serializer.ProtostuffRedisSerializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.session.DefaultCookieSerializerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
  * spring session data redis 序列化 RedisTemplate
@@ -37,12 +39,17 @@ public class AppOne {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    /**
-     * @return
-     */
-    @Bean("springSessionDefaultRedisSerializer")
-    public RedisSerializer redisValueSerializer() {
-        return new ProtostuffRedisSerializer();
+    @Bean
+    public DefaultCookieSerializerCustomizer cookieSerializerCustomizer() {
+        return cookieSerializer -> cookieSerializer.setUseBase64Encoding(Boolean.FALSE);
     }
+
+//    /**
+//     * @return
+//     */
+//    @Bean("springSessionDefaultRedisSerializer")
+//    public RedisSerializer redisValueSerializer() {
+//        return new ProtostuffRedisSerializer();
+//    }
 
 }
