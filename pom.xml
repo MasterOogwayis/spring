@@ -74,6 +74,7 @@
         <spring.cloud.alibaba.version>2.2.5.RELEASE</spring.cloud.alibaba.version>
         <seata.version>1.4.2</seata.version>
         <protostuff.version>1.7.4</protostuff.version>
+        <shiro.version>1.7.1</shiro.version>
     </properties>
 
 
@@ -249,6 +250,12 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>2.9.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring-boot-web-starter</artifactId>
+                <version>${shiro.version}</version>
             </dependency>
 
         </dependencies>
