@@ -35,7 +35,7 @@ public class StaticTests {
 
 
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
-        list.stream()
+        list.parallelStream()
                 .filter(i -> i > 5)
                 .peek(System.err::println)
                 .findAny()

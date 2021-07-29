@@ -9,12 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>base-remoting</artifactId>
+    <artifactId>base-netty</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+            <version>4.1.66.Final</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
