@@ -34,8 +34,8 @@ public class NettyServer {
 
 
     public static void start() {
-        EventLoopGroup bossGroup = new NioEventLoopGroup(2);
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup(4);
 
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
