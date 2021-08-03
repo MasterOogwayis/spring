@@ -23,6 +23,7 @@
         <module>i18n</module>
         <module>data-binding</module>
         <module>validation</module>
+        <module>generic</module>
     </modules>
 
 
