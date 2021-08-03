@@ -1,16 +1,19 @@
 package com.zsw.pojo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * @author ZhangShaowei on 2021/8/3 10:39
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class IndexOrNameData implements Serializable {
 
     private static final long serialVersionUID = -1329111423993318915L;

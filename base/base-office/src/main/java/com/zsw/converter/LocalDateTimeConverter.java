@@ -9,6 +9,7 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,6 +41,6 @@ public class LocalDateTimeConverter implements Converter<LocalDateTime> {
 
     @Override
     public CellData convertToExcelData(LocalDateTime value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-        return null;
+        return new CellData(value.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
     }
 }
