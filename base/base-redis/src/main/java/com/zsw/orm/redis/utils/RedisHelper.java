@@ -9,7 +9,6 @@ import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
 
 import java.io.Closeable;
-import java.io.IOException;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -46,10 +45,6 @@ public class RedisHelper {
         ) {
             // 资源不对外
             cursor.forEachRemaining(consumer);
-        } catch (IOException e) {
-            e.printStackTrace();
-            log.error("redis scan error", e);
-            throw new RuntimeException(e);
         }
     }
 
@@ -59,9 +54,6 @@ public class RedisHelper {
         ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
         try (Cursor<Map.Entry<Object, Object>> cursor = redisTemplate.opsForHash().scan(key, options)) {
             cursor.forEachRemaining(consumer);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
         }
     }
 
@@ -70,9 +62,6 @@ public class RedisHelper {
         ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
         try (Cursor<V> cursor = redisTemplate.opsForSet().scan(key, options)) {
             cursor.forEachRemaining(consumer);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
         }
     }
 
@@ -81,9 +70,6 @@ public class RedisHelper {
         ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
         try (Cursor<ZSetOperations.TypedTuple<V>> cursor = redisTemplate.opsForZSet().scan(key, options)) {
             cursor.forEachRemaining(tt -> consumer.accept(tt.getValue()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
         }
     }
 
