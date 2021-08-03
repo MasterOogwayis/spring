@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,12 +35,8 @@ public class StaticTests {
     public static void main(String[] args) {
 
 
-        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
-        list.parallelStream()
-                .filter(i -> i > 5)
-                .peek(System.err::println)
-                .findAny()
-                .ifPresent(System.out::println);
+        BigDecimal bigDecimal = new BigDecimal("123.321");
+        System.out.println(bigDecimal.longValue());
 
 
     }
