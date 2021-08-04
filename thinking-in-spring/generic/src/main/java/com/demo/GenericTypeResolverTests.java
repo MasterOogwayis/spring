@@ -1,7 +1,10 @@
 package com.demo;
 
+import lombok.SneakyThrows;
 import org.springframework.core.GenericTypeResolver;
+import org.springframework.core.Ordered;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,29 @@ import java.util.Map;
 public class GenericTypeResolverTests {
 
     public static void main(String[] args) {
+        test2();
+
+    }
+
+    @SneakyThrows
+    private static void test2() {
+        Method get = GenericTypeResolverTests.class.getMethod("get");
+        Class<?> returnType = GenericTypeResolver.resolveReturnType(get, GenericTypeResolverTests.class);
+
+        // Z
+        System.out.println(returnType);
+
+        Class<?> bTypeArgument = GenericTypeResolver.resolveReturnTypeArgument(get, B.class);
+        // Integer
+        System.out.println(bTypeArgument);
+
+        Class<?> orderedTypeArgument = GenericTypeResolver.resolveReturnTypeArgument(get, Ordered.class);
+        // null -> 一般类型不具备泛型参数
+        System.out.println(orderedTypeArgument);
+    }
+
+
+    private static void test1() {
         Class<?> aType = GenericTypeResolver.resolveTypeArgument(Z.class, A.class);
         // String
         System.out.println(aType);
@@ -27,12 +53,19 @@ public class GenericTypeResolverTests {
 
         // List, Map
         System.out.println(Arrays.toString(dClass));
+    }
 
+    public static Z get() {
+        return null;
     }
 
 
-    static class Z implements A<String>, B<Integer>, D<List<?>, Map<?, ?>> {
+    static class Z implements A<String>, B<Integer>, D<List<?>, Map<?, ?>>, Ordered {
 
+        @Override
+        public int getOrder() {
+            return 0;
+        }
     }
 
     interface A<T> {
