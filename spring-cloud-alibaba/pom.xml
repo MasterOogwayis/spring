@@ -16,6 +16,7 @@
         <module>nacos-server</module>
         <module>cloud-alibaba-tests</module>
         <module>sentinel-tests</module>
+        <module>api-server</module>
     </modules>
 
 </project>

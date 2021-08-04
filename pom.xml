@@ -34,18 +34,14 @@
         <module>spring-cloud-alibaba</module>
         <module>spring-cloud-dubbo-example</module>
         <!--        <module>zsw-elastic</module>-->
-        <module>zsw-base-oauth2</module>
+        <!--        <module>zsw-base-oauth2</module>-->
         <!--        <module>vertx-apps</module>-->
-        <module>spring-cloud-function-samples</module>
         <module>tests</module>
-        <module>spring-fun</module>
-        <module>spring-cloud-alibaba/api-server</module>
-        <module>jvm</module>
+        <!--        <module>jvm</module>-->
         <module>thinking-in-spring</module>
         <module>standalone-security-app</module>
-        <module>seata</module>
-        <module>seata/seata-commons</module>
-        <module>session</module>
+        <!--        <module>seata</module>-->
+        <!--        <module>session</module>-->
     </modules>
 
     <!-- 打包依赖的包 -->
@@ -55,9 +51,9 @@
         <java.version>14</java.version>
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
-<!--        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>-->
+        <!--        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>-->
         <spring-boot.version>2.5.3</spring-boot.version>
-<!--        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>-->
+        <!--        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>-->
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <spring-cloud-security.version>2020.0.1-SNAPSHOT</spring-cloud-security.version>
         <spring-cloud-function.version>3.1.0-SNAPSHOT</spring-cloud-function.version>
@@ -455,39 +451,39 @@
     </pluginRepositories>
 
 
-   <!-- <profiles>
-        <profile>
-            <id>native</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.nativeimage</groupId>
-                        <artifactId>native-image-maven-plugin</artifactId>
-                        <version>21.1.0</version>
-                        <configuration>
-                            <mainClass>com.demo.GraalvmApp</mainClass>
-                            <skip>false</skip>
-                            <imageName>${project.artifactId}</imageName>
-                            <buildArgs>
-                                &#45;&#45;no-fallback
-                                &#45;&#45;allow-incomplete-classpath
-                                -H:+ReportExceptionStackTraces
-                                -J-Xmx8G
-                            </buildArgs>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
+    <!-- <profiles>
+         <profile>
+             <id>native</id>
+             <build>
+                 <plugins>
+                     <plugin>
+                         <groupId>org.graalvm.nativeimage</groupId>
+                         <artifactId>native-image-maven-plugin</artifactId>
+                         <version>21.1.0</version>
+                         <configuration>
+                             <mainClass>com.demo.GraalvmApp</mainClass>
+                             <skip>false</skip>
+                             <imageName>${project.artifactId}</imageName>
+                             <buildArgs>
+                                 &#45;&#45;no-fallback
+                                 &#45;&#45;allow-incomplete-classpath
+                                 -H:+ReportExceptionStackTraces
+                                 -J-Xmx8G
+                             </buildArgs>
+                         </configuration>
+                         <executions>
+                             <execution>
+                                 <goals>
+                                     <goal>native-image</goal>
+                                 </goals>
+                                 <phase>package</phase>
+                             </execution>
+                         </executions>
+                     </plugin>
 
-                </plugins>
-            </build>
-        </profile>
-    </profiles>-->
+                 </plugins>
+             </build>
+         </profile>
+     </profiles>-->
 
 </project>

@@ -18,6 +18,7 @@
         <module>business-service</module>
         <module>storage-service</module>
         <module>order-service</module>
+        <module>seata-commons</module>
     </modules>
 
 
