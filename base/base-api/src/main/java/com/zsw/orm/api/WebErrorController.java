@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -11,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
@@ -96,9 +95,9 @@ public class WebErrorController implements ErrorController {
      * 是否包括堆栈跟踪属性
      */
     private boolean hasStackTrace(HttpServletRequest request) {
-        ErrorProperties.IncludeStacktrace include = this.serverProperties.getError().getIncludeStacktrace();
-        return include == ErrorProperties.IncludeStacktrace.ALWAYS ||
-                (include == ErrorProperties.IncludeStacktrace.ON_TRACE_PARAM && this.hasStackTrace(request));
+        ErrorProperties.IncludeAttribute include = this.serverProperties.getError().getIncludeStacktrace();
+        return include == ErrorProperties.IncludeAttribute.ALWAYS ||
+                (include == ErrorProperties.IncludeAttribute.ON_PARAM && this.hasStackTrace(request));
     }
 
     /**
@@ -106,7 +105,7 @@ public class WebErrorController implements ErrorController {
      */
     private Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
         WebRequest requestAttributes = new ServletWebRequest(request);
-        return this.errorAttributes.getErrorAttributes(requestAttributes, includeStackTrace);
+        return this.errorAttributes.getErrorAttributes(requestAttributes, ErrorAttributeOptions.defaults());
     }
 
     /**
@@ -122,14 +121,6 @@ public class WebErrorController implements ErrorController {
         } catch (Exception ex) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }
-    }
-
-    /**
-     * 实现错误路径（暂时无用）
-     */
-    @Override
-    public String getErrorPath() {
-        return "error";
     }
 
 }
