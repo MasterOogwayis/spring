@@ -24,9 +24,9 @@
         <module>base-logging</module>
         <module>base-netty</module>
         <module>base-office</module>
+        <module>base-service</module>
         <!--        <module>base-rocketmq</module>
         <module>base-mapstruct</module>
-                <module>base-service</module>
                 <module>base-elastic</module>
                 <module>base-kafka</module>
                 <module>base-client</module>
