@@ -18,7 +18,7 @@ public class ExampleService {
      * @return
      */
     @Cacheable(value = "proxy", key = "'Ex:' + #id", condition = "#id != null")
-    public Ex get(final Long id){
+    public Ex get(final Long id) {
         return new Ex();
     }
 
@@ -40,7 +40,7 @@ public class ExampleService {
      * @param ex
      */
     @CacheEvict(value = "proxy", key = "'Ex' + #ex.getId()", condition = "#ex != null")
-    public void delete(Ex ex){
+    public void delete(Ex ex) {
 
     }
 
@@ -52,7 +52,7 @@ public class ExampleService {
             put = {@CachePut(value = "proxy", key = "'Ex:' + #ex.getId()", condition = "#ex != null")},
             evict = {@CacheEvict(value = "proxy", key = "'Ex' + #ex.getId()", condition = "#ex != null")}
     )
-    public Ex all(){
+    public Ex all() {
         return new Ex();
     }
 
@@ -65,12 +65,16 @@ public class ExampleService {
 
         private Long id;
 
-        /**  */
+        /**
+         *
+         */
         public Long getId() {
             return id;
         }
 
-        /**  */
+        /**
+         *
+         */
         public void setId(Long id) {
             this.id = id;
         }

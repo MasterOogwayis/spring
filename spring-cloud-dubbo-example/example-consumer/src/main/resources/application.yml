@@ -1,0 +1,37 @@
+server:
+  port: 8081
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.13:8848
+        enabled: true
+        register-enabled: true
+        ephemeral: false
+
+dubbo:
+  registry:
+    address: nacos://192.168.1.13:8848
+    register: true
+  application:
+    name: ${spring.application.name}
+    id: ${spring.application.name}
+    qos-enable: false
+    qos-accept-foreign-ip: false
+  protocol:
+    id: dubbo
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+#    rest:
+#      name: rest
+#      port: 9090
+#      server: netty
+
+
