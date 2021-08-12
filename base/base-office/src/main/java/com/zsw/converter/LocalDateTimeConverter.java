@@ -19,10 +19,10 @@ public class LocalDateTimeConverter implements Converter<LocalDateTime> {
 
     private static final LocalDateTime BASE = Year.of(1900).atMonth(1).atDay(1).atStartOfDay();
 
-    private static final long SECOND_OF_DAY = TimeUnit.DAYS.toSeconds(1);
+    private static final BigDecimal SECOND_OF_DAY = BigDecimal.valueOf(TimeUnit.DAYS.toSeconds(1));
 
     @Override
-    public Class supportJavaTypeKey() {
+    public Class<?> supportJavaTypeKey() {
         return LocalDateTime.class;
     }
 
@@ -35,7 +35,7 @@ public class LocalDateTimeConverter implements Converter<LocalDateTime> {
     public LocalDateTime convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
         BigDecimal numberValue = cellData.getNumberValue();
         return BASE.plusDays(numberValue.longValue())
-                .plusSeconds(numberValue.remainder(BigDecimal.ONE).multiply(BigDecimal.valueOf(SECOND_OF_DAY)).longValue());
+                .plusSeconds(numberValue.remainder(BigDecimal.ONE).multiply(SECOND_OF_DAY).longValue());
 
     }
 

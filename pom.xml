@@ -32,14 +32,13 @@
         <!--        <module>spring-apps</module>-->
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
-        <module>spring-cloud-dubbo-example</module>
         <!--        <module>zsw-elastic</module>-->
         <!--        <module>zsw-base-oauth2</module>-->
         <!--        <module>vertx-apps</module>-->
         <module>tests</module>
         <!--        <module>jvm</module>-->
         <module>thinking-in-spring</module>
-        <module>standalone-security-app</module>
+        <!--        <module>standalone-security-app</module>-->
         <!--        <module>seata</module>-->
         <!--        <module>session</module>-->
     </modules>
