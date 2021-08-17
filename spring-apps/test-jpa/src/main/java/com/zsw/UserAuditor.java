@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * @author ZhangShaowei on 2020/9/25 14:15
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class UserAuditor implements AuditorAware<String> {
 
 

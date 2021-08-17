@@ -29,7 +29,7 @@
         <module>stream</module>-->
         <!--        <module>security</module>-->
         <!--        <module>quartz</module>-->
-        <!--        <module>spring-apps</module>-->
+        <module>spring-apps</module>
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
         <!--        <module>zsw-elastic</module>-->

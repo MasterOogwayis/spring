@@ -14,11 +14,11 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>externalized-configuration</module>
+        <!--<module>externalized-configuration</module>
         <module>simple-api</module>
         <module>simple-client</module>
         <module>api-tests</module>
-        <module>redis-tests</module>
+        <module>redis-tests</module>-->
         <module>test-jpa</module>
     </modules>
 

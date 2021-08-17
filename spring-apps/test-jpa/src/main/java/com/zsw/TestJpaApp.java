@@ -3,7 +3,6 @@ package com.zsw;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -11,10 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author ZhangShaowei on 2020/9/25 13:58
  */
 @EntityScan
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @EnableJpaRepositories
 @EnableTransactionManagement
-@SpringBootApplication
+@SpringBootApplication(proxyBeanMethods = false)
 public class TestJpaApp {
 
     /**

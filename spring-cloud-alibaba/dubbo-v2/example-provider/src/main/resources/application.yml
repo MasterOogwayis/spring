@@ -22,6 +22,9 @@ dubbo:
     dubbo:
       name: dubbo
       port: -1
+      dispatcher: all
+      threadpool: fixed
+      threads: 100
 #    rest:
 #      name: rest
 #      port: 9090

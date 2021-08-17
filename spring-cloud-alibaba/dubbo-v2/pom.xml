@@ -9,13 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>api-server</artifactId>
+    <artifactId>dubbo-v2</artifactId>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>example-api</module>
+        <module>example-consumer</module>
+        <module>example-provider</module>
+    </modules>
 
 </project>

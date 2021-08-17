@@ -1,5 +1,6 @@
 package com.zsw;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
  *
  * @author ZhangShaowei on 2018/3/8 14:08
  **/
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @Entity
