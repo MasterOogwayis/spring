@@ -38,6 +38,7 @@
         <module>tests</module>
         <!--        <module>jvm</module>-->
         <module>thinking-in-spring</module>
+        <module>spring-boot-features</module>
         <!--        <module>standalone-security-app</module>-->
         <!--        <module>seata</module>-->
         <!--        <module>session</module>-->

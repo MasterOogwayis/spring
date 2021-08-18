@@ -12,8 +12,11 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.SortedMap;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -34,11 +37,14 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-
-        BigDecimal bigDecimal = new BigDecimal("123.321");
-        System.out.println(bigDecimal.longValue());
+        test(Collections.singletonList("Hello World"));
 
 
+    }
+
+
+    public static void test(Collection<String> collection) {
+        Optional.ofNullable(collection).stream().flatMap(Collection::stream).forEach(System.out::println);
     }
 
 
