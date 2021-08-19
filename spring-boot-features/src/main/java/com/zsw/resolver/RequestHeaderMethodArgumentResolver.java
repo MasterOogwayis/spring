@@ -36,4 +36,43 @@ public class RequestHeaderMethodArgumentResolver implements HandlerMethodArgumen
         }
         return this.mapper.readValue(this.mapper.writeValueAsString(values), parameter.getParameterType());
     }
+
+
+//    private static final ConcurrentHashMap<Class<?>, Map<String, Method>> WRITER = new ConcurrentHashMap<>();
+
+
+//    @Override
+//    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+//        Map<String, String> result = new LinkedHashMap<>();
+//        Object headerObj = BeanUtils.instantiateClass(parameter.getParameterType());
+//        getWriter(parameter.getParameterType())
+//                .forEach((n, m) -> {
+//                    invokeWriteMethod(headerObj, m, webRequest.getHeader(n));
+//                });
+//        return headerObj;
+//    }
+//
+//    @SneakyThrows
+//    private void invokeWriteMethod(Object target, Method method, String value) {
+//        method.invoke(target, value);
+//    }
+//
+//    private Map<String, Method> getWriter(Class<?> clazz) throws Exception {
+//        return WRITER.computeIfAbsent(clazz, cla -> {
+//            try {
+//                BeanInfo beanInfo = Introspector.getBeanInfo(cla);
+//                HashMap<String, Method> writeMethods = new HashMap<>();
+//                for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+//                    if ("class".equals(propertyDescriptor.getDisplayName())) {
+//                        continue;
+//                    }
+//                    writeMethods.put(propertyDescriptor.getDisplayName(), propertyDescriptor.getWriteMethod());
+//                }
+//                return writeMethods;
+//            } catch (IntrospectionException e) {
+//                e.printStackTrace();
+//            }
+//            return Collections.emptyMap();
+//        });
+//    }
 }

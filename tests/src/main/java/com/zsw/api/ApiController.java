@@ -25,10 +25,4 @@ public class ApiController {
         return this.helloService.order(user);
     }
 
-
-    @GetMapping("header")
-    public Object header(@RequestHeaderObject CustomHeader header) {
-        return header;
-    }
-
 }
