@@ -1,15 +1,20 @@
 package com.zsw;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
+import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * @author ZhangShaowei on 2021/8/18 11:28
@@ -23,17 +28,40 @@ public class SpringBootFeaturesTests {
      *
      * @param args args
      */
+    @SneakyThrows
     public static void main(String[] args) {
         log.info("This is a test for Spring Boot Features.");
 //        SpringApplication.run(SpringBootFeaturesTests.class, args);
+//        BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(1024 * 2);
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(SpringBootFeaturesTests.class)
 //                .applicationStartup(applicationStartup)
 //                .logStartupInfo(Boolean.TRUE)
 //                .lazyInitialization(Boolean.TRUE)
 //                .sources(SpringBootFeaturesTests.class)
+                .properties(Collections.singletonMap("custom.name", "Shaowei Zhang"))
                 .web(WebApplicationType.SERVLET)
                 .run(args);
+//        StartupTimeline startupTimeline = applicationStartup.drainBufferedTimeline();
+//        startupTimeline.getEvents()
+//                .stream()
+//                .sorted(Comparator.comparing(StartupTimeline.TimelineEvent::getDuration).reversed())
+//                .limit(50)
+//                .forEach(event -> {
+//                    log.info("耗时: {}, startup name: {}",
+//                            event.getDuration(), event.getStartupStep().getName());
+//                    if (event.getStartupStep().getTags().iterator().hasNext()) {
+//                        event.getStartupStep().getTags().forEach(t -> {
+//                            log.info("key={}, value={}", t.getKey(), t.getValue());
+//                        });
+//                    }
+//                });
+
     }
+
+//    @Bean
+//    public ExitCodeGenerator exitCodeGenerator() {
+//        return () -> 42;
+//    }
 
 
     @Bean

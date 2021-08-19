@@ -1,2 +1,22 @@
 server:
   port: 18080
+
+spring:
+  application:
+    name: spring-boot-features
+    admin:
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+    startup:
+      enabled: true
+
