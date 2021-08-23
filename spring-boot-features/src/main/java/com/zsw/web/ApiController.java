@@ -1,8 +1,12 @@
 package com.zsw.web;
 
+import com.zsw.property.MyProperties;
 import com.zsw.resolver.RequestHeaderObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -12,6 +16,9 @@ import java.util.Map;
  */
 @RestController
 public class ApiController {
+
+    @Autowired
+    private MyProperties mapProperties;
 
     @Value("${custom.name:nobody}")
     private String name;
@@ -35,6 +42,16 @@ public class ApiController {
     @GetMapping("headers")
     public Object headers(@RequestHeaderObject HeaderRequest headers) {
         return headers;
+    }
+
+    @GetMapping("config")
+    public Object map() {
+        return this.mapProperties;
+    }
+
+    @RequestMapping("body")
+    private Object body(@RequestBody String json) {
+        return json;
     }
 
 }

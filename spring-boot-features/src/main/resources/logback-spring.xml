@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <!--
+        标准 logback.xml 加载过早，无法拿到一些容器属性
+        logback-spring.xml会生成 appName = bootstrap前置文件
+        logging.config=classpath:logging-config.xml 配置才会生效
+    -->
+    <springProperty name="appName" scope="context" source="spring.application.name"/>
+    <!--定义日志文件的存储地址 勿在 logback 的配置中使用相对路径-->
+    <springProperty name="LOG_HOME" scope="context" source="logging.path" defaultValue="/data/spring/logs"/>
+
+    <!-- 这是基础配置 -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- 按照每天生成日志文件 所有 -->
+    <appender name="fileout" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <!-- ch.qos.logback.core.rolling.FixedWindowRollingPolicy 回滚日志 每天都会被清理 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名-->
+            <FileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.%i.log</FileNamePattern>
+            <!--日志文件切割大小-->
+            <maxFileSize>10MB</maxFileSize>
+            <!--日志文件保留天数-->
+            <MaxHistory>90</MaxHistory>
+            <!--日志文件最大体积-->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 使用原始格式化 -->
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <!--<pattern>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n</pattern>-->
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- error  -->
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.error.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- warn  -->
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.warn.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印警告日志 -->
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- info  -->
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.debug.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印debug日志 -->
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- info日志 appender  -->
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${appName}/%d{yyyy-MM-dd}.info.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <MaxHistory>90</MaxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印info日志 -->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="fileout"/>
+        <appender-ref ref="error"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="info"/>
+    </root>
+
+    <!-- additivity 不需要重复打印 -->
+<!--    <logger name="org.springframework" additivity="false" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+&lt;!&ndash;        <appender-ref ref="fileout"/>&ndash;&gt;
+&lt;!&ndash;        <appender-ref ref="info"/>&ndash;&gt;
+&lt;!&ndash;        <appender-ref ref="debug"/>&ndash;&gt;
+&lt;!&ndash;        <appender-ref ref="warn"/>&ndash;&gt;
+&lt;!&ndash;        <appender-ref ref="error"/>&ndash;&gt;
+    </logger>-->
+
+    <logger name="com.zsw" additivity="false" level="DEBUG">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <!-- jmx 动态日志 -->
+    <jmxConfigurator/>
+</configuration>

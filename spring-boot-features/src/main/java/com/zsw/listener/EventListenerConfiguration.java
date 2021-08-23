@@ -1,10 +1,12 @@
 package com.zsw.listener;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
  * 事件监听器，注意有一些事件发生的时候 ApplicationContext 甚至都还没有创建，所以需要使用 spi 的方式
@@ -18,13 +20,23 @@ import org.springframework.context.event.EventListener;
 @Configuration
 public class EventListenerConfiguration {
 
+    @Autowired
+    private ThreadPoolTaskExecutor executor;
+
     /**
      * @param event ApplicationEvent
      */
     @EventListener
     public void listener(ApplicationEvent event) {
-        log.info("event active {}", event);
+        executor.execute(() -> {
+            log.info("event active {}", event);
+        });
     }
+
+//    @EventListener(ServletRequestHandledEvent.class)
+//    public void requestEventHandle(ServletRequestHandledEvent event) {
+//        log.info("Application started. context = {}", event.getDescription());
+//    }
 
     @EventListener(ApplicationStartedEvent.class)
     public void started(ApplicationStartedEvent event) {

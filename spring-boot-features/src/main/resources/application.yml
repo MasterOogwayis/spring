@@ -2,10 +2,15 @@ server:
   port: 18080
 
 spring:
+  output:
+    ansi:
+      enabled: detect
   application:
     name: spring-boot-features
     admin:
       enabled: true
+  profiles:
+    active: dev,redis
 
 management:
   endpoints:
@@ -20,3 +25,27 @@ management:
     startup:
       enabled: true
 
+config:
+  name: ${spring.application.name}
+  map:
+    name: default
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+config:
+  map:
+    name: dev
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+config:
+  map:
+    name: test

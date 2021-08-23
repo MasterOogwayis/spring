@@ -24,6 +24,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2020/12/28 16:03
@@ -37,7 +39,12 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        test(Collections.singletonList("Hello World"));
+        IntStream.range(0, 10)
+                .boxed()
+                .sorted((a, b) -> -1)
+                .forEach(System.out::println);
+
+//        test(Collections.singletonList("Hello World"));
 
 
     }

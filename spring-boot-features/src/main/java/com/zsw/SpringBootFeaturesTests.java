@@ -7,20 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
-import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * @author ZhangShaowei on 2021/8/18 11:28
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(proxyBeanMethods = false)
 public class SpringBootFeaturesTests {
 
     /**
