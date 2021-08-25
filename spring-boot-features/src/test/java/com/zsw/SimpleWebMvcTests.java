@@ -1,34 +1,39 @@
 package com.zsw;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebClient;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
  * @author ZhangShaowei on 2021/8/25 11:11
  */
 @Slf4j
-@SpringBootTest
-@AutoConfigureWebClient
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@AutoConfigureWebTestClient
 public class SimpleWebMvcTests {
 
-    @Before
+    @LocalServerPort
+    private Integer port;
+
+    @BeforeEach
     public void before() {
-        log.info("before ...");
+        log.info("before ... port = {}", port);
     }
 
+    @Autowired
+    private WebTestClient client;
+
     /**
-     * FIXME 错误
      *
-     * @param client
      */
     @Test
-    public void test(@Autowired WebTestClient client) {
+    public void test() {
         client
                 .get().uri("/config")
                 .exchange()
@@ -39,7 +44,7 @@ public class SimpleWebMvcTests {
 //                .expectBody(String.class).isEqualTo("Hello World");
     }
 
-    @After
+    @AfterEach
     public void after() {
         log.info("after ...");
     }

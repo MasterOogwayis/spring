@@ -2,15 +2,11 @@ package com.zsw;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -61,15 +57,15 @@ public class SpringBootFeaturesTests {
 //    }
 
 
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return args -> log.info("CommandLineRunner run ... args = {}", Arrays.toString(args));
-    }
-
-    @Bean
-    public ApplicationRunner applicationRunner() {
-        return args -> log.info("ApplicationRunner run ... args = {}", args);
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner() {
+//        return args -> log.info("CommandLineRunner run ... args = {}", Arrays.toString(args));
+//    }
+//
+//    @Bean
+//    public ApplicationRunner applicationRunner() {
+//        return args -> log.info("ApplicationRunner run ... args = {}", args);
+//    }
 
 
 }

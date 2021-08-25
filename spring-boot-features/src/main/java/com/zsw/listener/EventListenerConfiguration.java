@@ -28,9 +28,9 @@ public class EventListenerConfiguration {
      */
     @EventListener
     public void listener(ApplicationEvent event) {
-        executor.execute(() -> {
-            log.info("event active {}", event);
-        });
+//        executor.execute(() -> {
+//            log.info("event active {}", event);
+//        });
     }
 
 //    @EventListener(ServletRequestHandledEvent.class)
