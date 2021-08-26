@@ -1,11 +1,15 @@
 package com.zsw;
 
+import com.zsw.persistence.entity.Customer;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Collections;
 
@@ -13,6 +17,9 @@ import java.util.Collections;
  * @author ZhangShaowei on 2021/8/18 11:28
  */
 @Slf4j
+@EntityScan(basePackageClasses = Customer.class)
+@EnableJpaRepositories
+@EnableTransactionManagement
 @SpringBootApplication(proxyBeanMethods = false)
 public class SpringBootFeaturesTests {
 

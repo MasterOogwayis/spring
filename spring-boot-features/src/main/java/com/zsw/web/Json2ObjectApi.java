@@ -1,7 +1,6 @@
 package com.zsw.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +17,8 @@ public class Json2ObjectApi {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private Gson gson;
+//    @Autowired
+//    private Gson gson;
 
     @SneakyThrows
     @GetMapping("json")
@@ -27,11 +26,11 @@ public class Json2ObjectApi {
         return this.objectMapper.writeValueAsString(request.getParameterMap());
     }
 
-    @SneakyThrows
-    @GetMapping("gson")
-    public Object gson(HttpServletRequest request) {
-        return this.gson.toJson(request.getParameterMap());
-    }
+//    @SneakyThrows
+//    @GetMapping("gson")
+//    public Object gson(HttpServletRequest request) {
+//        return this.gson.toJson(request.getParameterMap());
+//    }
 
 
 }

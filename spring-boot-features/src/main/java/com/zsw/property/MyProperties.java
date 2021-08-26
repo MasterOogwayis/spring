@@ -21,7 +21,7 @@ public class MyProperties {
 
     private Map<String, String> map;
 
-    @NotNull
+//    @NotNull
     private String name;
 
     private String profiles;
