@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -17,8 +18,9 @@ import java.util.Collections;
  * @author ZhangShaowei on 2021/8/18 11:28
  */
 @Slf4j
-@EntityScan(basePackageClasses = Customer.class)
+@EnableJpaAuditing(modifyOnCreate = false)
 @EnableJpaRepositories
+@EntityScan(basePackageClasses = Customer.class)
 @EnableTransactionManagement
 @SpringBootApplication(proxyBeanMethods = false)
 public class SpringBootFeaturesTests {
