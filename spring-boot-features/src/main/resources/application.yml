@@ -2,6 +2,8 @@ server:
   port: 18080
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   output:
     ansi:
       enabled: detect
@@ -10,7 +12,7 @@ spring:
     admin:
       enabled: true
   profiles:
-    active: dev,redis
+    active: dev
 
 management:
   endpoints:

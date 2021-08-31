@@ -32,8 +32,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "t_customer")
-public class Customer implements Serializable {
+@Table(name = "t_user")
+public class TestUser implements Serializable {
 
     private static final long serialVersionUID = -5168764260002876734L;
     @Id
@@ -43,6 +43,12 @@ public class Customer implements Serializable {
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
+
+    @Column(name = "firstName", nullable = false, length = 20)
+    private String firstName;
+
+    @Column(name = "lastName", nullable = false, length = 20)
+    private String lastName;
 
     @Column(name = "address", nullable = false, length = 50)
     private String address;

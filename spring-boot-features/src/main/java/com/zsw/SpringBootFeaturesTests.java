@@ -1,6 +1,6 @@
 package com.zsw;
 
-import com.zsw.persistence.entity.Customer;
+import com.zsw.persistence.entity.TestUser;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.WebApplicationType;
@@ -20,7 +20,7 @@ import java.util.Collections;
 @Slf4j
 @EnableJpaAuditing(modifyOnCreate = false)
 @EnableJpaRepositories
-@EntityScan(basePackageClasses = Customer.class)
+@EntityScan(basePackageClasses = TestUser.class)
 @EnableTransactionManagement
 @SpringBootApplication(proxyBeanMethods = false)
 public class SpringBootFeaturesTests {

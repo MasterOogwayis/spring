@@ -39,6 +39,7 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
+
         IntStream.range(0, 10)
                 .boxed()
                 .sorted((a, b) -> -1)
