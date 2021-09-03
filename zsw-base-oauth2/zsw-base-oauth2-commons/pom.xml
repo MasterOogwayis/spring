@@ -21,6 +21,12 @@
         </dependency>
         <dependency>
             <groupId>com.zsw</groupId>
+            <artifactId>base-redis</artifactId>
+            <version>${project.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.zsw</groupId>
             <artifactId>base-commons</artifactId>
             <version>${project.version}</version>
         </dependency>

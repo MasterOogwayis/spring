@@ -25,10 +25,23 @@ public class ClientUser extends org.springframework.security.core.userdetails.Us
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 
+    public ClientUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
+    }
+
     /**
      * 使用 Map 以消除类型影响
      * 缓存的用户附加信息 cacheKey -> security : oauth2 : userInfo : clientId : username
+     *
+     * @see com.anze.base.oauth2.resource.ResourceUserDetailsService#cacheName(String, String)
      */
-    private Map<String, ?> attr;
+    private Map<String, Object> attr;
+
+
+    /**
+     * 这部分信息跟随 token 返回页面
+     * 可以定义额外参数，以便进行一些逻辑处理
+     */
+    private Map<String, Object> extra;
 
 }

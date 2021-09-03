@@ -1,7 +1,5 @@
 package com.zsw.base.oauth2.userinfo;
 
-import com.zsw.base.oauth2.ClientUserDetailsService;
-import com.zsw.base.oauth2.LogoutEndpoint;
 import com.zsw.base.oauth2.userinfo.impl.ResourceSessionUserServiceImpl;
 import com.zsw.user.SessionUserService;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +16,4 @@ public class DefaultUserServiceConfiguration {
         return new ResourceSessionUserServiceImpl();
     }
 
-
-    @Bean
-    public LogoutEndpoint logoutEndpoint(SessionUserService sessionUserService, ClientUserDetailsService clientUserDetailsService) {
-        return new LogoutEndpoint(sessionUserService, clientUserDetailsService);
-    }
 }

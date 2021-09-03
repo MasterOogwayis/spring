@@ -1,7 +1,6 @@
 package com.zsw.base.oauth2.config;
 
 import com.zsw.base.oauth2.ClientUserDetailsService;
-import com.zsw.base.oauth2.client.AuthorizationServerFeignConfiguration;
 import com.zsw.base.oauth2.user.ClientUserDetailsServiceConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -27,9 +26,7 @@ import javax.sql.DataSource;
 @ConditionalOnBean(AuthorizationServerMakerConfiguration.Maker.class)
 @Import({
         ClientUserDetailsServiceConfiguration.class,
-        WebSecurityConfiguration.class,
-        AccessTokenConverterConfiguration.class,
-        AuthorizationServerFeignConfiguration.class
+        AccessTokenConverterConfiguration.class
 })
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 

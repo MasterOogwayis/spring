@@ -1,6 +1,6 @@
 package com.zsw.base.oauth2.config;
 
-import com.zsw.base.oauth2.ResourceServerProperties;
+import com.zsw.base.oauth2.resource.ResourceServerProperties;
 import com.zsw.base.oauth2.support.AccessTokenConverterCustomizer;
 import lombok.Cleanup;
 import lombok.SneakyThrows;

@@ -19,26 +19,26 @@
 
     <modules>
         <module>base</module>
-        <!--        <module>file</module>-->
-        <!--<module>product</module>
-        <module>oauth2</module>
-        <module>timedtask</module>
-        <module>encryption</module>
-        <module>jvm-demo</module>
-        <module>nacos-app</module>
-        <module>stream</module>-->
-        <!--        <module>security</module>-->
-        <!--        <module>quartz</module>-->
         <module>spring-apps</module>
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
-        <!--        <module>zsw-elastic</module>-->
-        <!--        <module>zsw-base-oauth2</module>-->
-        <!--        <module>vertx-apps</module>-->
+        <module>zsw-base-oauth2</module>
         <module>tests</module>
-        <!--        <module>jvm</module>-->
-        <module>thinking-in-spring</module>
         <module>spring-boot-features</module>
+        <module>thinking-in-spring</module>
+        <!--        <module>file</module>-->
+        <!--        <module>product</module>-->
+        <!--        <module>oauth2</module>-->
+        <!--        <module>timedtask</module>-->
+        <!--        <module>encryption</module>-->
+        <!--        <module>jvm-demo</module>-->
+        <!--        <module>nacos-app</module>-->
+        <!--        <module>stream</module>-->
+        <!--        <module>security</module>-->
+        <!--        <module>quartz</module>-->
+        <!--        <module>zsw-elastic</module>-->
+        <!--        <module>vertx-apps</module>-->
+        <!--        <module>jvm</module>-->
         <!--        <module>standalone-security-app</module>-->
         <!--        <module>seata</module>-->
         <!--        <module>session</module>-->

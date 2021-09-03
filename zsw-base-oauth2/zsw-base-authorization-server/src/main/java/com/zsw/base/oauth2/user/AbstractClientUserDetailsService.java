@@ -1,8 +1,6 @@
 package com.zsw.base.oauth2.user;
 
 import com.zsw.base.oauth2.ClientUserDetailsService;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,8 +13,6 @@ import java.util.Optional;
  *
  * @author ZhangShaowei on 2020/7/2 11:02
  */
-@Slf4j
-@AllArgsConstructor
 public abstract class AbstractClientUserDetailsService implements ClientUserDetailsService {
 
     /**

@@ -1,4 +1,4 @@
-package com.zsw.server;
+package com.zsw;
 
 import com.zsw.base.oauth2.annotation.EnableZswAuthorizationServer;
 import org.springframework.boot.SpringApplication;

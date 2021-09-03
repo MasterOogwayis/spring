@@ -5,14 +5,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
+ * 带 clientId 的 UserDetailsService，便于不同业务不同处理
+ *
  * @author ZhangShaowei on 2020/7/2 16:12
+ * @see UserDetailsService
  */
 public interface ClientUserDetailsService extends UserDetailsService {
-
-    /**
-     *
-     */
-    String LOGIN_TIMESTAMP = "timestamp";
 
 
     /**
@@ -25,26 +23,6 @@ public interface ClientUserDetailsService extends UserDetailsService {
      */
     UserDetails loadUserByUsername(String username, String clientId) throws UsernameNotFoundException;
 
-    /**
-     * 支持的客户端
-     *
-     * @param clientId clientId
-     * @param username username
-     * @return boolean
-     */
-    boolean support(String clientId, String username);
-
-    /**
-     * 缓存用户信息
-     *
-     * @param username username
-     * @param clientId clientId
-     * @param attr     Object
-     * @param expire   超时时间  单位 秒
-     */
-    default void save(String username, String clientId, Object attr, int expire) {
-        // do nothing
-    }
 
     /**
      * 退出
@@ -58,16 +36,14 @@ public interface ClientUserDetailsService extends UserDetailsService {
 
 
     /**
-     * 缓存 key
+     * 支持的客户端
      *
-     * @param username username
      * @param clientId clientId
-     * @return redis key
+     * @param username username
+     * @return boolean
      */
-    default String cacheKey(String username, String clientId) {
-        return "security:oauth2:userInfo:" + clientId + ":" + username;
+    default boolean supports(String clientId, String username) {
+        return Boolean.FALSE;
     }
-
-
 
 }

@@ -24,7 +24,8 @@ public class ApplicationTests {
 
     @Test
     public void exampleTest(@Autowired MockMvc mvc) throws Exception {
-        mvc.perform(get("/hello")).andExpect(status().isOk()).andExpect(content().string("Hello World"));
+        mvc.perform(get("/hello")).andExpect(status().isOk())
+                .andExpect(content().string("Hello World"));
     }
 
     @Test

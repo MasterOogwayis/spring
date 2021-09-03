@@ -67,7 +67,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.zsw.server.AuthorizationServer</mainClass>
+                    <mainClass>com.zsw.AuthorizationServer</mainClass>
                 </configuration>
                 <executions>
                     <execution>

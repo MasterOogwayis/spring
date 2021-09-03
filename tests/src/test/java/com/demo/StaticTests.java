@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;

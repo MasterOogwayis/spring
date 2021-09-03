@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "spring.security.oauth2.authentication-server")
-public class Oauth2AuthorizationServerProperties {
+public class AuthorizationServerProperties {
 
     private final JwtKeyStoreConfig jwt = new JwtKeyStoreConfig();
 

@@ -1,5 +1,6 @@
-package com.zsw.base.oauth2.support;
+package com.zsw.base.oauth2.resource;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,12 +18,12 @@ import java.util.function.Supplier;
  */
 @Getter
 @Setter
-public class ClientUserDetails implements UserDetails {
+public class ResourceUserDetails implements UserDetails {
 
     private static final long serialVersionUID = -6754249033033902646L;
 
 
-    public ClientUserDetails(String clientId, String username, Supplier<Map<String, Object>> supplier) {
+    public ResourceUserDetails(String clientId, String username, Supplier<Map<String, Object>> supplier) {
         this.clientId = clientId;
         this.username = username;
         this.supplier = supplier;
@@ -36,6 +37,7 @@ public class ClientUserDetails implements UserDetails {
     /**
      * 使用懒加载的方式提供附加信息，若不使用则不进行 io
      */
+    @JsonIgnore
     private final Supplier<Map<String, Object>> supplier;
 
     /**

@@ -1,5 +1,6 @@
-package com.zsw.base.oauth2.config;
+package com.zsw.server;
 
+import com.zsw.base.oauth2.config.PasswordEncoderConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @Import(PasswordEncoderConfig.class)
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 

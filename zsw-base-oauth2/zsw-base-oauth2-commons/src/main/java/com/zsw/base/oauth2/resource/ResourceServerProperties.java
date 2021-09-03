@@ -1,4 +1,4 @@
-package com.zsw.base.oauth2;
+package com.zsw.base.oauth2.resource;
 
 import lombok.Getter;
 import lombok.Setter;

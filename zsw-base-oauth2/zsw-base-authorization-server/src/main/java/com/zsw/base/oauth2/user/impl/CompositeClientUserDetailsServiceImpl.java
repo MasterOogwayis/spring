@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-
 /**
  * @author ZhangShaowei on 2020/7/3 14:08
  */
@@ -19,11 +18,19 @@ public class CompositeClientUserDetailsServiceImpl extends AbstractClientUserDet
 
     @Override
     public UserDetails loadUserByUsername(String username, String clientId) {
-        return this.services.stream()
-                .filter(service -> service.support(clientId, username))
+        return services.stream()
+                .filter(service -> service.supports(clientId, username))
                 .findFirst()
                 .map(service -> service.loadUserByUsername(username, clientId))
                 .orElseThrow(() -> new UsernameNotFoundException("user not found."));
+    }
+
+    @Override
+    public void logout(String username, String clientId) {
+        services.stream()
+                .filter(service -> service.supports(clientId, username))
+                .findFirst()
+                .ifPresent(service -> service.logout(username, clientId));
     }
 
     /**
@@ -33,7 +40,7 @@ public class CompositeClientUserDetailsServiceImpl extends AbstractClientUserDet
      */
     @Override
     @Deprecated
-    public boolean support(String clientId, String username) {
+    public boolean supports(String clientId, String username) {
         return false;
     }
 

@@ -1,10 +1,8 @@
 package com.zsw.base.oauth2.config;
 
-import com.zsw.base.filter.ResourceAccessDecisionManager;
-import com.zsw.base.filter.ResourceFilterInvocationSecurityMetadataSource;
-import com.zsw.base.oauth2.ResourceServerProperties;
 import com.zsw.base.oauth2.SecurityProperties;
-import com.zsw.base.oauth2.support.CachingUserDetailsServiceConfiguration;
+import com.zsw.base.oauth2.resource.ResourceServerProperties;
+import com.zsw.base.oauth2.resource.ResourceUserDetailsAutoConfiguration;
 import com.zsw.base.oauth2.userinfo.DefaultUserServiceConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +30,7 @@ import java.util.Optional;
 @Import({
         PasswordEncoderConfig.class,
         WebSecurityConfiguration.class,
-        CachingUserDetailsServiceConfiguration.class,
+        ResourceUserDetailsAutoConfiguration.class,
         DefaultJwtConverterConfiguration.class,
         DefaultUserServiceConfiguration.class
 })
@@ -49,11 +47,11 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
     @Autowired
     private JwtAccessTokenConverter accessTokenConverter;
 
-    @Autowired
-    private ResourceAccessDecisionManager accessDecisionManager;
-
-    @Autowired
-    private ResourceFilterInvocationSecurityMetadataSource securityMetadataSource;
+//    @Autowired
+//    private ResourceAccessDecisionManager accessDecisionManager;
+//
+//    @Autowired
+//    private ResourceFilterInvocationSecurityMetadataSource securityMetadataSource;
 
 
     @Bean
