@@ -44,7 +44,8 @@ public class InMemoryUserDetailsServiceImpl extends AbstractClientUserDetailsSer
 
 
     @Override
-    public boolean support(String clientId, String username) {
+    public boolean supports(String clientId, String username) {
         return Objects.equals("postman-inmemory", clientId);
     }
+
 }
