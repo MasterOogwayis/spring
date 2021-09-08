@@ -1,5 +1,6 @@
 package com.zsw.demo;
 
+import com.zsw.utils.MethodHandlesUtils;
 import lombok.SneakyThrows;
 
 import java.lang.invoke.MethodHandle;
@@ -26,9 +27,13 @@ public class JvmMethodTests {
 
     /**
      * 调用父类被重写的方法
+     * 输出 parent
      */
     @SneakyThrows
     public static void testInvokeVirtual() {
+        MethodHandles.Lookup lookup = MethodHandlesUtils.lookup(Children.class);
+        MethodHandle say = lookup.findSpecial(Parent.class, "say", MethodType.methodType(void.class), Children.class);
+        say.bindTo(new Children()).invoke();
     }
 
 
