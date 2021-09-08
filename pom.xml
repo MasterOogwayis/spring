@@ -26,6 +26,7 @@
         <module>tests</module>
         <module>spring-boot-features</module>
         <module>thinking-in-spring</module>
+        <module>jvm</module>
         <!--        <module>file</module>-->
         <!--        <module>product</module>-->
         <!--        <module>oauth2</module>-->
@@ -38,7 +39,6 @@
         <!--        <module>quartz</module>-->
         <!--        <module>zsw-elastic</module>-->
         <!--        <module>vertx-apps</module>-->
-        <!--        <module>jvm</module>-->
         <!--        <module>standalone-security-app</module>-->
         <!--        <module>seata</module>-->
         <!--        <module>session</module>-->
