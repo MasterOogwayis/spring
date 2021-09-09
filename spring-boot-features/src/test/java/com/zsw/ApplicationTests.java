@@ -24,7 +24,8 @@ public class ApplicationTests {
 
     @Test
     public void exampleTest(@Autowired MockMvc mvc) throws Exception {
-        mvc.perform(get("/hello")).andExpect(status().isOk())
+        mvc.perform(get("/hello"))
+                .andExpect(status().isOk())
                 .andExpect(content().string("Hello World"));
     }
 
@@ -36,6 +37,15 @@ public class ApplicationTests {
                 .andExpect(jsonPath("$.profiles").value("dev"))
                 .andExpect(jsonPath("$.db").value("redis"));
 //                .andExpect(content().string("Hello World"));
+
+//        mvc.perform(
+//                post("/find")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content("{\"name\": \"zsw\"}"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.profiles").value("dev"))
+//                .andExpect(jsonPath("$.db").value("redis"));
     }
 
 //    @Mock

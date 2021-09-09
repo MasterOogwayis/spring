@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author ZhangShaowei on 2021/8/23 10:19
  */
@@ -19,7 +21,7 @@ public class ConfigPropertiesApi {
     private String name;
 
     @GetMapping("config")
-    public Object map() {
+    public Object map(HttpServletRequest request) {
         return this.mapProperties;
     }
 
