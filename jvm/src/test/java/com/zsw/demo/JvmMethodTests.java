@@ -6,6 +6,8 @@ import lombok.SneakyThrows;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
+import java.lang.reflect.Method;
+import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2021/9/7 13:50
@@ -13,7 +15,15 @@ import java.lang.invoke.MethodType;
 public class JvmMethodTests {
 
     public static void main(String[] args) {
-        testInvokeVirtual();
+        testInvoke();
+    }
+
+    @SneakyThrows
+    public static void testInvoke() {
+        Method t = Children.class.getDeclaredMethod("t");
+
+        Children children = new Children();
+        t.invoke(children);
     }
 
 
@@ -43,6 +53,10 @@ public class JvmMethodTests {
         public void say() {
             System.err.println("children ...");
         }
+
+        public void t() {
+            System.out.println("nothing ...");
+        }
     }
 
     static class Parent implements Grad {
@@ -55,6 +69,7 @@ public class JvmMethodTests {
         public void say() {
             System.out.println("parent ...");
         }
+
     }
 
 
