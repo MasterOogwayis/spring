@@ -1,6 +1,8 @@
 package com.zsw.lesson.l7;
 
 
+import lombok.SneakyThrows;
+
 import java.lang.reflect.Method;
 
 /**
@@ -14,12 +16,18 @@ import java.lang.reflect.Method;
 class ReflectionTests {
 
     public static void main(String[] args) throws Exception {
+        test();
+    }
+
+
+    @SneakyThrows
+    public static void test() {
         Method target = ReflectionTests.class.getMethod("target", int.class);
         target.setAccessible(true);
         // 内联瓶颈，提前循环 2000 次反射调用其他2个方法，扰乱 Method.invoke 方法的类型 profile
         // 会导致性能开销显著上升
         // -XX:TypeProfileWidth=3
-        polluteProfile();
+//        polluteProfile();
 
         long current = System.currentTimeMillis();
         Object[] arr = new Object[]{128};
@@ -40,6 +48,17 @@ class ReflectionTests {
         System.out.println("end...");
     }
 
+    /**
+     * 反射调用链
+     */
+    @SneakyThrows
+    public static void testStackTrace() {
+        Method target = ReflectionTests.class.getMethod("target", int.class);
+        for (int i = 0; i < 20; i++) {
+            target.invoke(null, i);
+        }
+    }
+
 
     /**
      * 测试 20 亿次调用性能损耗
@@ -47,9 +66,12 @@ class ReflectionTests {
      * @param i
      */
     public static void target(int i) {
-//        new Exception(i + "").printStackTrace();
+//        new Exception("#" + i).printStackTrace();
     }
 
+    /**
+     * @throws Exception
+     */
     public static void polluteProfile() throws Exception {
         Method method1 = ReflectionTests.class.getMethod("target1", int.class);
         Method method2 = ReflectionTests.class.getMethod("target2", int.class);
