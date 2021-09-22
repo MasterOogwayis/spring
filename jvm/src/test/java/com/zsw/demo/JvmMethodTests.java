@@ -1,5 +1,7 @@
 package com.zsw.demo;
 
+import com.zsw.demo.family.Children;
+import com.zsw.demo.family.Parent;
 import com.zsw.utils.MethodHandlesUtils;
 import lombok.SneakyThrows;
 
@@ -7,7 +9,6 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
-import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2021/9/7 13:50
@@ -15,7 +16,7 @@ import java.util.stream.Stream;
 public class JvmMethodTests {
 
     public static void main(String[] args) {
-        testInvoke();
+        testInvokeVirtual2();
     }
 
     @SneakyThrows
@@ -46,37 +47,23 @@ public class JvmMethodTests {
         say.bindTo(new Children()).invoke();
     }
 
-
-    static class Children extends Parent {
-
-        @Override
-        public void say() {
-            System.err.println("children ...");
-        }
-
-        public void t() {
-            System.out.println("nothing ...");
-        }
+    @SneakyThrows
+    public static void testInvokeVirtual1() {
+        Method say = Parent.class.getDeclaredMethod("say");
+        MethodHandles.Lookup lookup = MethodHandlesUtils.lookup(Parent.class);
+        MethodHandle unreflect = lookup.unreflectSpecial(say, Parent.class);
+//        MethodHandle unreflect = lookup.unreflect(say);
+        unreflect.bindTo(new Children()).invokeExact();
     }
 
-    static class Parent implements Grad {
-
-        public static void hello() {
-            System.out.println("Hello World!");
-        }
-
-        @Override
-        public void say() {
-            System.out.println("parent ...");
-        }
-
+    @SneakyThrows
+    public static void testInvokeVirtual2() {
+        Method say = Parent.class.getDeclaredMethod("say");
+        MethodHandles.Lookup lookup = Parent.lookup();
+        MethodHandle unreflect = lookup.unreflectSpecial(say, Parent.class);
+//        MethodHandle unreflect = lookup.unreflect(say);
+        unreflect.bindTo(new Children()).invokeExact();
     }
 
-
-    interface Grad {
-
-        void say();
-
-    }
 
 }

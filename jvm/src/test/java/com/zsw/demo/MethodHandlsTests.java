@@ -7,13 +7,14 @@ import lombok.SneakyThrows;
 import java.lang.invoke.MethodHandles;
 
 /**
+ * @author ZhangShaowei on 2020/5/26 14:14
+ * @see MethodHandles#lookup() 只具有当前调用该方法 class 的访问权限，即使继承的子类也无权限
+ * <p>
  * 1. invokestatic：用于调用静态方法。
  * 2. invokespecial：用于调用私有实例方法、构造器，以及使用 super 关键字调用父类的实例方法或构造器，和所实现接口的默认方法。
  * 3. invokevirtual：用于调用非私有实例方法。
  * 4. invokeinterface：用于调用接口方法。
  * 5. invokedynamic：用于调用动态方法。
- *
- * @author ZhangShaowei on 2020/5/26 14:14
  */
 public class MethodHandlsTests {
 
