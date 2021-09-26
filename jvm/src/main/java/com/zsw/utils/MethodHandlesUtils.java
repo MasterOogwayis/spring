@@ -17,7 +17,9 @@ public class MethodHandlesUtils {
     @SneakyThrows
     public static MethodHandles.Lookup lookup(Class<?> clazz) {
         Constructor<Lookup> constructor = Lookup.class.getDeclaredConstructor(Class.class, Class.class, int.class);
+//        Constructor<Lookup> constructor = Lookup.class.getDeclaredConstructor(Class.class);
         constructor.setAccessible(Boolean.TRUE);
+//        return constructor.newInstance(clazz);
         return constructor.newInstance(clazz, null, ALLOWED_MODES);
     }
 
