@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * doc https://www.yuque.com/easyexcel/doc/quickstart
@@ -66,6 +68,23 @@ public class EasyExcelServiceImpl implements IExcelService {
         EasyExcel.write(outputStream, clazz)
                 .sheet(sheetNo, sheetName)
                 .doWrite(data);
+
+    }
+
+    @Override
+    public <T extends Serializable> void write(
+            Supplier<Collection<T>> data, Path path, Class<T> clazz, Integer sheetNo, String sheetName) {
+        EasyExcel.write(path.toFile(), clazz)
+                .sheet(sheetNo, sheetName)
+                .doWrite(data::get);
+    }
+
+    @Override
+    public <T extends Serializable> void write(
+            Supplier<Collection<T>> data, OutputStream outputStream, Class<T> clazz, Integer sheetNo, String sheetName) {
+        EasyExcel.write(outputStream, clazz)
+                .sheet(sheetNo, sheetName)
+                .doWrite(data::get);
 
     }
 }

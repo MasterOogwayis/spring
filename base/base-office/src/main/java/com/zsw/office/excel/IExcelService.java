@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author ZhangShaowei on 2021/9/30 15:23
@@ -33,6 +35,12 @@ public interface IExcelService {
 
     <T extends Serializable> void write(
             List<T> data, OutputStream outputStream, Class<T> clazz, Integer sheetNo, String sheetName);
+
+    <T extends Serializable> void write(
+            Supplier<Collection<T>> data, Path path, Class<T> clazz, Integer sheetNo, String sheetName);
+
+    <T extends Serializable> void write(
+            Supplier<Collection<T>> data, OutputStream outputStream, Class<T> clazz, Integer sheetNo, String sheetName);
 
 
 }
