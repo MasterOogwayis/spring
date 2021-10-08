@@ -2,10 +2,12 @@ package com.zsw.office.excel.listener;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
+import com.alibaba.excel.metadata.data.ReadCellData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -23,7 +25,22 @@ public class ConsumerDataListener<T extends Serializable> extends AnalysisEventL
     }
 
     @Override
+    public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
+        super.invokeHead(headMap, context);
+    }
+
+    @Override
+    public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
+        super.invokeHeadMap(headMap, context);
+    }
+
+    @Override
     public void doAfterAllAnalysed(AnalysisContext context) {
 
+    }
+
+    @Override
+    public void onException(Exception exception, AnalysisContext context) throws Exception {
+        super.onException(exception, context);
     }
 }

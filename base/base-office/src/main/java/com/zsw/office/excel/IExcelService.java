@@ -21,10 +21,18 @@ public interface IExcelService {
             InputStream inputStream, Class<T> clazz, ReadListener<T> listener,
             Integer sheetNo, String sheetName, Integer headRowNumber);
 
+    <T extends Serializable> void readAll(
+            Path path, Class<T> clazz, ReadListener<T> listener, Integer headRowNumber);
 
-    <T extends Serializable> void write(List<T> data, Path path, Integer sheetNo, String sheetName);
+    <T extends Serializable> void readAll(
+            InputStream inputStream, Class<T> clazz, ReadListener<T> listener, Integer headRowNumber);
 
-    <T extends Serializable> void write(List<T> data, OutputStream outputStream, Integer sheetNo, String sheetName);
+
+    <T extends Serializable> void write(
+            List<T> data, Path path, Class<T> clazz, Integer sheetNo, String sheetName);
+
+    <T extends Serializable> void write(
+            List<T> data, OutputStream outputStream, Class<T> clazz, Integer sheetNo, String sheetName);
 
 
 }
