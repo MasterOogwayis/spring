@@ -41,7 +41,7 @@ public class TestRead {
     @Test
     public void test1() {
         IExcelService excelService = new EasyExcelServiceImpl();
-        String path = "C:\\Users\\ZhangShaowei\\Desktop\\1.xlsx";
+        String path = "/data/1.xlsx";
         List<ExcelData> list = new ArrayList<>();
         AtomicInteger counter = new AtomicInteger(0);
         excelService.read(Paths.get(path), ExcelData.class, new ConsumerDataListener<ExcelData>(d -> {

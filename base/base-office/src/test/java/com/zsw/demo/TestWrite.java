@@ -35,7 +35,7 @@ public class TestWrite {
 
     private static List<DriverCostDailyCell> data() {
         DriverCostDailyCell cell = new DriverCostDailyCell();
-        cell.setChangeVehicle("川A00000");
+        cell.setVehicleNo("川A00000");
         cell.setFuelType("燃气");
         cell.setName("name");
         cell.setPhone("110");
