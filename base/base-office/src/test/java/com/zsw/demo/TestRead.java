@@ -2,9 +2,9 @@ package com.zsw.demo;
 
 import com.alibaba.excel.EasyExcel;
 import com.zsw.demo.index.ExcelData;
-import com.zsw.office.excel.IExcelService;
-import com.zsw.office.excel.impl.EasyExcelServiceImpl;
-import com.zsw.office.excel.listener.ConsumerDataListener;
+import com.zsw.office.IExcelService;
+import com.zsw.office.impl.EasyExcelServiceImpl;
+import com.zsw.office.listener.ConsumerDataListener;
 import org.junit.Test;
 
 import java.nio.file.Paths;

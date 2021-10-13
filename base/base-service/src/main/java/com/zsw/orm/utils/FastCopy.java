@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 /**
  * 对象属性复制工具类，生成赋值代码编译运行，和手动编写代码一样快。
  *
- * @author caiyouyuan
+ * @author ZhangShaowei
  * @since 2019年07月16日
  */
 public class FastCopy {

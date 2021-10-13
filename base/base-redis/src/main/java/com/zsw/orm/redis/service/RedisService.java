@@ -3,8 +3,6 @@ package com.zsw.orm.redis.service;
 import com.zsw.orm.redis.dao.commons.BaseCacheDao;
 import com.zsw.orm.redis.utils.RedisKeyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.support.TransactionSynchronizationAdapter;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +39,7 @@ public class RedisService {
      *
      * @param args 偏移量customerCode methodName ClassName等  能指定唯一key
      * @return true or false
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     public Boolean accessFrequency(final String... args) {
@@ -63,26 +61,6 @@ public class RedisService {
         //每次访问都刷新该队列的生存时间
         this.cache.expire(key, ACCESS_TIME_UNIT, TimeUnit.SECONDS);
         return access;
-    }
-
-
-    public void releaseAfterCommit() {
-        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter() {
-            @Override
-            public void beforeCompletion() {
-                super.beforeCompletion();
-            }
-
-            @Override
-            public void afterCommit() {
-                super.afterCommit();
-            }
-
-            @Override
-            public void afterCompletion(int status) {
-                super.afterCompletion(status);
-            }
-        });
     }
 
 

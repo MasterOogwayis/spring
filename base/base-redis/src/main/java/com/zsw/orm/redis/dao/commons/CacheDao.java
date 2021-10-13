@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 描      述    : cache 通用接口
  *
- * @author : zhangshaowei CopyRight (c) 2017 Company, Inc. All rights reserved.
+ * @author zhangshaowei CopyRight (c) 2017 Company, Inc. All rights reserved.
  * @param <K> key
  * @param <V> value
  */

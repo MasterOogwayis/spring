@@ -55,7 +55,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
      *
      * @param key   key
      * @param value V
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     @Override
@@ -71,7 +71,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
      * @param value   值
      * @param timeout 有效时间
      * @param unit    时间类型
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     @Override
@@ -110,7 +110,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
      *
      * @param key    key
      * @param values List
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @version : v1.0
      * @date : 2017年1月19日 下午2:28:26
      * @since : v1.0
@@ -183,7 +183,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
      * @param start 分页第一个元素
      * @param end   分页最后一个元素   查询所有传 -1
      * @return List
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     @Override
@@ -272,7 +272,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
     /**
      * 描述：清空缓存----当前缓存库
      *
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     @Override
@@ -283,7 +283,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
     /**
      * 描述：清空缓存----包含所有集群的从库
      *
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     @Override
@@ -298,7 +298,7 @@ public class RedisDao<K, V> implements CacheDao<K, V> {
      * @param key     key
      * @param timeout Long
      * @param unit    TimeUnit
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     @Override

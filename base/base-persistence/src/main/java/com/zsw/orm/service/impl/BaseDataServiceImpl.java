@@ -3,7 +3,11 @@ package com.zsw.orm.service.impl;
 import com.zsw.orm.service.BaseDataService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.util.StringUtils;
 
@@ -21,13 +25,13 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
     /**
      * 实例 JpaRepository
      *
-     * @return
+     * @return JpaRepository
      */
     public abstract JpaRepository<T, E> getRepository();
 
 
     /**
-     * @param id
+     * @param id id
      */
     @Override
     public void delete(E id) {
@@ -35,7 +39,7 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
     }
 
     /**
-     * @param entity
+     * @param entity entity
      */
     @Override
     public void delete(T entity) {
@@ -43,8 +47,8 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
     }
 
     /**
-     * @param record
-     * @return
+     * @param record new or old need to be updated
+     * @return saved entity
      */
     @Override
     public T save(T record) {
@@ -52,8 +56,8 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
     }
 
     /**
-     * @param record
-     * @return
+     * @param record new or old need to be updated
+     * @return saved entity
      */
     @Override
     public T saveOrUpdate(T record) {
@@ -61,17 +65,17 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
     }
 
     /**
-     * @param id
-     * @return
+     * @param id id
+     * @return T
      */
     @Override
     public T get(E id) {
-        return this.getRepository().getOne(id);
+        return this.getRepository().getById(id);
     }
 
     /**
-     * @param record
-     * @return
+     * @param record T
+     * @return Collection
      */
     @Override
     public List<T> findAll(T record) {
@@ -84,10 +88,10 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
     }
 
     /**
-     * @param t
-     * @param page
-     * @param limit
-     * @return
+     * @param t     T
+     * @param page  page
+     * @param limit limit
+     * @return page
      */
     @Override
     public Page<T> findAll(T t, int page, int limit) {
@@ -98,10 +102,10 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
      * 事实上并不常用，用hql吧，简单方便！
      * 分页方式也不常用
      *
-     * @param t
-     * @param page
-     * @param limit
-     * @return
+     * @param t     T
+     * @param page  page
+     * @param limit pageSize
+     * @return page
      */
     @Override
     public Page<T> findAll(T t, int page, int limit, String sortName, String sortType) {
@@ -114,54 +118,11 @@ public abstract class BaseDataServiceImpl<T, E extends Serializable> implements 
      * 创建分页请求.
      */
     private PageRequest buildPageRequest(int pageNumber, int pagzSize, String sortName, String sortType) {
-        if (StringUtils.isEmpty(sortName)) {
+        if (StringUtils.hasText(sortName)) {
             return PageRequest.of(pageNumber - 1, pagzSize);
         }
         Sort sort = Sort.by(Sort.Direction.fromString(sortType), sortName);
         return PageRequest.of(pageNumber - 1, pagzSize, sort);
     }
-
-    /**
-     * 属性拷贝  目标属性会被源覆盖
-     *
-     * @param source           源
-     * @param target           目标
-     * @param ignoreProperties 忽略字段
-     */
-    protected void copyProperties(Object source, Object target, String... ignoreProperties) {
-        BeanUtils.copyProperties(source, target, ignoreProperties);
-    }
-
-    /**
-     * 只处理 BaseBean 子类
-     * 通用注入创建 更新信息 可通过super调用
-     *
-     * @param record
-     * @return
-     */
-//    private <R extends BaseBean> R addValue(R record) {
-//        try {
-//            Field[] fields = record.getClass().getDeclaredFields();
-//            for (Field field : fields) {
-//
-//                if (Objects.nonNull(field.getAnnotation(Id.class))) {
-//                    field.setAccessible(true);
-//                    // 主键不为空 则为update
-//                    if (Objects.nonNull(field.get(record))) {
-//                        record.setUpdator(this.currentUser().getUsername());
-//                        record.setUpdateTimestamp(new Date());
-//                    } else {
-//                        record.setCreator(this.currentUser().getUsername());
-//                        record.setCreateTimestamp(new Date());
-//                    }
-//                    break;
-//                }
-//
-//            }
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        }
-//        return record;
-//    }
 
 }

@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
  * 描      述    : 用于操作 实体类型的接口
  *
  * @param <T> Bean
- * @author : zhangshaowei
+ * @author zhangshaowei
  */
 public interface EntityCacheDao<T> extends CacheDao<String, T> {
 

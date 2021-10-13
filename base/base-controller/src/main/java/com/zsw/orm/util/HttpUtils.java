@@ -3,7 +3,7 @@ package com.zsw.orm.util;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author : zhangshaowei
+ * @author zhangshaowei
  * @filename: HttpUtils.java CopyRight (c) 2016 Company, Inc. All rights reserved.
  * @date : 2016年12月26日 上午11:21:10
  * <p>

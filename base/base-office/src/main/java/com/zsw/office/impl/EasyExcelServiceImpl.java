@@ -1,8 +1,8 @@
-package com.zsw.office.excel.impl;
+package com.zsw.office.impl;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.read.listener.ReadListener;
-import com.zsw.office.excel.IExcelService;
+import com.zsw.office.IExcelService;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -86,5 +86,37 @@ public class EasyExcelServiceImpl implements IExcelService {
                 .sheet(sheetNo, sheetName)
                 .doWrite(data::get);
 
+    }
+
+    @Override
+    public void write(List<List<String>> head, List<?> data, Path path, Integer sheetNo, String sheetName) {
+        EasyExcel.write(path.toFile())
+                .head(head)
+                .sheet(sheetNo, sheetName)
+                .doWrite(data);
+    }
+
+    @Override
+    public void write(List<List<String>> head, List<?> data, OutputStream outputStream, Integer sheetNo, String sheetName) {
+        EasyExcel.write(outputStream)
+                .head(head)
+                .sheet(sheetNo, sheetName)
+                .doWrite(data);
+    }
+
+    @Override
+    public void write(List<List<String>> head, Supplier<Collection<?>> data, Path path, Integer sheetNo, String sheetName) {
+        EasyExcel.write(path.toFile())
+                .head(head)
+                .sheet(sheetNo, sheetName)
+                .doWrite(data);
+    }
+
+    @Override
+    public void write(List<List<String>> head, Supplier<Collection<?>> data, OutputStream outputStream, Integer sheetNo, String sheetName) {
+        EasyExcel.write(outputStream)
+                .head(head)
+                .sheet(sheetNo, sheetName)
+                .doWrite(data);
     }
 }

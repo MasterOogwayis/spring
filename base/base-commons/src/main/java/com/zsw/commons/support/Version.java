@@ -18,6 +18,7 @@ public final class Version {
     private static final Pattern VERSION_PATTERN = Pattern.compile("([0-9][0-9\\.\\-]*)\\.jar");
 
     private static final String VERSION = getVersion(Version.class, "2.0.0");
+    public static final String JAR = ".jar";
 
     public static String getVersion(){
         return VERSION;
@@ -33,7 +34,7 @@ public final class Version {
             if (version == null || version.length() == 0) {
                 // 如果MANIFEST.MF规范中没有版本号，基于jar包名获取版本号
                 String file = cls.getProtectionDomain().getCodeSource().getLocation().getFile();
-                if (file != null && file.length() > 0 && file.endsWith(".jar")) {
+                if (file != null && file.length() > 0 && file.endsWith(JAR)) {
                     Matcher matcher = VERSION_PATTERN.matcher(file);
                     while (matcher.find() && matcher.groupCount() > 0) {
                         version = matcher.group(1);

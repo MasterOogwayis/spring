@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * 描      述    : 操作基本类型的接口
  *
- * @author : zhangshaowei
+ * @author zhangshaowei
  * @param <K> key
  * @param <V> value
  */
@@ -26,7 +26,7 @@ public interface ValueCacheDao<K, V> extends CacheDao<K, V> {
      * @param key    key
      * @param number number
      * @return 不存在key则返回null
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @version : v1.0
      * @date : 2017年2月16日 下午2:51:32
      * @since : v1.0

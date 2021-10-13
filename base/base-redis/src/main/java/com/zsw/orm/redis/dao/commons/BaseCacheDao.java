@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 描      述    : 操作基本类型的接口
  *
- * @author : zhangshaowei
+ * @author zhangshaowei
  */
 public interface BaseCacheDao extends ValueCacheDao<String, Object> {
 
@@ -21,7 +21,7 @@ public interface BaseCacheDao extends ValueCacheDao<String, Object> {
      * @param timeout 生存时间
      * @param unit    TimeUnit
      * @return 设定成功？
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     Boolean setNXExpire(String key, Object value, Long timeout, TimeUnit unit);

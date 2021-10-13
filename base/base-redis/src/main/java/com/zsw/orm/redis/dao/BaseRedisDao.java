@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 描      述    : 操作缓存不开启事物   or 不能及时得到缓存数据反馈
  *
- * @author : zhangshaowei
+ * @author zhangshaowei
  */
 @Component
 public class BaseRedisDao extends RedisDao<String, Object> implements BaseCacheDao {
@@ -27,10 +27,10 @@ public class BaseRedisDao extends RedisDao<String, Object> implements BaseCacheD
      *
      * @param key key
      * @return Long
-     * @author : zhangshaowei
-     * @version : v1.0
-     * @date : 2017年2月10日 上午9:10:12
-     * @since : v1.0
+     * @author zhangshaowei
+     * @version v1.0
+     * @date 2017年2月10日 上午9:10:12
+     * @since v1.0
      */
     @Override
     public Long increment(final String key, final long number) {
@@ -74,7 +74,7 @@ public class BaseRedisDao extends RedisDao<String, Object> implements BaseCacheD
      * @param key   key
      * @param value value
      * @return boolean
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @version : v1.0
      * @date : 2017年1月11日 下午1:26:52
      * @since : v1.0

@@ -1,7 +1,8 @@
 package com.zsw.orm.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigInteger;
 import java.net.NetworkInterface;
@@ -16,41 +17,54 @@ import java.util.Enumeration;
  *
  * @author Ewing
  */
+@Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class GlobalIds {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalIds.class);
-
-    // 机器标识位 + 进程标识位
-    private static final String MAC_PROC_BIT;
-
-    // 计数器掩码 用于取计数器后面的位
-    private static final int COUNTER_MASK = 0b111111111111;
-
-    // 标志位 防止高位为0时转成字符串被去掉
-    private static final int COUNTER_FLAG = COUNTER_MASK + 1;
-
-    // 时间戳 放在ID的最前面
-    private static long timestamp = System.currentTimeMillis();
-
-    // 计数器 取后面的位
-    private static int counter = new SecureRandom().nextInt(COUNTER_MASK);
-
-    // 游标 记录新的时间的计数器开始值
-    private static int cursor = counter;
 
     /**
-     * 私有化构造方法。
+     *
      */
-    private GlobalIds() {
-    }
+    public static final long SECONDS = 1000L;
+
+    /**
+     * 机器标识位 + 进程标识位
+     */
+    private static final String MAC_PROC_BIT;
+
+    /**
+     * 计数器掩码 用于取计数器后面的位
+     */
+    private static final int COUNTER_MASK = 0b111111111111;
+
+    /**
+     * 标志位 防止高位为0时转成字符串被去掉
+     */
+    private static final int COUNTER_FLAG = COUNTER_MASK + 1;
+
+    /**
+     * 时间戳 放在ID的最前面
+     */
+    private static long timestamp = System.currentTimeMillis();
+
+    /**
+     * 计数器 取后面的位
+     */
+    private static int counter = new SecureRandom().nextInt(COUNTER_MASK);
+
+    /**
+     * 游标 记录新的时间的计数器开始值
+     */
+    private static int cursor = counter;
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
+        int num = 10;
+        for (int i = 0; i < num; i++) {
             System.out.println(nextId());
         }
     }
 
-    /**
-     * 初始化机器标识及进程标识。
+    /*
+      初始化机器标识及进程标识。
      */
     static {
         // 保证一定是24位机器ID + 8位进程ID
@@ -84,7 +98,7 @@ public class GlobalIds {
                     timestamp = System.currentTimeMillis();
                 }
             }
-        } else if (currentTime - timestamp > 1000) {
+        } else if (currentTime - timestamp > SECONDS) {
             // 机器时间后退太多
             throw new IllegalStateException("Time gone back too much!");
         } else {
@@ -123,7 +137,7 @@ public class GlobalIds {
             }
             return sb.toString().hashCode();
         } catch (Throwable throwable) {
-            LOGGER.warn("Use random number instead mac address!", throwable);
+            log.warn("Use random number instead mac address!", throwable);
             return new SecureRandom().nextInt();
         }
     }
@@ -134,13 +148,14 @@ public class GlobalIds {
     private static int getProcessIdentifier() {
         try {
             String processName = java.lang.management.ManagementFactory.getRuntimeMXBean().getName();
-            if (processName.contains("@")) {
-                return Integer.parseInt(processName.substring(0, processName.indexOf('@')));
+            String at = "@";
+            if (processName.contains(at)) {
+                return Integer.parseInt(processName.substring(0, processName.indexOf(at)));
             } else {
                 return java.lang.management.ManagementFactory.getRuntimeMXBean().getName().hashCode();
             }
         } catch (Throwable throwable) {
-            LOGGER.warn("Use random number instead process id!", throwable);
+            log.warn("Use random number instead process id!", throwable);
             return new SecureRandom().nextInt();
         }
     }

@@ -1,4 +1,4 @@
-package com.zsw.office.excel;
+package com.zsw.office;
 
 import com.alibaba.excel.read.listener.ReadListener;
 
@@ -41,6 +41,14 @@ public interface IExcelService {
 
     <T extends Serializable> void write(
             Supplier<Collection<T>> data, OutputStream outputStream, Class<T> clazz, Integer sheetNo, String sheetName);
+
+    void write(List<List<String>> head, List<?> data, Path path, Integer sheetNo, String sheetName);
+
+    void write(List<List<String>> head, List<?> data, OutputStream outputStream, Integer sheetNo, String sheetName);
+
+    void write(List<List<String>> head, Supplier<Collection<?>> data, Path path, Integer sheetNo, String sheetName);
+
+    void write(List<List<String>> head, Supplier<Collection<?>> data, OutputStream outputStream, Integer sheetNo, String sheetName);
 
 
 }

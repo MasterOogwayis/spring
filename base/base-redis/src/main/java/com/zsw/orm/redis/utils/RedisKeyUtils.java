@@ -9,7 +9,7 @@ import java.util.Arrays;
 /**
  * 描      述    :
  *
- * @author : zhangshaowei
+ * @author zhangshaowei
  */
 public final class RedisKeyUtils {
     /**
@@ -26,7 +26,7 @@ public final class RedisKeyUtils {
      *
      * @param args 参数array
      * @return String
-     * @author : zhangshaowei
+     * @author zhangshaowei
      * @since : v1.0
      */
     public static String getKey(final String... args) {

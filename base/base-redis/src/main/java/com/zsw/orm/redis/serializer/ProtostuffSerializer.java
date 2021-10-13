@@ -10,7 +10,7 @@ import io.protostuff.runtime.RuntimeSchema;
  * Protostuff序列化，线程安全，支持任意对象类型。
  * 使用对象图，支持循环引用、集合类属性等复杂对象。
  *
- * @author Ewing
+ * @author ZhangShaowei
  * @date 2017/6/15
  */
 public class ProtostuffSerializer {

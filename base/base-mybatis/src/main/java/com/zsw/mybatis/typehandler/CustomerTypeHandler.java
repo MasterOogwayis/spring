@@ -17,6 +17,11 @@ import java.sql.SQLException;
 // #{name,jdbcType=VARCHAR}
 @MappedJdbcTypes(value = JdbcType.VARCHAR, includeNullJdbcType = true)
 public class CustomerTypeHandler implements TypeHandler<String> {
+
+
+    private static final String AUTHOR = "Author";
+    private static final String NAME = "zsw";
+
     @Override
     public void setParameter(PreparedStatement ps, int i, String parameter, JdbcType jdbcType) throws SQLException {
         ps.setString(i, parameter);
@@ -25,8 +30,8 @@ public class CustomerTypeHandler implements TypeHandler<String> {
     @Override
     public String getResult(ResultSet rs, String columnName) throws SQLException {
         String name = rs.getString(columnName);
-        if ("zsw".equalsIgnoreCase(name)) {
-            return "张少伟";
+        if (NAME.equalsIgnoreCase(name)) {
+            return AUTHOR;
         }
         return name;
     }
@@ -34,8 +39,8 @@ public class CustomerTypeHandler implements TypeHandler<String> {
     @Override
     public String getResult(ResultSet rs, int columnIndex) throws SQLException {
         String name = rs.getString(columnIndex);
-        if ("zsw".equalsIgnoreCase(name)) {
-            return "张少伟";
+        if (NAME.equalsIgnoreCase(name)) {
+            return AUTHOR;
         }
         return name;
     }
@@ -43,8 +48,8 @@ public class CustomerTypeHandler implements TypeHandler<String> {
     @Override
     public String getResult(CallableStatement cs, int columnIndex) throws SQLException {
         String name = cs.getString(columnIndex);
-        if ("zsw".equalsIgnoreCase(name)) {
-            return "张少伟";
+        if (NAME.equalsIgnoreCase(name)) {
+            return AUTHOR;
         }
         return name;
     }
