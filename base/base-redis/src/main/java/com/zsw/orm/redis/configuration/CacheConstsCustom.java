@@ -31,7 +31,7 @@ public enum CacheConstsCustom implements CacheConsts {
      * 所有 CacheName定义到这里，注解里面使用Keys
      * 在 enum 里面配置 expire
      */
-    public class UserKeys {
+    public static class UserKeys {
         public static final String KEY_USER_ROLES = "namespace:user:roles";
     }
 

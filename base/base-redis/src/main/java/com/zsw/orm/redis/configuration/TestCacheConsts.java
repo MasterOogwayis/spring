@@ -31,7 +31,7 @@ public enum TestCacheConsts implements CacheConsts {
      * 所有 CacheName定义到这里，注解里面使用Keys
      * 在 enum 里面配置 expire
      */
-    public class TestKeys {
+    public static class TestKeys {
         public static final String TEST = "test";
     }
 

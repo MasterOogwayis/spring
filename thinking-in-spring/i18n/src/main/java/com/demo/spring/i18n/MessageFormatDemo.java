@@ -1,13 +1,9 @@
 package com.demo.spring.i18n;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author ZhangShaowei on 2021/6/28 10:25

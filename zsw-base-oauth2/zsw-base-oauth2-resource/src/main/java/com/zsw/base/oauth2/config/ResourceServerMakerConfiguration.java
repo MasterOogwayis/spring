@@ -14,7 +14,7 @@ public class ResourceServerMakerConfiguration {
         return new Marker();
     }
 
-    class Marker {
+    static class Marker {
 
     }
 

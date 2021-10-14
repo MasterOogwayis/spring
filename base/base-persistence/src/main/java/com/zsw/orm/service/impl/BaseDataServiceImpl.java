@@ -2,7 +2,6 @@ package com.zsw.orm.service.impl;
 
 import com.zsw.orm.service.BaseDataService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;

@@ -14,7 +14,7 @@ public class AuthorizationServerMakerConfiguration {
         return new Maker();
     }
 
-    class Maker {
+    static class Maker {
 
     }
 

@@ -3,10 +3,7 @@ package com.demo.spring.beans.service;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.context.Lifecycle;
 import org.springframework.context.SmartLifecycle;
-
-import java.util.Objects;
 
 /**
  * @author ZhangShaowei on 2021/4/26 14:10

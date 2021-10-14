@@ -61,7 +61,7 @@ public class ExampleService {
         return "roles";
     }
 
-    private class Ex {
+    private static class Ex {
 
         private Long id;
 

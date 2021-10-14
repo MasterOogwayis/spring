@@ -2,8 +2,6 @@ package com.zsw.lesson.l6;
 
 import lombok.AllArgsConstructor;
 
-import javax.xml.namespace.QName;
-
 /**
  * @author ZhangShaowei on 2021/4/12 16:05
  */

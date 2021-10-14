@@ -2,8 +2,6 @@ package com.demo.spring.ioc.overview.domain;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import java.lang.reflect.Proxy;
-
 /**
  * @author ZhangShaowei on 2019/6/6 14:55
  **/

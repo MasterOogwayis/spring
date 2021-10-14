@@ -2,7 +2,6 @@ package com.demo.spring.dependency.inject;
 
 import com.demo.spring.ioc.overview.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**

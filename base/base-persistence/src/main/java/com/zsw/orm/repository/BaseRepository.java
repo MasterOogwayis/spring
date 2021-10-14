@@ -3,10 +3,7 @@ package com.zsw.orm.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
-import javax.persistence.EntityManager;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 基础功能直接继承这个接口就行，不需要写实现类 @Repository XXRepository extends BaseRepository

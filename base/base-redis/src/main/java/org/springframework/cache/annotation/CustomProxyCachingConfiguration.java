@@ -1,14 +1,5 @@
 package org.springframework.cache.annotation;
 
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.cache.config.CacheManagementConfigUtils;
-import org.springframework.cache.interceptor.BeanFactoryCacheOperationSourceAdvisor;
-import org.springframework.cache.interceptor.CacheOperationSource;
-import org.springframework.cache.interceptor.CustomCacheInterceptor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Role;
-
 /**
  * @author ZhangShaowei on 2019/6/18 17:40
  * @see org.springframework.cache.annotation.ProxyCachingConfiguration

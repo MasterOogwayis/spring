@@ -1,7 +1,6 @@
 package com.zsw.netty.example;
 
 import io.netty.channel.*;
-import io.netty.util.concurrent.EventExecutorGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
