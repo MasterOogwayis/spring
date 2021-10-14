@@ -4,7 +4,6 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -13,7 +12,6 @@ import java.util.function.Consumer;
 /**
  * @author ZhangShaowei on 2021/8/3 10:41
  */
-@Data
 @AllArgsConstructor
 public class ConsumerDataListener<T extends Serializable> extends AnalysisEventListener<T> {
 

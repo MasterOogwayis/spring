@@ -3,6 +3,7 @@ package com.zsw.orm.repository.impl;
 import com.zsw.orm.repository.BaseCustomRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.NoRepositoryBean;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +21,7 @@ import java.util.Map;
  *
  * @author zsw 2019年7月29日09:33:40
  */
+@NoRepositoryBean
 public class BaseCustomRepositoryImpl<T, ID extends Serializable> implements BaseCustomRepository<T, ID>, InitializingBean {
 
     @Autowired

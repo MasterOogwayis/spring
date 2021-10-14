@@ -81,7 +81,7 @@ public class RemoteDebugger implements ApplicationContextAware {
         return executeFoundMethod(clazz, bean, mayMethods, params);
     }
 
-    private Object executeFoundMethod(Class clazz, Object bean, List<Method> mayMethods, JsonArray params) {
+    private Object executeFoundMethod(Class<?> clazz, Object bean, List<Method> mayMethods, JsonArray params) {
         // 根据参数锁定方法
         List<Object> args = new ArrayList<>();
         Method foundMethod = null;
@@ -122,7 +122,7 @@ public class RemoteDebugger implements ApplicationContextAware {
                 }
                 if (Objects.isNull(target)) {
                     // 自行实例化一个
-                    target = clazz.newInstance();
+                    target = clazz.getDeclaredConstructor().newInstance();
                 }
                 return foundMethod.invoke(target, args.toArray());
             }
