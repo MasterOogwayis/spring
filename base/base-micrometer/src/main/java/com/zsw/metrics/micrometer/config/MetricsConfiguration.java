@@ -6,7 +6,6 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,8 +17,7 @@ import java.util.Map;
  *
  * @author ZhangShaowei on 2018/3/30 14:53
  **/
-@Configuration
-@ConditionalOnProperty(name = "endpoints.prometheus.enabled", havingValue = "true")
+//@Configuration
 public class MetricsConfiguration {
 
     /**

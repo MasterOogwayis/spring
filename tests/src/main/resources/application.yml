@@ -1,5 +1,33 @@
 server:
   port: 18080
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+    # 开启 micrometer 以 prometheus 输出，然后脱敏
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+spring:
+  application:
+    name: tests
+  redis:
+    host: localhost
+    ## Redis服务器连接端口
+    port: 6379
+    ## Redis服务器连接密码（默认为空）
+#    password: Anf34l_Fs
+    ## 连接超时时间（毫秒）
+    timeout: 5000
+    database: 0
+    lettuce:
+      pool:
+        max-active: 5
+        max-idle: 1
 #spring:
 #  application:
 #    name: test

@@ -1,10 +1,14 @@
 management:
   endpoints:
+    sensitive: false
+    enabled-by-default: true
     web:
       exposure:
         include: "*"
     # 开启 micrometer 以 prometheus 输出，然后脱敏
   endpoint:
+    health:
+      show-details: always
     prometheus:
       enabled: true
       sensitive: false

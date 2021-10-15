@@ -11,7 +11,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +37,7 @@ import java.util.stream.Stream;
  * @since 2019年6月13日16:36:43
  */
 @Setter
-@Component
+//@Component
 @ManagedResource(description = "mbean 远程调用")
 public class RemoteDebugger implements ApplicationContextAware {
 

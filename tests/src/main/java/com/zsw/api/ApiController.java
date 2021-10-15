@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author ZhangShaowei on 2021/1/13 13:01
  */
-@RestController
+//@RestController
 public class ApiController {
 
     @Autowired
