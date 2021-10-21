@@ -15,6 +15,11 @@ management:
 spring:
   application:
     name: tests
+  task:
+    execution:
+      pool:
+        max-size: 8
+        core-size: 2
   redis:
     host: localhost
     ## Redis服务器连接端口
@@ -22,7 +27,7 @@ spring:
     ## Redis服务器连接密码（默认为空）
 #    password: Anf34l_Fs
     ## 连接超时时间（毫秒）
-    timeout: 5000
+    timeout: 10000
     database: 0
     lettuce:
       pool:
@@ -65,6 +70,8 @@ spring:
 #    web:
 #      exposure:
 #        include: "*"
-logging:
-  level:
-    org.springframework: debug
+
+
+#logging:
+#  level:
+#    org.springframework: debug

@@ -16,19 +16,19 @@ import java.io.Serializable;
 public class ExcelData implements Serializable {
 
     private static final long serialVersionUID = -298599189393907477L;
-    @ExcelProperty(index = 3)
+    @ExcelProperty(index = 0)
     private String obj1;
 
     @ExcelProperty(index = 1)
     private String obj2;
 
-    @ExcelProperty(index = 4)
+    @ExcelProperty(index = 2)
     private String obj3;
 
-    @ExcelProperty(index = 2)
+    @ExcelProperty(index = 3)
     private String obj4;
 
-    @ExcelProperty(index = 0)
-    private String obj5;
+//    @ExcelProperty(index = 4)
+//    private String obj5;
 
 }
