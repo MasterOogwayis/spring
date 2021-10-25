@@ -10,7 +10,7 @@ public class PasswordTests {
 
     public static void main(String[] args) {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        System.out.println(passwordEncoder.encode("bbx-backend"));
+        System.out.println(passwordEncoder.encode("123456"));
         System.err.println(passwordEncoder.encode(System.currentTimeMillis() + ""));
     }
 
