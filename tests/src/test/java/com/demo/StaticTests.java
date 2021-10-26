@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.SortedMap;
+import java.util.UUID;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutorService;
@@ -37,10 +38,7 @@ public class StaticTests {
     public static void main(String[] args) {
 
 
-        IntStream.range(0, 10)
-                .boxed()
-                .sorted((a, b) -> -1)
-                .forEach(System.out::println);
+        System.out.println(UUID.randomUUID().toString());
 
 //        test(Collections.singletonList("Hello World"));
 
