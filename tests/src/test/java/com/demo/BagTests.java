@@ -12,10 +12,11 @@ public class BagTests {
         Bag<String> bag = new HashBag<>();
 
         for (int i = 0; i < 10; i++) {
-            bag.add((i % 3) + "");
+            bag.add(i + "");
         }
+        bag.add("2");
 
-        System.out.println(bag.getCount(2));
+        System.out.println(bag.getCount("2"));
 
 
     }
