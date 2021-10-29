@@ -18,6 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private ObjectMapper objectMapper;
 
+    /**
+     * 自定义 Header 封装到对象
+     *
+     * @param resolvers
+     */
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new RequestHeaderMethodArgumentResolver(objectMapper));
