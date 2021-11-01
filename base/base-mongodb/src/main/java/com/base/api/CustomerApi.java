@@ -1,8 +1,8 @@
 package com.base.api;
 
-import com.base.persistence.CustomerRepository;
-import com.base.persistence.entity.Customer;
-import com.base.persistence.entity.QCustomer;
+import com.base.repository.CustomerRepository;
+import com.base.repository.entity.Customer;
+import com.base.repository.entity.QCustomer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;

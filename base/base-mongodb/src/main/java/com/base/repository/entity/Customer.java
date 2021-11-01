@@ -1,4 +1,4 @@
-package com.base.persistence.entity;
+package com.base.repository.entity;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

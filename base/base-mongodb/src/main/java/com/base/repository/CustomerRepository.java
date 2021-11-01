@@ -1,6 +1,6 @@
-package com.base.persistence;
+package com.base.repository;
 
-import com.base.persistence.entity.Customer;
+import com.base.repository.entity.Customer;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
