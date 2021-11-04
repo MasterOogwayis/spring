@@ -52,7 +52,7 @@ public class UserApi {
 
     @GetMapping("init0")
     public Object init0(@RequestParam("num") Integer num) {
-        this.userService.init0(num);
+        this.userService.insertAndReturnIds(num);
         return "success";
     }
 

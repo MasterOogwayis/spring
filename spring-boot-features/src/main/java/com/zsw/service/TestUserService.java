@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,6 +91,32 @@ public class TestUserService extends BaseService<TestUserRepository, TestUser, L
                 return num;
             }
         });
+    }
+
+    public Object insertAndReturnIds(Integer num) {
+        long maxId = this.getMaxId();
+        String sql = "insert into t_user(`name`,firstName, lastName, address, age, phone, creator)" +
+                " values(?, ?, ?, ?, ?, ?, ?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        this.jdbcTemplate.update(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                long j = maxId + i;
+                ps.setString(1, "name" + j);
+                ps.setString(2, "first" + j);
+                ps.setString(3, "last" + j);
+                ps.setString(4, "Earth" + j);
+                ps.setInt(5, (int) (j & 17));
+                ps.setString(6, String.valueOf(j));
+                ps.setString(7, "sys");
+            }
+
+            @Override
+            public int getBatchSize() {
+                return num;
+            }
+        }, keyHolder);
+        return keyHolder.getKeyList();
     }
 
     public long getMaxId() {

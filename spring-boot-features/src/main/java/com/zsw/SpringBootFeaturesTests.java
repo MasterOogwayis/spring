@@ -34,7 +34,6 @@ public class SpringBootFeaturesTests {
      */
     @SneakyThrows
     public static void main(String[] args) {
-        log.info("This is a test for Spring Boot Features.");
 //        SpringApplication.run(SpringBootFeaturesTests.class, args);
 //        BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(1024 * 2);
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(SpringBootFeaturesTests.class)

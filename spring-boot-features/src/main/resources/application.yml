@@ -32,6 +32,9 @@ config:
   map:
     name: default
 
+logging:
+  config: classpath:logback-spring.xml
+
 ---
 spring:
   config:

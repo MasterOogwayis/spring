@@ -133,6 +133,11 @@
 
     <logger name="com.zsw" additivity="false" level="DEBUG">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="fileout"/>
+        <appender-ref ref="error"/>
+        <appender-ref ref="warn"/>
+        <appender-ref ref="debug"/>
+        <appender-ref ref="info"/>
     </logger>
     <!-- jmx 动态日志 -->
     <jmxConfigurator/>
