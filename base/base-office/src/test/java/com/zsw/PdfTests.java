@@ -1,12 +1,14 @@
 package com.zsw;
 
 
+import com.zsw.pdf.HtmlToPdfHelper;
 import com.zsw.pdf.PdfBuilder;
-import com.zsw.pdf.impl.FlyingSaucerPdfBuilder;
 import com.zsw.pdf.impl.XhtmlPdfBuilder;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -27,11 +29,14 @@ public class PdfTests {
         File htmlFile = new ClassPathResource("static/content.html").getFile();
         String html = Files.readString(htmlFile.toPath());
 
+        html = HtmlToPdfHelper.wrap(html);
+
+
         @Cleanup FileOutputStream os1 = new FileOutputStream(Paths.get(path, "合同1.pdf").toFile());
         test(new XhtmlPdfBuilder(), html, os1);
 
-        @Cleanup FileOutputStream os2 = new FileOutputStream(Paths.get(path, "合同2.pdf").toFile());
-        test(new FlyingSaucerPdfBuilder(), html, os2);
+//        @Cleanup FileOutputStream os2 = new FileOutputStream(Paths.get(path, "合同2.pdf").toFile());
+//        test(new FlyingSaucerPdfBuilder(), html, os2);
 
 //        @Cleanup FileOutputStream os3 = new FileOutputStream(Paths.get(path, "合同3.pdf").toFile());
 //        test(new OpenHtmlToPdfBuilder(), html, os3);

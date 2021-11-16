@@ -20,6 +20,7 @@ public class XhtmlPdfBuilder implements PdfBuilder {
 
     @Override
     public void htmlToPdf(String html, OutputStream os) {
+
         // 创建一个文档
         Document document = new Document(PageSize.A4);
         // pdf输出流

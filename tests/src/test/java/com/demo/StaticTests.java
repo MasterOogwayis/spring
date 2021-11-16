@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.Bag;
+import org.apache.commons.collections4.bag.HashBag;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
@@ -17,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.UUID;
 import java.util.concurrent.DelayQueue;
@@ -25,7 +29,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * @author ZhangShaowei on 2020/12/28 16:03
@@ -46,9 +49,29 @@ public class StaticTests {
 
 //        test(Collections.singletonList("Hello World"));
 
+        Bag<String> bag = new HashBag<>();
+
+        bag.add("1");
+        bag.add("2");
+        bag.add("2");
+        bag.add("3");
+        bag.add("3");
+        bag.add("3");
+
+        bag.stream().filter(StringUtils::isNotEmpty).forEach(System.out::println);
+
+        bag.uniqueSet().forEach(System.err::println);
+
+        Set<Map.Entry<String, String>> entries = Collections.singletonMap("", "").entrySet();
+
+        Class<Td> e = Td.class;
 
     }
 
+    static enum Td {
+        A,
+        B;
+    }
 
     public static void test(Collection<String> collection) {
         Optional.ofNullable(collection).stream().flatMap(Collection::stream).forEach(System.out::println);

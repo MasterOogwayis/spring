@@ -10,7 +10,7 @@
             padding: 0;
             color: #000;
             font-size: 16px;
-            font-family: SimSun,serif;
+            font-family: SimSun, serif;
             background: #fff;
         }
     </style>
@@ -41,18 +41,23 @@
         </label>
     </div>
     <div>
+        <span>下拉：</span>
+        <label>
+            <select>
+                <option value="下拉1">下拉1</option>
+                <option value="下拉2">下拉2</option>
+                <option value="下拉3">下拉3</option>
+                <option selected="selected" value="下拉4">下拉4</option>
+            </select>
+        </label>
+    </div>
+    <div>
         <form action="javascript:alert(123);">
             <span>单选：</span>
             <label>
                 <input name="dx" type="radio" value="单选1"/>单选1
-            </label>
-            <label>
                 <input name="dx" type="radio" value="单选2"/>单选2
-            </label>
-            <label>
                 <input checked="checked" name="dx" type="radio" value="单选3"/>单选3
-            </label>
-            <label>
                 <input name="dx" type="radio" value="单选4"/>单选4
             </label>
         </form>
@@ -61,18 +66,16 @@
         <form action="javascript:alert(123);">
             <span>多选：</span>
             <label>
-                <input name="dx" type="checkbox" value="多选1"/>多选1
-            </label>
-            <label>
+                <input checked="checked" type="checkbox" value="多选1"/>多选1
                 <input name="dx" type="checkbox" value="多选2"/>多选2
-            </label>
-            <label>
                 <input checked="checked" name="dx" type="checkbox" value="多选3"/>多选3
-            </label>
-            <label>
                 <input name="dx" type="checkbox" value="多选4"/>多选4
             </label>
         </form>
+    </div>
+
+    <div>
+        日期：<input type="date" value="2021-11-11"/>
     </div>
 </div>
 </body>

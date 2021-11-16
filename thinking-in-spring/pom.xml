@@ -25,6 +25,7 @@
         <module>validation</module>
         <module>generic</module>
         <module>spring-annotation-programming-model</module>
+        <module>annotation</module>
     </modules>
 
 
