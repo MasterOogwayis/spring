@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.Bag;
-import org.apache.commons.collections4.bag.HashBag;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
@@ -13,16 +11,12 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.SortedMap;
-import java.util.UUID;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutorService;
@@ -42,29 +36,6 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-
-        System.out.println(UUID.randomUUID().toString());
-
-        List<String> list = Collections.synchronizedList(new ArrayList<>(10));
-
-//        test(Collections.singletonList("Hello World"));
-
-        Bag<String> bag = new HashBag<>();
-
-        bag.add("1");
-        bag.add("2");
-        bag.add("2");
-        bag.add("3");
-        bag.add("3");
-        bag.add("3");
-
-        bag.stream().filter(StringUtils::isNotEmpty).forEach(System.out::println);
-
-        bag.uniqueSet().forEach(System.err::println);
-
-        Set<Map.Entry<String, String>> entries = Collections.singletonMap("", "").entrySet();
-
-        Class<Td> e = Td.class;
 
     }
 

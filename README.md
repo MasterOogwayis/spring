@@ -62,3 +62,4 @@ AnnotationConfigUtils
 
 
 spring-petclinic-jpa
+JpaRepositoryFactoryBean

@@ -1,10 +1,6 @@
 package com.zsw.test;
 
-import com.alibaba.cloud.nacos.parser.NacosDataParserHandler;
-import org.springframework.core.env.PropertySource;
-
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author ZhangShaowei on 2020/10/19 17:09
@@ -31,8 +27,8 @@ public class NacosTests {
                 "        </biology>\n" +
                 "    </phytology>\n" +
                 "</biology>";
-        List<PropertySource<?>> propertySources = NacosDataParserHandler.getInstance().parseNacosData("dataId", data, "xml");
-        System.out.println(propertySources);
+//        List<PropertySource<?>> propertySources = NacosDataParserHandler.getInstance().parseNacosData("dataId", data, "xml");
+//        System.out.println(propertySources);
     }
 
 }
