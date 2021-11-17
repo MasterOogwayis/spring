@@ -1,6 +1,8 @@
 package com.zsw;
 
 import com.zsw.persistence.entity.TestUser;
+import com.zsw.persistence.repository.TestUserRepository;
+import com.zsw.persistence.repository.base.impl.BaseRepositoryImpl;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.WebApplicationType;
@@ -13,7 +15,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.Tuple;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * @author ZhangShaowei on 2021/8/18 11:28
@@ -21,7 +25,7 @@ import java.util.Collections;
 @EnableAspectJAutoProxy
 @Slf4j
 @EnableJpaAuditing(modifyOnCreate = false)
-@EnableJpaRepositories
+@EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
 @EntityScan(basePackageClasses = TestUser.class)
 @EnableTransactionManagement
 @SpringBootApplication(proxyBeanMethods = false)
@@ -44,6 +48,10 @@ public class SpringBootFeaturesTests {
                 .properties(Collections.singletonMap("custom.name", "Shaowei Zhang"))
                 .web(WebApplicationType.SERVLET)
                 .run(args);
+
+        TestUserRepository repository = applicationContext.getBean(TestUserRepository.class);
+        List<Tuple> available = repository.findAvailable();
+        System.out.println(available);
 //        StartupTimeline startupTimeline = applicationStartup.drainBufferedTimeline();
 //        startupTimeline.getEvents()
 //                .stream()

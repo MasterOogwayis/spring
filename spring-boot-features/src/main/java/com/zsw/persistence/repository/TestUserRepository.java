@@ -1,6 +1,7 @@
 package com.zsw.persistence.repository;
 
 import com.zsw.persistence.entity.TestUser;
+import com.zsw.persistence.repository.custom.TestUserRepositoryCustom;
 import com.zsw.pojo.NamesOnly;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author ZhangShaowei on 2021/8/26 10:33
  */
 @Repository
-public interface TestUserRepository extends JpaRepository<TestUser, Long> {
+public interface TestUserRepository extends JpaRepository<TestUser, Long>, TestUserRepositoryCustom {
 
     @Query("from TestUser")
     List<TestUser> findAllByPage(Pageable pageable);
