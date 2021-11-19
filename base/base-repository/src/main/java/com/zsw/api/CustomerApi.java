@@ -1,5 +1,6 @@
 package com.zsw.api;
 
+import com.querydsl.core.dml.InsertClause;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.zsw.peprsistence.entity.Customer;
 import com.zsw.peprsistence.entity.QCustomer;
@@ -35,19 +36,31 @@ public class CustomerApi implements InitializingBean {
                 .fetch();
     }
 
+    @GetMapping("update")
+    public Object update(@RequestParam("name") String name, @RequestParam("id") Long id) {
+        QCustomer customer = QCustomer.customer;
+        return this.repository.updateClause(customer)
+                .set(customer.name, name)
+                .where(customer.id.eq(id))
+                .execute();
+    }
 
 
     @Override
     public void afterPropertiesSet() throws Exception {
         List<Customer> list = new ArrayList<>(100);
+        QCustomer customer = QCustomer.customer;
         for (int i = 0; i < 100; i++) {
-            Customer customer = Customer.builder()
-                    .name("name" + i)
-                    .address(((i & 1) == 1) ? "Earth" : "Mars")
-                    .idNo("510199232323232323" + i)
-                    .age(i)
-                    .build();
-            list.add(customer);
+            InsertClause<?> clause = this.repository.insertClause(customer);
+            clause.columns(customer.name, customer.address, customer.idNo, customer.age)
+                    .values("name" + i, (((i & 1) == 1) ? "Earth" : "Mars"), ("510199232323232323" + i), i)
+                    .execute();
+//            Customer customer = Customer.builder()
+//                    .name("name" + i)
+//                    .address()
+//                    .idNo("510199232323232323" + i)
+//                    .age(i)
+//                    .build();
         }
 
         this.repository.saveAllAndFlush(list);

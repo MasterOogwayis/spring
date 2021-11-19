@@ -15,8 +15,8 @@ import java.io.Serializable;
  **/
 @Getter
 @Setter
-//@Entity
-//@Table(name = "TICKET")
+@Entity
+@Table(name = "TICKET")
 public class Ticket implements Serializable {
 
     @Serial
@@ -35,6 +35,9 @@ public class Ticket implements Serializable {
      */
     @Column(name = "NUMBER", nullable = false, columnDefinition = "INT(11) DEFAULT 0")
     private Integer number;
+
+    @Column
+    private Long customerId;
 
 
 }
