@@ -27,6 +27,8 @@
         <module>base-service</module>
         <module>base-micrometer</module>
         <module>base-mongodb</module>
+        <module>base-querydsl</module>
+        <module>base-repository</module>
         <!--        <module>base-rocketmq</module>
         <module>base-mapstruct</module>
                 <module>base-elastic</module>

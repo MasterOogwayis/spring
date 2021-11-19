@@ -63,3 +63,5 @@ AnnotationConfigUtils
 
 spring-petclinic-jpa
 JpaRepositoryFactoryBean
+
+@EventListener -> EventListenerMethodProcessor -> ApplicationListenerMethodAdapter

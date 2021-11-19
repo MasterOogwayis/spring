@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
@@ -21,6 +20,9 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -30,12 +32,33 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StaticTests {
 
-    private static final ThreadLocal<String> POOL = new ThreadLocal<>();
+    private static final ThreadLocal<String> POOL = new TerminatingThreadLocal<>();
 
 
     @SneakyThrows
     public static void main(String[] args) {
 
+
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+                2,
+                10,
+                60,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.CallerRunsPolicy());
+
+        Future<?> future = executor.submit(() -> {
+            return 1;
+        });
+        TimeUnit.SECONDS.sleep(2);
+
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(future.get());
+        }
+
+        executor.shutdown();
 
     }
 

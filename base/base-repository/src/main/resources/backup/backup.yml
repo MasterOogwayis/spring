@@ -1,0 +1,123 @@
+##微服务名
+spring:
+  data:
+    jpa:
+      repositories:
+        enabled: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring?useUnicode=true&characterEncoding=utf-8
+    #    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: root
+    removeAbandoned: false
+    removeAbandonedTimeout: 1000
+    logAbandoned: false
+    driverClassName: com.mysql.jdbc.Driver
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 5
+    minIdle: 5
+    maxActive: 50
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    useGlobalDataSourceStat: true
+    keepAlive: true
+    # 2.x 默认 Hikari 连接池，号称速度最快，稳定性最高的连接池，经测试也通过验证证实
+    hikari:
+      # 自动提交从池中返回的连接
+      auto-commit: true
+      # 等待来自池的连接的最大毫秒数,如果小于250毫秒，则被重置回30秒
+      connection-timeout: 30000
+      # 连接允许在池中闲置的最长时间,
+      # 如果idleTimeout+1秒>maxLifetime 且 maxLifetime>0，则会被重置为0（代表永远不会退出）；
+      # 如果idleTimeout!=0且小于10秒，则会被重置为10秒
+      idle-timeout: 600000
+      # 池中连接最长生命周期,如果不等于0且小于30秒则会被重置回30分钟
+      max-lifetime: 30000
+      # 如果您的驱动程序支持JDBC4，我们强烈建议您不要设置此属性
+      connection-test-query: select 1 from dual
+      # 池中维护的最小空闲连接数,minIdle<0或者minIdle>maxPoolSize,则被重置为maxPoolSize
+      minimum-idle: 10
+      # 最大
+      maximum-pool-size: 50
+      # 该属性允许您指定一个 Codahale / Dropwizard MetricRegistry 的实例，供池使用以记录各种指标
+      metric-registry:
+      # 该属性允许您指定池使用的Codahale / Dropwizard HealthCheckRegistry的实例来报告当前健康信息
+      health-check-registry:
+      # 连接池的用户定义名称，主要出现在日志记录和JMX管理控制台中以识别池和池配置
+      pool-name:
+      # 如果池无法成功初始化连接，则此属性控制池是否将 fail fast
+      initialization-fail-timeout:
+      # 是否在其自己的事务中隔离内部池查询，例如连接活动测试
+      isolate-internal-queries: false
+      # 控制池是否可以通过JMX暂停和恢复
+      allow-pool-suspension: false
+      # 从池中获取的连接是否默认处于只读模式
+      read-only: false
+      # 是否注册JMX管理Bean（MBeans）
+      register-mbeans: false
+      # 为支持 catalog 概念的数据库设置默认 catalog
+      catalog:
+      # 该属性设置一个SQL语句，在将每个新连接创建后，将其添加到池中之前执行该语句。
+      connection-init-sql:
+      # HikariCP将尝试通过仅基于jdbcUrl的DriverManager解析驱动程序，但对于一些较旧的驱动程序，还必须指定driverClassName
+      driver-class-name:
+      #  控制从池返回的连接的默认事务隔离级别
+      transaction-isolation:
+      # 连接将被测试活动的最大时间量,如果小于250毫秒，则会被重置回5秒
+      validation-timeout:
+      # 记录消息之前连接可能离开池的时间量，表示可能的连接泄漏
+      # 如果大于0且不是单元测试，则进一步判断：
+      # (leakDetectionThreshold < SECONDS.toMillis(2) or (leakDetectionThreshold > maxLifetime && maxLifetime > 0)，会被重置为0 .
+      # 即如果要生效则必须>0，而且不能小于2秒，而且当maxLifetime > 0时不能大于maxLifetime
+      leak-detection-threshold:
+      # 这个属性允许你直接设置数据源的实例被池包装，而不是让HikariCP通过反射来构造它
+      data-source-class-name:
+      # 该属性为支持模式概念的数据库设置默认模式
+      schema: MYSQL
+      # 此属性允许您设置将用于创建池使用的所有线程的java.util.concurrent.ThreadFactory的实例
+      thread-factory:
+      # 此属性允许您设置将用于各种内部计划任务的java.util.concurrent.ScheduledExecutorService实例
+      scheduled-executor:
+
+    type: com.zaxxer.hikari.HikariDataSource
+  #JPA Configuration:
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+    database: MYSQL
+    show-sql: true
+    generate-ddl: true
+    # 下面这种事 默认字段 下横线组合，默认为驼峰写法
+    #    hibernate:
+    #      naming:
+    #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    #        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: true
+  output:
+    ansi:
+      enabled: detect
+
+
