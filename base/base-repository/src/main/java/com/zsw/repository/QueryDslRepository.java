@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import java.io.Serializable;
 
 /**
+ *
+ *
  * @author ZhangShaowei on 2021/11/18 9:50
  */
 @NoRepositoryBean

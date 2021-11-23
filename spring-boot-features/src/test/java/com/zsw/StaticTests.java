@@ -1,10 +1,7 @@
 package com.zsw;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * @author ZhangShaowei on 2021/9/23 13:50
@@ -16,12 +13,12 @@ public class StaticTests {
 //        System.out.println(AnnotationUtils.isCandidateClass(service.getClass(), Wrapped.class));
 
 
-        Map<String, List<String>> collect = Stream.of("1:1", "1:1", "2:2", "3:3")
-                .distinct()
-                .map(s -> s.split(":"))
-                .collect(Collectors.groupingBy(a -> a[0], Collectors.mapping(a -> a[1], Collectors.toList())));
+        char c = '☑';
+        System.out.println(c);
+        int i = c;
+        System.err.println(i);
 
-        System.out.println(collect);
+        System.out.println((int)'哈');
 
     }
 

@@ -21,6 +21,7 @@ public class JpaQueryDslRepositoryImpl<T, ID extends Serializable> implements Qu
     @PersistenceContext
     protected EntityManager entityManager;
 
+    @Autowired
     private JPAQueryFactory factory;
 
 

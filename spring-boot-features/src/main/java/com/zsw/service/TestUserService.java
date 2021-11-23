@@ -3,6 +3,7 @@ package com.zsw.service;
 import com.zsw.persistence.entity.TestUser;
 import com.zsw.persistence.repository.TestUserRepository;
 import com.zsw.pojo.NamesOnly;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -24,7 +25,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class TestUserService extends BaseService<TestUserRepository, TestUser, Long> {
+public class TestUserService extends BaseService<TestUserRepository, TestUser, Long> implements InitializingBean {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -126,4 +127,8 @@ public class TestUserService extends BaseService<TestUserRepository, TestUser, L
                 .stream().findAny().map(TestUser::getId).orElse(0L);
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        init0(10);
+    }
 }

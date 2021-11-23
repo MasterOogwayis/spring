@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.PreparedStatement;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -32,33 +33,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StaticTests {
 
-    private static final ThreadLocal<String> POOL = new TerminatingThreadLocal<>();
-
 
     @SneakyThrows
     public static void main(String[] args) {
 
+        ClassLoader classLoader = PreparedStatement.class.getClassLoader();
+        System.out.println(classLoader);
 
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(
-                2,
-                10,
-                60,
-                TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(),
-                Executors.defaultThreadFactory(),
-                new ThreadPoolExecutor.CallerRunsPolicy());
-
-        Future<?> future = executor.submit(() -> {
-            return 1;
-        });
-        TimeUnit.SECONDS.sleep(2);
-
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println(future.get());
-        }
-
-        executor.shutdown();
 
     }
 

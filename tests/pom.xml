@@ -44,6 +44,11 @@
         </dependency>
 
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.zsw</groupId>
             <artifactId>base-micrometer</artifactId>
             <version>1.0.1-SNAPSHOT</version>
