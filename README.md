@@ -65,3 +65,4 @@ spring-petclinic-jpa
 JpaRepositoryFactoryBean
 
 @EventListener -> EventListenerMethodProcessor -> ApplicationListenerMethodAdapter
+ConversionService -> 注入-类型装换
