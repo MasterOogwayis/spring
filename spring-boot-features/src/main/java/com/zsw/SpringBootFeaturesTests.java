@@ -45,7 +45,7 @@ public class SpringBootFeaturesTests {
 //                .logStartupInfo(Boolean.TRUE)
 //                .lazyInitialization(Boolean.TRUE)
 //                .sources(SpringBootFeaturesTests.class)
-                .properties(Collections.singletonMap("custom.name", "Shaowei Zhang"))
+                .properties(Collections.singletonMap("user.name", "Author"))
                 .web(WebApplicationType.SERVLET)
                 .run(args);
 

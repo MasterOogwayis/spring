@@ -37,7 +37,7 @@ public class EnvironmentPropertySourceChangeDemo {
         System.out.println(main.name);
 
         propertySources.forEach(s -> {
-            log.info("PropertySource(name={}), user.name = {}", s.getName(), s.getProperty("user.name") );
+            log.info("PropertySource(name={}), user.name = {}", s.getName(), s.getProperty("user.name"));
         });
 
 
