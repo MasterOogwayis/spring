@@ -14,7 +14,6 @@
     <modules>
         <module>base-redis</module>
         <module>base-commons</module>
-        <module>base-persistence</module>
         <module>base-shiro</module>
         <module>base-mybatis</module>
         <module>base-zookeeper</module>
