@@ -1,6 +1,10 @@
 package com.zsw.netty.example;
 
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,7 +24,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<String> {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("a client has connected to server: {}", ctx.channel().remoteAddress());
         ctx.write("Welcome to : " + InetAddress.getLocalHost().getHostName() + " ." + ENTER);
-        ctx.write("It is " + new Date() + " now.");
+        ctx.write("It is " + new Date() + " now." + ENTER);
         ctx.flush();
     }
 
@@ -34,7 +38,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<String> {
             response = "Have a good day. " + ENTER;
             close = true;
         } else {
-            response = "Server has received you message: '" + msg +"'." + ENTER;
+            response = "Server has received you message: '" + msg + "'." + ENTER;
         }
         ChannelFuture channelFuture = ctx.channel().writeAndFlush(response);
         if (close) {

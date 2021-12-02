@@ -3,17 +3,15 @@ package com.zsw.pdf.impl;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseField;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfFormField;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.RadioCheckField;
-import com.itextpdf.tool.xml.XMLWorkerFontProvider;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import com.zsw.pdf.PdfBuilder;
+import com.zsw.pdf.font.LocalFontProvider;
 import lombok.SneakyThrows;
 
 import java.io.ByteArrayInputStream;
@@ -78,19 +76,6 @@ public class XhtmlPdfBuilder implements PdfBuilder {
         radio.addKid(ck);
     }
 
-
-    class LocalFontProvider extends XMLWorkerFontProvider {
-        @Override
-        @SneakyThrows
-        public Font getFont(final String fontname, final String encoding,
-                            final boolean embedded, final float size, final int style,
-                            final BaseColor color) {
-            BaseFont bf = BaseFont.createFont("STSongStd-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
-            Font font = new Font(bf, size, style, color);
-            font.setColor(color);
-            return font;
-        }
-    }
 
 
 }
