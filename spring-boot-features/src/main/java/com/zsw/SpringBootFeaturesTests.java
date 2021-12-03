@@ -49,6 +49,10 @@ public class SpringBootFeaturesTests {
                 .web(WebApplicationType.SERVLET)
                 .run(args);
 
+        String userName = applicationContext.getEnvironment().getProperty("user.name");
+
+        log.info("user.name = {}", userName);
+
         TestUserRepository repository = applicationContext.getBean(TestUserRepository.class);
         List<Tuple> available = repository.findAvailable();
         System.out.println(available);

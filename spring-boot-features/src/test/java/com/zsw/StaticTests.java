@@ -1,8 +1,5 @@
 package com.zsw;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 /**
  * @author ZhangShaowei on 2021/9/23 13:50
  */
@@ -12,13 +9,11 @@ public class StaticTests {
 //        TestThisService service = new JdkProxy().getInstance(new TestThisService());
 //        System.out.println(AnnotationUtils.isCandidateClass(service.getClass(), Wrapped.class));
 
+        double a = (1d - (6 / 24d));
+        double b = (1d - (6 / 23d));
+        double c = (1d - (6 / 22d));
 
-        char c = '☑';
-        System.out.println(c);
-        int i = c;
-        System.err.println(i);
-
-        System.out.println((int)'哈');
+        System.out.println(1-(a * b * c));
 
     }
 
