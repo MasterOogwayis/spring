@@ -1,8 +1,8 @@
 package com.zsw.pdf.impl;
 
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseField;
@@ -15,7 +15,6 @@ import com.zsw.pdf.font.LocalFontProvider;
 import lombok.SneakyThrows;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
@@ -26,39 +25,33 @@ public class XhtmlPdfBuilder implements PdfBuilder {
 
 
     @Override
+    @SneakyThrows
     public void htmlToPdf(String html, OutputStream os) {
 
         // 创建一个文档
         Document document = new Document(PageSize.A4);
         // pdf输出流
-        PdfWriter pdfWriter;
-        try {
-            pdfWriter = PdfWriter.getInstance(document, os);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+        PdfWriter pdfWriter = PdfWriter.getInstance(document, os);
         document.open();
 
-        try {
-            PdfFormField radioGroup = PdfFormField.createRadioButton(pdfWriter, false);
-            radioGroup.setFieldName("numbers");
-            for (int i = 0; i < 3; i++) {
-                Rectangle rect = new Rectangle(130 + (40 * i), 430, 160 + (40 * i), 455);
-                this.addRadioButtonKid(pdfWriter, radioGroup, rect, String.valueOf(i));
-            }
-            pdfWriter.addAnnotation(radioGroup);
-            XMLWorkerHelper.getInstance().parseXHtml(
-                    pdfWriter,
-                    document,
-                    new ByteArrayInputStream(html.getBytes(StandardCharsets.UTF_8)),
-                    StandardCharsets.UTF_8,
-                    new LocalFontProvider()
-            );
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        PdfFormField radioGroup = PdfFormField.createRadioButton(pdfWriter, false);
+        radioGroup.setFieldName("numbers");
+        for (int i = 0; i < 3; i++) {
+            Rectangle rect = new Rectangle(130 + (40 * i), 430, 160 + (40 * i), 455);
+            this.addRadioButtonKid(pdfWriter, radioGroup, rect, String.valueOf(i));
         }
+        pdfWriter.addAnnotation(radioGroup);
+        // 如果 html 有效内容为空，document.close()会直接报错
+        // this will do the trick
+        document.add(new Chunk(""));
+        XMLWorkerHelper.getInstance().parseXHtml(
+                pdfWriter,
+                document,
+                new ByteArrayInputStream(html.getBytes(StandardCharsets.UTF_8)),
+                StandardCharsets.UTF_8,
+                new LocalFontProvider()
+        );
+
         document.close();
         pdfWriter.close();
     }
@@ -75,7 +68,6 @@ public class XhtmlPdfBuilder implements PdfBuilder {
         ck.setPlaceInPage(1);
         radio.addKid(ck);
     }
-
 
 
 }
