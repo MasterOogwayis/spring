@@ -22,11 +22,11 @@
         <module>spring-apps</module>
         <module>spring-cloud</module>
         <module>spring-cloud-alibaba</module>
-        <module>zsw-base-oauth2</module>
         <module>tests</module>
         <module>spring-boot-features</module>
         <module>thinking-in-spring</module>
         <module>jvm</module>
+        <module>security</module>
         <!--        <module>file</module>-->
         <!--        <module>product</module>-->
         <!--        <module>oauth2</module>-->

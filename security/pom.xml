@@ -9,14 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>security</artifactId>
+
     <packaging>pom</packaging>
 
-    <artifactId>zsw-base-oauth2</artifactId>
     <modules>
         <module>zsw-base-oauth2-commons</module>
         <module>zsw-base-oauth2-resource</module>
         <module>zsw-base-authorization-server</module>
     </modules>
-
 
 </project>
