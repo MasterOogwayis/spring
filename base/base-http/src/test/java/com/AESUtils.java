@@ -2,7 +2,6 @@ package com;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.util.StringUtils;
-import sun.misc.BASE64Decoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -81,7 +80,7 @@ public class AESUtils {
      * @throws Exception
      */
     public static byte[] base64Decode(String base64Code) throws Exception {
-        return StringUtils.isEmpty(base64Code) ? null : new BASE64Decoder().decodeBuffer(base64Code);
+        return StringUtils.isEmpty(base64Code) ? null : java.util.Base64.getDecoder().decode(base64Code);
     }
 
 

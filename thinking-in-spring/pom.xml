@@ -27,6 +27,8 @@
         <module>spring-annotation-programming-model</module>
         <module>annotation</module>
         <module>environment</module>
+        <module>application-context-lifecycle</module>
+        <module>run-app</module>
     </modules>
 
 
