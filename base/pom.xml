@@ -14,15 +14,13 @@
     <modules>
         <module>base-redis</module>
         <module>base-commons</module>
-        <module>base-shiro</module>
         <module>base-mybatis</module>
-        <module>base-zookeeper</module>
-        <module>base-test</module>
+<!--        <module>base-test</module>-->
         <module>base-api</module>
         <module>base-sentinel</module>
         <module>base-logging</module>
         <module>base-netty</module>
-        <module>base-office</module>
+<!--        <module>base-office</module>-->
         <module>base-service</module>
         <module>base-micrometer</module>
         <module>base-mongodb</module>
