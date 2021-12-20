@@ -27,6 +27,7 @@
         <module>thinking-in-spring</module>
         <module>jvm</module>
         <module>security</module>
+        <module>spring-security</module>
         <!--        <module>file</module>-->
         <!--        <module>product</module>-->
         <!--        <module>oauth2</module>-->
@@ -53,9 +54,8 @@
         <maven.compiler.target>14</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.6.0-SNAPSHOT</spring-boot.version>
-        <spring-cloud.version>2021.0.0-SNAPSHOT</spring-cloud.version>
-        <spring-cloud-security.version>2020.0.1-SNAPSHOT</spring-cloud-security.version>
+        <spring-boot.version>2.6.1</spring-boot.version>
+        <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-function.version>3.1.0-SNAPSHOT</spring-cloud-function.version>
         <spring-boot-admin.version>2.3.1</spring-boot-admin.version>
         <spring.cloud.alibaba.version>2.2.6.RELEASE</spring.cloud.alibaba.version>
