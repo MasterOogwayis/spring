@@ -32,6 +32,12 @@
             <artifactId>spring-security-data</artifactId>
         </dependency>
 
+        <!--<dependency>
+            <groupId>com.zsw</groupId>
+            <artifactId>base-redis</artifactId>
+            <version>${project.version}</version>
+        </dependency>-->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

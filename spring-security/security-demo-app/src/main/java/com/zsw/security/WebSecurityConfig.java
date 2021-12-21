@@ -1,18 +1,20 @@
-package com.demo;
+package com.zsw.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
  * @author ZhangShaowei on 2021/12/21 15:22
  */
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -23,7 +25,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> User.withDefaultPasswordEncoder().username("root").password("111111").roles("admin").build())
+        UserDetails admin = User.withDefaultPasswordEncoder().username("admin").password("111111").roles("admin").build();
+        UserDetails user = User.withDefaultPasswordEncoder().username("user").password("111111").roles("user").build();
+        auth.userDetailsService(new InMemoryUserDetailsManager(admin, user))
                 .passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
     }
 
@@ -31,6 +35,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                // 详细的角色资源权限控制
+//                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+//                    @Override
+//                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
+//                        object.setAccessDecisionManager(accessDecisionManager);
+//                        object.setSecurityMetadataSource(securityMetadataSource);
+//                        return object;
+//                    }
+//                })
+                .antMatchers("/sum").hasRole("admin")
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .and().httpBasic()
