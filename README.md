@@ -66,3 +66,11 @@ JpaRepositoryFactoryBean
 
 @EventListener -> EventListenerMethodProcessor -> ApplicationListenerMethodAdapter
 ConversionService -> 注入-类型装换
+
+## 12. Security
+```text
+多线程如何使用 SecurityContextHolder -> 
+1. DelegatingSecurityContextExecutor
+2. DelegatingSecurityContextRunnable
+```
+

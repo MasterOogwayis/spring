@@ -1,4 +1,4 @@
-package com.spring.security.demo;
+package com.spring.security;
 
 import org.junit.Test;
 import org.springframework.security.core.userdetails.User;

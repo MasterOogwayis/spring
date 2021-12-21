@@ -3,17 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-cloud-alibaba</artifactId>
+        <artifactId>dubbo-v3</artifactId>
         <groupId>com.zsw</groupId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dubbo-v3</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>v3-interface</module>
-    </modules>
-
+    <artifactId>v3-interface</artifactId>
 
 </project>
