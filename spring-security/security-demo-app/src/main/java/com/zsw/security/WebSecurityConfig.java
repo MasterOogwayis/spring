@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                // 详细的角色资源权限控制
+                // 详细的角色资源权限控制，主要是动态权限
 //                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 //                    @Override
 //                    public <O extends FilterSecurityInterceptor> O postProcess(O object) {
