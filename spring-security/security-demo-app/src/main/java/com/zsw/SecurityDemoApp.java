@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author ZhangShaowei on 2021/12/21 15:11
  */
-@SpringBootApplication(scanBasePackages = {"com.demo", "com.zsw"})
+@SpringBootApplication
 public class SecurityDemoApp {
 
     /**

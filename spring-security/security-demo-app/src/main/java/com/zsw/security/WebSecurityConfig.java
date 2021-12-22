@@ -48,9 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .and().httpBasic()
+                // 第二次登录会导致第一次登录失效，防止多端重复登录
+//                .and().sessionManagement(session -> session.maximumSessions(1).maxSessionsPreventsLogin(true))
                 // 不跳转登录 直接显示403
 //                .and().exceptionHandling()
 //                .defaultAuthenticationEntryPointFor(new Http403ForbiddenEntryPoint(), new AntPathRequestMatcher("/**"))
-                .and().csrf().disable().anonymous().disable();
+                .and().csrf().disable()
+                .anonymous().disable();
     }
 }

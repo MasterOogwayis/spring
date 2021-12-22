@@ -17,6 +17,9 @@ public class SecurityTests {
                 .roles("admin")
                 .build();
 
+        String a = "123";
+        System.out.println(a.equals("321"));
+
     }
     
 }
