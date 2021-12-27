@@ -1,6 +1,5 @@
 package com.zsw;
 
-import com.mysql.cj.util.StringUtils;
 import lombok.Cleanup;
 import lombok.SneakyThrows;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -9,6 +8,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author ZhangShaowei on 2021/9/23 13:50
@@ -34,7 +34,7 @@ public class StaticTests {
 
         IOUtils.readFully(connection.getInputStream(), data);
 
-        System.out.println(StringUtils.toString(data, "utf-8"));
+        System.out.println(new String(data, StandardCharsets.UTF_8));
 
 
     }
