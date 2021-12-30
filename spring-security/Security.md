@@ -4,5 +4,5 @@
 
 spring.factories -> SecurityAutoConfiguration -> WebSecurityEnablerConfiguration 
 -> @EnableWebSecurity -> WebSecurityConfiguration -> springSecurityFilterChain 
--> SecurityFilterChain -> (IgnoredAntMatcher, Filter)FilterChainProxy
+-> SecurityFilterChain -> DelegatingFilterProxyRegistrationBean -> (IgnoredAntMatcher, Filter)FilterChainProxy
 ```

@@ -265,7 +265,7 @@ public class OkHttpRequest implements RequestHttp {
      */
     private static String callForString(Request request) {
         try {
-            log.debug("callForString:url:{}", request.url().url().toString());
+            log.debug("callForString:url:{}", request.url().url());
             Response response = CLIENT.newCall(request).execute();
             String result = response.body().string();
             log.debug("callForString:result:{}", result == null ? null : result.length() > 250 ?
