@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  application:
+    name: v3-consumer
+
+
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:8848
+    username: nacos
+    password: nacos
+    check: true
+    register: true
+    timeout: 500000
+    serialization: fastjson
+  consumer:
+    check: true
+
+
+

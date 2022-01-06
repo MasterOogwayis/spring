@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: v3-provider
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+dubbo:
+  application:
+    name: ${spring.application.name}
+  registry:
+    protocol: nacos
+    address: 127.0.0.1:8848
+    username: nacos
+    password: nacos
+  protocol:
+    name: dubbo
+    port: -1
+    serialization: fastjson
+
+
+

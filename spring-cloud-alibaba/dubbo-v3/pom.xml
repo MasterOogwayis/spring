@@ -12,7 +12,9 @@
     <artifactId>dubbo-v3</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>v3-interface</module>
+        <module>v3-provider</module>
+        <module>v3-consumer</module>
+        <module>dubbo-serialization-fastjson</module>
     </modules>
 
 
