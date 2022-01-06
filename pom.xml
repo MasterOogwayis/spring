@@ -21,7 +21,6 @@
         <module>base</module>
         <module>spring-apps</module>
         <module>spring-cloud</module>
-        <module>spring-cloud-alibaba</module>
         <module>tests</module>
         <module>spring-boot-features</module>
         <module>thinking-in-spring</module>
