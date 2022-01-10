@@ -1,5 +1,6 @@
 package com.zsw.security;
 
+import com.zsw.security.filter.HeaderUserConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -56,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 不跳转登录 直接显示403
 //                .and().exceptionHandling()
 //                .defaultAuthenticationEntryPointFor(new Http403ForbiddenEntryPoint(), new AntPathRequestMatcher("/**"))
+//                .and().apply(new HeaderUserConfigurer<>())
                 .and().csrf().disable()
                 .anonymous().disable();
     }
