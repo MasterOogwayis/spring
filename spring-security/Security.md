@@ -26,3 +26,5 @@ ApplicationFilterChain -> DelegatingFilterProxyRegistrationBean -> FilterChainPr
  * 3. 通过系统参数设置 SecurityContextHolder {@link SecurityContextHolder#SYSTEM_PROPERTY} 策略为 {@link SecurityContextHolder#MODE_INHERITABLETHREADLOCAL}
  * 4. 其他所有并发类 DelegatingSecurityContext***
 ```
+
+
