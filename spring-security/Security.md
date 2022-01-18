@@ -12,6 +12,7 @@ spring.factories -> SecurityAutoConfiguration -> WebSecurityEnablerConfiguration
 ## 调用链 ##
 ```text
 ApplicationFilterChain -> DelegatingFilterProxyRegistrationBean -> FilterChainProxy -> List<SecurityFilterChain>.matches(request).getFilters()
+-> FilterSecurityInterceptor
 ```
 
 
