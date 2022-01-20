@@ -10,11 +10,8 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,12 +20,9 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author ZhangShaowei on 2020/12/28 16:03
@@ -40,14 +34,15 @@ public class StaticTests {
     @SneakyThrows
     public static void main(String[] args) {
 
-        ClassLoader classLoader = PreparedStatement.class.getClassLoader();
-        System.out.println(classLoader);
+        ReentrantLock lock = new ReentrantLock();
 
 
+        lock.tryLock();
 
-        List<Object> distinct = Stream.of("1", "2").distinct().collect(Collectors.toList());
+        System.out.println(lock.getHoldCount());
 
 
+        lock.unlock();
     }
 
     static enum Td {
