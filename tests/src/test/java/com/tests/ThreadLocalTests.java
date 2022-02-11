@@ -1,3 +1,5 @@
+package com.tests;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.ref.WeakReference;
@@ -11,36 +13,36 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author ZhangShaowei on 2020/7/9 10:39
  */
 @Slf4j
-public class StaticTests {
+public class ThreadLocalTests {
     private static int x = 100;
 
     public static final ThreadLocal<D> CACHE = new ThreadLocal<>();
 
     public static void main(String[] args) throws Exception {
-        D d = new D();
-        CACHE.set(d);
+//        D d = new D();
+//        CACHE.set(d);
+//
+//        System.gc();
+//        Thread.sleep(500);
+//        System.out.println(d);
+//        System.out.println(CACHE.get());
+//
+//        CACHE.remove();
 
+        byte[] cacheData = new byte[100 * 1024 * 1024];
+        WeakReference<byte[]> cacheRef = new WeakReference<>(cacheData);
+        System.out.println("第一次GC前" + cacheData);
+        System.out.println("第一次GC前" + cacheRef.get());
         System.gc();
         Thread.sleep(500);
-        System.out.println(d);
-        System.out.println(CACHE.get());
+        System.out.println("第一次GC后" + cacheData);
+        System.out.println("第一次GC后" + cacheRef.get());
 
-        CACHE.remove();
-
-//        byte[] cacheData = new byte[100 * 1024 * 1024];
-//        WeakReference<byte[]> cacheRef = new WeakReference<>(cacheData);
-//        System.out.println("第一次GC前" + cacheData);
-//        System.out.println("第一次GC前" + cacheRef.get());
-//        System.gc();
-//        Thread.sleep(500);
-//        System.out.println("第一次GC后" + cacheData);
-//        System.out.println("第一次GC后" + cacheRef.get());
-//
-//        cacheData = null;
-//        System.gc();
-//        Thread.sleep(500);
-//        System.out.println("第二次GC后" + cacheData);
-//        System.out.println("第二次GC后" + cacheRef.get());
+        cacheData = null;
+        System.gc();
+        Thread.sleep(500);
+        System.out.println("第二次GC后" + cacheData);
+        System.out.println("第二次GC后" + cacheRef.get());
 
 
     }

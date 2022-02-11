@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 
+import java.util.Map;
+
 /**
  * @author ZhangShaowei on 2021/6/30 16:45
  */
@@ -26,6 +28,11 @@ final public class JacksonUtils {
     @SneakyThrows
     public static <T> T readValue(String json, Class<T> clazz) {
         return mapper.readValue(json, clazz);
+    }
+
+    public static void main(String[] args) {
+        Map<String, Object> map = readValue("", Map.class);
+        System.out.println(map);
     }
 
 }

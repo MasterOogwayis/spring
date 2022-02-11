@@ -1,5 +1,7 @@
 package com.demo;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -30,6 +32,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StaticTests {
 
+    private static final Gson gson = new GsonBuilder().create();
+
 
     @SneakyThrows
     public static void main(String[] args) {
@@ -43,7 +47,13 @@ public class StaticTests {
 
 
         lock.unlock();
+
+        Map<?, ?> t = gson.fromJson("", Map.class);
+        System.out.println(t);
+
     }
+
+
 
     static enum Td {
         A,

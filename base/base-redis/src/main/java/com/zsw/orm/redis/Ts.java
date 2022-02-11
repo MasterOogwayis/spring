@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -92,6 +93,11 @@ public class Ts {
         Set<Integer> set = new HashSet<>();
         RedisHelper.sScan(key, pattern, limit, redisTemplate, set::add);
         return set;
+    }
+
+
+    public Object lock() {
+        return this.redisTemplate.opsForValue().setIfAbsent("lock", 1, 1, TimeUnit.MINUTES);
     }
 
 }
