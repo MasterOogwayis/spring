@@ -27,6 +27,7 @@
         <module>jvm</module>
         <module>security</module>
         <module>spring-security</module>
+        <module>some-tests</module>
         <!--        <module>file</module>-->
         <!--        <module>product</module>-->
         <!--        <module>oauth2</module>-->
@@ -41,7 +42,7 @@
         <!--        <module>vertx-apps</module>-->
         <!--        <module>standalone-security-app</module>-->
         <!--        <module>seata</module>-->
-    </modules>``
+    </modules>
 
     <!-- 打包依赖的包 -->
     <!-- mvn clean package -T 1C -pl base/base-core -am  -DskipTests -->
@@ -196,18 +197,18 @@
 
             <!-- 图片验证码 -->
             <!-- https://github.com/whvcse/EasyCaptcha -->
-            <dependency>
+            <!--<dependency>
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
                 <version>1.6.2</version>
-            </dependency>
+            </dependency>-->
 
             <!-- native -->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.experimental</groupId>
                 <artifactId>spring-native</artifactId>
                 <version>0.9.3-SNAPSHOT</version>
-            </dependency>
+            </dependency>-->
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
