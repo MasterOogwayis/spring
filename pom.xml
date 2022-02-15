@@ -27,6 +27,7 @@
         <module>jvm</module>
         <module>security</module>
         <module>spring-security</module>
+        <module>some-tests</module>
         <!--        <module>file</module>-->
         <!--        <module>product</module>-->
         <!--        <module>oauth2</module>-->
@@ -41,7 +42,7 @@
         <!--        <module>vertx-apps</module>-->
         <!--        <module>standalone-security-app</module>-->
         <!--        <module>seata</module>-->
-    </modules>``
+    </modules>
 
     <!-- 打包依赖的包 -->
     <!-- mvn clean package -T 1C -pl base/base-core -am  -DskipTests -->
@@ -133,12 +134,12 @@
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
-                <version>3.19.1</version>
+                <version>3.19.4</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java-util</artifactId>
-                <version>3.19.1</version>
+                <version>3.19.4</version>
             </dependency>
             <!-- protobuff序列化开源工具-->
 
@@ -196,18 +197,18 @@
 
             <!-- 图片验证码 -->
             <!-- https://github.com/whvcse/EasyCaptcha -->
-            <dependency>
+            <!--<dependency>
                 <groupId>com.github.whvcse</groupId>
                 <artifactId>easy-captcha</artifactId>
                 <version>1.6.2</version>
-            </dependency>
+            </dependency>-->
 
             <!-- native -->
-            <dependency>
+            <!--<dependency>
                 <groupId>org.springframework.experimental</groupId>
                 <artifactId>spring-native</artifactId>
                 <version>0.9.3-SNAPSHOT</version>
-            </dependency>
+            </dependency>-->
 
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -237,7 +238,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>22.0</version>
+                <version>29.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>com.google.j2objc</groupId>
