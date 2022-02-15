@@ -7,7 +7,7 @@ import java.util.ServiceLoader;
 /**
  * @author Shaowei Zhang on 2022/2/14 22:14
  */
-public class SomeTests {
+public class SpiTests {
 
     public static void main(String[] args) throws Exception {
 
