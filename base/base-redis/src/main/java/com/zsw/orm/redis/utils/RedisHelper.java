@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.lang.NonNull;
 
 import java.io.Closeable;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class RedisHelper {
      * @param <K>           K
      */
     public static <K> void scan(
-            String pattern, long limit, RedisTemplate<K, ?> redisTemplate, Consumer<K> consumer) {
+            String pattern, long limit, RedisTemplate<K, ?> redisTemplate, @NonNull Consumer<K> consumer) {
         ScanOptions options = ScanOptions.scanOptions().match(pattern).count(limit).build();
         //noinspection unchecked
         try (
@@ -44,6 +45,7 @@ public class RedisHelper {
                 )
         ) {
             // 资源不对外
+            //noinspection all
             cursor.forEachRemaining(consumer);
         }
     }
