@@ -28,6 +28,7 @@
         <module>base-repository</module>
         <module>base-http</module>
         <module>base-config</module>
+        <module>base-hystrix</module>
         <!--        <module>base-rocketmq</module>
         <module>base-mapstruct</module>
                 <module>base-elastic</module>
@@ -50,7 +51,6 @@
                 <module>base-consul</module>
                 <module>base-nacos</module>
                 <module>base-cloud-alibaba</module>
-                <module>base-hystrix</module>
                 <module>base-io</module>
                 <module>base-javaassit</module>-->
     </modules>

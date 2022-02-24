@@ -1,6 +1,6 @@
-package com.zsw.lesson.interceptor;
+package com.zsw.demo.interceptor;
 
-import com.zsw.lesson.annotation.Timeout;
+import com.zsw.demo.annotation.Timeout;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

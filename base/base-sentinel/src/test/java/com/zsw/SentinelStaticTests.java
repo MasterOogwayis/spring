@@ -9,6 +9,8 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Shaowei Zhang on 2020/9/20 21:39
@@ -16,6 +18,10 @@ import java.util.List;
 public class SentinelStaticTests {
 
     public static void main(String[] args) {
+
+//        ExecutorService executorService = new ThreadPoolExecutor(2, 16,
+//                60, TimeUnit.SECONDS,
+//                new LinkedBlockingQueue<>());
 
 
         initFlowRules();
@@ -25,12 +31,13 @@ public class SentinelStaticTests {
 //                SphO.entry("");
                 /*您的业务逻辑 - 开始*/
                 System.out.println("hello world");
+                TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextLong(200L));
                 /*您的业务逻辑 - 结束*/
-            } catch (BlockException e1) {
+            } catch (BlockException | InterruptedException e1) {
                 /*流控逻辑处理 - 开始*/
                 System.out.println("block!");
                 /*流控逻辑处理 - 结束*/
-            } 
+            }
         }
     }
 

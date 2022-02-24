@@ -6,6 +6,18 @@ spring:
   cloud:
     gateway:
       routes:
+      - id: admin
+        uri: lb://admin-server
+        order: 1000
+        predicates:
+          - Path=/admin/**
+        filters:
+          - name: RequestRateLimiter
+            args:
+              redis-rate-limiter.replenishRate: 1 # 令牌桶的容积
+              redis-rate-limiter.burstCapacity: 3 # 流速 每秒
+              key-resolver: "#{@remoteAddrKeyResolver}" #SPEL表达式去的对应的bean
+          - StripPrefix=1
       - id: zsw-fc-api
         uri: lb://zsw-fc-api
         predicates:

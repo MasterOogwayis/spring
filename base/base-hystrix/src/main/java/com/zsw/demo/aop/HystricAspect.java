@@ -1,7 +1,7 @@
-package com.zsw.lesson.aop;
+package com.zsw.demo.aop;
 
-import com.zsw.lesson.annotation.Limited;
-import com.zsw.lesson.annotation.Timeout;
+import com.zsw.demo.annotation.Limited;
+import com.zsw.demo.annotation.Timeout;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -12,7 +12,15 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * @author Administrator on 2019/9/22 17:02
@@ -24,7 +32,7 @@ public class HystricAspect {
 
     private Map<Method, Semaphore> semaphoreMap = new ConcurrentHashMap<>();
 
-    private ExecutorService executorService = new ThreadPoolExecutor(8, 64,
+    private ExecutorService executorService = new ThreadPoolExecutor(2, 16,
             60, TimeUnit.SECONDS,
             new LinkedBlockingQueue<>());
 
@@ -40,14 +48,11 @@ public class HystricAspect {
 
             Object[] arguments = pjp.getArgs();
 
-            Future<Object> future = this.executorService.submit(new Callable<Object>() {
-                @Override
-                public Object call() throws Exception {
-                    try {
-                        return pjp.proceed(arguments);
-                    } catch (Throwable throwable) {
-                        throw new Exception(throwable);
-                    }
+            Future<Object> future = this.executorService.submit(() -> {
+                try {
+                    return pjp.proceed(arguments);
+                } catch (Throwable throwable) {
+                    throw new Exception(throwable);
                 }
             });
 
@@ -81,7 +86,6 @@ public class HystricAspect {
     }
 
 
-
     private Object invokeFallback(Method method, Object target, String fallback, Object[] arguments) throws Exception {
         Method fallbackMethod = this.find(method, target, fallback);
         return fallbackMethod.invoke(target, arguments);
@@ -98,7 +102,6 @@ public class HystricAspect {
             return new Semaphore(limited.value());
         });
     }
-
 
 
 }

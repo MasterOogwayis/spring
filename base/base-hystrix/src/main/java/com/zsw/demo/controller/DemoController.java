@@ -1,9 +1,7 @@
-package com.zsw.lesson.controller;
+package com.zsw.demo.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-import com.zsw.lesson.annotation.Limited;
-import com.zsw.lesson.annotation.Timeout;
+import com.zsw.demo.annotation.Limited;
+import com.zsw.demo.annotation.Timeout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,21 +29,18 @@ public class DemoController {
     }
 
     @GetMapping("echo")
-    @HystrixCommand(
-            fallbackMethod = "fallback",
-            commandProperties = {
-                    @HystrixProperty(name="execution.isolation.strategy", value = "THREAD"),
-                    @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value = "50")
-            }
-    )
+//    @HystrixCommand(
+//            fallbackMethod = "fallback",
+//            commandProperties = {
+//                    @HystrixProperty(name = "execution.isolation.strategy", value = "THREAD"),
+//                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "50")
+//            }
+//    )
     public Object echo(@RequestParam("name") String name) {
         log.info("thread={}, name={}", Thread.currentThread().getName(), name);
         this.await();
         return "Hello " + name;
     }
-
-
-
 
 
     private void await() {
