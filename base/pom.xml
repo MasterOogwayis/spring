@@ -15,12 +15,12 @@
         <module>base-redis</module>
         <module>base-commons</module>
         <module>base-mybatis</module>
-<!--        <module>base-test</module>-->
+        <!--        <module>base-test</module>-->
         <module>base-api</module>
         <module>base-sentinel</module>
         <module>base-logging</module>
         <module>base-netty</module>
-<!--        <module>base-office</module>-->
+        <!--        <module>base-office</module>-->
         <module>base-service</module>
         <module>base-micrometer</module>
         <module>base-mongodb</module>
@@ -29,13 +29,14 @@
         <module>base-http</module>
         <module>base-config</module>
         <module>base-hystrix</module>
-        <!--        <module>base-rocketmq</module>
+        <module>base-rocketmq</module>
+        <!--
         <module>base-mapstruct</module>
+        <module>base-rabbitmq</module>
                 <module>base-elastic</module>
                 <module>base-kafka</module>
                 <module>base-client</module>
                 <module>base-controller</module>
-                <module>base-rabbitmq</module>
                 <module>base-cache-lock</module>
                 <module>base-ui</module>
                 <module>login-ui</module>

@@ -31,13 +31,12 @@ import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.SmartLifecycle;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Objects;
+import java.util.Arrays;
 
 @SuppressWarnings("WeakerAccess")
 @Slf4j
@@ -153,33 +152,13 @@ public abstract class AbstractMQListenerContainer implements InitializingBean,
 
     protected abstract void initConsumer();
 
-    private Class getMessageType() {
+    private Class<?> getMessageType() {
         Class<?> targetClass = AopProxyUtils.ultimateTargetClass(rocketMQListener);
-        Type[] interfaces = targetClass.getGenericInterfaces();
-        Class<?> superclass = targetClass.getSuperclass();
-        while ((Objects.isNull(interfaces) || 0 == interfaces.length) && Objects.nonNull(superclass)) {
-            interfaces = superclass.getGenericInterfaces();
-            superclass = targetClass.getSuperclass();
-        }
-        if (Objects.nonNull(interfaces)) {
-            for (Type type : interfaces) {
-                if (type instanceof ParameterizedType) {
-                    ParameterizedType parameterizedType = (ParameterizedType) type;
-                    if (Objects.equals(parameterizedType.getRawType(), RocketMQListener.class)) {
-                        Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                        if (Objects.nonNull(actualTypeArguments) && actualTypeArguments.length > 0) {
-                            return (Class) actualTypeArguments[0];
-                        } else {
-                            return Object.class;
-                        }
-                    }
-                }
-            }
-
-            return Object.class;
-        } else {
-            return Object.class;
-        }
+        return Arrays.stream(ResolvableType.forClass(targetClass).getInterfaces())
+                .filter(type -> type.isAssignableFrom(RocketMQListener.class))
+                .findFirst()
+                .map(type -> (Class) type.resolveGeneric(0))
+                .orElse(Object.class);
     }
 
 
