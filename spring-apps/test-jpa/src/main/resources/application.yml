@@ -5,7 +5,7 @@ spring:
     name: test-jpa
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://192.168.1.12:3306/navigation?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/tests?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
     username: root
     password: root
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -17,11 +17,18 @@ spring:
       connection-timeout: 30000
       register-mbeans: true
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        enable_lazy_load_no_trans: true
     database: MYSQL
     show-sql: true
     generate-ddl: true
     hibernate:
+      dialect:
+        storage_engine: innodb
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-      ddl-auto: validate
+      ddl-auto: create-drop
     database-platform: org.hibernate.dialect.MySQLDialect
+
