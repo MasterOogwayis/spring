@@ -1,7 +1,6 @@
 package com.zsw.api;
 
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,16 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWorldApi {
 
+    private final TestAdvisorService testAdvisorService;
 
     @GetMapping("hello")
     public String hello() {
-        return "Hello World!";
+        testAdvisorService.ahello();
+        return testAdvisorService.hello();
     }
 
-
-    @Async
-    public void t() {
-        System.out.println("123");
-    }
 
 }

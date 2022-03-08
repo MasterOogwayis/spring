@@ -18,22 +18,18 @@ public class JvmSomeTests {
 
     public static void main(String[] args) throws Exception {
 
-        synchronized ("123") {
-
-        }
-
-        Thread t1 = new Thread(() -> {
+        new Thread(() -> {
             try {
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        });
-        t1.start();
+            throw new NoClassDefFoundError("");
+        }).start();
 
-        t1.join();
+        TimeUnit.SECONDS.sleep(4);
 
-        System.out.println("all done");
+        System.out.println("end ...");
 
 
     }
