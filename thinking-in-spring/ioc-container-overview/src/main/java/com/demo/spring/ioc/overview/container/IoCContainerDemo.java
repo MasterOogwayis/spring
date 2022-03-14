@@ -38,7 +38,6 @@ class IoCContainerDemo {
         applicationContext.registerBean("name", RpcClientFactoryBean.class);
 
         String name = applicationContext.getBean(String.class);
-        name = applicationContext.getBean(String.class);
         System.err.println(name);
 
         // 4. 停止

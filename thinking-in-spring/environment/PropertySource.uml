@@ -3,13 +3,19 @@
   <ID>JAVA</ID>
   <OriginalElement>org.springframework.core.env.PropertySource</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">org.springframework.core.env.PropertySource</node>
+    <node x="0.0" y="111.0">org.springframework.core.env.CompositePropertySource</node>
+    <node x="36.0" y="0.0">org.springframework.core.env.PropertySource</node>
   </nodes>
   <notes />
-  <edges />
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="95.0" y="15.0" />
+  <edges>
+    <edge source="org.springframework.core.env.CompositePropertySource" target="org.springframework.core.env.PropertySource">
+      <point x="0.0" y="-30.5" />
+      <point x="0.0" y="30.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="80.0" y="30.5" />
   <SelectedNodes>
-    <node>org.springframework.core.env.PropertySource</node>
+    <node>org.springframework.core.env.CompositePropertySource</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
