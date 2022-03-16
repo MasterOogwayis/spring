@@ -1,6 +1,6 @@
 package com.zsw.repository;
 
-import com.querydsl.jpa.JPQLTemplates;
+import com.querydsl.jpa.impl.JPAProvider;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,15 @@ import javax.persistence.EntityManager;
 public class QuerydlsFactoryConfig {
 
 
+    /**
+     * JPQLTemplates templates
+     *
+     * @param entityManager
+     * @return
+     */
     @Bean
-    public JPAQueryFactory jpaQueryFactory(JPQLTemplates templates, EntityManager entityManager) {
-        return new JPAQueryFactory(templates, entityManager);
+    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager) {
+        return new JPAQueryFactory(JPAProvider.getTemplates(entityManager), entityManager);
     }
 
 }

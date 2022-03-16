@@ -20,6 +20,37 @@ spring:
       pool:
         max-size: 8
         core-size: 2
+  datasource:
+    url: jdbc:mysql://localhost:3306/tests?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 30000
+      minimum-idle: 1
+      maximum-pool-size: 5
+      register-mbeans: true
+  #JPA Configuration:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        enable_lazy_load_no_trans: true
+    database: MYSQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: true
+  output:
+    ansi:
+      enabled: detect
   redis:
     host: localhost
     ## Redis服务器连接端口
