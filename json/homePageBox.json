@@ -1,0 +1,43 @@
+{
+  "css1": {
+    "box": "background: #FAFBFC;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": "margin-top:60rpx;"
+  },
+  "css2": {
+    "box": "background: #FAFBFC;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": "margin-top:160rpx;"
+  },
+  "css3": {
+    "box": "background: #FFFFFF;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": ""
+  },
+  "css4": {
+    "box": "background: #F8F8F8;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-2;",
+    "topBg": "background:#FFF;width:100%;padding-top:190rpx;position:absolute;left:0;top:920rpx;z-index:-1;",
+    "arc": "width:100%;height:20rpx;background:#F8F8F8;border-radius:20rpx 20rpx 0 0",
+    "overlaySpacing": "margin-top:140rpx;"
+  },
+  "css5": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": "margin-top:100rpx;"
+  },
+  "css6": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": ""
+  },
+  "css7": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": "margin-top:86rpx;"
+  },
+  "css8": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": "margin-top:60rpx;"
+  },
+  "css9": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;",
+    "overlaySpacing": "margin-top:180rpx;"
+  },
+  "css10": {
+    "box": "background: #F5F5F5;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  }
+}

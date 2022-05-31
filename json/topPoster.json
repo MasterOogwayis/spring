@@ -1,0 +1,17 @@
+{
+  "css1": {
+    "box": "display:flex;padding:48rpx 0;background-color:#FFFFFF;",
+    "titleBox": "width:96rpx;height:816rpx;padding:20rpx 36rpx;font-weight:600;color:#1B1B1B;line-height:24rpx; font-size:24rpx;display:flex;justify-content:space-between;writing-mode:tb-rl;box-sizing: border-box;",
+    "titleItem": "position: relative;",
+    "titleInactiveBottom": "color:#CFCFCF;",
+    "titleInactiveTop": "color:var(--main-theme-color);opacity:0.2;position:absolute;top:0;left:0;"
+  },
+  "css2": {
+    "box": "background-color:#FFFFFF;padding-bottom:48rpx;"
+  },
+  "css3": null,
+  "css4": null,
+  "css5": null,
+  "css6": null,
+  "css7": null
+}

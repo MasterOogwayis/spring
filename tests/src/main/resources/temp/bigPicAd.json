@@ -1,0 +1,10 @@
+{
+  "css": {
+    "moduleBox": "background:transparent;box-shadow:none;border:0;",
+    "contentBox": "display:flex;flex-wrap:wrap;",
+    "radiusBox": "border-radius:20rpx;overflow:hidden;",
+    "imageBox": "background-color:#F0F0F0;",
+    "image": "width:100%;height:100%;",
+    "indicatorBox": "bottom:24rpx;"
+  }
+}

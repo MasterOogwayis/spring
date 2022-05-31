@@ -1,0 +1,41 @@
+{
+  "css1": {
+    "wxmlTypeBox": "display:flex;flex-direction:column;padding:28rpx 36rpx 40rpx;background-color:#FFFFFF;border-radius:20rpx;",
+    "bottom": {
+      "box": "margin-top:60rpx;display:flex;align-items:flex-end",
+      "leftBox": "flex:1",
+      "balanceRow": "display:flex;align-items:flex-end",
+      "money": "font-size:60rpx;font-weight:500;color:#1b1b1b;line-height:60rpx",
+      "unit": "font-size:28rpx;color:#1b1b1b;margin-left:12rpx",
+      "tipRow": "margin-top:20rpx;font-size:24rpx;color:#8d8d8d;line-height:24rpx",
+      "rightBox": "padding-right:6rpx;width:156rpx;",
+      "button": "display:flex;align-items:center;justify-content:center;width:156rpx;height:68rpx;background:var(--main-theme-color);border-radius:34rpx;font-size:24rpx;color:#fff"
+    }
+  },
+  "css2": {
+    "wxmlTypeBox": "display:flex;flex-direction:column;",
+    "bottom": {
+      "box": "margin:60rpx 20rpx 0;display:flex;align-items:flex-end",
+      "leftBox": "flex:1",
+      "balanceRow": "display:flex;align-items:flex-end;",
+      "money": "font-size:60rpx;font-weight:500;color:#1b1b1b;line-height:60rpx",
+      "unit": "font-size:28rpx;color:#1b1b1b;margin-left:12rpx",
+      "tipRow": "margin-top:20rpx;font-size:24rpx;color:#8d8d8d;line-height:24rpx",
+      "rightBox": "padding-right:6rpx;width:156rpx;",
+      "button": "display:flex;align-items:center;justify-content:center;width:156rpx;height:68rpx;background:var(--main-theme-color);border-radius:34rpx;font-size:24rpx;color:#fff"
+    }
+  },
+  "css3": {
+    "wxmlTypeBox": "display:flex;flex-direction:column;padding:28rpx 36rpx 40rpx;background-color:#FFFFFF;border-radius:20rpx;box-shadow:0 2rpx 36rpx 0 rgba(0, 0, 0, 0.1);",
+    "bottom": {
+      "box": "margin-top:60rpx;display:flex;align-items:flex-end",
+      "leftBox": "flex:1",
+      "balanceRow": "display:flex;align-items:flex-end",
+      "money": "font-size:60rpx;font-weight:500;color:#1b1b1b;line-height:60rpx",
+      "unit": "font-size:28rpx;color:#1b1b1b;margin-left:12rpx",
+      "tipRow": "margin-top:20rpx;font-size:24rpx;color:#8d8d8d;line-height:24rpx",
+      "rightBox": "padding-right:6rpx;width:156rpx;",
+      "button": "display:flex;align-items:center;justify-content:center;width:156rpx;height:68rpx;background:var(--main-theme-color);border-radius:34rpx;font-size:24rpx;color:#fff"
+    }
+  }
+}

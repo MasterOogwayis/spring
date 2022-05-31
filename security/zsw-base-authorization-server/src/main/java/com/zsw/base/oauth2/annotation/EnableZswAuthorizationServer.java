@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
 public @interface EnableZswAuthorizationServer {
 
     /**
-     * 认证后是否缓存用户信息，用于 resource 端解析
+     * 认证后是否缓存用户信息，用于 resource 端解析Thread
      *
      * @return boolean
      */

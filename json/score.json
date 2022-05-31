@@ -1,0 +1,51 @@
+{
+  "css1": {
+    "wxmlTypeBox": "display:flex;flex-direction:column;padding:28rpx 36rpx 40rpx;background-color:#FFFFFF;border-radius:20rpx;",
+    "bottom": {
+      "box": "margin-top:60rpx;display:flex;align-items:flex-end",
+      "leftBox": "flex:1",
+      "balanceRow": "display:flex;align-items:flex-end",
+      "money": "font-size:60rpx;font-weight:500;color:#1b1b1b;line-height:60rpx",
+      "unit": "font-size:28rpx;color:#1b1b1b;margin-left:12rpx",
+      "tipRow": "margin-top:20rpx;font-size:24rpx;color:#8d8d8d;line-height:24rpx",
+      "rightBox": "padding-right:6rpx;width:156rpx;",
+      "button": "display:flex;align-items:center;justify-content:center;width:156rpx;height:68rpx;background:var(--main-theme-color);border-radius:34rpx;font-size:24rpx;color:#fff"
+    }
+  },
+  "css2": {
+    "wxmlTypeBox": "display:flex;align-items:center;margin-top:40rpx;",
+    "leftBox": "width: 450rpx;height: 360rpx;position:relative;",
+    "contentBox": "position:absolute;left:0;right:0;width:100%;height:100%;padding-top:130rpx;padding-left:80rpx;z-index:2;box-sizing:border-box;",
+    "numRow": "display:flex;align-items:flex-end;",
+    "num": "font-size:60rpx;font-weight:500;color:white;",
+    "unit": "font-size:28rpx;font-weight:400;color:white;margin-left:12rpx;margin-bottom:6rpx;",
+    "tip": "font-size:24rpx;font-weight:400;color:white;",
+    "topImg": "position:absolute;left:0;right:0;width:100%;height:100%;z-index:1;",
+    "bottomCustomImg": "width:100%;height:100%;",
+    "rightBox": "position:relative;margin-left:-60rpx;width:360rpx;height:360rpx;",
+    "rightImg": "width:100%;height:100%;"
+  },
+  "css3": {
+    "wxmlTypeBox": "position:relative;display:flex;align-items:center;justify-content:space-between;height: 96rpx;background: rgba(255,255,255,0.7);border-radius: 8rpx;padding:0 28rpx 0 32rpx;margin:40rpx 40rpx 0;",
+    "leftDecorateIcon": "position:absolute;top:-8rpx;left:-8rpx;",
+    "titleBox": "display:flex;align-items:center;",
+    "title": "margin-left:12rpx;font-size:28rpx;font-weight:600;color:#1b1b1b;",
+    "num": "margin-left:12rpx;font-size:32rpx;font-weight:600;color:var(--main-theme-color);",
+    "tip": "margin-right:8rpx;font-size:24rpx;font-weight:400;color:#333333;",
+    "navBox": "display:flex;align-items:center;",
+    "rightDecorateIcon": "position:absolute;right:-8rpx;bottom:-8rpx;"
+  },
+  "css4": {
+    "wxmlTypeBox": "display:flex;flex-direction:column;padding:28rpx 36rpx 40rpx;background-color:#FFFFFF;border-radius:20rpx;box-shadow:0 2rpx 36rpx 0 rgba(0, 0, 0, 0.1);",
+    "bottom": {
+      "box": "margin-top:60rpx;display:flex;align-items:flex-end",
+      "leftBox": "flex:1",
+      "balanceRow": "display:flex;align-items:flex-end",
+      "money": "font-size:60rpx;font-weight:500;color:#1b1b1b;line-height:60rpx",
+      "unit": "font-size:28rpx;color:#1b1b1b;margin-left:12rpx",
+      "tipRow": "margin-top:20rpx;font-size:24rpx;color:#8d8d8d;line-height:24rpx",
+      "rightBox": "padding-right:6rpx;width:156rpx;",
+      "button": "display:flex;align-items:center;justify-content:center;width:156rpx;height:68rpx;background:var(--main-theme-color);border-radius:34rpx;font-size:24rpx;color:#fff"
+    }
+  }
+}

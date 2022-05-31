@@ -1,0 +1,72 @@
+{
+  "css1": {
+    "box": "padding:40rpx 32rpx;",
+    "boxNoData": "padding:40rpx 32rpx;",
+    "mainText": "color:#333333;font-size:32rpx;font-weight:500",
+    "navBox": "display:flex;align-items:center;",
+    "navText": "color:#8D8D8D;"
+  },
+  "css2": {
+    "box": "padding:0 26rpx 28rpx 36rpx;",
+    "boxNoData": "padding:28rpx 36rpx;background-color:#FFFFFF;box-shadow:0 2rpx 36rpx 0 rgba(0, 0, 0, 0.1);border-radius:16rpx;overflow:hidden;",
+    "mainText": "color:#1B1B1B;",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css3": {
+    "box": "",
+    "boxNoData": "",
+    "mainText": "font-size:40rpx;color:#1B1B1B;margin-bottom:12rpx;",
+    "mainSubText": "font-size:24rpx;color:#8D8D8D;",
+    "navBox": "display:flex;align-items:center;",
+    "navText": "color:var(--main-theme-color);font-size:28rpx;font-weight:500;"
+  },
+  "css4": {
+    "box": "padding-bottom:40rpx;",
+    "boxNoData": "padding-bottom:40rpx;",
+    "mainText": "font-size:32rpx;color:#333333;font-weight:500",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css5": {
+    "box": "padding-bottom:32rpx;",
+    "boxNoData": "padding-bottom:32rpx;",
+    "mainText": "font-size:32rpx;color:#333333;font-weight:500",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css6": {
+    "box": "padding:40rpx 32rpx;",
+    "boxNoData": "padding:40rpx 32rpx;",
+    "mainText": "color:#333333;font-size:32rpx;font-weight:500",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css7": {
+    "box": "padding-bottom:32rpx;",
+    "boxNoData": "padding-bottom:32rpx;",
+    "mainText": "color:#333333;font-size:32rpx;font-weight:500",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css8": {
+    "box": "padding:0 28rpx 28rpx 36rpx;",
+    "boxNoData": "padding:28rpx 36rpx;background-color:#FFFFFF;box-shadow:0 2rpx 36rpx 0 rgba(0, 0, 0, 0.1);border-radius:16rpx;",
+    "mainText": "color:#1B1B1B;font-size:28rpx;",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css9": {
+    "box": "padding:0 28rpx 28rpx 36rpx;",
+    "boxNoData": "padding:28rpx 36rpx;background-color:#FFFFFF;border-radius:16rpx;",
+    "navBox": "display:flex;align-items:center;",
+    "mainText": "color:#1B1B1B;font-size:28rpx;line-height:1;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  },
+  "css10": {
+    "box": "padding-bottom:32rpx;",
+    "navBox": "display:flex;align-items:center;line-height:1;",
+    "mainText": "color:#333333;font-size:32rpx;font-weight:500;",
+    "navText": "color:#8D8D8D;font-size:24rpx;"
+  }
+}

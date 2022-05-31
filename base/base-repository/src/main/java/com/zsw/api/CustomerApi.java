@@ -1,6 +1,5 @@
 package com.zsw.api;
 
-import com.querydsl.core.dml.InsertClause;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.zsw.peprsistence.entity.Customer;
 import com.zsw.peprsistence.entity.QCustomer;
@@ -11,9 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author ZhangShaowei on 2021/11/18 10:08
@@ -48,21 +44,21 @@ public class CustomerApi implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        List<Customer> list = new ArrayList<>(100);
-        QCustomer customer = QCustomer.customer;
-        for (int i = 0; i < 100; i++) {
-            InsertClause<?> clause = this.repository.insertClause(customer);
-            clause.columns(customer.name, customer.address, customer.idNo, customer.age)
-                    .values("name" + i, (((i & 1) == 1) ? "Earth" : "Mars"), ("510199232323232323" + i), i)
-                    .execute();
+//        List<Customer> list = new ArrayList<>(100);
+//        QCustomer customer = QCustomer.customer;
+//        for (int i = 0; i < 100; i++) {
+//            InsertClause<?> clause = this.repository.insertClause(customer);
+//            clause.columns(customer.name, customer.address, customer.idNo, customer.age)
+//                    .values("name" + i, (((i & 1) == 1) ? "Earth" : "Mars"), ("510199232323232323" + i), i)
+//                    .execute();
 //            Customer customer = Customer.builder()
 //                    .name("name" + i)
 //                    .address()
 //                    .idNo("510199232323232323" + i)
 //                    .age(i)
 //                    .build();
-        }
-
-        this.repository.saveAllAndFlush(list);
     }
+
+//        this.repository.saveAllAndFlush(list);
+//    }
 }

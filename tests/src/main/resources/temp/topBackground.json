@@ -1,0 +1,9 @@
+{
+  "css1": {
+    "box": "position:relative;",
+    "coverImageStyle": "position:absolute;bottom:0;left:0;width:750rpx;height:40rpx;"
+  },
+  "css2": {
+    "imageStyle": "border-radius: 0 0 40rpx 40rpx;"
+  }
+}

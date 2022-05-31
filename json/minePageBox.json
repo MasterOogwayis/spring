@@ -1,0 +1,21 @@
+{
+  "css1": {
+    "box": "background: #FAFBFC;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  },
+  "css2": {
+    "box": "background: #FFFFFF;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  },
+  "css3": {
+    "topBg": "background:white;width:100%;height:850rpx;position:absolute;left:0;top:0;z-index:-1;",
+    "box": "background: #F8F8F8;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  },
+  "css4": {
+    "box": "background: #FFFFFF;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  },
+  "css5": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  },
+  "css6": {
+    "box": "background: #F7F7F7;padding-bottom:208rpx;display:block;min-height:100%;width:100%;position:absolute;left:0;top:0;z-index:-1;"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "css1": {
+    "outSideBox": "display:flex;align-items:center;justify-content:center",
+    "innerBox": "position:fixed;box-sizing:border-box;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:space-between;height:120rpx;padding:16rpx 70rpx 0;width:100%;",
+    "contentBox": "display:flex;flex-direction:column;vertical-align:center",
+    "image": "width:60rpx;height:60rpx;",
+    "text": "font-size:20rpx;text-align: center;"
+  },
+  "css2": {
+    "outSideBox": "display:flex;align-items:center;justify-content:center",
+    "innerBox": "position:fixed;box-sizing:border-box;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:space-between;height:120rpx;padding:12rpx 70rpx 0;border-radius:66rpx;box-shadow:0rpx 2rpx 30rpx rgba(0,0,0,0.15);width:calc(100% - 72rpx);",
+    "contentBox": "display:flex;flex-direction:column;vertical-align:center",
+    "image": "width:60rpx;height:60rpx;",
+    "text": "font-size:20rpx;text-align: center;"
+  },
+  "css3": {
+    "outSideBox": "display:flex;align-items:center;justify-content:center;width:100%;",
+    "innerBox": "padding:14rpx 60rpx 0;position:fixed;box-sizing:border-box;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:space-between;height:120rpx;width:100%;",
+    "contentBox": "display:flex;flex-direction:column;vertical-align:center",
+    "image": "width:60rpx;height:60rpx;",
+    "text": "font-size:20rpx;text-align: center;",
+    "line": "position:absolute;top:-81px;width:calc(100% - 51px);padding:0 10px;height:1px;background:#1B1B1B;/*left:0*/margin:0 auto;"
+  },
+  "css4": {
+    "outSideBox": "display:flex;align-items:center;justify-content:center",
+    "innerBox": "position:fixed;box-sizing:border-box;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:space-between;height:120rpx;padding:16rpx 146rpx;width:100%;",
+    "contentBox": "display:flex;flex-direction:column;vertical-align:center",
+    "image": "width:60rpx;height:60rpx;",
+    "text": "font-size:20rpx;text-align: center;"
+  }
+}

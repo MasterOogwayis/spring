@@ -1,0 +1,50 @@
+{
+  "css1": {
+    "itemBox": "margin-bottom:40rpx;",
+    "imageBox": "width:670rpx;height:268rpx;background-color:#F0F0F0;margin-bottom:24rpx;",
+    "image": "width:100%;height:100%;",
+    "memberLabel": "font-size:20rpx;color:#333333;line-height:1em;margin-bottom:16rpx;",
+    "title": "width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:32rpx;color:#333333;line-height:40rpx;font-weight:500;margin-bottom:16rpx;",
+    "time": "width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:22rpx;font-weight:500;color:#333333;line-height:1em;"
+  },
+  "css2": {
+    "contentBox": "border-radius:16rpx;overflow:hidden;box-shadow:0 2rpx 36rpx 0 rgba(0,0,0,0.1)",
+    "repeatImageBox": "border-radius:16rpx;overflow:hidden;box-shadow:0 2rpx 36rpx 0 rgba(0,0,0,0.1)",
+    "image": "width:100%;height:100%;",
+    "indicatorBox": "bottom:24rpx",
+    "indicator": "width:8rpx;height:8rpx;",
+    "indicatorActive": "width:30rpx;"
+  },
+  "css3": {
+    "contentBox": "border-radius:20rpx;overflow:hidden;",
+    "repeatImageBox": "border-radius:20rpx;overflow:hidden;",
+    "image": "width:100%;height:100%;",
+    "indicatorBox": "bottom:24rpx",
+    "indicator": "width:8rpx;height:8rpx;",
+    "indicatorActive": "width:30rpx;"
+  },
+  "css4": {
+    "imageBox": "position:relative;border-radius:20rpx;width:622rpx;height:248rpx;overflow:hidden;",
+    "image": "width:100%;height:100%",
+    "coverTitleBox": "position:absolute;bottom:0px;width:100%;background:linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.5));",
+    "coverTitle": "padding:20rpx 32rpx;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#FFFFFF;font-size:28rpx;font-weight:600;",
+    "title": "margin-top:32rpx;width:calc(100% - 20rpx);box-sizing:border-box;padding-left:24rpx;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:32rpx;color:#333333;line-height:40rpx;font-weight:500;margin-bottom:16rpx;",
+    "time": "width:calc(100% - 20rpx);box-sizing:border-box;padding-left:24rpx;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:22rpx;font-weight:500;color:#333333;line-height:1em;"
+  },
+  "css5": {
+    "contentBox": "border-radius:16rpx;overflow:hidden;box-shadow:0 2rpx 36rpx 0 rgba(0,0,0,0.1)",
+    "repeatImageBox": "border-radius:16rpx;overflow:hidden;box-shadow:0 2rpx 36rpx 0 rgba(0,0,0,0.1)",
+    "image": "width:100%;height:100%;",
+    "indicatorBox": "bottom:24rpx",
+    "indicator": "width:8rpx;height:8rpx;",
+    "indicatorActive": "width:30rpx;"
+  },
+  "css6": {
+    "contentBox": "border-radius:16rpx;overflow:hidden;box-shadow:0 2rpx 36rpx 0 rgba(0,0,0,0.1)",
+    "repeatImageBox": "border-radius:16rpx;overflow:hidden;box-shadow:0 2rpx 36rpx 0 rgba(0,0,0,0.1)",
+    "image": "width:100%;height:100%;",
+    "indicatorBox": "bottom:24rpx",
+    "indicator": "width:8rpx;height:8rpx;",
+    "indicatorActive": "width:30rpx;"
+  }
+}
