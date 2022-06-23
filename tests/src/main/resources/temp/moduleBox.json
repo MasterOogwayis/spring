@@ -1,0 +1,34 @@
+{
+  "css1": {
+    "boxStyle": "position:relative;margin:40rpx 32rpx 0 32rpx;border-radius:20rpx;box-shadow: 0 2rpx 36rpx 0 rgba(0,0,0,0.1);background:#FFFFFF;",
+    "contentBoxStyle": ""
+  },
+  "css2": {
+    "boxStyle": "position:relative;margin:40rpx 36rpx 0 36rpx;",
+    "contentBoxStyle": ""
+  },
+  "css3": {
+    "boxStyle": "position:relative;margin:60rpx 40rpx 0;padding-bottom:40rpx;border-bottom:1rpx solid #E7E7EB;",
+    "contentBoxStyle": ""
+  },
+  "css4": {
+    "boxStyle": "position:relative;padding:40rpx 36rpx;margin-top:40rpx;background-color:#FFFFFF;",
+    "contentBoxStyle": ""
+  },
+  "css5": {
+    "boxStyle": "position:relative;margin: 40rpx 32rpx 0 32rpx;",
+    "contentBoxStyle": ""
+  },
+  "css6": {
+    "boxStyle": "margin:0 32rpx 40rpx 32rpx;background:#FFFFFF;",
+    "contentBoxStyle": ""
+  },
+  "css7": {
+    "boxStyle": "position:relative;margin:40rpx 36rpx 0 36rpx;",
+    "contentBoxStyle": ""
+  },
+  "css8": {
+    "boxStyle": "position:relative;margin: 60rpx 40rpx 0;",
+    "contentBoxStyle": ""
+  }
+}

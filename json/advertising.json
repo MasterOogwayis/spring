@@ -1,0 +1,30 @@
+{
+  "css1": {
+    "moduleBox": "margin-top:40rpx;",
+    "contentBox": "margin-right:-40rpx;"
+  },
+  "css2": null,
+  "css3": {
+    "contentBox": "display:flex;justify-content:space-between;",
+    "imageBox": "background-color:#F0F0F0;"
+  },
+  "css4": {
+    "contentBox": "display:flex;justify-content:space-between;",
+    "imageBox": "background-color:#F0F0F0;"
+  },
+  "css5": {
+    "contentBox": "padding:40rpx 0;margin-right:-40rpx;",
+    "imageBox": "background-color:#F0F0F0;overflow:hidden;border-radius:16rpx;"
+  },
+  "css6": {
+    "imageBox": "background-color:#F0F0F0;overflow:hidden;border-radius:16rpx;"
+  },
+  "css7": {
+    "contentBox": "display:flex;justify-content:space-between;",
+    "imageBox": "background-color:#F0F0F0;overflow:hidden;border-radius:16rpx;"
+  },
+  "css8": {
+    "contentBox": "display:flex;justify-content:space-between;",
+    "imageBox": "background-color:#F0F0F0;overflow:hidden;border-radius:16rpx;"
+  }
+}

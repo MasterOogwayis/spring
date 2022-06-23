@@ -30,6 +30,12 @@ public class Ts {
     @Autowired
     private RedisTemplate<String, Integer> redisTemplate;
 
+    public Object t() {
+        Map<Object, Object> map = this.redisTemplate.opsForHash().entries("");
+        Integer integer = this.redisTemplate.opsForValue().get("");
+        return "This is a test.";
+    }
+
     @GetMapping("flush")
     public Object flush() {
         return redisTemplate.execute((RedisCallback<Object>) connection -> {

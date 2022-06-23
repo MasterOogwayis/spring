@@ -1,0 +1,48 @@
+{
+  "css1": {
+    "moduleBox": "background:transparent;box-shadow:none;border:0;",
+    "layoutBox": "display:flex;justify-content:space-between;",
+    "common": {
+      "imageBox": "background-color:#F0F0F0;border-radius:20rpx;overflow:hidden;",
+      "image": "width:100%;height:100%;"
+    },
+    "imageBoxList": [
+      {
+        "slot": "box1",
+        "imageBox": "width:332rpx;height:460rpx;"
+      },
+      {
+        "slot": "box2",
+        "imageBox": "width:332rpx;height:220rpx;margin-bottom:20rpx;"
+      },
+      {
+        "slot": "box2",
+        "imageBox": "width:332rpx;height:220rpx;"
+      }
+    ]
+  },
+  "css2": {
+    "moduleBox": "background:transparent;box-shadow:none;border:0;",
+    "layoutBox": "display:flex;justify-content:space-between;",
+    "common": {
+      "imageBox": "width:216rpx;height:220rpx;background-color:#F0F0F0;border-radius:20rpx;overflow:hidden;",
+      "image": "width:100%;height:100%;"
+    }
+  },
+  "css3": {
+    "moduleBox": "background:transparent;box-shadow:none;border:0;",
+    "layoutBox": "display:flex;justify-content:space-between;",
+    "common": {
+      "imageBox": "width:332rpx;height:460rpx;background-color:#F0F0F0;border-radius:20rpx;overflow:hidden;",
+      "image": "width:100%;height:100%;"
+    }
+  },
+  "css4": {
+    "moduleBox": "background:transparent;box-shadow:none;border:0;",
+    "layoutBox": "display:flex;justify-content:space-between;",
+    "common": {
+      "imageBox": "width:332rpx;height:220rpx;background-color:#F0F0F0;border-radius:20rpx;overflow:hidden;",
+      "image": "width:100%;height:100%;"
+    }
+  }
+}

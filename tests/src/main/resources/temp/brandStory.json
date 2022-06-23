@@ -1,0 +1,38 @@
+{
+  "css1": {
+    "videoStyle": "border-radius:0;",
+    "title": "line-height:32rpx;font-size:32rpx;margin-top:40rpx;margin-bottom:24rpx;",
+    "text": "line-height:56rpx;font-size:28rpx;margin-top:16rpx;",
+    "image": "margin-top:32rpx;"
+  },
+  "css2": {
+    "videoStyle": "border-radius:0",
+    "title": "line-height:32rpx;font-size:32rpx;margin-top:40rpx;margin-bottom:24rpx;",
+    "text": "line-height:56rpx;font-size:28rpx;margin-top:16rpx;",
+    "image": "margin-top:32rpx;"
+  },
+  "css3": {
+    "contentBox": "padding:0 32rpx 40rpx;",
+    "videoBox": "line-height:0;",
+    "video": "width:622rpx;height:350rpx;border-radius:20rpx;background-color:#000000;",
+    "image": "width:622rpx;height:350rpx;border-radius:20rpx;",
+    "gapBox": "height:32rpx",
+    "text": "width:100%;color:#8D8D8D;font-size:24rpx;ling-height:40rpx;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient: vertical;"
+  },
+  "css4": {
+    "contentBox": "background-color:#FFFFFF;border-radius:20rpx;",
+    "videoBox": "line-height:0;",
+    "video": "width:686rpx;height:386rpx;border-radius:20rpx;background-color:#000000;",
+    "image": "width:686rpx;height:386rpx;border-radius:20rpx;",
+    "textBox": "padding:32rpx;",
+    "text": "width:100%;color:#8D8D8D;font-size:24rpx;ling-height:40rpx;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient: vertical;"
+  },
+  "css5": {
+    "contentBox": "padding:28rpx 28rpx 0;background-color:#FFFFFF;border-radius:16rpx;",
+    "videoBox": "padding-bottom:28rpx;line-height:0;",
+    "video": "width:622rpx;height:350rpx;border-radius:20rpx;background-color:#000000;",
+    "image": "width:622rpx;height:350rpx;border-radius:20rpx;",
+    "textBox": "padding: 4rpx 0 32rpx",
+    "text": "width:100%;color:#8D8D8D;font-size:24rpx;ling-height:40rpx;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient: vertical;"
+  }
+}

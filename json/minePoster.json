@@ -1,0 +1,32 @@
+{
+  "css1": {
+    "userBgBox": "position:relative;width:100%;height:540rpx;",
+    "bgDefault": "position:relative;width:100%;height:100%;z-index:0;overflow:hidden",
+    "avatarImg": "width:100%;height:100%;position:absolute;left:0;top:0;background-repeat:no-repeat;background-size:cover;background-position:center",
+    "bgMask": "position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.2)",
+    "customImg": "width:100%;height:100%",
+    "bgDefaultEmpty": "width:100%;height:100%;background:#F0F0F0;",
+    "topBar": "position:fixed;top:0;left:0;width:100%;height:88rpx;padding-top:88rpx;line-height:88rpx;text-align:center;font-size:34rpx;font-weight:500;color:#1b1b1b;background-color:#fff;opacity:0;z-index:99",
+    "topBarShow": "opacity: 1;"
+  },
+  "css2": {
+    "userBgBox": "position:relative;width:100%;height:440rpx;",
+    "bgDefault": "position:relative;width:100%;height:100%;z-index:0;overflow:hidden",
+    "avatarImg": "width:100%;height:100%;position:absolute;left:0;top:0;background-repeat:no-repeat;background-size:cover;background-position:center",
+    "bgMask": "position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.2)",
+    "customImg": "width:100%;height:100%",
+    "bgDefaultEmpty": "width:100%;height:100%;background:#F0F0F0;",
+    "topBar": "position:fixed;top:0;left:0;width:100%;height:88rpx;padding-top:88rpx;line-height:88rpx;text-align:center;font-size:34rpx;font-weight:500;color:#1b1b1b;background-color:#fff;opacity:0;z-index:99",
+    "topBarShow": "opacity: 1;"
+  },
+  "css3": {
+    "userBgBox": "position:relative;width:100%;height:540rpx;",
+    "bgDefault": "position:relative;width:100%;height:100%;z-index:0;overflow:hidden",
+    "avatarImg": "width:100%;height:100%;position:absolute;left:0;top:0;background-repeat:no-repeat;background-size:cover;background-position:center",
+    "bgMask": "position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,.2)",
+    "customImg": "width:100%;height:100%",
+    "bgDefaultEmpty": "width:100%;height:100%;background:#B7B6C5;",
+    "topBar": "position:fixed;top:0;left:0;width:100%;height:88rpx;padding-top:88rpx;line-height:88rpx;text-align:center;font-size:34rpx;font-weight:500;color:#1b1b1b;background-color:#fff;opacity:0;z-index:99",
+    "topBarShow": "opacity: 1;"
+  }
+}

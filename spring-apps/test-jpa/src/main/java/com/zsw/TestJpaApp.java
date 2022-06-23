@@ -5,10 +5,14 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.ConnectionCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 
 /**
  * @author ZhangShaowei on 2020/9/25 13:58
@@ -26,8 +30,8 @@ public class TestJpaApp {
      *
      * @param args args
      */
-    public static void main(String[] args) {
-        BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(1024 * 20);
+    public static void main(String[] args) throws InterruptedException {
+//        BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(1024 * 20);
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(TestJpaApp.class)
 //                .applicationStartup(applicationStartup)
 //                .logStartupInfo(Boolean.TRUE)
@@ -48,6 +52,47 @@ public class TestJpaApp {
 //                        });
 //                    }
 //                });
+        JdbcTemplate jdbcTemplate = applicationContext.getBean(JdbcTemplate.class);
+        ExecutorService executor = applicationContext.getBean(ExecutorService.class);
+        long timer = System.currentTimeMillis();
+        String sql = "insert into t_data(`num`) values(?)";
+        CountDownLatch countDownLatch = new CountDownLatch(20);
+        for (int i = 0; i < 10; i++) {
+            int n = i;
+            executor.execute(() -> {
+                jdbcTemplate.execute((ConnectionCallback<Object>) con -> {
+                    var preparedStatement = con.prepareStatement(sql);
+                    for (int j = (n * 50_000) + 1; j <= (n + 1) * 50_000; j++) {
+                        con.setAutoCommit(false);
+                        preparedStatement.setInt(1, j & 1);
+                        preparedStatement.addBatch();
+                        if (j % 10000 == 0) {
+                            preparedStatement.executeBatch();
+                            con.commit();
+                        }
+                    }
+                    return "success";
+
+                });
+
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+
+//        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+//            @Override
+//            public void setValues(PreparedStatement ps, int i) throws SQLException {
+//                ps.setInt(1, i);
+//            }
+//
+//            @Override
+//            public int getBatchSize() {
+//                return 1_000_000;
+//            }
+//        });
+
+        log.info("cost: {}ms", System.currentTimeMillis() - timer);
 
 
     }

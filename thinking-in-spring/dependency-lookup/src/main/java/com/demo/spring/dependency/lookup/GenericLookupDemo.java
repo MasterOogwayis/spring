@@ -19,6 +19,8 @@ public class GenericLookupDemo {
         applicationContext.scan(ObjectHolder.class.getPackageName());
         applicationContext.refresh();
 
+
+
         ObjectProvider<ObjectHolder> beanProvider = applicationContext.getBeanProvider(ObjectHolder.class);
         beanProvider.stream().forEach(objectHolder -> {
             log.info("object: {}", objectHolder.getObject());
