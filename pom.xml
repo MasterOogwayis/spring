@@ -28,6 +28,7 @@
         <module>security</module>
         <module>spring-security</module>
         <module>some-tests</module>
+        <module>base-async</module>
         <!--        <module>file</module>-->
         <!--        <module>product</module>-->
         <!--        <module>oauth2</module>-->

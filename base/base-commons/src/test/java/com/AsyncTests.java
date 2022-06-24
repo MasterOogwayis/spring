@@ -1,6 +1,7 @@
 package com;
 
 import com.zsw.function.ThrowableSupplier;
+import lombok.SneakyThrows;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
@@ -15,6 +16,7 @@ import static com.zsw.function.ThrowableExecutor.execute;
  */
 public class AsyncTests {
 
+    @SneakyThrows
     public static void main(String[] args) {
 
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
@@ -27,21 +29,22 @@ public class AsyncTests {
                 new ThreadPoolExecutor.CallerRunsPolicy());
 
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
-
-            execute(() -> TimeUnit.SECONDS.sleep(5));
+            execute(() -> TimeUnit.SECONDS.sleep(2));
+            System.out.println("thread name: " + Thread.currentThread().getName());
             return "hello World";
-
         }, executor);
 
-        execute(() -> CompletableFuture.allOf(completableFuture).get());
+        // get() 会阻塞到所有任务执行完，只执行 allOf 只会触发任务，不会等待
+//        execute(() -> CompletableFuture.allOf(completableFuture).get());
+        CompletableFuture.allOf(completableFuture);
+
+        TimeUnit.SECONDS.sleep(3);
 
         String data = ThrowableSupplier.execute(completableFuture::get);
 
         System.out.println(data);
 
         executor.shutdownNow();
-
-
     }
 
 
