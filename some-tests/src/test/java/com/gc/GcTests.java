@@ -1,11 +1,9 @@
-package com;
-
-import java.util.ArrayList;
+package com.gc;
 
 /**
- * @author Shaowei Zhang on 2022/3/8 11:15
+ * @author zhangshaowei on 2023/5/6 16:33
  */
-public class ReflectionTests {
+public class GcTests {
 
     private static final int _1MB = 1024 * 1024;
 
