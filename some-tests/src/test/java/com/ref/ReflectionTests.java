@@ -20,6 +20,10 @@ public class ReflectionTests {
         System.out.println(getName.invoke(new C()));
         System.err.println(getName.invoke(new B()));
 
+        MethodHandles.Lookup l = MethodHandles.lookup().in(A.class);
+        MethodHandle g = l.findSpecial(A.class, "getName", MethodType.methodType(String.class), A.class);
+        System.out.println(g.bindTo(new C()).invoke());
+
 
     }
 
