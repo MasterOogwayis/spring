@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 public class CompletableFutureTests {
 
     public static void main(String[] args) {
-        CompletableFuture.supplyAsync()
+//        CompletableFuture.supplyAsync()
 
 
 
