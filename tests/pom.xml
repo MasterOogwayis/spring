@@ -148,6 +148,12 @@
             <artifactId>caffeine</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.kezhilian.boot</groupId>
+            <artifactId>spring-boot-openjob</artifactId>
+            <version>1.0.20230717472</version>
+        </dependency>
+
 
         <!--<dependency>
             <groupId>commons-io</groupId>

@@ -17,14 +17,18 @@ import java.util.stream.Stream;
  * @author ZhangShaowei
  * @since 2019年07月16日
  */
-public class FastCopy {
+public class FastCopyBackup {
 
     private static final ClassPool CLASS_POOL = ClassPool.getDefault();
 
     private static final Map<CopierKey, Copier> COPIER_MAP = new ConcurrentHashMap<>(32);
 
-    public static <S, T> T copyNotNullProperties(S source, T target) {
-        return copyProperties(source, target, Boolean.FALSE, Boolean.TRUE);
+    /**
+     * 复制对象属性，字段名称必须一致。
+     * 字段类型必须兼容目标字段类型，包装类型和基本类型之间不会复制。
+     */
+    public static <S, T> T copyProperties(S source, T target) {
+        return copyProperties(source, target, false);
     }
 
     /**
@@ -32,32 +36,16 @@ public class FastCopy {
      * 字段类型必须兼容目标字段类型，包装类型和基本类型之间不会复制。
      */
     public static <S, T> T copySynonyms(S source, T target) {
-        return copyProperties(source, target, Boolean.TRUE, Boolean.FALSE);
+        return copyProperties(source, target, true);
     }
 
-    public static <S, T> T copyProperties(S source, T target) {
-        return copyProperties(source, target, Boolean.FALSE, Boolean.FALSE);
-    }
-
-    /**
-     * 拷贝对象 source 属性到 target
-     * 字段类型必须兼容目标字段类型，包装类型和基本类型之间不会复制。
-     *
-     * @param source   源对象
-     * @param target   目标对象
-     * @param synonym  是否忽略字段名中的大小写和下划线
-     * @param nullable 目标属性是 null 的时候才拷贝
-     * @param <S>      S
-     * @param <T>      T
-     * @return T
-     */
     @SuppressWarnings("unchecked")
-    private static <S, T> T copyProperties(S source, T target, boolean synonym, boolean nullable) {
+    private static <S, T> T copyProperties(S source, T target, boolean synonym) {
         if (source == null || target == null) {
             return target;
         }
-        CopierKey copierKey = new CopierKey(source.getClass(), target.getClass(), synonym, nullable);
-        Copier copier = COPIER_MAP.computeIfAbsent(copierKey, FastCopy::create);
+        CopierKey copierKey = new CopierKey(source.getClass(), target.getClass(), synonym);
+        Copier copier = COPIER_MAP.computeIfAbsent(copierKey, FastCopyBackup::create);
         return (T) copier.copy(source, target);
     }
 
@@ -101,17 +89,8 @@ public class FastCopy {
                                             .equalsIgnoreCase(pd.getName().replace("_", ""))
                                     : tpd.getName().equals(pd.getName()))
                             .findFirst()
-                            .ifPresent(pd -> {
-                                if (copierKey.nullable) {
-                                    content.append("\nif(java.util.Objects.isNull(")
-                                            .append("tar.").append(tpd.getReadMethod().getName()).append("())) {");
-                                }
-                                content.append("\ntar.").append(tpd.getWriteMethod().getName())
-                                        .append("(").append("src.").append(pd.getReadMethod().getName()).append("());");
-                                if (copierKey.nullable) {
-                                    content.append("\n}");
-                                }
-                            }));
+                            .ifPresent(pd -> content.append("\ntar.").append(tpd.getWriteMethod().getName())
+                                    .append("(").append("src.").append(pd.getReadMethod().getName()).append("());")));
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -137,20 +116,10 @@ public class FastCopy {
         final Class target;
         final boolean synonym;
 
-        final boolean nullable;
-
         CopierKey(Class source, Class target, boolean synonym) {
             this.source = source;
             this.target = target;
             this.synonym = synonym;
-            this.nullable = false;
-        }
-
-        CopierKey(Class source, Class target, boolean synonym, boolean nullable) {
-            this.source = source;
-            this.target = target;
-            this.synonym = synonym;
-            this.nullable = nullable;
         }
 
         @Override
@@ -167,8 +136,9 @@ public class FastCopy {
                 return false;
             }
             CopierKey copierKey = (CopierKey) o;
-            return synonym == copierKey.synonym && Objects.equals(source, copierKey.source)
-                    && Objects.equals(target, copierKey.target) && Objects.equals(this.nullable, copierKey.nullable);
+            return synonym == copierKey.synonym &&
+                    Objects.equals(source, copierKey.source) &&
+                    Objects.equals(target, copierKey.target);
         }
 
         @Override
